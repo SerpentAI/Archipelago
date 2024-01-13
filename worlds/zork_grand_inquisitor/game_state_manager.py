@@ -13,6 +13,7 @@ class GameStateManager:
 
         self.game_state_struct_address: int = 0x0
         self.script_manager_struct_address: int = 0x0
+        self.render_manager_struct_address: int = 0x0
 
         self.game_location: Optional[str] = None
         self.game_location_offset: Optional[int] = None
@@ -53,6 +54,10 @@ class GameStateManager:
     def script_manager_next_location_offset_address(self) -> int:
         return self.script_manager_struct_address + 0x40C
 
+    @property
+    def render_manager_panorama_reversed_address(self) -> int:
+        return self.render_manager_struct_address + 0x1C
+
     def open_process_handle(self) -> bool:
         try:
             self.process = Pymem(self.process_name)
@@ -60,6 +65,7 @@ class GameStateManager:
 
             self.game_state_struct_address = self._resolve_address(0x5276600, (0xC8, 0x8,))
             self.script_manager_struct_address = self._resolve_address(0x5276600, (0xC8, 0x0))
+            self.render_manager_struct_address = self._resolve_address(0x5276600, (0xD0, 0x120))
         except Exception:
             return False
 
@@ -72,6 +78,7 @@ class GameStateManager:
 
             self.game_state_struct_address = 0x0
             self.script_manager_struct_address = 0x0
+            self.render_manager_struct_address = 0x0
 
             return True
 
@@ -86,6 +93,7 @@ class GameStateManager:
 
             self.game_state_struct_address = 0x0
             self.script_manager_struct_address = 0x0
+            self.render_manager_struct_address = 0x0
 
             return False
 
@@ -166,6 +174,14 @@ class GameStateManager:
 
             self.process.write_bytes(self.script_manager_next_location_address, game_location_bytes, 4)
             self.process.write_int(self.script_manager_next_location_offset_address, offset)
+
+            return True
+
+        return None
+
+    def set_panorama_reversed(self, is_reversed: bool) -> Optional[bool]:
+        if self.is_process_running:
+            self.process.write_int(self.render_manager_panorama_reversed_address, 1 if is_reversed else 0)
 
             return True
 
