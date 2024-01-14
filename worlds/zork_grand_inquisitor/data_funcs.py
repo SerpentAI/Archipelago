@@ -89,8 +89,8 @@ def game_id_to_items() -> Dict[int, ZorkGrandInquisitorItems]:
     item: ZorkGrandInquisitorItems
     data: ZorkGrandInquisitorItemData
     for item, data in item_data.items():
-        if data.game_state_keys is not None:
-            for key in data.game_state_keys:
+        if data.statemap_keys is not None:
+            for key in data.statemap_keys:
                 mapping[key] = item
 
     return mapping

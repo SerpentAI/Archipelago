@@ -380,11 +380,11 @@ class GameController:
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             if len(self.available_inventory_slots):  # Inventory slot overflow protection
                 inventory_slot: int = self.available_inventory_slots.pop()
-                self._write_game_state_value_for(inventory_slot, data.game_state_keys[0])
+                self._write_game_state_value_for(inventory_slot, data.statemap_keys[0])
         elif ZorkGrandInquisitorTags.SPELL in data.tags:
-            self._write_game_state_value_for(data.game_state_keys[0], 1)
+            self._write_game_state_value_for(data.statemap_keys[0], 1)
         elif ZorkGrandInquisitorTags.TOTEM in data.tags:
-            self._write_game_state_value_for(data.game_state_keys[0], 1)
+            self._write_game_state_value_for(data.statemap_keys[0], 1)
 
     def _remove_from_inventory(self, item: ZorkGrandInquisitorItems) -> None:
         if item == ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS:
@@ -403,9 +403,9 @@ class GameController:
             if inventory_slot != 9:
                 self.available_inventory_slots.add(inventory_slot)
         elif ZorkGrandInquisitorTags.SPELL in data.tags:
-            self._write_game_state_value_for(data.game_state_keys[0], 0)
+            self._write_game_state_value_for(data.statemap_keys[0], 0)
         elif ZorkGrandInquisitorTags.TOTEM in data.tags:
-            self._write_game_state_value_for(data.game_state_keys[0], 0)
+            self._write_game_state_value_for(data.statemap_keys[0], 0)
 
     def _determine_available_inventory_slots(self) -> Set[int]:
         available_inventory_slots: Set[int] = set()
@@ -423,13 +423,13 @@ class GameController:
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             i: int
             for i in range(151, 171):
-                if self._read_game_state_value_for(i) == data.game_state_keys[0]:
+                if self._read_game_state_value_for(i) == data.statemap_keys[0]:
                     return i
 
-        if self._read_game_state_value_for(9) == data.game_state_keys[0]:
+        if self._read_game_state_value_for(9) == data.statemap_keys[0]:
             return 9
 
-        if self._read_game_state_value_for(4512) == data.game_state_keys[0]:
+        if self._read_game_state_value_for(4512) == data.statemap_keys[0]:
             return 4512
 
         return None

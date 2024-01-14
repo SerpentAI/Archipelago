@@ -254,7 +254,7 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 29,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(ZorkGrandInquisitorItems.UNLOCKED_BLANK_SCROLL_BOX_ACCESS,),
+        requirements=(ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX,),
     ),
     ZorkGrandInquisitorLocations.UMBRELLA_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12926, 1),),
@@ -575,7 +575,7 @@ location_data: Dict[
         game_state_trigger=None,
         archipelago_id=None,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
-        requirements=(ZorkGrandInquisitorItems.UNLOCKED_BLANK_SCROLL_BOX_ACCESS,),
+        requirements=(ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX,),
         event_item_name=ZorkGrandInquisitorEvents.KNOWS_BEBURTT.value,
     ),
     ZorkGrandInquisitorEvents.DOOR_SMOKED_CIGAR: ZorkGrandInquisitorLocationData(

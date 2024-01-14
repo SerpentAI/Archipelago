@@ -92,14 +92,14 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.DM_LAIR): None,
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.WALKING_CASTLE): (
-        (ZorkGrandInquisitorItems.SPELL_OBIDIL,),
+        # (ZorkGrandInquisitorItems.SPELL_OBIDIL,),
     ),
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.WHITE_HOUSE): (
         (
             ZorkGrandInquisitorItems.SPELL_NARWILE,
             ZorkGrandInquisitorItems.TOTEM_BROG,
-            ZorkGrandInquisitorItems.SPELL_YASTARD,
-            ZorkGrandInquisitorItems.REVEALED_BROGS_TIME_TUNNEL_ITEMS,
+            # ZorkGrandInquisitorItems.SPELL_YASTARD,
+            # ZorkGrandInquisitorItems.REVEALED_BROGS_TIME_TUNNEL_ITEMS,
         ),
     ),
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorRegions.ENDGAME): (
@@ -154,8 +154,8 @@ entrance_rule_data: Dict[
         (
             ZorkGrandInquisitorItems.SPELL_NARWILE,
             ZorkGrandInquisitorItems.TOTEM_GRIFF,
-            ZorkGrandInquisitorItems.SPELL_YASTARD,
-            ZorkGrandInquisitorItems.REVEALED_GRIFFS_TIME_TUNNEL_ITEMS,
+            # ZorkGrandInquisitorItems.SPELL_YASTARD,
+            # ZorkGrandInquisitorItems.REVEALED_GRIFFS_TIME_TUNNEL_ITEMS,
         ),
     ),
     (ZorkGrandInquisitorRegions.HADES_BEYOND_GATES, ZorkGrandInquisitorRegions.HADES): None,
@@ -197,8 +197,8 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER,
             ZorkGrandInquisitorItems.SPELL_NARWILE,
             ZorkGrandInquisitorItems.TOTEM_LUCY,
-            ZorkGrandInquisitorItems.SPELL_YASTARD,
-            ZorkGrandInquisitorItems.REVEALED_LUCYS_TIME_TUNNEL_ITEMS,
+            # ZorkGrandInquisitorItems.SPELL_YASTARD,
+            # ZorkGrandInquisitorItems.REVEALED_LUCYS_TIME_TUNNEL_ITEMS,
         ),
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): None,
