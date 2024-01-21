@@ -1434,6 +1434,20 @@ location_data: Dict[
         ),
         event_item_name=ZorkGrandInquisitorEvents.KNOWS_SNAVIG.value,
     ),
+    ZorkGrandInquisitorEvents.KNOWS_YASTARD: ZorkGrandInquisitorLocationData(
+        game_state_trigger=None,
+        archipelago_id=None,
+        region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        requirements=(
+            ZorkGrandInquisitorItems.FLATHEADIA_FUDGE,
+            ZorkGrandInquisitorItems.HUNGUS_LARD,
+            ZorkGrandInquisitorItems.JAR_OF_HOTBUGS,
+            ZorkGrandInquisitorItems.QUELBEE_HONEYCOMB,
+            ZorkGrandInquisitorItems.MOSS_OF_MAREILON,
+            ZorkGrandInquisitorItems.MUG,
+        ),
+        event_item_name=ZorkGrandInquisitorEvents.KNOWS_YASTARD.value,
+    ),
     ZorkGrandInquisitorEvents.LANTERN_DALBOZ_ACCESSIBLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=None,
         archipelago_id=None,

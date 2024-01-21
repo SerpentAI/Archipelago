@@ -13,6 +13,7 @@ class ZorkGrandInquisitorEvents(enum.Enum):
     KNOWS_BEBURTT = "Event: Knows BEBURTT"
     KNOWS_OBIDIL = "Event: Knows OBIDIL"
     KNOWS_SNAVIG = "Event: Knows SNAVIG"
+    KNOWS_YASTARD = "Event: Knows YASTARD"
     LANTERN_DALBOZ_ACCESSIBLE = "Event: Lantern (Dalboz) Accessible"
     ROPE_GLORFABLE = "Event: Rope GLORFable"
     VICTORY = "Victory"
