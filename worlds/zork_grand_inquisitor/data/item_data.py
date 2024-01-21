@@ -815,21 +815,15 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.trap,
         tags=(ZorkGrandInquisitorTags.TRAP,),
     ),
-    ZorkGrandInquisitorItems.TRAP_DOUBLE_VISION: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.TRAP_INVERTED_CONTROLS: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 1,
         classification=ItemClassification.trap,
         tags=(ZorkGrandInquisitorTags.TRAP,),
     ),
-    ZorkGrandInquisitorItems.TRAP_INVERTED_CONTROLS: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 900 + 2,
-        classification=ItemClassification.trap,
-        tags=(ZorkGrandInquisitorTags.TRAP,),
-    ),
     ZorkGrandInquisitorItems.TRAP_TELEPORT: ZorkGrandInquisitorItemData(
         statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 900 + 3,
+        archipelago_id=ITEM_OFFSET + 900 + 2,
         classification=ItemClassification.trap,
         tags=(ZorkGrandInquisitorTags.TRAP,),
     ),
