@@ -515,7 +515,7 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.HOTSPOT,),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_PAST_JACKS_DOOR: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR: ZorkGrandInquisitorItemData(
         statemap_keys=(2455, 2447),
         archipelago_id=ITEM_OFFSET + 200 + 40,
         classification=ItemClassification.progression,
@@ -614,12 +614,6 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
     ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS: ZorkGrandInquisitorItemData(
         statemap_keys=(9728, 9729, 9730),
         archipelago_id=ITEM_OFFSET + 200 + 56,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_UMBRELLA_FLOWERS: ZorkGrandInquisitorItemData(
-        statemap_keys=(12965,),
-        archipelago_id=ITEM_OFFSET + 200 + 57,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.HOTSPOT,),
     ),
