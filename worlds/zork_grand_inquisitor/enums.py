@@ -259,6 +259,7 @@ class ZorkGrandInquisitorLocations(enum.Enum):
     OBIDIL_DRIED_UP = "OBIDIL, Dried Up"
     OH_DEAR_GOD_ITS_A_DRAGON = "Oh Dear God, It's a Dragon!"
     OH_VERY_FUNNY_GUYS = "Oh, Very Funny Guys"
+    OH_WOW_TALK_ABOUT_DEJA_VU = "Oh, Wow! Talk About Deja Vu"
     OLD_SCRATCH_WINNER = "Old Scratch Winner!"
     ONLY_YOU_CAN_PREVENT_FOOZLE_FIRES = "Only You Can Prevent Foozle Fires"
     OPEN_THE_GATES_OF_HELL = "Open the Gates of Hell"
