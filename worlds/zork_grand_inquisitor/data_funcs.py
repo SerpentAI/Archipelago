@@ -156,9 +156,33 @@ def location_access_rule_for(location: ZorkGrandInquisitorLocations, player: int
     lambda_string: str = "lambda state: "
 
     i: int
-    requirement: Union[ZorkGrandInquisitorEvents, ZorkGrandInquisitorItems]
+    requirement: Union[
+        Tuple[
+            Union[
+                ZorkGrandInquisitorEvents,
+                ZorkGrandInquisitorItems,
+            ],
+            ...,
+        ],
+        ZorkGrandInquisitorEvents,
+        ZorkGrandInquisitorItems
+    ]
+
     for i, requirement in enumerate(data.requirements):
-        lambda_string += f"state.has(\"{requirement.value}\", {player})"
+        if isinstance(requirement, tuple):
+            lambda_string += "("
+
+            ii: int
+            sub_requirement: Union[ZorkGrandInquisitorEvents, ZorkGrandInquisitorItems]
+            for ii, sub_requirement in enumerate(requirement):
+                lambda_string += f"state.has(\"{sub_requirement.value}\", {player})"
+
+                if ii < len(requirement) - 1:
+                    lambda_string += " or "
+
+            lambda_string += ")"
+        else:
+            lambda_string += f"state.has(\"{requirement.value}\", {player})"
 
         if i < len(data.requirements) - 1:
             lambda_string += " and "
