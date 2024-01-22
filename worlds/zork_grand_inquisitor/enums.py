@@ -67,7 +67,6 @@ class ZorkGrandInquisitorItems(enum.Enum):
     HOTSPOT_FLOOD_CONTROL_DOORS = "Hotspot: Flood Control Doors"
     HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT = "Hotspot: Frozen Treat Machine Coin Slot"
     HOTSPOT_FROZEN_TREAT_MACHINE_DOORS = "Hotspot: Frozen Treat Machine Doors"
-    HOTSPOT_GARDENING_SHED = "Hotspot: Gardening Shed"
     HOTSPOT_GLASS_CASE = "Hotspot: Glass Case"
     HOTSPOT_GRAND_INQUISITOR_DOLL = "Hotspot: Grand Inquisitor Doll"
     HOTSPOT_GUE_TECH_DOOR = "Hotspot: GUE Tech Door"
