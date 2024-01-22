@@ -47,15 +47,15 @@ class GameStateManager:
 
     @property
     def game_flags_hashmap_size_address(self) -> int:
-        return self.script_manager_struct_address + 0x90
+        return self.script_manager_struct_address + 0x128
 
     @property
     def game_flags_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x94
+        return self.script_manager_struct_address + 0x12C
 
     @property
     def game_flags_deleted_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x98
+        return self.script_manager_struct_address + 0x130
 
     @property
     def current_location_address(self) -> int:
