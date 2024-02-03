@@ -13,12 +13,9 @@ class GameStateManager:
 
         self.script_manager_struct_address: int = 0x0
         self.render_manager_struct_address: int = 0x0
-        self.streaming_movie_struct_address: int = 0x0
 
         self.game_location: Optional[str] = None
         self.game_location_offset: Optional[int] = None
-
-        self.current_movie: Optional[str] = None
 
     @property
     def game_state_storage_pointer_address(self) -> int:
@@ -80,10 +77,6 @@ class GameStateManager:
     def panorama_reversed_address(self) -> int:
         return self.render_manager_struct_address + 0x1C
 
-    @property
-    def current_movie_address(self) -> int:
-        return self.streaming_movie_struct_address + 0x8
-
     def open_process_handle(self) -> bool:
         try:
             self.process = Pymem(self.process_name)
@@ -91,7 +84,6 @@ class GameStateManager:
 
             self.script_manager_struct_address = self._resolve_address(0x5276600, (0xC8, 0x0))
             self.render_manager_struct_address = self._resolve_address(0x5276600, (0xD0, 0x120))
-            self.streaming_movie_struct_address = self._resolve_address(0x5279D68, (0x40, 0x50, 0x718))
         except Exception:
             return False
 
@@ -104,7 +96,6 @@ class GameStateManager:
 
             self.script_manager_struct_address = 0x0
             self.render_manager_struct_address = 0x0
-            self.streaming_movie_struct_address = 0x0
 
             return True
 
@@ -119,7 +110,6 @@ class GameStateManager:
 
             self.script_manager_struct_address = 0x0
             self.render_manager_struct_address = 0x0
-            self.streaming_movie_struct_address = 0x0
 
             return False
 
@@ -254,20 +244,6 @@ class GameStateManager:
     def set_panorama_reversed(self, is_reversed: bool) -> Optional[bool]:
         if self.is_process_running:
             self.process.write_int(self.panorama_reversed_address, 1 if is_reversed else 0)
-
-            return True
-
-        return None
-
-    def refresh_current_movie(self) -> Optional[bool]:
-        if self.is_process_running:
-            current_movie_bytes: bytes = self.process.read_bytes(self.current_movie_address, 8)
-
-            try:
-                self.current_movie = current_movie_bytes.decode("ascii")
-            except UnicodeDecodeError:
-                self.current_movie = None
-                return None
 
             return True
 

@@ -71,7 +71,7 @@ def item_groups() -> Dict[str, Set[str]]:
     return {k: v for k, v in groups.items() if len(v)}
 
 
-def items_with_tag(tag) -> Set[ZorkGrandInquisitorItems]:
+def items_with_tag(tag: ZorkGrandInquisitorTags) -> Set[ZorkGrandInquisitorItems]:
     items: Set[ZorkGrandInquisitorItems] = set()
 
     item: ZorkGrandInquisitorItems

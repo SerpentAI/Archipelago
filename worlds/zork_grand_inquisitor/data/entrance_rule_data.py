@@ -158,7 +158,10 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.GUE_TECH): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (ZorkGrandInquisitorItems.STUDENT_ID,),
+        (
+            ZorkGrandInquisitorItems.STUDENT_ID,
+            ZorkGrandInquisitorItems.HOTSPOT_STUDENT_ID_MACHINE,
+        ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.CROSSROADS): (
         (ZorkGrandInquisitorItems.MAP,),

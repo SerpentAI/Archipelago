@@ -2,6 +2,7 @@ import enum
 
 
 class ZorkGrandInquisitorEvents(enum.Enum):
+    CHARON_CALLED = "Event: Charon Called"
     CIGAR_ACCESSIBLE = "Event: Cigar Accessible"
     DALBOZ_LOCKER_OPENABLE = "Event: Dalboz Locker Openable"
     DAM_DESTROYED = "Event: Dam Destroyed"
@@ -25,11 +26,9 @@ class ZorkGrandInquisitorEvents(enum.Enum):
 
 class ZorkGrandInquisitorGoals(enum.Enum):
     THREE_ARTIFACTS = 0
-    ARTIFACT_HUNT = 1
 
 
 class ZorkGrandInquisitorItems(enum.Enum):
-    ARTIFACT_OF_MAGIC = "Artifact of Magic"
     BROGS_BICKERING_TORCH = "Brog's Bickering Torch"
     BROGS_FLICKERING_TORCH = "Brog's Flickering Torch"
     BROGS_GRUE_EGG = "Brog's Grue Egg"
@@ -151,10 +150,6 @@ class ZorkGrandInquisitorItems(enum.Enum):
     TOTEMIZER_DESTINATION_INFINITY = "Totemizer Destination: Infinity"
     TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL = "Totemizer Destination: Straight to Hell"
     TOTEMIZER_DESTINATION_SURFACE_OF_MERZ = "Totemizer Destination: Surface of Merz"
-    TRAP_ANTI_MAGIC = "Anti-Magic Trap"
-    TRAP_DOUBLE_VISION = "Double Vision Trap"
-    TRAP_INVERTED_CONTROLS = "Inverted Controls Trap"
-    TRAP_TELEPORT = "Teleport Trap"
     ZIMDOR_SCROLL = "ZIMDOR Scroll"
     ZORK_ROCKS = "Zork Rocks"
 
@@ -212,6 +207,7 @@ class ZorkGrandInquisitorLocations(enum.Enum):
     FAT_LOT_OF_GOOD_THATLL_DO_YA = "Fat Lot of Good That'll Do Ya"
     FIRE_FIRE = "Fire! Fire!"
     FLOOD_CONTROL_DAM_3_THE_NOT_REMOTELY_BORING_TALE = "Flood Control Dam #3: The Not Remotely Boring Tale"
+    FLYING_SNAPDRAGON = "Flying Snapdragon"
     FROBUARY_3_UNDERGROUNDHOG_DAY = "Frobruary 3 - Undergroundhog Day"
     GARDENING_TOOL_RETURNED = "Gardening Tool, Returned"
     GETTING_SOME_CHANGE = "Getting Some Change"
@@ -265,7 +261,6 @@ class ZorkGrandInquisitorLocations(enum.Enum):
     OUTSMART_THE_QUELBEES = "Outsmart the Quelbees"
     PERMASEAL = "PermaSeal"
     PLANETFALL = "Planetfall"
-    PLANTS_ARE_MANS_BEST_FRIEND = "Plants Are Man's Best Friend"
     PLEASE_DONT_THROCK_THE_GRASS = "Please Don't THROCK the Grass"
     PORT_FOOZLE_TIME_TUNNEL = "Port Foozle Time Tunnel"
     PROZORKED = "Prozorked"
@@ -349,11 +344,9 @@ class ZorkGrandInquisitorTags(enum.Enum):
     FILLER = "Filler"
     HOTSPOT = "Hotspot"
     INVENTORY_ITEM = "Inventory Item"
-    MACGUFFIN = "MacGuffin"
     REVEALED = "Revealed"
     SPELL = "Spell"
     SUBWAY_DESTINATION = "Subway Destination"
     TELEPORTER_DESTINATION = "Teleporter Destination"
     TOTEMIZER_DESTINATION = "Totemizer Destination"
     TOTEM = "Totem"
-    TRAP = "Trap"
