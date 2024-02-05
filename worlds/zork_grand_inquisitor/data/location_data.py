@@ -158,6 +158,7 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
+            ZorkGrandInquisitorItems.TOTEM_BROG,
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
             ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
             ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
@@ -168,7 +169,10 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 13,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,)
+        requirements=(
+            ZorkGrandInquisitorItems.TOTEM_BROG,
+            ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
+        )
     ),
     ZorkGrandInquisitorLocations.BROG_KNOW_DUMB_THAT_DUMB: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2650, 1),),
@@ -176,6 +180,7 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
+            ZorkGrandInquisitorItems.TOTEM_BROG,
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
             ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
         )
@@ -186,6 +191,7 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
+            ZorkGrandInquisitorItems.TOTEM_BROG,
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
             ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
             ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,

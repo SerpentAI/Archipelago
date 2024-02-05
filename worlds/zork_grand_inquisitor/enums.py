@@ -171,7 +171,6 @@ class ZorkGrandInquisitorLocations(enum.Enum):
     BROG_EAT_ROCKS = "Brog Eat Rocks"
     BROG_KNOW_DUMB_THAT_DUMB = "Brog Know Dumb. That Dumb"
     BROG_MUCH_BETTER_AT_THIS_GAME = "Brog Much Better at This Game"
-    BUT_YOU_HAVE_SO_MUCH_TO_LIVE_FOR = "But You Have So Much to Live For..."
     CASTLE_WATCHING_A_FIELD_GUIDE = "Castle Watching: A Field Guide"
     CAVES_NOTES = "Cave's Notes"
     CLOSING_THE_TIME_TUNNELS = "Closing the Time Tunnels"

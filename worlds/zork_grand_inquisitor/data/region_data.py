@@ -124,7 +124,7 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ),
     ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST: ZorkGrandInquisitorRegionData(
         exits=(
-            ZorkGrandInquisitorRegions.MONASTERY,
+            ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
             ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         )
     ),
