@@ -560,6 +560,8 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
+            ZorkGrandInquisitorItems.SWORD,
+            ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
             ZorkGrandInquisitorEvents.DAM_DESTROYED,
             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
             ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM,
