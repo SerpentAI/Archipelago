@@ -14,13 +14,13 @@ class DataFuncsTest(unittest.TestCase):
 
         # Single Item Requirement
         self.assertEqual(
-            'lambda state: state.has("Brog\'s Flickering Torch", 1)',
-            location_access_rule_for(ZorkGrandInquisitorLocations.BROG_EAT_ROCKS, 1),
+            'lambda state: state.has("Sword", 1)',
+            location_access_rule_for(ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY, 1),
         )
 
         self.assertEqual(
-            'lambda state: state.has("Sword", 1)',
-            location_access_rule_for(ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY, 1),
+            'lambda state: state.has("Spell: NARWILE", 1)',
+            location_access_rule_for(ZorkGrandInquisitorLocations.DRAGON_ARCHIPELAGO_TIME_TUNNEL, 1),
         )
 
         # Single Event Requirement

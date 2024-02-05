@@ -1797,6 +1797,7 @@ class AccessTestLocations(ZorkGrandInquisitorTestBase):
             ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY.value,
             ZorkGrandInquisitorLocations.HMMM_INFORMATIVE_YET_DEEPLY_DISTURBING.value,
             ZorkGrandInquisitorLocations.I_HOPE_YOU_CAN_CLIMB_UP_THERE.value,
+            ZorkGrandInquisitorLocations.I_LIKE_YOUR_STYLE.value,
             ZorkGrandInquisitorLocations.IMBUE_BEBURTT.value,
             ZorkGrandInquisitorLocations.INTO_THE_FOLIAGE.value,
             ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR.value,
@@ -2343,6 +2344,7 @@ class AccessTestLocations(ZorkGrandInquisitorTestBase):
 
     def test_access_locations_requiring_hotspot_rope_bridge(self) -> None:
         locations: List[str] = [
+            ZorkGrandInquisitorLocations.I_LIKE_YOUR_STYLE.value,
             ZorkGrandInquisitorLocations.IMBUE_BEBURTT.value,
             ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP.value,
             ZorkGrandInquisitorLocations.SNAVIG_REPAIRED.value,
