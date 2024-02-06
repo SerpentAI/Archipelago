@@ -139,6 +139,21 @@ class GameController:
         for item in sorted(i.value for i in received_lucy_items):
             self.log(f"    {item}")
 
+    def list_received_hotspots(self) -> None:
+        self.log("Received Hotspots:")
+
+        self._process_received_items()
+
+        hotspot_items: Set[ZorkGrandInquisitorItems] = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
+        received_hotspots: Set[ZorkGrandInquisitorItems] = self.received_items & hotspot_items
+
+        if not len(received_hotspots):
+            self.log("    Nothing")
+            return
+
+        for item in sorted(i.value for i in received_hotspots):
+            self.log(f"    {item}")
+
     def update(self) -> None:
         if self.game_state_manager.is_process_still_running():
             try:

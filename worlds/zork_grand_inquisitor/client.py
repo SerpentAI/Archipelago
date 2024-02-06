@@ -35,6 +35,10 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
         """List received Lucy items."""
         self.ctx.game_controller.list_received_lucy_items()
 
+    def _cmd_hotspots(self) -> None:
+        """List received Hotspots."""
+        self.ctx.game_controller.list_received_hotspots()
+
 
 class ZorkGrandInquisitorContext(CommonClient.CommonContext):
     tags: Set[str] = {"AP"}
