@@ -292,6 +292,10 @@ class GameController:
         else:
             self._write_game_state_value_for(10998, 0)
 
+        # Monastery Rope
+        if ZorkGrandInquisitorLocations.I_HOPE_YOU_CAN_CLIMB_UP_THERE in self.completed_locations:
+            self._write_game_state_value_for(9637, 1)
+
     def _apply_permanent_game_flags(self) -> None:
         self._write_game_flags_value_for(9437, 2)  # Monastery Exhibit Door to Outside
         self._write_game_flags_value_for(3074, 2)  # White House Door
