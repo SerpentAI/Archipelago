@@ -208,7 +208,6 @@ class ZorkGrandInquisitorLocations(enum.Enum):
     FLOOD_CONTROL_DAM_3_THE_NOT_REMOTELY_BORING_TALE = "Flood Control Dam #3: The Not Remotely Boring Tale"
     FLYING_SNAPDRAGON = "Flying Snapdragon"
     FROBUARY_3_UNDERGROUNDHOG_DAY = "Frobruary 3 - Undergroundhog Day"
-    GARDENING_TOOL_RETURNED = "Gardening Tool, Returned"
     GETTING_SOME_CHANGE = "Getting Some Change"
     GO_AWAY = "GO AWAY!"
     GUE_TECH_DEANS_LIST = "GUE Tech Dean's List"
