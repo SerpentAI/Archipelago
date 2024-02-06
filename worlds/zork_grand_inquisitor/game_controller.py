@@ -100,6 +100,45 @@ class GameController:
     def is_process_running(self) -> bool:
         return self.game_state_manager.is_process_running
 
+    def list_received_brog_items(self) -> None:
+        self.log("Received Brog Items:")
+
+        self._process_received_items()
+        received_brog_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.brog_items
+
+        if not len(received_brog_items):
+            self.log("    Nothing")
+            return
+
+        for item in sorted(i.value for i in received_brog_items):
+            self.log(f"    {item}")
+
+    def list_received_griff_items(self) -> None:
+        self.log("Received Griff Items:")
+
+        self._process_received_items()
+        received_griff_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.griff_items
+
+        if not len(received_griff_items):
+            self.log("    Nothing")
+            return
+
+        for item in sorted(i.value for i in received_griff_items):
+            self.log(f"    {item}")
+
+    def list_received_lucy_items(self) -> None:
+        self.log("Received Lucy Items:")
+
+        self._process_received_items()
+        received_lucy_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.lucy_items
+
+        if not len(received_lucy_items):
+            self.log("    Nothing")
+            return
+
+        for item in sorted(i.value for i in received_lucy_items):
+            self.log(f"    {item}")
+
     def update(self) -> None:
         if self.game_state_manager.is_process_still_running():
             try:
