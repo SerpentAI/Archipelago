@@ -1,0 +1,12 @@
+Client will grant items to a random currently unlocked character
+
+How to extract Classic Game from Day of the Tentacle Remastered: https://www.pcgamingwiki.com/wiki/Day_of_the_Tentacle_Remastered#Run_classic_mode_in_ScummVM
+
+Potential for music rando: imuse command in debug
+
+Possible commands on objects: pickup, state, name
+
+Look for metaengine stuff to make sure we are playing the right game
+Scumm engine seems to have a hash table to identify game versions. Where is that stored?
+
+Game is using SCUMM V6
