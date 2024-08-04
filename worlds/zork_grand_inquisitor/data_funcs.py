@@ -10,6 +10,7 @@ from .enums import (
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorRegions,
+    ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
 )
 
@@ -52,6 +53,10 @@ def id_to_locations() -> Dict[int, ZorkGrandInquisitorLocations]:
         for location, data in location_data.items()
         if data.archipelago_id is not None
     }
+
+
+def id_to_starting_locations() -> Dict[int, ZorkGrandInquisitorStartingLocations]:
+    return {starting_location.value: starting_location for starting_location in ZorkGrandInquisitorStartingLocations}
 
 
 def item_groups() -> Dict[str, List[str]]:

@@ -131,7 +131,6 @@ class ZorkGrandInquisitorItems(enum.Enum):
     SPELL_NARWILE = "Spell: NARWILE"
     SPELL_REZROV = "Spell: REZROV"
     SPELL_THROCK = "Spell: THROCK"
-    SPELL_VOXAM = "Spell: VOXAM"
     STUDENT_ID = "Student ID"
     SUBWAY_DESTINATION_FLOOD_CONTROL_DAM = "Subway Destination: Flood Control Dam #3"
     SUBWAY_DESTINATION_HADES = "Subway Destination: Hades"
@@ -334,6 +333,19 @@ class ZorkGrandInquisitorRegions(enum.Enum):
     SUBWAY_MONASTERY = "Subway Platform - Monastery"
     WALKING_CASTLE = "Walking Castle"
     WHITE_HOUSE = "White House"
+
+
+class ZorkGrandInquisitorStartingLocations(enum.Enum):
+    PORT_FOOZLE = 0
+    CROSSROADS = 1
+    DM_LAIR = 2
+    DM_LAIR_HOUSE = 3
+    GUE_TECH = 4
+    SPELL_LAB = 5
+    HADES_SHORE = 6
+    FLOOD_CONTROL_DAM_3 = 7
+    MONASTERY_TOTEMIZER = 8
+    MONASTERY_EXHIBIT = 9
 
 
 class ZorkGrandInquisitorTags(enum.Enum):

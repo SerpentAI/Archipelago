@@ -653,12 +653,6 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
     ),
-    ZorkGrandInquisitorItems.SPELL_VOXAM: ZorkGrandInquisitorItemData(
-        statemap_keys=(191,),
-        archipelago_id=ITEM_OFFSET + 200 + 7,
-        classification=ItemClassification.useful,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
     # Subway Destinations
     ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM: ZorkGrandInquisitorItemData(
         statemap_keys=(13757, 13297, 13486, 13625),

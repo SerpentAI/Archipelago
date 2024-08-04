@@ -18,6 +18,7 @@ from .enums import (
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLocations,
+    ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
 )
 
@@ -48,6 +49,7 @@ class GameController:
     option_goal: Optional[ZorkGrandInquisitorGoals]
     option_deathsanity: Optional[bool]
     option_grant_missable_location_checks: Optional[bool]
+    option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
 
     def __init__(self, logger=None) -> None:
         self.logger = logger
@@ -81,6 +83,7 @@ class GameController:
         self.option_goal = None
         self.option_deathsanity = None
         self.option_grant_missable_location_checks = None
+        self.option_starting_location = None
 
     @functools.cached_property
     def brog_items(self) -> Set[ZorkGrandInquisitorItems]:
@@ -193,6 +196,8 @@ class GameController:
             try:
                 self.game_state_manager.refresh_game_location()
 
+                self._apply_starting_location()
+
                 self._apply_permanent_game_state()
                 self._apply_conditional_game_state()
 
@@ -213,6 +218,31 @@ class GameController:
                 self._check_for_victory()
             except Exception as e:
                 self.log_debug(e)
+
+    def _apply_starting_location(self, force: bool = False) -> None:
+        if self._read_game_state_value_for(19985) == 0 or force:
+            if self.option_starting_location == ZorkGrandInquisitorStartingLocations.PORT_FOOZLE:
+                self.game_state_manager.set_game_location("ps10", 825)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.CROSSROADS:
+                self.game_state_manager.set_game_location("uc10", 1200)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR:
+                self.game_state_manager.set_game_location("dg10", 1410)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR_HOUSE:
+                self.game_state_manager.set_game_location("dv10", 1673)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.GUE_TECH:
+                self.game_state_manager.set_game_location("tr10", 150)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SPELL_LAB:
+                self.game_state_manager.set_game_location("tp10", 0)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.HADES_SHORE:
+                self.game_state_manager.set_game_location("hp10", 534)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.FLOOD_CONTROL_DAM_3:
+                self.game_state_manager.set_game_location("ue10", 1578)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY_TOTEMIZER:
+                self.game_state_manager.set_game_location("mt10", 1483)
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT:
+                self.game_state_manager.set_game_location("me10", 1023)
+
+            self._write_game_state_value_for(19985, 1)
 
     def _apply_permanent_game_state(self) -> None:
         self._write_game_state_value_for(10934, 1)  # Rope Taken
@@ -265,6 +295,7 @@ class GameController:
         self._write_game_state_value_for(13384, 1)  # Skip Meanwhile... Cutscene
         self._write_game_state_value_for(8620, 1)  # First Coin Paid to Charon
         self._write_game_state_value_for(8731, 1)  # First Coin Paid to Charon
+        self._write_game_state_value_for(191, 1)  # VOXAM Learned
 
     def _apply_conditional_game_state(self):
         # Can teleport to Dungeon Master's Lair
@@ -907,9 +938,10 @@ class GameController:
         if self._player_is_at("ej10"):
             self.game_state_manager.set_game_location("uc10", 1200)
 
+        # VOXAM Cast
         if self._read_game_state_value_for(9) == 224:
             self._write_game_state_value_for(9, 0)
-            self.game_state_manager.set_game_location("uc10", 1200)
+            self._apply_starting_location(force=True)
 
     def _check_for_victory(self) -> None:
         if self.option_goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
@@ -951,7 +983,7 @@ class GameController:
 
         # Spells
         i: int
-        for i in range(191, 203):
+        for i in range(192, 203):
             if self._read_game_state_value_for(i) == 1:
                 if i in self.game_id_to_items:
                     game_state_inventory.add(self.game_id_to_items[i])

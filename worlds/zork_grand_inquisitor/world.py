@@ -81,6 +81,10 @@ class ZorkGrandInquisitorWorld(World):
     filler_item_names: List[str] = item_groups()["Filler"]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
 
+    def generate_early(self) -> None:
+        pass
+        # Set Starting Location
+
     def create_regions(self) -> None:
         deathsanity: bool = bool(self.options.deathsanity)
 
@@ -199,6 +203,7 @@ class ZorkGrandInquisitorWorld(World):
             "start_with_hotspot_items",
             "deathsanity",
             "grant_missable_location_checks",
+            "starting_location",
         )
 
     def get_filler_item_name(self) -> str:

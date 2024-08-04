@@ -52,6 +52,28 @@ class GrantMissableLocationChecks(Toggle):
     display_name: str = "Grant Missable Checks"
 
 
+class StartingLocation(Choice):
+    """
+    Determines the in-game location the player will start at. The player always starts with VOXAM, which can be used to
+    teleport back to the starting location at any time
+    """
+
+    display_name: str = "Starting Location"
+
+    option_port_foozle: int = 0
+    option_crossroads: int = 1
+    option_dm_lair: int = 2
+    option_dm_lair_house: int = 3
+    option_gue_tech: int = 4
+    option_spell_lab: int = 5
+    option_hades_shore: int = 6
+    option_flood_control_dam_3: int = 7
+    option_monastery_totemizer: int = 8
+    option_monastery_exhibit: int = 9
+
+    default = "random"
+
+
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     goal: Goal
@@ -59,3 +81,4 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     start_with_hotspot_items: StartWithHotspotItems
     deathsanity: Deathsanity
     grant_missable_location_checks: GrantMissableLocationChecks
+    starting_location: StartingLocation
