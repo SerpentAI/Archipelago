@@ -1,0 +1,49 @@
+Start with 2 levels available in each world. Unlock other levels with items
+Each world's fortresses are unlocked with items. Locks for each world are moved in front of the castle
+Permanent cloud inventory item is given to skip over levels (so we keep the ability to reenter levels) OR ASM to allow moving over levels
+Permanent warp whistle inventory item that takes you to a modified warp zone that allows you to warp to any world at any time
+All levels are stripped of their powerups (except stars?). Instead, powerups are unlocked as permanent inventory items for each world
+Access to all mushroom houses and spade bonuses for each world is given with a respective item
+Mushroom houses have 1 check each so unlock is progression, spade bonuses are filler
+The ability to swim requires the frog suit
+?? The ability to run requires the first level of Progressive P-speed
+The ability to fly requires the second level of Progressive P-speed and a flight suit
+Some abilities could be randomized: P-switches, Progressive P-speed, Carry
+All relevant levels will have coin checks, this is where having the powerups will be great for the randomizer.
+    Some coins will be in the air and require flight
+    Some coins will require hitting a p-switch
+    Some coins will be replaced with ice coins to give purpose to the fire flower
+    Some coins will be in or over water and require the frog suit
+Memory Game is disabled
+Mushroom houses, hammer bros, chest levels, giant mystery blocks, after world letters and warp whistle locations do not grant an item (but can be checks)
+Hitting one-up blocks are checks?
+White Mushroom Houses are disabled
+
+Level Shuffle
+Fortress Shuffle
+World 8 Ship Shuffle
+Castle Shuffle
+Remove Autoscrollers (Levels, Ships, Both)
+
+Randomize Enemies (Moderate Grouped, Moderate Random, Chaotic Grouped, Chaotic Random, Singularity)
+Enemy Speeds (Normal, Slow, Fast, Very Fast)
+Boss HP (1, 2, 3, 4, 5, Random)
+Bosses with Earthquakes (1, 2, 3, 4, 5, 6, 7, Random)
+Mini-Boss HP (1, 2, 3, 4, 5, Random)
+
+Starting Lives (with option for infinite lives)
+Timers (Easy, Normal, Hard)
+Death Counter (infinite lives only)
+Damage Difficulty (Permanent Powerup, Vanilla, One-Hit Small Mario, One-Hit KO)
+Poison One-Ups
+
+Mario Color
+Randomize World Palettes (Shuffle, Random, Singularity)
+Randomize Level Palettes (Shuffle, Random, Singularity)
+?? Randomize Enemy Palettes
+
+Randomize World Music (Shuffle, Random, Random Extended, Singularity, Singularity Extended)
+Randomize Level Music (Shuffle, Random, Random Extended, Singularity, Singularity Extended)
+Randomize Sound Effects (Shuffle, Shuffle Extended, Random, Singularity)
+
+Death Link
