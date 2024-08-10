@@ -1,4 +1,6 @@
 offsets = {
+    "gameplay_starting_lives": [0x308E1, 0x3D2D6],
+    "mario_outfit_color": [0x1053A, 0x326BE, 0x37820, 0x3782C, 0x37838, 0x37900],
     "world_1_music_theme": [0x143CA, 0x3C424],
     "world_1_palette": [0x1842D],
     "world_1_level_1_object_set": [0x19438],

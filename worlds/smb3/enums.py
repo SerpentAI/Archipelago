@@ -556,6 +556,22 @@ class SMB3LevelOffsetValues(enum.Enum):
     DARK_LAND_CASTLE = [0x2D, 0xBC]
 
 
+class SMB3MarioOutfitColors(enum.Enum):
+    BLACK = 0x3F
+    BLUE = 0x11
+    GRAY = 0x00
+    GREEN = 0x19
+    LIGHT_BLUE = 0x21
+    LIGHT_GREEN = 0x2A
+    ORANGE = 0x27
+    PINK = 0x24
+    PURPLE = 0x12
+    RED = 0x16
+    TURQUOISE = 0x2B
+    WHITE = 0x30
+    YELLOW = 0x28
+
+
 class SMB3Worlds(enum.Enum):
     GRASS_LAND = "Grass Land"
     DESERT_LAND = "Desert Land"
