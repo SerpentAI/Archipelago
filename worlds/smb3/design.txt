@@ -23,7 +23,7 @@ Level Shuffle
 Fortress Shuffle
 World 8 Ship Shuffle
 Castle Shuffle
-Remove Autoscrollers (Levels, Ships, Both)
+Remove some Autoscrollers (Levels, Some World 8 Ships)
 
 Randomize Enemies (Moderate Grouped, Moderate Random, Chaotic Grouped, Chaotic Random, Singularity)
 Enemy Speeds (Normal, Slow, Fast, Very Fast)

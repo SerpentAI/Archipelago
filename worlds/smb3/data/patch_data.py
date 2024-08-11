@@ -124,6 +124,51 @@ patches = {
     "world_1_fortress_alt": {  # Change chest content from warp whistle to nothing
         0xD36A: [0x00],
     },
+    "world_1_ship": {  # Remove powerup
+        0x2EE46: [0x20],
+    },
+    "world_1_hammer_bros_2": {  # Remove powerup
+        0x2142C: [0x10],
+    },
+    "world_2_level_1": {  # Remove powerups
+        0x294BF: [0x20],
+        0x29504: [0x10],
+        0x2957A: [0x34],
+        0x2957C: [0x40],
+    },
+    "world_2_level_2": {  # Remove powerup
+        0x21901: [0x33],
+        0x21903: [0x40],
+    },
+    "world_2_level_3": {  # Remove powerups
+        0x2994E: [0x20],
+        0x2998D: [0x20],
+    },
+    "world_2_level_4": {  # Remove powerups
+        0x29D54: [0x20],
+        0x29D9F: [0x20],
+        0x29E6E: [0x20],
+        0x29F0B: [0x2E],
+        0x29F0D: [0x60],
+    },
+    "world_2_level_5": {  # Remove powerups
+        0x29770: [0x20],
+        0x29795: [0x39],
+        0x29797: [0x40],
+        0x298AF: [0x20],
+    },
+    "world_2_level_5_alt": {  # Remove powerup
+        0x29911: [0x10],
+    },
+    "world_2_pyramid": {  # Remove powerup
+        0x205F0: [0x20],
+    },
+    "world_2_fortress": {  # Remove powerup
+        0x29B89: [0x10],
+    },
+    "world_2_ship": {  # Remove powerup
+        0x2EF6D: [0x20],
+    },
     # Gameplay
     "gameplay_disable_bonuses": {
         0x16C63: [0xEE, 0x29, 0x07, 0x4C, 0x29, 0xCF],
