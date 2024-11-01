@@ -3,6 +3,7 @@ from typing import Dict, List, Set, Tuple, Union
 from .data.entrance_rule_data import entrance_rule_data
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
+from .data.mapping_data import starting_location_to_logic_item
 
 from .enums import (
     ZorkGrandInquisitorEvents,
@@ -141,6 +142,12 @@ def locations_with_tag(tag: ZorkGrandInquisitorTags) -> Set[ZorkGrandInquisitorL
     data: ZorkGrandInquisitorLocationData
 
     return {location for location, data in location_data.items() if data.tags is not None and tag in data.tags}
+
+
+def starting_location_to_logic_helper_item(
+    starting_location: ZorkGrandInquisitorStartingLocations,
+) -> ZorkGrandInquisitorItems:
+    return starting_location_to_logic_item[starting_location]
 
 
 def location_access_rule_for(location: ZorkGrandInquisitorLocations, player: int) -> str:

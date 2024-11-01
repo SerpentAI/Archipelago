@@ -6,12 +6,14 @@ from worlds.AutoWorld import WebWorld, World
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
+from .data.mapping_data import starting_location_to_logic_helper_item
 from .data.region_data import region_data
 
 from .data_funcs import (
     item_names_to_id,
     item_names_to_item,
     location_names_to_id,
+    id_to_starting_locations,
     item_groups,
     items_with_tag,
     location_groups,
@@ -25,6 +27,7 @@ from .enums import (
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorRegions,
+    ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
 )
 
@@ -74,16 +77,16 @@ class ZorkGrandInquisitorWorld(World):
     item_name_groups = item_groups()
     location_name_groups = location_groups()
 
-    required_client_version: Tuple[int, int, int] = (0, 4, 4)
+    required_client_version: Tuple[int, int, int] = (0, 5, 0)
 
     web = ZorkGrandInquisitorWebWorld()
 
     filler_item_names: List[str] = item_groups()["Filler"]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
+    starting_location: ZorkGrandInquisitorStartingLocations
 
     def generate_early(self) -> None:
-        pass
-        # Set Starting Location
+        self.starting_location = id_to_starting_locations()[self.options.starting_location.value]
 
     def create_regions(self) -> None:
         deathsanity: bool = bool(self.options.deathsanity)
@@ -158,6 +161,8 @@ class ZorkGrandInquisitorWorld(World):
                 continue
             elif ZorkGrandInquisitorTags.HOTSPOT in tags and start_with_hotspot_items:
                 continue
+            elif ZorkGrandInquisitorTags.LOGIC_HELPER in tags:
+                continue
 
             item_pool.append(self.create_item(item.value))
 
@@ -182,6 +187,11 @@ class ZorkGrandInquisitorWorld(World):
             item: ZorkGrandInquisitorItems
             for item in items_with_tag(ZorkGrandInquisitorTags.HOTSPOT):
                 self.multiworld.push_precollected(self.create_item(item.value))
+
+        # Logic Helper Items
+        self.multiworld.push_precollected(
+            self.create_item(starting_location_to_logic_helper_item[self.starting_location].value)
+        )
 
     def create_item(self, name: str) -> ZorkGrandInquisitorItem:
         data: ZorkGrandInquisitorItemData = item_data[self.item_name_to_item[name]]
