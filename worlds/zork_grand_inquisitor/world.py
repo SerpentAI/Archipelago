@@ -146,7 +146,7 @@ class ZorkGrandInquisitorWorld(World):
 
             self.multiworld.regions.append(region)
 
-        # Connect "Menu" region to correct starting location
+        # Connect "Menu" region to starting location
         region_menu: Region = Region("Menu", self.player, self.multiworld)
         region_starting_location: ZorkGrandInquisitorRegions = starting_location_to_region[self.starting_location]
 

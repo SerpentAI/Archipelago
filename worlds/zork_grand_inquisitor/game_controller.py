@@ -227,7 +227,7 @@ class GameController:
                 self.game_state_manager.set_game_location("uc10", 1200)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR:
                 self.game_state_manager.set_game_location("dg10", 1410)
-            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR_HOUSE:
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR:
                 self.game_state_manager.set_game_location("dv10", 1673)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.GUE_TECH:
                 self.game_state_manager.set_game_location("tr10", 150)
@@ -235,9 +235,9 @@ class GameController:
                 self.game_state_manager.set_game_location("tp10", 0)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.HADES_SHORE:
                 self.game_state_manager.set_game_location("hp10", 534)
-            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.FLOOD_CONTROL_DAM_3:
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM:
                 self.game_state_manager.set_game_location("ue10", 1578)
-            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY_TOTEMIZER:
+            elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY:
                 self.game_state_manager.set_game_location("mt10", 1483)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT:
                 self.game_state_manager.set_game_location("me10", 1023)

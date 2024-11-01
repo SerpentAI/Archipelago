@@ -19,8 +19,8 @@ starting_location_to_logic_helper_item: Dict[
     ZorkGrandInquisitorStartingLocations.DM_LAIR: (
         ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_DM_LAIR
     ),
-    ZorkGrandInquisitorStartingLocations.DM_LAIR_HOUSE: (
-        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_HOUSE
+    ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: (
+        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_INTERIOR
     ),
     ZorkGrandInquisitorStartingLocations.GUE_TECH: (
         ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_GUE_TECH
@@ -31,29 +31,28 @@ starting_location_to_logic_helper_item: Dict[
     ZorkGrandInquisitorStartingLocations.HADES_SHORE: (
         ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_HADES_SHORE
     ),
-    ZorkGrandInquisitorStartingLocations.FLOOD_CONTROL_DAM_3: (
-        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_FLOOD_CONTROL_DAM_3
+    ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: (
+        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_SUBWAY_FLOOD_CONTROL_DAM
     ),
-    ZorkGrandInquisitorStartingLocations.MONASTERY_TOTEMIZER: (
-        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_MONASTERY_TOTEMIZER
+    ZorkGrandInquisitorStartingLocations.MONASTERY: (
+        ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_MONASTERY
     ),
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: (
         ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_MONASTERY_EXHIBIT
     ),
 }
 
-# TODO: Align Starting Locations with Regions
 starting_location_to_region: Dict[
     ZorkGrandInquisitorStartingLocations, ZorkGrandInquisitorRegions
 ] = {
     ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: ZorkGrandInquisitorRegions.PORT_FOOZLE,
     ZorkGrandInquisitorStartingLocations.CROSSROADS: ZorkGrandInquisitorRegions.CROSSROADS,
     ZorkGrandInquisitorStartingLocations.DM_LAIR: ZorkGrandInquisitorRegions.DM_LAIR,
-    ZorkGrandInquisitorStartingLocations.DM_LAIR_HOUSE: ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+    ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
     ZorkGrandInquisitorStartingLocations.GUE_TECH: ZorkGrandInquisitorRegions.GUE_TECH,
     ZorkGrandInquisitorStartingLocations.SPELL_LAB: ZorkGrandInquisitorRegions.SPELL_LAB,
     ZorkGrandInquisitorStartingLocations.HADES_SHORE: ZorkGrandInquisitorRegions.HADES_SHORE,
-    ZorkGrandInquisitorStartingLocations.FLOOD_CONTROL_DAM_3: ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
-    ZorkGrandInquisitorStartingLocations.MONASTERY_TOTEMIZER: ZorkGrandInquisitorRegions.MONASTERY,
+    ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
+    ZorkGrandInquisitorStartingLocations.MONASTERY: ZorkGrandInquisitorRegions.MONASTERY,
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
 }

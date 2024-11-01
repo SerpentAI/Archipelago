@@ -796,25 +796,25 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_HOUSE: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_INTERIOR: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 2,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_FLOOD_CONTROL_DAM_3: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_GUE_TECH: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 3,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_GUE_TECH: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_HADES_SHORE: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 4,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_HADES_SHORE: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_MONASTERY: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 5,
         classification=ItemClassification.progression,
@@ -826,19 +826,19 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_MONASTERY_TOTEMIZER: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_PORT_FOOZLE: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 7,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_PORT_FOOZLE: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_SPELL_LAB: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 8,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.LOGIC_HELPER,),
     ),
-    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_SPELL_LAB: ZorkGrandInquisitorItemData(
+    ZorkGrandInquisitorItems.LOGIC_HELPER_STARTING_LOCATION_SUBWAY_FLOOD_CONTROL_DAM: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 9,
         classification=ItemClassification.progression,

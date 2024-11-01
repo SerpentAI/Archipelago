@@ -107,14 +107,14 @@ class ZorkGrandInquisitorItems(enum.Enum):
     LARGE_TELEGRAPH_HAMMER = "Large Telegraph Hammer"
     LOGIC_HELPER_STARTING_LOCATION_CROSSROADS = "Starting Location: Crossroads"
     LOGIC_HELPER_STARTING_LOCATION_DM_LAIR = "Starting Location: Dungeon Master's Lair"
-    LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_HOUSE = "Starting Location: Dungeon Master's House"
-    LOGIC_HELPER_STARTING_LOCATION_FLOOD_CONTROL_DAM_3 = "Starting Location: Flood Control Dam #3"
+    LOGIC_HELPER_STARTING_LOCATION_DM_LAIR_INTERIOR = "Starting Location: Dungeon Master's House"
     LOGIC_HELPER_STARTING_LOCATION_GUE_TECH = "Starting Location: GUE Tech"
     LOGIC_HELPER_STARTING_LOCATION_HADES_SHORE = "Starting Location: Hades Shore"
+    LOGIC_HELPER_STARTING_LOCATION_MONASTERY = "Starting Location: Monastery Totemizer"
     LOGIC_HELPER_STARTING_LOCATION_MONASTERY_EXHIBIT = "Starting Location: Monastery Exhibit"
-    LOGIC_HELPER_STARTING_LOCATION_MONASTERY_TOTEMIZER = "Starting Location: Monastery Totemizer"
     LOGIC_HELPER_STARTING_LOCATION_PORT_FOOZLE = "Starting Location: Port Foozle"
     LOGIC_HELPER_STARTING_LOCATION_SPELL_LAB = "Starting Location: Spell Lab"
+    LOGIC_HELPER_STARTING_LOCATION_SUBWAY_FLOOD_CONTROL_DAM = "Starting Location: Flood Control Dam #3"
     LUCYS_PLAYING_CARD_1 = "Lucy's Playing Card: 1 Pip"
     LUCYS_PLAYING_CARD_2 = "Lucy's Playing Card: 2 Pips"
     LUCYS_PLAYING_CARD_3 = "Lucy's Playing Card: 3 Pips"
@@ -349,12 +349,12 @@ class ZorkGrandInquisitorStartingLocations(enum.Enum):
     PORT_FOOZLE = 0
     CROSSROADS = 1
     DM_LAIR = 2
-    DM_LAIR_HOUSE = 3
+    DM_LAIR_INTERIOR = 3
     GUE_TECH = 4
     SPELL_LAB = 5
     HADES_SHORE = 6
-    FLOOD_CONTROL_DAM_3 = 7
-    MONASTERY_TOTEMIZER = 8
+    SUBWAY_FLOOD_CONTROL_DAM = 7
+    MONASTERY = 8
     MONASTERY_EXHIBIT = 9
 
 
