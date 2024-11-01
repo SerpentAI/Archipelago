@@ -6,7 +6,7 @@ from worlds.AutoWorld import WebWorld, World
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
-from .data.mapping_data import starting_location_to_logic_helper_item
+from .data.mapping_data import starting_location_to_logic_helper_item, starting_location_to_region
 from .data.region_data import region_data
 
 from .data_funcs import (
@@ -145,6 +145,14 @@ class ZorkGrandInquisitorWorld(World):
                     region.connect(region_mapping[region_exit], rule=eval(entrance_access_rule))
 
             self.multiworld.regions.append(region)
+
+        # Connect "Menu" region to correct starting location
+        region_menu: Region = Region("Menu", self.player, self.multiworld)
+        region_starting_location: ZorkGrandInquisitorRegions = starting_location_to_region[self.starting_location]
+
+        region_menu.connect(region_mapping[region_starting_location])
+
+        self.multiworld.regions.append(region_menu)
 
     def create_items(self) -> None:
         quick_port_foozle: bool = bool(self.options.quick_port_foozle)

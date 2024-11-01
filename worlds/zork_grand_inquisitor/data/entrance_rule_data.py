@@ -242,7 +242,6 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,),
     ),
-    (ZorkGrandInquisitorRegions.MENU, ZorkGrandInquisitorRegions.PORT_FOOZLE): None,
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
         (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
