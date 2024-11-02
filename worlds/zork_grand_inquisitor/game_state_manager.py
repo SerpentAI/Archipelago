@@ -93,6 +93,13 @@ class GameStateManager:
 
             self.script_manager_struct_address = self._resolve_address(0x5276600, (0xC8, 0x0))
             self.render_manager_struct_address = self._resolve_address(0x5276600, (0xD0, 0x120))
+            # 0xD8 Cursor Manager
+            # 0xE0 String Manager
+            # 0xE8 Search Manager
+            # 0xF0 Text Renderer
+            # 0xF8 Midi Manager
+            # 0x100 Save Manager
+            # 0x108 Menu Handler
         except Exception:
             return False
 
