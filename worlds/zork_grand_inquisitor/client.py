@@ -8,8 +8,11 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 from .data_funcs import (
     item_names_to_id,
+    item_names_to_item,
     location_names_to_id,
+    id_to_deathsanity,
     id_to_items,
+    id_to_landmarksanity,
     id_to_locations,
     id_to_goals,
     id_to_starting_locations,
@@ -100,15 +103,27 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             # Options
             self.game_controller.option_goal = id_to_goals()[_args["slot_data"]["goal"]]
-            self.game_controller.option_deathsanity = _args["slot_data"]["deathsanity"] == 1
+
+            self.game_controller.option_starting_location = (
+                id_to_starting_locations()[_args["slot_data"]["starting_location"]]
+            )
+
+            self.game_controller.option_deathsanity = (
+                id_to_deathsanity()[_args["slot_data"]["deathsanity"]]
+            )
+
+            self.game_controller.option_landmarksanity = (
+                id_to_landmarksanity()[_args["slot_data"]["landmarksanity"]]
+            )
 
             self.game_controller.option_grant_missable_location_checks = (
                 _args["slot_data"]["grant_missable_location_checks"] == 1
             )
 
-            self.game_controller.option_starting_location = (
-                id_to_starting_locations()[_args["slot_data"]["starting_location"]]
-            )
+            # Initial Totemizer Destination
+            self.game_controller.initial_totemizer_destination = item_names_to_item()[
+                _args["slot_data"]["initial_totemizer_destination"]
+            ]
 
     async def controller(self):
         while not self.exit_event.is_set():

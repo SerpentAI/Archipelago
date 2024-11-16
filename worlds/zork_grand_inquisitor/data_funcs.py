@@ -1,15 +1,22 @@
-from typing import Dict, List, Set, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
-from .data.entrance_rule_data import entrance_rule_data
+from BaseClasses import ItemClassification
+
+from .data.entrance_rule_data import entrance_rule_data, endgame_entrance_data_by_goal
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
-from .data.mapping_data import starting_location_to_logic_item
+from .data.transform_data import item_data_transforms, location_data_transforms
 
 from .enums import (
+    ZorkGrandInquisitorCraftableSpellBehaviors,
+    ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEvents,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorItemTransforms,
+    ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
+    ZorkGrandInquisitorLocationTransforms,
     ZorkGrandInquisitorRegions,
     ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
@@ -24,7 +31,7 @@ def item_names_to_item() -> Dict[str, ZorkGrandInquisitorItems]:
     return {item.value: item for item in item_data}
 
 
-def location_names_to_id() -> Dict[str, int]:
+def location_names_to_id() -> Dict[Any, int]:
     return {
         location.value: data.archipelago_id
         for location, data in location_data.items()
@@ -32,12 +39,20 @@ def location_names_to_id() -> Dict[str, int]:
     }
 
 
-def location_names_to_location() -> Dict[str, ZorkGrandInquisitorLocations]:
+def location_names_to_location() -> Dict[Any, ZorkGrandInquisitorLocations]:
     return {
         location.value: location
         for location, data in location_data.items()
         if data.archipelago_id is not None
     }
+
+
+def id_to_craftable_spell_behaviors() -> Dict[int, ZorkGrandInquisitorCraftableSpellBehaviors]:
+    return {behavior.value: behavior for behavior in ZorkGrandInquisitorCraftableSpellBehaviors}
+
+
+def id_to_deathsanity() -> Dict[int, ZorkGrandInquisitorDeathsanity]:
+    return {deathsanity.value: deathsanity for deathsanity in ZorkGrandInquisitorDeathsanity}
 
 
 def id_to_goals() -> Dict[int, ZorkGrandInquisitorGoals]:
@@ -46,6 +61,10 @@ def id_to_goals() -> Dict[int, ZorkGrandInquisitorGoals]:
 
 def id_to_items() -> Dict[int, ZorkGrandInquisitorItems]:
     return {data.archipelago_id: item for item, data in item_data.items()}
+
+
+def id_to_landmarksanity() -> Dict[int, ZorkGrandInquisitorLandmarksanity]:
+    return {landmarksanity.value: landmarksanity for landmarksanity in ZorkGrandInquisitorLandmarksanity}
 
 
 def id_to_locations() -> Dict[int, ZorkGrandInquisitorLocations]:
@@ -57,7 +76,10 @@ def id_to_locations() -> Dict[int, ZorkGrandInquisitorLocations]:
 
 
 def id_to_starting_locations() -> Dict[int, ZorkGrandInquisitorStartingLocations]:
-    return {starting_location.value: starting_location for starting_location in ZorkGrandInquisitorStartingLocations}
+    return {
+        starting_location.value: starting_location
+        for starting_location in ZorkGrandInquisitorStartingLocations
+    }
 
 
 def item_groups() -> Dict[str, List[str]]:
@@ -115,9 +137,12 @@ def location_groups() -> Dict[str, List[str]]:
     return {k: v for k, v in groups.items() if len(v)}
 
 
-def locations_by_region(include_deathsanity: bool = False) -> Dict[
-    ZorkGrandInquisitorRegions, List[ZorkGrandInquisitorLocations]
-]:
+def locations_by_region_for_world(
+    world_location_data: Dict[
+        Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents],
+        ZorkGrandInquisitorLocationData,
+    ]
+) -> Dict[ZorkGrandInquisitorRegions, List[ZorkGrandInquisitorLocations]]:
     mapping: Dict[ZorkGrandInquisitorRegions, List[ZorkGrandInquisitorLocations]] = dict()
 
     region: ZorkGrandInquisitorRegions
@@ -126,12 +151,7 @@ def locations_by_region(include_deathsanity: bool = False) -> Dict[
 
     location: ZorkGrandInquisitorLocations
     data: ZorkGrandInquisitorLocationData
-    for location, data in location_data.items():
-        if not include_deathsanity and ZorkGrandInquisitorTags.DEATHSANITY in (
-            data.tags or tuple()
-        ):
-            continue
-
+    for location, data in world_location_data.items():
         mapping[data.region].append(location)
 
     return mapping
@@ -144,10 +164,86 @@ def locations_with_tag(tag: ZorkGrandInquisitorTags) -> Set[ZorkGrandInquisitorL
     return {location for location, data in location_data.items() if data.tags is not None and tag in data.tags}
 
 
-def starting_location_to_logic_helper_item(
+def prepare_item_data(
     starting_location: ZorkGrandInquisitorStartingLocations,
-) -> ZorkGrandInquisitorItems:
-    return starting_location_to_logic_item[starting_location]
+    goal: ZorkGrandInquisitorGoals,
+    deathsanity: ZorkGrandInquisitorDeathsanity,
+    landmarksanity: ZorkGrandInquisitorLandmarksanity,
+) -> Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]:
+    transformed_item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = dict()
+
+    # Filter items
+    item: ZorkGrandInquisitorItems
+    data: ZorkGrandInquisitorItemData
+    for item, data in item_data.items():
+        # Filter here...
+        transformed_item_data[item] = data
+
+    # Apply transformations
+    items_to_make_filler: Set[ZorkGrandInquisitorItems] = set()
+
+    for context in (starting_location, goal, deathsanity, landmarksanity):
+        if item_data_transforms[context] is not None:
+            transform: ZorkGrandInquisitorItemTransforms
+            items: Tuple[ZorkGrandInquisitorItems, ...]
+            for transform, items in item_data_transforms[context].items():
+                if transform == ZorkGrandInquisitorItemTransforms.MAKE_FILLER:
+                    item: ZorkGrandInquisitorItems
+                    for item in items:
+                        items_to_make_filler.add(item)
+
+    item: ZorkGrandInquisitorItems
+    for item in items_to_make_filler:
+        transformed_item_data[item] = transformed_item_data[item]._replace(
+            classification=ItemClassification.filler
+        )
+
+    return transformed_item_data
+
+
+def prepare_location_data(
+    starting_location: ZorkGrandInquisitorStartingLocations,
+    goal: ZorkGrandInquisitorGoals,
+    deathsanity: ZorkGrandInquisitorDeathsanity,
+    landmarksanity: ZorkGrandInquisitorLandmarksanity,
+) -> Dict[
+    Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents], ZorkGrandInquisitorLocationData
+]:
+    transformed_location_data: Dict[
+        Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents], ZorkGrandInquisitorLocationData
+    ] = dict()
+
+    # Force certain options depending on goal
+    if goal == ZorkGrandInquisitorGoals.NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE:
+        deathsanity = ZorkGrandInquisitorDeathsanity.ON
+    elif goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+        landmarksanity = ZorkGrandInquisitorLandmarksanity.ON
+
+    # Filter locations
+    location: Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents]
+    data: ZorkGrandInquisitorLocationData
+    for location, data in location_data.items():
+        # Filter here...
+        transformed_location_data[location] = data
+
+    # Apply transformations
+    locations_to_remove: List[ZorkGrandInquisitorLocations] = list()
+
+    for context in (starting_location, goal, deathsanity, landmarksanity):
+        if location_data_transforms[context] is not None:
+            transform: ZorkGrandInquisitorLocationTransforms
+            locations: Tuple[ZorkGrandInquisitorLocations, ...]
+            for transform, locations in location_data_transforms[context].items():
+                if transform == ZorkGrandInquisitorLocationTransforms.REMOVE:
+                    location: ZorkGrandInquisitorLocations
+                    for location in locations:
+                        locations_to_remove.append(location)
+
+    location: ZorkGrandInquisitorLocations
+    for location in locations_to_remove:
+        del transformed_location_data[location]
+
+    return transformed_location_data
 
 
 def location_access_rule_for(location: ZorkGrandInquisitorLocations, player: int) -> str:
@@ -196,8 +292,33 @@ def location_access_rule_for(location: ZorkGrandInquisitorLocations, player: int
 def entrance_access_rule_for(
     region_origin: ZorkGrandInquisitorRegions,
     region_destination: ZorkGrandInquisitorRegions,
-    player: int
+    player: int,
+    dataset: Optional[
+        Dict[
+            Tuple[
+                ZorkGrandInquisitorRegions,
+                ZorkGrandInquisitorRegions,
+            ],
+            Union[
+                Tuple[
+                    Tuple[
+                        Union[
+                            ZorkGrandInquisitorEvents,
+                            ZorkGrandInquisitorItems,
+                            ZorkGrandInquisitorRegions,
+                        ],
+                        ...,
+                    ],
+                    ...,
+                ],
+                None,
+            ],
+        ]
+    ] = None
 ) -> str:
+    if dataset is None:
+        dataset = entrance_rule_data
+
     data: Union[
         Tuple[
             Tuple[
@@ -211,7 +332,7 @@ def entrance_access_rule_for(
             ...,
         ],
         None,
-    ] = entrance_rule_data[(region_origin, region_destination)]
+    ] = dataset[(region_origin, region_destination)]
 
     if data is None:
         return "lambda state: True"
@@ -257,3 +378,16 @@ def entrance_access_rule_for(
             lambda_string += " or "
 
     return lambda_string
+
+
+def goal_access_rule_for(
+    region: ZorkGrandInquisitorRegions,
+    goal: ZorkGrandInquisitorGoals,
+    player: int,
+) -> str:
+    return entrance_access_rule_for(
+        region,
+        ZorkGrandInquisitorRegions.ENDGAME,
+        player,
+        dataset=endgame_entrance_data_by_goal[goal],
+    )

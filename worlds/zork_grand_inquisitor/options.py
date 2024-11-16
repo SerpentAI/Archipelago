@@ -11,51 +11,16 @@ class Goal(Choice):
     """
     display_name: str = "Goal"
 
-    default: int = 0
     option_three_artifacts: int = 0
 
-
-class QuickPortFoozle(DefaultOnToggle):
-    """If true, the items needed to go down the well will be found in early locations for a smoother early game"""
-
-    display_name: str = "Quick Port Foozle"
-
-
-class StartWithHotspotItems(DefaultOnToggle):
-    """
-    If true, the player will be given all the hotspot items at the start of the game, effectively removing the need
-    to enable the important hotspots in the game before interacting with them. Recommended for beginners
-
-    Note: The spots these hotspot items would have occupied in the item pool will instead be filled with junk items.
-    Expect a higher volume of filler items if you enable this option
-    """
-
-    display_name: str = "Start with Hotspot Items"
-
-
-class Deathsanity(Toggle):
-    """If true, adds 16 player death locations to the world"""
-
-    display_name: str = "Deathsanity"
-
-
-class GrantMissableLocationChecks(Toggle):
-    """
-    If true, performing an irreversible action will grant the locations checks that would have become unobtainable as a
-    result of that action when you meet the item requirements
-
-    Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
-    don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
-    enabled
-    """
-
-    display_name: str = "Grant Missable Checks"
+    default = 0
 
 
 class StartingLocation(Choice):
     """
     Determines the in-game location the player will start at. The player always starts with VOXAM, which can be used to
-    teleport back to the starting location at any time
+    teleport back to the starting location at any time. Depending on the starting location, the player may also be given
+    a starter kit of items to help them get going
     """
 
     display_name: str = "Starting Location"
@@ -71,14 +36,78 @@ class StartingLocation(Choice):
     option_monastery_totemizer: int = 8
     option_monastery_exhibit: int = 9
 
-    default = "random"
+    default = 0
+
+
+class StartWithHotspotItems(DefaultOnToggle):
+    """
+    If true, the player will be given all the hotspot items at the start of the game, effectively removing the need
+    to enable the important hotspots in the game before interacting with them. Recommended for beginners
+
+    Note: The spots these hotspot items would have occupied in the item pool will instead be filled with junk items.
+    Expect a higher volume of filler items if you enable this option
+    """
+
+    display_name: str = "Start with Hotspot Items"
+
+
+class CraftableSpells(Choice):
+    """
+    Determines the behavior when craftable spells (BEBURTT, OBIDIL, SNAVIG, YASTARD) are obtained.
+    Spells in a starting location's starter kit always have precedence over this option
+
+    Vanilla: After crafting a spell, the player will be given that exact spell
+    Any Spell: After crafting a spell, the player will be given a random spell
+    Anything: After crafting a spell, a random item from the multiworld will be unlocked
+    """
+
+    display_name: str = "Craftable Spells"
+
+    option_vanilla: int = 0
+    option_any_spell: int = 1
+    option_anything: int = 2
+
+    default = 2
+
+
+class Deathsanity(Toggle):
+    """If true, adds 22 unique player death locations to the world"""  # TODO: Add note about it being forced in Necro goal
+
+    display_name: str = "Deathsanity"
+
+
+class Landmarksanity(DefaultOnToggle):
+    """If true, adds 20 landmark locations to the world"""  # TODO: Add note about it being forced in Zork Tour goal
+
+    display_name: str = "Landmarksanity"
+
+
+class PlaceEarlyItemsLocally(Toggle):
+    """If true, items to be placed early in the multiworld (when applicable) will be placed locally"""
+
+    display_name: str = "Place Early Items Locally"
+
+
+class GrantMissableLocationChecks(Toggle):
+    """
+    If true, performing an irreversible action will grant the locations checks that would have become unobtainable as a
+    result of that action when you meet the item requirements
+
+    Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
+    don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
+    enabled
+    """
+
+    display_name: str = "Grant Missable Checks"
 
 
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     goal: Goal
-    quick_port_foozle: QuickPortFoozle
-    start_with_hotspot_items: StartWithHotspotItems
-    deathsanity: Deathsanity
-    grant_missable_location_checks: GrantMissableLocationChecks
     starting_location: StartingLocation
+    start_with_hotspot_items: StartWithHotspotItems
+    craftable_spells: CraftableSpells
+    deathsanity: Deathsanity
+    landmarksanity: Landmarksanity
+    place_early_items_locally: PlaceEarlyItemsLocally
+    grant_missable_location_checks: GrantMissableLocationChecks

@@ -8,10 +8,11 @@ class ZorkGrandInquisitorRegionData(NamedTuple):
 
 
 region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
+    ZorkGrandInquisitorRegions.ANYWHERE: ZorkGrandInquisitorRegionData(exits=None),
     ZorkGrandInquisitorRegions.CROSSROADS: ZorkGrandInquisitorRegionData(
         exits=(
             ZorkGrandInquisitorRegions.DM_LAIR,
-            ZorkGrandInquisitorRegions.GUE_TECH,
+            ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
             ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
             ZorkGrandInquisitorRegions.HADES_SHORE,
             ZorkGrandInquisitorRegions.PORT_FOOZLE,
@@ -44,17 +45,20 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
         )
     ),
     ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON: ZorkGrandInquisitorRegionData(
-        exits=(
-            ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
-            ZorkGrandInquisitorRegions.ENDGAME,
-        )
+        exits=(ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,)
     ),
     ZorkGrandInquisitorRegions.ENDGAME: ZorkGrandInquisitorRegionData(exits=None),
     ZorkGrandInquisitorRegions.GUE_TECH: ZorkGrandInquisitorRegionData(
         exits=(
-            ZorkGrandInquisitorRegions.CROSSROADS,
+            ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
             ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
             ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
+        )
+    ),
+    ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE: ZorkGrandInquisitorRegionData(
+        exits=(
+            ZorkGrandInquisitorRegions.CROSSROADS,
+            ZorkGrandInquisitorRegions.GUE_TECH,
         )
     ),
     ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY: ZorkGrandInquisitorRegionData(
@@ -126,10 +130,7 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
         )
     ),
     ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN: ZorkGrandInquisitorRegionData(
-        exits=(
-            ZorkGrandInquisitorRegions.ENDGAME,
-            ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
-        )
+        exits=(ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,)
     ),
     ZorkGrandInquisitorRegions.SPELL_LAB: ZorkGrandInquisitorRegionData(
         exits=(ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,)
@@ -174,7 +175,10 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ZorkGrandInquisitorRegions.WHITE_HOUSE: ZorkGrandInquisitorRegionData(
         exits=(
             ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
-            ZorkGrandInquisitorRegions.ENDGAME,
+            ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         )
+    ),
+    ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR: ZorkGrandInquisitorRegionData(
+        exits=(ZorkGrandInquisitorRegions.WHITE_HOUSE,)
     ),
 }

@@ -1,13 +1,14 @@
 import collections
 import functools
 import logging
+import traceback  # TODO: Only in dev
 
-from typing import Dict, Optional, Set, Tuple, Union
+from typing import Dict, List, Optional, Set, Tuple, Union
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 
-from .data.missable_location_grant_conditions_data import (
+from .data.missable_location_data import (
     missable_location_grant_conditions_data,
     ZorkGrandInquisitorMissableLocationGrantConditionsData,
 )
@@ -15,8 +16,10 @@ from .data.missable_location_grant_conditions_data import (
 from .data_funcs import game_id_to_items, items_with_tag, locations_with_tag
 
 from .enums import (
+    ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
@@ -47,9 +50,12 @@ class GameController:
     goal_completed: bool
 
     option_goal: Optional[ZorkGrandInquisitorGoals]
-    option_deathsanity: Optional[bool]
-    option_grant_missable_location_checks: Optional[bool]
     option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
+    option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
+    option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
+    option_grant_missable_location_checks: Optional[bool]
+
+    initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
 
     def __init__(self, logger=None) -> None:
         self.logger = logger
@@ -81,9 +87,12 @@ class GameController:
         self.goal_completed = False
 
         self.option_goal = None
-        self.option_deathsanity = None
-        self.option_grant_missable_location_checks = None
         self.option_starting_location = None
+        self.option_deathsanity = None
+        self.option_landmarksanity = None
+        self.option_grant_missable_location_checks = None
+
+        self.initial_totemizer_destination = None
 
     @functools.cached_property
     def brog_items(self) -> Set[ZorkGrandInquisitorItems]:
@@ -119,6 +128,10 @@ class GameController:
     @functools.cached_property
     def missable_locations(self) -> Set[ZorkGrandInquisitorLocations]:
         return locations_with_tag(ZorkGrandInquisitorTags.MISSABLE)
+
+    @functools.cached_property
+    def is_deathsanity(self) -> bool:
+        return self.option_deathsanity == ZorkGrandInquisitorDeathsanity.ON
 
     def log(self, message) -> None:
         if self.logger:
@@ -197,6 +210,7 @@ class GameController:
                 self.game_state_manager.refresh_game_location()
 
                 self._apply_starting_location()
+                self._apply_initial_totemizer_destination()
 
                 self._apply_permanent_game_state()
                 self._apply_conditional_game_state()
@@ -218,8 +232,12 @@ class GameController:
                 self._check_for_victory()
             except Exception as e:
                 self.log_debug(e)
+                traceback.print_exc()
 
     def _apply_starting_location(self, force: bool = False) -> None:
+        if self.option_starting_location is None:
+            return None
+
         if self._read_game_state_value_for(19985) == 0 or force:
             if self.option_starting_location == ZorkGrandInquisitorStartingLocations.PORT_FOOZLE:
                 self.game_state_manager.set_game_location("ps10", 825)
@@ -232,7 +250,7 @@ class GameController:
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.GUE_TECH:
                 self.game_state_manager.set_game_location("tr10", 150)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SPELL_LAB:
-                self.game_state_manager.set_game_location("tp10", 0)
+                self.game_state_manager.set_game_location("tp20", 1244)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.HADES_SHORE:
                 self.game_state_manager.set_game_location("hp10", 534)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM:
@@ -244,10 +262,28 @@ class GameController:
 
             self._write_game_state_value_for(19985, 1)
 
+    def _apply_initial_totemizer_destination(self) -> None:
+        if self.initial_totemizer_destination is None:
+            return None
+
+        if self._read_game_state_value_for(19986) == 0:
+            mapping: Dict[ZorkGrandInquisitorItems, int] = {
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION: 0,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ: 1,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY: 2,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY: 3,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL: 4,
+            }
+
+            self._write_game_state_value_for(9617, mapping[self.initial_totemizer_destination])
+            self._write_game_state_value_for(19986, 1)
+
     def _apply_permanent_game_state(self) -> None:
         self._write_game_state_value_for(10934, 1)  # Rope Taken
         self._write_game_state_value_for(10418, 1)  # Mead Light Taken
         self._write_game_state_value_for(10275, 0)  # Lantern in Crate
+        self._write_game_state_value_for(10297, 0)  # Lantern on Jack's Table
+        self._write_game_state_value_for(5221, 1)  # Player has Lantern
         self._write_game_state_value_for(13929, 1)  # Great Underground Door Open
         self._write_game_state_value_for(13968, 1)  # Subway Token Taken
         self._write_game_state_value_for(12930, 1)  # Hammer Taken
@@ -293,61 +329,79 @@ class GameController:
         self._write_game_state_value_for(13934, 1)  # Skip Well Cutscenes
         self._write_game_state_value_for(13935, 1)  # Skip Well Cutscenes
         self._write_game_state_value_for(13384, 1)  # Skip Meanwhile... Cutscene
+        self._write_game_state_value_for(18275, 1)  # Skip Flashback Cutscene
         self._write_game_state_value_for(8620, 1)  # First Coin Paid to Charon
         self._write_game_state_value_for(8731, 1)  # First Coin Paid to Charon
         self._write_game_state_value_for(191, 1)  # VOXAM Learned
+        self._write_game_state_value_for(15384, 0)  # Never Consider All Artifacts to be Placed
 
     def _apply_conditional_game_state(self):
-        # Can teleport to Dungeon Master's Lair
+        # Teleporter Destinations
+        if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS):
+            self._write_game_state_value_for(12918, 1)
+        else:
+            self._write_game_state_value_for(12918, 0)
+
         if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR):
             self._write_game_state_value_for(2203, 1)
         else:
             self._write_game_state_value_for(2203, 0)
 
-        # Can teleport to GUE Tech
         if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH):
             self._write_game_state_value_for(7132, 1)
         else:
             self._write_game_state_value_for(7132, 0)
 
-        # Can Teleport to Spell Lab
         if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB):
             self._write_game_state_value_for(16545, 1)
         else:
             self._write_game_state_value_for(16545, 0)
 
-        # Can Teleport to Hades
         if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES):
             self._write_game_state_value_for(7119, 1)
         else:
             self._write_game_state_value_for(7119, 0)
 
-        # Can Teleport to Monastery Station
         if self._player_has(ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY):
             self._write_game_state_value_for(7148, 1)
         else:
             self._write_game_state_value_for(7148, 0)
 
-        # Initial Totemizer Destination
-        should_force_initial_totemizer_destination: bool = True
+        # Monastery Rope
+        if self._player_has(ZorkGrandInquisitorItems.MONASTERY_ROPE):
+            self._write_game_state_value_for(9637, 1)
+        else:
+            self._write_game_state_value_for(9637, 0)
 
-        if self._player_has(ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION):
-            should_force_initial_totemizer_destination = False
-        elif self._player_has(ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL):
-            should_force_initial_totemizer_destination = False
-        elif self._player_has(ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY):
-            should_force_initial_totemizer_destination = False
-        elif self._player_has(ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ):
-            should_force_initial_totemizer_destination = False
-
-        if should_force_initial_totemizer_destination:
-            self._write_game_state_value_for(9617, 2)
+        # Well Rope
+        if self._player_has(ZorkGrandInquisitorItems.WELL_ROPE):
+            self._write_game_state_value_for(10304, 1)
+            self._write_game_state_value_for(13938, 0)
+        else:
+            self._write_game_state_value_for(10304, 0)
+            self._write_game_state_value_for(13938, 1)
 
         # Pouch of Zorkmids
         if self._player_has(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS):
             self._write_game_state_value_for(5827, 1)
         else:
             self._write_game_state_value_for(5827, 0)
+
+        # Cocoa Ingredients
+        is_cocoa_brewed: bool = ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU in self.completed_locations
+
+        if self._player_has(ZorkGrandInquisitorItems.COCOA_INGREDIENTS) and not is_cocoa_brewed:
+            self._write_game_state_value_for(4750, 1)  # Jar of Hotbugs
+            self._write_game_state_value_for(4763, 1)  # Moss of Mareilon
+            self._write_game_state_value_for(4766, 1)  # Flatheadia Fudge
+            self._write_game_state_value_for(4772, 1)  # Mug
+            self._write_game_state_value_for(4769, 1)  # Quelbee Honeycomb
+        else:
+            self._write_game_state_value_for(4750, 0)
+            self._write_game_state_value_for(4763, 0)
+            self._write_game_state_value_for(4766, 0)
+            self._write_game_state_value_for(4772, 0)
+            self._write_game_state_value_for(4769, 0)
 
         # Brog Torches
         if self._player_is_brog() and self._player_has(ZorkGrandInquisitorItems.BROGS_BICKERING_TORCH):
@@ -360,22 +414,26 @@ class GameController:
         else:
             self._write_game_state_value_for(10998, 0)
 
-        # Monastery Rope
-        if ZorkGrandInquisitorLocations.I_HOPE_YOU_CAN_CLIMB_UP_THERE in self.completed_locations:
-            self._write_game_state_value_for(9637, 1)
-
     def _apply_permanent_game_flags(self) -> None:
+        self._write_game_flags_value_for(13597, 2)  # Monastery Vent
         self._write_game_flags_value_for(9437, 2)  # Monastery Exhibit Door to Outside
         self._write_game_flags_value_for(3074, 2)  # White House Door
         self._write_game_flags_value_for(13005, 2)  # Map
         self._write_game_flags_value_for(13006, 2)  # Sword
         self._write_game_flags_value_for(13007, 2)  # Sword
+        self._write_game_flags_value_for(4854, 2)  # Hungus Lard
         self._write_game_flags_value_for(13389, 2)  # Moss of Mareilon
         self._write_game_flags_value_for(4301, 2)  # Quelbee Honeycomb
         self._write_game_flags_value_for(12895, 2)  # Change Machine Money
         self._write_game_flags_value_for(4150, 2)  # Prozorked Snapdragon
         self._write_game_flags_value_for(13413, 2)  # Letter Opener
         self._write_game_flags_value_for(15403, 2)  # Lucy's Cards
+        self._write_game_flags_value_for(4876, 2)  # Cocoa Ingredient - Jar of Hotbugs
+        self._write_game_flags_value_for(4877, 2)  # Cocoa Ingredient - Moss of Mareilon
+        self._write_game_flags_value_for(4874, 2)  # Cocoa Ingredient - Flatheadia Fudge
+        self._write_game_flags_value_for(4875, 2)  # Cocoa Ingredient - Mug
+        self._write_game_flags_value_for(4873, 2)  # Cocoa Ingredient - Quelbee Honeycomb
+        self._write_game_flags_value_for(10809, 2)  # Back of Jack's Shop
 
     def _check_for_completed_locations(self) -> None:
         location: ZorkGrandInquisitorLocations
@@ -388,7 +446,7 @@ class GameController:
 
             is_location_completed: bool = True
 
-            trigger: [Union[str, int]]
+            trigger: Union[str, int, Tuple[int, ...]]
             value: Union[str, int, Tuple[int, ...]]
             for trigger, value in data.game_state_trigger:
                 if trigger == "location":
@@ -407,6 +465,12 @@ class GameController:
                     else:
                         is_location_completed = False
                         break
+                elif isinstance(trigger, tuple):
+                    game_state_values: List[int] = [self._read_game_state_value_for(key) for key in trigger]
+
+                    if value not in game_state_values:
+                        is_location_completed = False
+                        break
                 else:
                     is_location_completed = False
                     break
@@ -414,6 +478,15 @@ class GameController:
             if is_location_completed:
                 self.completed_locations.add(location)
                 self.completed_locations_queue.append(location)
+
+                self._after_location_completed(location)
+
+    def _after_location_completed(self, location: ZorkGrandInquisitorLocations) -> None:
+        # Write certain events to unused game state that otherwise don't have a permanent way to track
+        if location == ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP:
+            self._write_game_state_value_for(19951, 1)
+        elif location == ZorkGrandInquisitorLocations.REASSEMBLE_SNAVIG:
+            self._write_game_state_value_for(19952, 1)
 
     def _check_for_missable_locations_to_grant(self) -> None:
         missable_location: ZorkGrandInquisitorLocations
@@ -423,7 +496,7 @@ class GameController:
 
             data: ZorkGrandInquisitorLocationData = location_data[missable_location]
 
-            if ZorkGrandInquisitorTags.DEATHSANITY in data.tags and not self.option_deathsanity:
+            if ZorkGrandInquisitorTags.DEATHSANITY in data.tags and not self.is_deathsanity:
                 continue
 
             condition_data: ZorkGrandInquisitorMissableLocationGrantConditionsData = (
@@ -434,7 +507,15 @@ class GameController:
                 self.log_debug(f"Missable Location {missable_location.value} has no grant conditions")
                 continue
 
-            if condition_data.location_condition in self.completed_locations:
+            if condition_data.game_location_condition is not None:
+                if not self._player_is_at(condition_data.game_location_condition):
+                    continue
+
+            location_condition_intersection: Set[ZorkGrandInquisitorLocations] = (
+                set(condition_data.location_condition) & self.completed_locations
+            )
+
+            if len(location_condition_intersection):
                 grant_location: bool = True
 
                 item: ZorkGrandInquisitorItems
@@ -505,6 +586,11 @@ class GameController:
                             self._write_game_flags_value_for(4799, 0)
                         else:
                             self._write_game_flags_value_for(4799, 2)
+                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_BUCKET:
+                    has_well_rope: bool = self._player_has(ZorkGrandInquisitorItems.WELL_ROPE)
+
+                    if self.game_state_manager.game_location == "uw10" and has_well_rope:
+                        self._write_game_flags_value_for(13928, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS:
                     if self.game_state_manager.game_location == "tr5g":
                         key: int
@@ -595,6 +681,9 @@ class GameController:
                             self._write_game_flags_value_for(1426, 2)
                         else:
                             self._write_game_flags_value_for(1426, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT:
+                    if self.game_state_manager.game_location == "dv10":
+                        self._write_game_flags_value_for(4791, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE:
                     if self.game_state_manager.game_location == "uc3e":
                         if self._read_game_state_value_for(13060) == 0:
@@ -661,6 +750,14 @@ class GameController:
                         key: int
                         for key in data.statemap_keys:
                             self._write_game_flags_value_for(key, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS:
+                    if self.game_state_manager.game_location == "te3e":
+                        if self._read_game_state_value_for(11536) == 1:
+                            self._write_game_flags_value_for(11543, 0)
+                    elif self.game_state_manager.game_location == "tr1g":
+                        self._write_game_flags_value_for(12256, 0)
+                    elif self.game_state_manager.game_location == "te40":
+                        self._write_game_flags_value_for(11720, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS:
                     if self.game_state_manager.game_location == "hp1e":
                         if self._read_game_state_value_for(8431) == 1:
@@ -723,12 +820,6 @@ class GameController:
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_MIRROR:
                     if self.game_state_manager.game_location == "dw1f":
                         self._write_game_flags_value_for(5031, 0)
-                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_MONASTERY_VENT:
-                    if self.game_state_manager.game_location == "um1e":
-                        if self._read_game_state_value_for(9637) == 0:
-                            self._write_game_flags_value_for(13597, 0)
-                        else:
-                            self._write_game_flags_value_for(13597, 2)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE:
                     if self.game_state_manager.game_location == "ue2g":
                         if self._read_game_state_value_for(13278) == 0:
@@ -798,6 +889,9 @@ class GameController:
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER:
                     if self.game_state_manager.game_location == "tp4g":
                         self._write_game_flags_value_for(12170, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT:
+                    if self.game_state_manager.game_location == "tp10":
+                        self._write_game_flags_value_for(12045, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM:
                     if self.game_state_manager.game_location == "tp1e":
                         if self._read_game_state_value_for(16342) == 1 and self._read_game_state_value_for(16374) == 0:
@@ -827,9 +921,15 @@ class GameController:
                         self._write_game_flags_value_for(9728, 0)
                         self._write_game_flags_value_for(9729, 0)
                         self._write_game_flags_value_for(9730, 0)
-                elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_WELL:
-                    if self.game_state_manager.game_location == "pc1e":
-                        self._write_game_flags_value_for(10314, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS:
+                    if self.game_state_manager.game_location == "us2e":
+                        self._write_game_flags_value_for(13760, 0)
+                    elif self.game_state_manager.game_location == "ue2e":
+                        self._write_game_flags_value_for(13323, 0)
+                    elif self.game_state_manager.game_location == "uh2e":
+                        self._write_game_flags_value_for(13512, 0)
+                    elif self.game_state_manager.game_location == "um2e":
+                        self._write_game_flags_value_for(13651, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM:
                     if self.game_state_manager.game_location == "us2e":
                         self._write_game_flags_value_for(13757, 0)
@@ -860,15 +960,18 @@ class GameController:
                 elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION:
                     if self.game_state_manager.game_location == "mt1f":
                         self._write_game_flags_value_for(9660, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ:
+                    if self.game_state_manager.game_location == "mt1f":
+                        self._write_game_flags_value_for(9662, 0)
+                elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY:
+                    if self.game_state_manager.game_location == "mt1f":
+                        self._write_game_flags_value_for(9664, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY:
                     if self.game_state_manager.game_location == "mt1f":
                         self._write_game_flags_value_for(9666, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL:
                     if self.game_state_manager.game_location == "mt1f":
                         self._write_game_flags_value_for(9668, 0)
-                elif hotspot_item == ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ:
-                    if self.game_state_manager.game_location == "mt1f":
-                        self._write_game_flags_value_for(9662, 0)
 
     def _manage_items(self) -> None:
         if self._player_is_afgncaap():
@@ -926,22 +1029,34 @@ class GameController:
                 seen_items.add(item)
 
     def _apply_conditional_teleports(self) -> None:
+        # Skip Well Cutscene
         if self._player_is_at("uw1x"):
             self.game_state_manager.set_game_location("uw10", 0)
 
-        if self._player_is_at("uw1k") and self._read_game_state_value_for(13938) == 0:
-            self.game_state_manager.set_game_location("pc10", 250)
-
-        if self._player_is_at("ue1q"):
-            self.game_state_manager.set_game_location("ue1e", 0)
-
+        # Skip Y'Gael Cutscene
         if self._player_is_at("ej10"):
             self.game_state_manager.set_game_location("uc10", 1200)
 
+        # Skip Power Outage Cutscene
+        if self._player_is_at("ue1q"):
+            self.game_state_manager.set_game_location("ue1e", 0)
+
+        # Bucket -> Surface
+        if self._player_is_at("uw1k") and self._read_game_state_value_for(13938) == 0:
+            self.game_state_manager.set_game_location("pc10", 250)
+
+        # Monastery Subway Station -> Monastery
+        if self._player_is_at("um1e") and self._read_game_state_value_for(9637) == 1:
+            self.game_state_manager.set_game_location("mt10", 1531)
+
         # VOXAM Cast
+        zork_rocks_inert = self._read_game_state_value_for(11767) == 0
+
         if self._read_game_state_value_for(9) == 224:
             self._write_game_state_value_for(9, 0)
-            self._apply_starting_location(force=True)
+
+            if zork_rocks_inert:
+                self._apply_starting_location(force=True)
 
     def _check_for_victory(self) -> None:
         if self.option_goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
@@ -1001,10 +1116,10 @@ class GameController:
         return game_state_inventory
 
     def _add_to_inventory(self, item: ZorkGrandInquisitorItems) -> None:
-        if item == ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS:
-            return None
-
         data: ZorkGrandInquisitorItemData = item_data[item]
+
+        if data.statemap_keys is None:
+            return None
 
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             if len(self.available_inventory_slots):  # Inventory slot overflow protection
@@ -1016,10 +1131,10 @@ class GameController:
             self._write_game_state_value_for(data.statemap_keys[0], 1)
 
     def _remove_from_inventory(self, item: ZorkGrandInquisitorItems) -> None:
-        if item == ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS:
-            return None
-
         data: ZorkGrandInquisitorItemData = item_data[item]
+
+        if data.statemap_keys is None:
+            return None
 
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             inventory_slot: Optional[int] = self._inventory_slot_for(item)
@@ -1092,28 +1207,13 @@ class GameController:
 
         item: ZorkGrandInquisitorItems
         for item in received_inventory_items:
-            if item == ZorkGrandInquisitorItems.FLATHEADIA_FUDGE:
-                if self._read_game_state_value_for(4766) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(4869) == 1:
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.HUNGUS_LARD:
+            if item == ZorkGrandInquisitorItems.HUNGUS_LARD:
                 if self._read_game_state_value_for(4870) == 1:
                     to_filter_inventory_items.add(item)
                 elif (
                     self._read_game_state_value_for(4244) == 1
                     and self._read_game_state_value_for(4309) == 0
                 ):
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.JAR_OF_HOTBUGS:
-                if self._read_game_state_value_for(4750) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(4869) == 1:
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.LANTERN:
-                if self._read_game_state_value_for(10477) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(5221) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER:
                 if self._read_game_state_value_for(9491) == 3:
@@ -1127,16 +1227,6 @@ class GameController:
                 elif self._read_game_state_value_for(17620) > 0:
                     to_filter_inventory_items.add(item)
                 elif self._read_game_state_value_for(4034) == 1:
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.MOSS_OF_MAREILON:
-                if self._read_game_state_value_for(4763) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(4869) == 1:
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.MUG:
-                if self._read_game_state_value_for(4772) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(4869) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.OLD_SCRATCH_CARD:
                 if 32 in inventory_item_values:
@@ -1154,36 +1244,18 @@ class GameController:
             elif item == ZorkGrandInquisitorItems.PROZORK_TABLET:
                 if self._read_game_state_value_for(4115) == 1:
                     to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.QUELBEE_HONEYCOMB:
-                if self._read_game_state_value_for(4769) == 1:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(4869) == 1:
-                    to_filter_inventory_items.add(item)
-            elif item == ZorkGrandInquisitorItems.ROPE:
-                if 22 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif 111 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif (
-                    self._read_game_state_value_for(10304) == 1
-                    and not self._read_game_state_value_for(13938) == 1
-                ):
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(15150) == 83:
+            elif item == ZorkGrandInquisitorItems.SANDWITCH_WRAPPER:
+                if self._read_game_state_value_for(19951) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS:
                 if 41 in inventory_item_values:
                     to_filter_inventory_items.add(item)
-                elif 98 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(201) == 1:
+                elif self._read_game_state_value_for(19952) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV:
                 if 48 in inventory_item_values:
                     to_filter_inventory_items.add(item)
-                elif 98 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif self._read_game_state_value_for(201) == 1:
+                elif self._read_game_state_value_for(19952) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.SNAPDRAGON:
                 if self._read_game_state_value_for(4199) == 1:

@@ -1,30 +1,48 @@
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Set, Tuple, Union
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
 from worlds.AutoWorld import WebWorld, World
 
-from .data.item_data import item_data, ZorkGrandInquisitorItemData
-from .data.location_data import location_data, ZorkGrandInquisitorLocationData
-from .data.mapping_data import starting_location_to_logic_helper_item, starting_location_to_region
+from .data.item_data import ZorkGrandInquisitorItemData
+from .data.location_data import ZorkGrandInquisitorLocationData
+
+from .data.mapping_data import (
+    early_items_for_starting_location,
+    endgame_connecting_regions_for_goal,
+    starter_kits_for_starting_location,
+    starting_location_to_region,
+)
+
 from .data.region_data import region_data
 
 from .data_funcs import (
     item_names_to_id,
     item_names_to_item,
     location_names_to_id,
+    id_to_craftable_spell_behaviors,
+    id_to_deathsanity,
+    id_to_goals,
+    id_to_landmarksanity,
     id_to_starting_locations,
     item_groups,
     items_with_tag,
     location_groups,
-    locations_by_region,
+    locations_by_region_for_world,
+    prepare_item_data,
+    prepare_location_data,
     location_access_rule_for,
     entrance_access_rule_for,
+    goal_access_rule_for,
 )
 
 from .enums import (
+    ZorkGrandInquisitorCraftableSpellBehaviors,
+    ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEvents,
+    ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorRegions,
     ZorkGrandInquisitorStartingLocations,
@@ -81,16 +99,74 @@ class ZorkGrandInquisitorWorld(World):
 
     web = ZorkGrandInquisitorWebWorld()
 
+    craftable_spells: ZorkGrandInquisitorCraftableSpellBehaviors
+    deathsanity: ZorkGrandInquisitorDeathsanity
+    early_items: Tuple[ZorkGrandInquisitorItems, ...]
     filler_item_names: List[str] = item_groups()["Filler"]
+    goal: ZorkGrandInquisitorGoals
+    grant_missable_location_checks: bool
+    initial_totemizer_destination: ZorkGrandInquisitorItems
+    item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
+    landmarksanity: ZorkGrandInquisitorLandmarksanity
+
+    location_data: Dict[
+        Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents], ZorkGrandInquisitorLocationData
+    ]
+
+    locked_items: Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems]
+    place_early_items_locally: bool
+    start_with_hotspot_items: bool
+    starter_kit: Tuple[ZorkGrandInquisitorItems, ...]
     starting_location: ZorkGrandInquisitorStartingLocations
 
     def generate_early(self) -> None:
+        self.goal = id_to_goals()[self.options.goal.value]
         self.starting_location = id_to_starting_locations()[self.options.starting_location.value]
 
-    def create_regions(self) -> None:
-        deathsanity: bool = bool(self.options.deathsanity)
+        self.starter_kit = tuple()
 
+        if starter_kits_for_starting_location[self.starting_location] is not None:
+            self.starter_kit = self.random.choice(
+                starter_kits_for_starting_location[self.starting_location]
+            )
+
+        self.early_items = tuple()
+
+        if early_items_for_starting_location[self.starting_location] is not None:
+            self.early_items = self.random.choice(
+                early_items_for_starting_location[self.starting_location]
+            )
+
+        self.start_with_hotspot_items = bool(self.options.start_with_hotspot_items)
+
+        self.craftable_spells = id_to_craftable_spell_behaviors()[self.options.craftable_spells.value]
+
+        self.deathsanity = id_to_deathsanity()[self.options.deathsanity]
+        self.landmarksanity = id_to_landmarksanity()[self.options.landmarksanity]
+
+        self.place_early_items_locally = bool(self.options.place_early_items_locally)
+        self.grant_missable_location_checks = bool(self.options.grant_missable_location_checks)
+
+        self.item_data = prepare_item_data(
+            self.starting_location,
+            self.goal,
+            self.deathsanity,
+            self.landmarksanity,
+        )
+
+        self.location_data = prepare_location_data(
+            self.starting_location,
+            self.goal,
+            self.deathsanity,
+            self.landmarksanity,
+        )
+
+        self.locked_items = self._prepare_locked_items()
+
+        self.initial_totemizer_destination = self._select_initial_totemizer_destination()
+
+    def create_regions(self) -> None:
         region_mapping: Dict[ZorkGrandInquisitorRegions, Region] = dict()
 
         region_enum_item: ZorkGrandInquisitorRegions
@@ -98,7 +174,9 @@ class ZorkGrandInquisitorWorld(World):
             region_mapping[region_enum_item] = Region(region_enum_item.value, self.player, self.multiworld)
 
         region_locations_mapping: Dict[ZorkGrandInquisitorRegions, List[ZorkGrandInquisitorLocations]]
-        region_locations_mapping = locations_by_region(include_deathsanity=deathsanity)
+        region_locations_mapping = locations_by_region_for_world(self.location_data)
+
+        region_connecting_endgame: ZorkGrandInquisitorRegions = endgame_connecting_regions_for_goal[self.goal]
 
         region_enum_item: ZorkGrandInquisitorRegions
         region: Region
@@ -108,7 +186,7 @@ class ZorkGrandInquisitorWorld(World):
             # Locations
             location_enum_item: ZorkGrandInquisitorLocations
             for location_enum_item in regions_locations:
-                data: ZorkGrandInquisitorLocationData = location_data[location_enum_item]
+                data: ZorkGrandInquisitorLocationData = self.location_data[location_enum_item]
 
                 location: ZorkGrandInquisitorLocation = ZorkGrandInquisitorLocation(
                     self.player,
@@ -117,7 +195,10 @@ class ZorkGrandInquisitorWorld(World):
                     region_mapping[data.region],
                 )
 
-                if isinstance(location_enum_item, ZorkGrandInquisitorEvents):
+                # Locked Items
+                if location_enum_item in self.locked_items:
+                    location.place_locked_item(self.create_item(self.locked_items[location_enum_item].value))
+                elif isinstance(location_enum_item, ZorkGrandInquisitorEvents):
                     location.place_locked_item(
                         ZorkGrandInquisitorItem(
                             data.event_item_name,
@@ -127,6 +208,7 @@ class ZorkGrandInquisitorWorld(World):
                         )
                     )
 
+                # Access Rules
                 location_access_rule: str = location_access_rule_for(location_enum_item, self.player)
 
                 if location_access_rule != "lambda state: True":
@@ -144,32 +226,64 @@ class ZorkGrandInquisitorWorld(World):
                 else:
                     region.connect(region_mapping[region_exit], rule=eval(entrance_access_rule))
 
+            if region_enum_item == region_connecting_endgame:
+                goal_access_rule: str = goal_access_rule_for(region_enum_item, self.goal, self.player)
+                region.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
+
             self.multiworld.regions.append(region)
 
-        # Connect "Menu" region to starting location
+        # Connect "Menu" region to starting location and to endgame when applicable
         region_menu: Region = Region("Menu", self.player, self.multiworld)
         region_starting_location: ZorkGrandInquisitorRegions = starting_location_to_region[self.starting_location]
 
+        region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ANYWHERE])
         region_menu.connect(region_mapping[region_starting_location])
+
+        if region_connecting_endgame == ZorkGrandInquisitorRegions.MENU:
+            goal_access_rule: str = goal_access_rule_for(ZorkGrandInquisitorRegions.MENU, self.goal, self.player)
+            region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
 
         self.multiworld.regions.append(region_menu)
 
     def create_items(self) -> None:
-        quick_port_foozle: bool = bool(self.options.quick_port_foozle)
-        start_with_hotspot_items: bool = bool(self.options.start_with_hotspot_items)
-
-        item_pool: List[ZorkGrandInquisitorItem] = list()
+        items_to_ignore: Set[ZorkGrandInquisitorItems] = set()
+        items_to_precollect: Set[ZorkGrandInquisitorItems] = set()
+        items_to_place_early: Set[ZorkGrandInquisitorItems]
 
         item: ZorkGrandInquisitorItems
-        data: ZorkGrandInquisitorItemData
-        for item, data in item_data.items():
-            tags: Tuple[ZorkGrandInquisitorTags, ...] = data.tags or tuple()
 
-            if ZorkGrandInquisitorTags.FILLER in tags:
-                continue
-            elif ZorkGrandInquisitorTags.HOTSPOT in tags and start_with_hotspot_items:
-                continue
-            elif ZorkGrandInquisitorTags.LOGIC_HELPER in tags:
+        for item in items_with_tag(ZorkGrandInquisitorTags.FILLER):
+            items_to_ignore.add(item)
+
+        for item in items_with_tag(ZorkGrandInquisitorTags.GOAL_THREE_ARTIFACTS):
+            items_to_ignore.add(item)
+
+        for item in self.locked_items.values():
+            items_to_ignore.add(item)
+
+        for item in self.starter_kit:
+            items_to_precollect.add(item)
+
+        if self.start_with_hotspot_items:
+            for item in items_with_tag(ZorkGrandInquisitorTags.HOTSPOT):
+                items_to_precollect.add(item)
+
+        items_to_precollect.add(self.initial_totemizer_destination)
+
+        if self.starting_location != ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR:
+            items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT)
+
+        if self.starting_location != ZorkGrandInquisitorStartingLocations.SPELL_LAB:
+            items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT)
+
+        items_to_place_early = set(self.early_items) - items_to_precollect
+
+        # Create Item Pool
+        item_pool: List[ZorkGrandInquisitorItem] = list()
+
+        data: ZorkGrandInquisitorItemData
+        for item, data in self.item_data.items():
+            if item in items_to_ignore or item in items_to_precollect:
                 continue
 
             item_pool.append(self.create_item(item.value))
@@ -179,30 +293,21 @@ class ZorkGrandInquisitorWorld(World):
 
         self.multiworld.itempool += item_pool
 
-        if quick_port_foozle:
-            self.multiworld.early_items[self.player][ZorkGrandInquisitorItems.ROPE.value] = 1
-            self.multiworld.early_items[self.player][ZorkGrandInquisitorItems.LANTERN.value] = 1
+        # Precollect Items
+        for item in items_to_precollect:
+            self.multiworld.push_precollected(self.create_item(item.value))
 
-            if not start_with_hotspot_items:
-                self.multiworld.early_items[self.player][ZorkGrandInquisitorItems.HOTSPOT_WELL.value] = 1
-                self.multiworld.early_items[self.player][ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value] = 1
+        # Set Early Items
+        # TODO: Does this even work? Needs testing
+        if len(items_to_place_early):
+            early: Dict[int, Dict[str, int]]
+            early = self.multiworld.local_early_items if self.place_early_items_locally else self.multiworld.early_items
 
-                self.multiworld.early_items[self.player][
-                    ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL.value
-                ] = 1
-
-        if start_with_hotspot_items:
-            item: ZorkGrandInquisitorItems
-            for item in items_with_tag(ZorkGrandInquisitorTags.HOTSPOT):
-                self.multiworld.push_precollected(self.create_item(item.value))
-
-        # Logic Helper Items
-        self.multiworld.push_precollected(
-            self.create_item(starting_location_to_logic_helper_item[self.starting_location].value)
-        )
+            for item in items_to_place_early:
+                early[self.player][item.value] = 1
 
     def create_item(self, name: str) -> ZorkGrandInquisitorItem:
-        data: ZorkGrandInquisitorItemData = item_data[self.item_name_to_item[name]]
+        data: ZorkGrandInquisitorItemData = self.item_data[self.item_name_to_item[name]]
 
         return ZorkGrandInquisitorItem(
             name,
@@ -215,14 +320,116 @@ class ZorkGrandInquisitorWorld(World):
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
     def fill_slot_data(self) -> Dict[str, Any]:
-        return self.options.as_dict(
+        slot_data: Dict[str, Any] = self.options.as_dict(
             "goal",
-            "quick_port_foozle",
-            "start_with_hotspot_items",
-            "deathsanity",
-            "grant_missable_location_checks",
             "starting_location",
+            "start_with_hotspot_items",
+            "craftable_spells",
+            "deathsanity",
+            "landmarksanity",
+            "grant_missable_location_checks",
         )
+
+        slot_data["initial_totemizer_destination"] = self.initial_totemizer_destination.value
+
+        return slot_data
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
+
+    def _prepare_locked_items(
+        self,
+    ) -> Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems]:
+        locked_items: Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems] = dict()
+
+        # Goal Items
+        if self.goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
+            locked_items[
+                ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT
+            ] = ZorkGrandInquisitorItems.COCONUT_OF_QUENDOR
+
+            locked_items[
+                ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG
+            ] = ZorkGrandInquisitorItems.SKULL_OF_YORUK
+
+            locked_items[
+                ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP
+            ] = ZorkGrandInquisitorItems.CUBE_OF_FOUNDATION
+
+        # Craftable Spells
+        if self.craftable_spells == ZorkGrandInquisitorCraftableSpellBehaviors.VANILLA:
+            if ZorkGrandInquisitorItems.SPELL_BEBURTT not in self.starter_kit:
+                locked_items[
+                    ZorkGrandInquisitorLocations.IMBUE_BEBURTT
+                ] = ZorkGrandInquisitorItems.SPELL_BEBURTT
+
+            if ZorkGrandInquisitorItems.SPELL_OBIDIL not in self.starter_kit:
+                locked_items[
+                    ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP
+                ] = ZorkGrandInquisitorItems.SPELL_OBIDIL
+
+            if ZorkGrandInquisitorItems.SPELL_SNAVIG not in self.starter_kit:
+                locked_items[
+                    ZorkGrandInquisitorLocations.SNAVIG_REPAIRED
+                ] = ZorkGrandInquisitorItems.SPELL_SNAVIG
+
+            if ZorkGrandInquisitorItems.SPELL_YASTARD not in self.starter_kit:
+                locked_items[
+                    ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU
+                ] = ZorkGrandInquisitorItems.SPELL_YASTARD
+        elif self.craftable_spells == ZorkGrandInquisitorCraftableSpellBehaviors.ANY_SPELL:
+            allowable_spells: Set[ZorkGrandInquisitorItems] = {
+                ZorkGrandInquisitorItems.SPELL_BEBURTT,
+                ZorkGrandInquisitorItems.SPELL_GLORF,
+                ZorkGrandInquisitorItems.SPELL_GOLGATEM,
+                ZorkGrandInquisitorItems.SPELL_IGRAM,
+                ZorkGrandInquisitorItems.SPELL_KENDALL,
+                ZorkGrandInquisitorItems.SPELL_OBIDIL,
+                ZorkGrandInquisitorItems.SPELL_NARWILE,
+                ZorkGrandInquisitorItems.SPELL_REZROV,
+                ZorkGrandInquisitorItems.SPELL_SNAVIG,
+                ZorkGrandInquisitorItems.SPELL_THROCK,
+                ZorkGrandInquisitorItems.SPELL_YASTARD,
+            }
+
+            allowable_spells -= set(self.starter_kit)
+
+            allowable_spells_yastard: List[str] = sorted([item.value for item in allowable_spells])
+
+            spell_yastard: ZorkGrandInquisitorItems = self.item_name_to_item[
+                self.random.choice(allowable_spells_yastard)
+            ]
+
+            locked_items[ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU] = spell_yastard
+
+            allowable_spells -= {spell_yastard}
+
+            if self.starting_location != ZorkGrandInquisitorStartingLocations.SPELL_LAB:
+                allowable_spells -= {
+                    ZorkGrandInquisitorItems.SPELL_GOLGATEM,
+                    ZorkGrandInquisitorItems.SPELL_REZROV,
+                }
+
+            allowable_spells_spell_lab: List[str] = sorted(
+                [item.value for item in allowable_spells]
+            )
+
+            spells_to_lock: List[ZorkGrandInquisitorItems] = [
+                self.item_name_to_item[item]
+                for item in self.random.sample(allowable_spells_spell_lab, 3)
+            ]
+
+            locked_items[ZorkGrandInquisitorLocations.IMBUE_BEBURTT] = spells_to_lock[0]
+            locked_items[ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP] = spells_to_lock[1]
+            locked_items[ZorkGrandInquisitorLocations.SNAVIG_REPAIRED] = spells_to_lock[2]
+
+        return locked_items
+
+    def _select_initial_totemizer_destination(self) -> ZorkGrandInquisitorItems:
+        return self.random.choice((
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION,
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY,
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY,
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
+        ))
