@@ -865,8 +865,14 @@ class GameController:
                     if self.game_state_manager.game_location == "sg6e":
                         if self._read_game_state_value_for(15715) == 1:
                             self._write_game_flags_value_for(2769, 2)
+                            self._write_game_flags_value_for(2761, 2)
+                            self._write_game_flags_value_for(2764, 2)
+                            self._write_game_flags_value_for(2767, 2)
                         else:
                             self._write_game_flags_value_for(2769, 0)
+                            self._write_game_flags_value_for(2761, 0)
+                            self._write_game_flags_value_for(2764, 0)
+                            self._write_game_flags_value_for(2767, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON:
                     if self.game_state_manager.game_location == "dg2f":
                         if self._read_game_state_value_for(4114) == 1 or self._read_game_state_value_for(4115) == 1:

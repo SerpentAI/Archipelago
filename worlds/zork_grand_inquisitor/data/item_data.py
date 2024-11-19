@@ -527,7 +527,7 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         tags=(ZorkGrandInquisitorTags.HOTSPOT,),
     ),
     ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE: ZorkGrandInquisitorItemData(
-        statemap_keys=(2769,),
+        statemap_keys=(2769, 2761, 2764, 2767),
         archipelago_id=ITEM_OFFSET + 100 + 45,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.HOTSPOT,),
