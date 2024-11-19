@@ -2,6 +2,7 @@ import collections
 import functools
 import logging
 import traceback  # TODO: Only in dev
+import time
 
 from typing import Dict, List, Optional, Set, Tuple, Union
 
@@ -209,8 +210,8 @@ class GameController:
             try:
                 self.game_state_manager.refresh_game_location()
 
-                self._apply_starting_location()
                 self._apply_initial_totemizer_destination()
+                self._apply_starting_location()
 
                 self._apply_permanent_game_state()
                 self._apply_conditional_game_state()
@@ -261,6 +262,7 @@ class GameController:
                 self.game_state_manager.set_game_location("me10", 1023)
 
             self._write_game_state_value_for(19985, 1)
+            time.sleep(0.1)
 
     def _apply_initial_totemizer_destination(self) -> None:
         if self.initial_totemizer_destination is None:
