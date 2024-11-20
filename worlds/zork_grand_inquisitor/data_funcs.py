@@ -12,6 +12,7 @@ from .enums import (
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEvents,
     ZorkGrandInquisitorGoals,
+    ZorkGrandInquisitorHotspots,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorItemTransforms,
     ZorkGrandInquisitorLandmarksanity,
@@ -57,6 +58,10 @@ def id_to_deathsanity() -> Dict[int, ZorkGrandInquisitorDeathsanity]:
 
 def id_to_goals() -> Dict[int, ZorkGrandInquisitorGoals]:
     return {goal.value: goal for goal in ZorkGrandInquisitorGoals}
+
+
+def id_to_hotspots() -> Dict[int, ZorkGrandInquisitorHotspots]:
+    return {hotspot.value: hotspot for hotspot in ZorkGrandInquisitorHotspots}
 
 
 def id_to_items() -> Dict[int, ZorkGrandInquisitorItems]:
@@ -368,6 +373,18 @@ def entrance_access_rule_for(
                 lambda_string += f"state.has(\"{requirement.value}\", {player})"
             elif requirement_type == ZorkGrandInquisitorRegions:
                 lambda_string += f"state.can_reach(\"{requirement.value}\", \"Region\", {player})"
+            elif isinstance(requirement, tuple):
+                lambda_string += "("
+
+                iii: int
+                sub_requirement: ZorkGrandInquisitorItems
+                for iii, sub_requirement in enumerate(requirement):
+                    lambda_string += f"state.has(\"{sub_requirement.value}\", {player})"
+
+                    if iii < len(requirement) - 1:
+                        lambda_string += " or "
+
+                lambda_string += ")"
 
             if ii < len(requirement_group) - 1:
                 lambda_string += " and "

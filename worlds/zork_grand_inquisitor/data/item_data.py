@@ -610,6 +610,72 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.HOTSPOT,),
     ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 0,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 1,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 2,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 3,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 4,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 5,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 6,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 7,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 8,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 9,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 100 + 80 + 10,
+        classification=ItemClassification.progression,
+        tags=(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL,),
+    ),
     # Spells
     ZorkGrandInquisitorItems.SPELL_BEBURTT: ZorkGrandInquisitorItemData(
         statemap_keys=(194,),

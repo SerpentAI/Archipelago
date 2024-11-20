@@ -39,16 +39,22 @@ class StartingLocation(Choice):
     default = 0
 
 
-class StartWithHotspotItems(DefaultOnToggle):
+class Hotspots(Choice):
     """
-    If true, the player will be given all the hotspot items at the start of the game, effectively removing the need
-    to enable the important hotspots in the game before interacting with them. Recommended for beginners
+    Determines the behavior of hotspots (interactable areas of the screen) in the game.
 
-    Note: The spots these hotspot items would have occupied in the item pool will instead be filled with junk items.
-    Expect a higher volume of filler items if you enable this option
+    Enabled: All hotspots will be enabled at the start of the game
+    Require Item per Region: An item will enable all hotspots for a given region (e.g. Hotspots: Crossroads)
+    Require Item per Hotspot: An item will enable a specific hotspot (e.g. Hotspot: Subway Token Slot)
     """
 
-    display_name: str = "Start with Hotspot Items"
+    display_name: str = "Hotspots"
+
+    option_enabled: int = 0
+    option_require_item_per_region: int = 1
+    option_require_item_per_hotspot: int = 2
+
+    default = 0
 
 
 class CraftableSpells(Choice):
@@ -105,7 +111,7 @@ class GrantMissableLocationChecks(Toggle):
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     goal: Goal
     starting_location: StartingLocation
-    start_with_hotspot_items: StartWithHotspotItems
+    hotspots: Hotspots
     craftable_spells: CraftableSpells
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity

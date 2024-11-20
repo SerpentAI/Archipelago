@@ -62,7 +62,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
             ZorkGrandInquisitorItems.CIGAR,
         ),
     ),
@@ -86,7 +89,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorEvents.WHITE_HOUSE_LETTER_MAILABLE,
-            ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.A_SMALLWAY: ZorkGrandInquisitorLocationData(
@@ -95,7 +101,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
             ZorkGrandInquisitorItems.SPELL_IGRAM,
         ),
     ),
@@ -105,7 +114,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
             ZorkGrandInquisitorItems.SPELL_THROCK,
         ),
     ),
@@ -134,7 +146,10 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorItems.HAMMER,
             ZorkGrandInquisitorItems.SNAPDRAGON,
-            ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.BONK: ZorkGrandInquisitorLocationData(
@@ -144,7 +159,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.HAMMER,
-            ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.BRAVE_SOULS_WANTED: ZorkGrandInquisitorLocationData(
@@ -160,7 +178,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
-            ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         )
     ),
     ZorkGrandInquisitorLocations.BROG_EAT_ROCKS: ZorkGrandInquisitorLocationData(
@@ -183,9 +204,15 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
-            ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
             ZorkGrandInquisitorItems.BROGS_PLANK,
-            ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         )
     ),
     ZorkGrandInquisitorLocations.CASTLE_WATCHING_A_FIELD_GUIDE: ZorkGrandInquisitorLocationData(
@@ -216,7 +243,10 @@ location_data: Dict[
             ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN,
-            ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO,
+            ),
             ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH,
         ),
     ),
@@ -228,8 +258,14 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorEvents.ZORK_ROCKS_ACTIVATED,
             ZorkGrandInquisitorItems.SPELL_IGRAM,
-            ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
-            ZorkGrandInquisitorItems.HOTSPOT_DENTED_LOCKER,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DENTED_LOCKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.CUT_THAT_OUT_YOU_LITTLE_CREEP: ZorkGrandInquisitorLocationData(
@@ -244,7 +280,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_BLINDS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BLINDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
         ),
     ),
@@ -262,7 +301,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_GRIFF,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DOWN: ZorkGrandInquisitorLocationData(
@@ -272,7 +314,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_LUCY,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DRAGON_ARCHIPELAGO_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
@@ -289,8 +334,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.EGGPLANTS: ZorkGrandInquisitorLocationData(
@@ -331,7 +382,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
             ZorkGrandInquisitorItems.CIGAR,
         ),
     ),
@@ -350,7 +404,10 @@ location_data: Dict[
             ZorkGrandInquisitorItems.SPELL_THROCK,
             ZorkGrandInquisitorItems.SNAPDRAGON,
             ZorkGrandInquisitorItems.HAMMER,
-            ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.FROBUARY_3_UNDERGROUNDHOG_DAY: ZorkGrandInquisitorLocationData(
@@ -366,7 +423,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorEvents.ZORKMID_BILL_ACCESSIBLE,
-            ZorkGrandInquisitorItems.HOTSPOT_CHANGE_MACHINE_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CHANGE_MACHINE_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.GO_AWAY: ZorkGrandInquisitorLocationData(
@@ -382,9 +442,15 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
-            ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
             ZorkGrandInquisitorItems.BROGS_PLANK,
-            ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         )
     ),
     ZorkGrandInquisitorLocations.GUE_TECH_ENTRANCE_EXAM: ZorkGrandInquisitorLocationData(
@@ -399,8 +465,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
         )
     ),
     ZorkGrandInquisitorLocations.HELLO_THIS_IS_SHONA_FROM_GURTH_PUBLISHING: ZorkGrandInquisitorLocationData(
@@ -415,7 +487,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
             ZorkGrandInquisitorItems.PLASTIC_SIX_PACK_HOLDER,
         ),
     ),
@@ -425,7 +500,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_DIRT_MOUND,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DIRT_MOUND,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
             ZorkGrandInquisitorItems.SHOVEL,
         ),
     ),
@@ -454,8 +532,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX,
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.IM_COMPLETELY_NUDE: ZorkGrandInquisitorLocationData(
@@ -471,7 +555,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.INVISIBLE_FLOWERS: ZorkGrandInquisitorLocationData(
@@ -488,7 +575,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.HAMMER,
-            ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.IN_MAGIC_WE_TRUST: ZorkGrandInquisitorLocationData(
@@ -498,7 +588,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SPELL_REZROV,
-            ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.ITS_ONE_OF_THOSE_ADVENTURERS_AGAIN: ZorkGrandInquisitorLocationData(
@@ -514,7 +607,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.SPELL_THROCK,
-            ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.I_DONT_WANT_NO_TROUBLE: ZorkGrandInquisitorLocationData(
@@ -530,10 +626,16 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
             ZorkGrandInquisitorEvents.DAM_DESTROYED,
             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE: ZorkGrandInquisitorLocationData(
@@ -557,8 +659,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         )
     ),
     ZorkGrandInquisitorLocations.MAILED_IT_TO_HELL: ZorkGrandInquisitorLocationData(
@@ -568,8 +676,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             (ZorkGrandInquisitorItems.TOTEM_GRIFF, ZorkGrandInquisitorItems.TOTEM_LUCY),
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR: ZorkGrandInquisitorLocationData(
@@ -589,7 +703,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.MEAD_LIGHT,
-            ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.MIKES_PANTS: ZorkGrandInquisitorLocationData(
@@ -605,7 +722,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.HAMMER,
-            ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.NATIONAL_TREASURE: ZorkGrandInquisitorLocationData(
@@ -615,8 +735,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SPELL_REZROV,
-            ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_DOORS,
-            ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_DOORS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.NATURAL_AND_SUPERNATURAL_CREATURES_OF_QUENDOR: ZorkGrandInquisitorLocationData(
@@ -632,8 +758,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.NOTHIN_LIKE_A_GOOD_STOGIE: ZorkGrandInquisitorLocationData(
@@ -642,7 +774,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.CIGAR,
         ),
     ),
@@ -658,7 +793,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 71,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
+        ),
     ),
     ZorkGrandInquisitorLocations.NO_BONDAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe2e"), (10262, 2), (15150, 83)),
@@ -667,7 +807,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorEvents.ROPE_GLORFABLE,
-            ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP: ZorkGrandInquisitorLocationData(
@@ -676,7 +819,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
             ZorkGrandInquisitorItems.SANDWITCH_WRAPPER,
         ),
     ),
@@ -689,7 +835,10 @@ location_data: Dict[
             ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN,
-            ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS: ZorkGrandInquisitorLocationData(
@@ -699,7 +848,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_BROG,
-            ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU: ZorkGrandInquisitorLocationData(
@@ -743,7 +895,10 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorItems.HUNGUS_LARD,
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.PERMASEAL: ZorkGrandInquisitorLocationData(
@@ -770,8 +925,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER,
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
             ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER,
             ZorkGrandInquisitorItems.SPELL_NARWILE,
         ),
@@ -783,7 +944,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.PROZORK_TABLET,
-            ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.REASSEMBLE_SNAVIG: ZorkGrandInquisitorLocationData(
@@ -794,7 +958,10 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
             ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
-            ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.RIGHT_HELLO_YES_UH_THIS_IS_SNEFFLE: ZorkGrandInquisitorLocationData(
@@ -810,7 +977,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorEvents.HAS_REPAIRABLE_SNAVIG,
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.SOUVENIR: ZorkGrandInquisitorLocationData(
@@ -820,7 +990,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_SOUVENIR_COIN_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SOUVENIR_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
@@ -829,9 +1002,15 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.MONASTERY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER: ZorkGrandInquisitorLocationData(
@@ -844,8 +1023,14 @@ location_data: Dict[
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
-            ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
-            ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.SUCKING_ROCKS: ZorkGrandInquisitorLocationData(
@@ -855,10 +1040,19 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
             ZorkGrandInquisitorItems.PERMA_SUCK_MACHINE,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_VACUUM_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_VACUUM_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.TALK_TO_ME_GRAND_INQUISITOR: ZorkGrandInquisitorLocationData(
@@ -866,7 +1060,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 93,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
+        ),
     ),
     ZorkGrandInquisitorLocations.TAMING_YOUR_SNAPDRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1h"),),
@@ -883,7 +1082,10 @@ location_data: Dict[
             ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN,
-            ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO,
+            ),
             ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH,
         ),
     ),
@@ -894,7 +1096,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorEvents.ROPE_GLORFABLE,
-            ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.THATS_IT_JUST_KEEP_HITTING_THOSE_BUTTONS: ZorkGrandInquisitorLocationData(
@@ -915,7 +1120,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 99,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_LOUDSPEAKER_VOLUME_BUTTONS,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_LOUDSPEAKER_VOLUME_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
+        ),
     ),
     ZorkGrandInquisitorLocations.THE_ALCHEMICAL_DEBACLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9459, 1),),
@@ -958,7 +1168,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SUBWAY_TOKEN,
-            ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.THIS_DOESNT_LOOK_ANYTHING_LIKE_THE_BROCHURE: ZorkGrandInquisitorLocationData(
@@ -976,7 +1189,10 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorItems.HAMMER,
             ZorkGrandInquisitorItems.SPELL_THROCK,
-            ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.TIME_TRAVEL_FOR_DUMMIES: ZorkGrandInquisitorLocationData(
@@ -1013,7 +1229,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_LUCY,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.USELESS_BUT_FUN: ZorkGrandInquisitorLocationData(
@@ -1030,7 +1249,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_GRIFF,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB: ZorkGrandInquisitorLocationData(
@@ -1048,7 +1270,10 @@ location_data: Dict[
             ZorkGrandInquisitorEvents.DOOR_SMOKED_CIGAR,
             ZorkGrandInquisitorItems.MEAD_LIGHT,
             ZorkGrandInquisitorItems.ZIMDOR_SCROLL,
-            ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE: ZorkGrandInquisitorLocationData(
@@ -1058,7 +1283,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEM_GRIFF,
-            ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.WE_GOT_A_HIGH_ROLLER: ZorkGrandInquisitorLocationData(
@@ -1071,8 +1299,14 @@ location_data: Dict[
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
-            ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
-            ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.WHAT_ARE_YOU_STUPID: ZorkGrandInquisitorLocationData(
@@ -1082,7 +1316,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.PLASTIC_SIX_PACK_HOLDER,
-            ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.WHITE_HOUSE_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
@@ -1091,7 +1328,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.SPELL_NARWILE,
         ),
     ),
@@ -1106,7 +1346,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 122,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_MIRROR,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
+        ),
     ),
     ZorkGrandInquisitorLocations.YOUR_PUNY_WEAPONS_DONT_PHASE_ME_BABY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dg4e"), (4266, 1), (9, 21), (4035, 1)),
@@ -1115,7 +1360,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_HARRY,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HARRY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.YOU_DONT_GO_MESSING_WITH_A_MANS_ZIPPER: ZorkGrandInquisitorLocationData(
@@ -1132,7 +1380,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP: ZorkGrandInquisitorLocationData(
@@ -1145,8 +1396,14 @@ location_data: Dict[
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
-            ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
-            ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.YOU_ONE_OF_THEM_AGITATORS_AINT_YA: ZorkGrandInquisitorLocationData(
@@ -1160,7 +1417,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 128,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
+        ),
     ),
     # Deathsanity
     ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK: ZorkGrandInquisitorLocationData(
@@ -1169,7 +1431,10 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
             ZorkGrandInquisitorItems.CIGAR,
         ),
     ),
@@ -1180,7 +1445,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_CLIMBED_OUT_OF_THE_WELL: ZorkGrandInquisitorLocationData(
@@ -1218,8 +1486,14 @@ location_data: Dict[
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
-            ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
-            ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_LOST_SOUL_TO_OLD_SCRATCH: ZorkGrandInquisitorLocationData(
@@ -1236,7 +1510,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.HUNGUS_LARD,
-            ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD: ZorkGrandInquisitorLocationData(
@@ -1252,7 +1529,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             ZorkGrandInquisitorItems.SPELL_IGRAM,
-            ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_SWALLOWED_BY_A_DRAGON: ZorkGrandInquisitorLocationData(
@@ -1264,7 +1544,10 @@ location_data: Dict[
             ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT,
             ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN,
-            ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO,
+            ),
             ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH,
         ),
     ),
@@ -1275,7 +1558,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.SPELL_THROCK,
-            ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_GRASS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_GRASS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_INFINITY: ZorkGrandInquisitorLocationData(
@@ -1285,8 +1571,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_NEWARK_NEW_JERSEY: ZorkGrandInquisitorLocationData(
@@ -1296,8 +1588,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_HALLS_OF_INQUISITION: ZorkGrandInquisitorLocationData(
@@ -1307,7 +1605,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_INFINITY: ZorkGrandInquisitorLocationData(
@@ -1317,7 +1618,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_NEWARK_NEW_JERSEY: ZorkGrandInquisitorLocationData(
@@ -1327,7 +1631,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
@@ -1337,7 +1644,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_SURFACE_OF_MERZ: ZorkGrandInquisitorLocationData(
@@ -1347,7 +1657,10 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_SURFACE_OF_MERZ: ZorkGrandInquisitorLocationData(
@@ -1357,8 +1670,14 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     ZorkGrandInquisitorLocations.DEATH_YOURE_NOT_CHARON: ZorkGrandInquisitorLocationData(
@@ -1454,7 +1773,12 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 300 + 11,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.LANDMARKSANITY,),
-        requirements=(ZorkGrandInquisitorItems.HOTSPOT_MIRROR,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
+        ),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_PAST_PORT_FOOZLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "qe10"),),
@@ -1524,8 +1848,14 @@ location_data: Dict[
         archipelago_id=None,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.CHARON_CALLED.value,
     ),
@@ -1535,8 +1865,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE.value,
     ),
@@ -1546,8 +1882,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         requirements=(
             ZorkGrandInquisitorItems.SPELL_REZROV,
-            ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_DOORS,
-            ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_DOORS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.DAM_DESTROYED.value,
     ),
@@ -1559,7 +1901,10 @@ location_data: Dict[
             ZorkGrandInquisitorEvents.DOOR_SMOKED_CIGAR,
             ZorkGrandInquisitorItems.MEAD_LIGHT,
             ZorkGrandInquisitorItems.ZIMDOR_SCROLL,
-            ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.DOOR_DRANK_MEAD.value,
     ),
@@ -1568,7 +1913,10 @@ location_data: Dict[
         archipelago_id=None,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         requirements=(
-            ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.CIGAR,
         ),
         event_item_name=ZorkGrandInquisitorEvents.DOOR_SMOKED_CIGAR.value,
@@ -1579,8 +1927,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value,
     ),
@@ -1590,8 +1944,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT,
-            ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.HAS_REPAIRABLE_OBIDIL.value,
     ),
@@ -1602,7 +1962,10 @@ location_data: Dict[
         requirements=(
             ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
             ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
-            ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MIRROR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.HAS_REPAIRABLE_SNAVIG.value,
     ),
@@ -1628,8 +1991,14 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         requirements=(
             (ZorkGrandInquisitorItems.TOTEM_GRIFF, ZorkGrandInquisitorItems.TOTEM_LUCY),
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
-            ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.WHITE_HOUSE_LETTER_MAILABLE.value,
     ),
@@ -1646,9 +2015,15 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         requirements=(
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_COIN_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_COIN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
             ZorkGrandInquisitorItems.ZORK_ROCKS,
-            ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
         event_item_name=ZorkGrandInquisitorEvents.ZORK_ROCKS_ACTIVATED.value,
     ),

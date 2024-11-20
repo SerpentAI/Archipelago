@@ -31,7 +31,10 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.DM_LAIR): (
         (
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
         (
             ZorkGrandInquisitorItems.MAP,
@@ -41,7 +44,10 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE): (
         (
             ZorkGrandInquisitorItems.SPELL_REZROV,
-            ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
@@ -59,7 +65,10 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.PORT_FOOZLE): (
         (
             ZorkGrandInquisitorItems.WELL_ROPE,
-            ZorkGrandInquisitorItems.HOTSPOT_BUCKET,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BUCKET,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
@@ -71,7 +80,10 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
         (
             ZorkGrandInquisitorItems.SUBWAY_TOKEN,
-            ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
@@ -113,18 +125,27 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.DM_LAIR): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.WALKING_CASTLE): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_BLINDS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BLINDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.SPELL_OBIDIL,
         ),
     ),
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.WHITE_HOUSE): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
             ZorkGrandInquisitorItems.SPELL_NARWILE,
             ZorkGrandInquisitorItems.SPELL_YASTARD,
         ),
@@ -132,32 +153,54 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON): (
         (
             ZorkGrandInquisitorItems.TOTEM_GRIFF,
-            ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): None,
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON, ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO): None,
     (ZorkGrandInquisitorRegions.GUE_TECH, ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE): (
-        (ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,),
+        (
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+        ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH, ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY): (
         (
             ZorkGrandInquisitorItems.SPELL_IGRAM,
-            ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_DOOR,),
+        (
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+        ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.GUE_TECH): (
-        (ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,),
+        (
+            ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,
+            ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+        ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.GUE_TECH): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
         (
             ZorkGrandInquisitorItems.STUDENT_ID,
-            ZorkGrandInquisitorItems.HOTSPOT_STUDENT_ID_MACHINE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_STUDENT_ID_MACHINE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.CROSSROADS): (
@@ -173,7 +216,12 @@ entrance_rule_data: Dict[
         ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH): (
-        (ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,),
+        (
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
+        ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.HADES_SHORE): (
         (
@@ -229,8 +277,14 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.HADES): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
-            ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES,
+            ),
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
         ),
     ),
@@ -252,23 +306,41 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
         (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT): (
         (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
-            ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): None,
     (ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT, ZorkGrandInquisitorRegions.MONASTERY): None,
     (ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER,
-            ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY,
+            ),
             ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER,
             ZorkGrandInquisitorItems.SPELL_NARWILE,
             ZorkGrandInquisitorItems.SPELL_YASTARD,
@@ -280,8 +352,14 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP): (
         (
             ZorkGrandInquisitorItems.CIGAR,
-            ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
-            ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP, ZorkGrandInquisitorRegions.PORT_FOOZLE): None,
@@ -289,7 +367,10 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN): (
         (
             ZorkGrandInquisitorItems.TOTEM_LUCY,
-            ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST): None,
@@ -314,7 +395,10 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.HADES_SHORE): (
@@ -326,10 +410,16 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.SPELL_LAB): (
         (
             ZorkGrandInquisitorItems.SWORD,
-            ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
             ZorkGrandInquisitorEvents.DAM_DESTROYED,
             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
-            ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (

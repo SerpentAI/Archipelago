@@ -23,6 +23,7 @@ from .data_funcs import (
     id_to_craftable_spell_behaviors,
     id_to_deathsanity,
     id_to_goals,
+    id_to_hotspots,
     id_to_landmarksanity,
     id_to_starting_locations,
     item_groups,
@@ -41,6 +42,7 @@ from .enums import (
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEvents,
     ZorkGrandInquisitorGoals,
+    ZorkGrandInquisitorHotspots,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
@@ -105,6 +107,7 @@ class ZorkGrandInquisitorWorld(World):
     filler_item_names: List[str] = item_groups()["Filler"]
     goal: ZorkGrandInquisitorGoals
     grant_missable_location_checks: bool
+    hotspots: ZorkGrandInquisitorHotspots
     initial_totemizer_destination: ZorkGrandInquisitorItems
     item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
@@ -116,7 +119,6 @@ class ZorkGrandInquisitorWorld(World):
 
     locked_items: Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems]
     place_early_items_locally: bool
-    start_with_hotspot_items: bool
     starter_kit: Tuple[ZorkGrandInquisitorItems, ...]
     starting_location: ZorkGrandInquisitorStartingLocations
 
@@ -138,9 +140,8 @@ class ZorkGrandInquisitorWorld(World):
                 early_items_for_starting_location[self.starting_location]
             )
 
-        self.start_with_hotspot_items = bool(self.options.start_with_hotspot_items)
-
         self.craftable_spells = id_to_craftable_spell_behaviors()[self.options.craftable_spells.value]
+        self.hotspots = id_to_hotspots()[self.options.hotspots]
 
         self.deathsanity = id_to_deathsanity()[self.options.deathsanity]
         self.landmarksanity = id_to_landmarksanity()[self.options.landmarksanity]
@@ -264,9 +265,24 @@ class ZorkGrandInquisitorWorld(World):
         for item in self.starter_kit:
             items_to_precollect.add(item)
 
-        if self.start_with_hotspot_items:
-            for item in items_with_tag(ZorkGrandInquisitorTags.HOTSPOT):
+        hotspot_items: Set[ZorkGrandInquisitorItems] = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
+
+        hotspot_regional_items: Set[ZorkGrandInquisitorItems] = items_with_tag(
+            ZorkGrandInquisitorTags.HOTSPOT_REGIONAL
+        )
+
+        if self.hotspots == ZorkGrandInquisitorHotspots.ENABLED:
+            for item in hotspot_items:
+                items_to_ignore.add(item)
+
+            for item in hotspot_regional_items:
                 items_to_precollect.add(item)
+        elif self.hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION:
+            for item in hotspot_items:
+                items_to_ignore.add(item)
+        elif self.hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT:
+            for item in hotspot_regional_items:
+                items_to_ignore.add(item)
 
         items_to_precollect.add(self.initial_totemizer_destination)
 
@@ -323,7 +339,7 @@ class ZorkGrandInquisitorWorld(World):
         slot_data: Dict[str, Any] = self.options.as_dict(
             "goal",
             "starting_location",
-            "start_with_hotspot_items",
+            "hotspots",
             "craftable_spells",
             "deathsanity",
             "landmarksanity",

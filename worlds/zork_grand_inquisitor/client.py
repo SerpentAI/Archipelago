@@ -11,6 +11,7 @@ from .data_funcs import (
     item_names_to_item,
     location_names_to_id,
     id_to_deathsanity,
+    id_to_hotspots,
     id_to_items,
     id_to_landmarksanity,
     id_to_locations,
@@ -106,6 +107,10 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             self.game_controller.option_starting_location = (
                 id_to_starting_locations()[_args["slot_data"]["starting_location"]]
+            )
+
+            self.game_controller.option_hotspots = (
+                id_to_hotspots()[_args["slot_data"]["hotspots"]]
             )
 
             self.game_controller.option_deathsanity = (

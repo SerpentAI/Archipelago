@@ -64,12 +64,14 @@ item_data_transforms: Dict[
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
+            ZorkGrandInquisitorItems.MONASTERY_ROPE,
         )
     },
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
+            ZorkGrandInquisitorItems.MONASTERY_ROPE,
         )
     },
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: None,

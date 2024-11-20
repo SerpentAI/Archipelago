@@ -36,6 +36,12 @@ class ZorkGrandInquisitorGoals(enum.Enum):
     NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE = 4
 
 
+class ZorkGrandInquisitorHotspots(enum.Enum):
+    ENABLED = 0
+    REQUIRE_ITEM_PER_REGION = 1
+    REQUIRE_ITEM_PER_HOTSPOT = 2
+
+
 class ZorkGrandInquisitorItems(enum.Enum):
     BROGS_BICKERING_TORCH = "Brog's Bickering Torch"
     BROGS_FLICKERING_TORCH = "Brog's Flickering Torch"
@@ -99,6 +105,17 @@ class ZorkGrandInquisitorItems(enum.Enum):
     HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR = "Hotspot: Port Foozle Past Tavern Door"
     HOTSPOT_PURPLE_WORDS = "Hotspot: Purple Words"
     HOTSPOT_QUELBEE_HIVE = "Hotspot: Quelbee Hive"
+    HOTSPOT_REGIONAL_CROSSROADS = "Hotspots: Crossroads"
+    HOTSPOT_REGIONAL_DM_LAIR = "Hotspots: Dungeon Master's Lair"
+    HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO = "Hotspots: Dragon Archipelago"
+    HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM = "Hotspots: Flood Control Dam #3"
+    HOTSPOT_REGIONAL_GUE_TECH = "Hotspots: GUE Tech"
+    HOTSPOT_REGIONAL_HADES = "Hotspots: Hades"
+    HOTSPOT_REGIONAL_MONASTERY = "Hotspots: Monastery"
+    HOTSPOT_REGIONAL_PORT_FOOZLE = "Hotspots: Port Foozle"
+    HOTSPOT_REGIONAL_PORT_FOOZLE_PAST = "Hotspots: Past Port Foozle"
+    HOTSPOT_REGIONAL_SPELL_LAB = "Hotspots: Spell Lab"
+    HOTSPOT_REGIONAL_WHITE_HOUSE = "Hotspots: White House"
     HOTSPOT_ROPE_BRIDGE = "Hotspot: Rope Bridge"
     HOTSPOT_SKULL_CAGE = "Hotspot: Skull Cage"
     HOTSPOT_SNAPDRAGON = "Hotspot: Snapdragon"
@@ -409,6 +426,7 @@ class ZorkGrandInquisitorTags(enum.Enum):
     FILLER = "Filler"
     GOAL_THREE_ARTIFACTS = "Goal: Three Artifacts"
     HOTSPOT = "Hotspot"
+    HOTSPOT_REGIONAL = "Regional Hotspot"
     INVENTORY_ITEM = "Inventory Item"
     LANDMARKSANITY = "Landmarksanity"
     MISSABLE = "Missable"

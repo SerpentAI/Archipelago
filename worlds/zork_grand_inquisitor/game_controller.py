@@ -8,6 +8,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
+from .data.mapping_data import hotspots_for_regional_hotspot
 
 from .data.missable_location_data import (
     missable_location_grant_conditions_data,
@@ -19,6 +20,7 @@ from .data_funcs import game_id_to_items, items_with_tag, locations_with_tag
 from .enums import (
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
+    ZorkGrandInquisitorHotspots,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
@@ -52,6 +54,7 @@ class GameController:
 
     option_goal: Optional[ZorkGrandInquisitorGoals]
     option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
+    option_hotspots: Optional[ZorkGrandInquisitorHotspots]
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
@@ -89,6 +92,7 @@ class GameController:
 
         self.option_goal = None
         self.option_starting_location = None
+        self.option_hotspots = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
@@ -191,11 +195,20 @@ class GameController:
             self.log(f"    {item}")
 
     def list_received_hotspots(self) -> None:
+        if self.option_hotspots == ZorkGrandInquisitorHotspots.ENABLED:
+            self.log("Hotspots are enabled for this seed and don't require items")
+            return
+
         self.log("Received Hotspots:")
 
         self._process_received_items()
 
-        hotspot_items: Set[ZorkGrandInquisitorItems] = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
+        hotspot_items: Set[ZorkGrandInquisitorItems] = set()
+        if self.option_hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION:
+            hotspot_items = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL)
+        elif self.option_hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT:
+            hotspot_items = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
+
         received_hotspots: Set[ZorkGrandInquisitorItems] = self.received_items & hotspot_items
 
         if not len(received_hotspots):
@@ -538,6 +551,11 @@ class GameController:
                 continue
 
             self.received_items.add(item)
+
+            if ZorkGrandInquisitorTags.HOTSPOT_REGIONAL in data.tags:
+                hotspot_item: ZorkGrandInquisitorItems
+                for hotspot_item in hotspots_for_regional_hotspot[item]:
+                    self.received_items.add(hotspot_item)
 
     def _manage_hotspots(self) -> None:
         hotspot_item: ZorkGrandInquisitorItems
