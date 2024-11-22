@@ -10,6 +10,7 @@ from .data_funcs import (
     item_names_to_id,
     item_names_to_item,
     location_names_to_id,
+    id_to_client_seed_information,
     id_to_craftable_spell_behaviors,
     id_to_deathsanity,
     id_to_hotspots,
@@ -139,6 +140,10 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             self.game_controller.option_grant_missable_location_checks = (
                 _args["slot_data"]["grant_missable_location_checks"] == 1
+            )
+
+            self.game_controller.option_client_seed_information = (
+                id_to_client_seed_information()[_args["slot_data"]["client_seed_information"]]
             )
 
             # Starter Kit

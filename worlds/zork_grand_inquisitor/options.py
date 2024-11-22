@@ -147,6 +147,24 @@ class GrantMissableLocationChecks(Toggle):
     display_name: str = "Grant Missable Checks"
 
 
+class ClientSeedInformation(Choice):
+    """
+    Determines what information about the seed the client will reveal after using the /zork command
+
+    Reveal Nothing: No information about the seed is displayed
+    Reveal Goal: Only the goal of the seed is displayed
+    Reveal Goal and Options: Both the goal and the options of the seed are displayed
+    """
+
+    display_name: str = "Client Seed Information"
+
+    option_reveal_nothing: int = 0
+    option_reveal_goal: int = 1
+    option_reveal_goal_and_options: int = 2
+
+    default = 2
+
+
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     goal: Goal
@@ -158,3 +176,4 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
     grant_missable_location_checks: GrantMissableLocationChecks
+    client_seed_information: ClientSeedInformation

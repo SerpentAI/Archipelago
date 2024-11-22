@@ -1,6 +1,12 @@
 import enum
 
 
+class ZorkGrandInquisitorClientSeedInformation(enum.Enum):
+    REVEAL_NOTHING = 0
+    REVEAL_GOAL = 1
+    REVEAL_GOAL_AND_OPTIONS = 2
+
+
 class ZorkGrandInquisitorCraftableSpellBehaviors(enum.Enum):
     VANILLA = 0
     ANY_SPELL = 1

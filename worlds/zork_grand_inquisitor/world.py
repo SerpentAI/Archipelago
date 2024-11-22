@@ -383,6 +383,7 @@ class ZorkGrandInquisitorWorld(World):
             "deathsanity",
             "landmarksanity",
             "grant_missable_location_checks",
+            "client_seed_information",
         )
 
         slot_data["starter_kit"] = sorted([item.value for item in self.starter_kit])

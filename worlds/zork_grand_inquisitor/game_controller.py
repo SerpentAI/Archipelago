@@ -18,6 +18,7 @@ from .data.missable_location_data import (
 from .data_funcs import game_id_to_items, items_with_tag, locations_with_tag
 
 from .enums import (
+    ZorkGrandInquisitorClientSeedInformation,
     ZorkGrandInquisitorCraftableSpellBehaviors,
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
@@ -65,6 +66,7 @@ class GameController:
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
+    option_client_seed_information: Optional[ZorkGrandInquisitorClientSeedInformation]
 
     starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
@@ -116,6 +118,7 @@ class GameController:
         self.option_deathsanity = None
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
+        self.option_client_seed_information = None
 
         self.starter_kit = None
         self.initial_totemizer_destination = None
@@ -179,7 +182,15 @@ class GameController:
     def output_seed_information(self) -> None:
         if self.option_goal is not None:
             self.log("Seed Information:")
+
+            if self.option_client_seed_information == ZorkGrandInquisitorClientSeedInformation.REVEAL_NOTHING:
+                self.log("    REDACTED by the Inquisition")
+                return
+
             self.log(f"    Goal: {labels_for_enum_items[self.option_goal]}")
+
+            if self.option_client_seed_information == ZorkGrandInquisitorClientSeedInformation.REVEAL_GOAL:
+                return
 
             if self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
                 self.log(f"    Artifacts of Magic Required: {self.option_artifacts_of_magic_required}")

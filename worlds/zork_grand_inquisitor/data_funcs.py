@@ -8,6 +8,7 @@ from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.transform_data import item_data_transforms, location_data_transforms
 
 from .enums import (
+    ZorkGrandInquisitorClientSeedInformation,
     ZorkGrandInquisitorCraftableSpellBehaviors,
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEvents,
@@ -46,6 +47,10 @@ def location_names_to_location() -> Dict[Any, ZorkGrandInquisitorLocations]:
         for location, data in location_data.items()
         if data.archipelago_id is not None
     }
+
+
+def id_to_client_seed_information() -> Dict[int, ZorkGrandInquisitorClientSeedInformation]:
+    return {info.value: info for info in ZorkGrandInquisitorClientSeedInformation}
 
 
 def id_to_craftable_spell_behaviors() -> Dict[int, ZorkGrandInquisitorCraftableSpellBehaviors]:

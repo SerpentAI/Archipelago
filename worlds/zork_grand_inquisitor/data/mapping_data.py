@@ -1,6 +1,7 @@
 from typing import Dict, Optional, Tuple, Union
 
 from ..enums import (
+    ZorkGrandInquisitorClientSeedInformation,
     ZorkGrandInquisitorCraftableSpellBehaviors,
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
@@ -319,6 +320,9 @@ labels_for_enum_items: Dict[
     ],
     str
 ] = {
+    ZorkGrandInquisitorClientSeedInformation.REVEAL_NOTHING: "Reveal Nothing",
+    ZorkGrandInquisitorClientSeedInformation.REVEAL_GOAL: "Reveal Goal",
+    ZorkGrandInquisitorClientSeedInformation.REVEAL_GOAL_AND_OPTIONS: "Reveal Goal and Options",
     ZorkGrandInquisitorCraftableSpellBehaviors.VANILLA: "Vanilla",
     ZorkGrandInquisitorCraftableSpellBehaviors.ANY_SPELL: "Any Spell",
     ZorkGrandInquisitorCraftableSpellBehaviors.ANYTHING: "Anything",
