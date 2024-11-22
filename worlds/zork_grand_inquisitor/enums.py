@@ -56,7 +56,7 @@ class ZorkGrandInquisitorItems(enum.Enum):
     FILLER_AIMFIZ_SCROLL = "AIMFIZ Scroll: Transport Caster to Someone Else's Location"
     FILLER_BAYALA_SCROLL = "BAYALA Scroll: Deform Body"
     FILLER_BITTYJOO_SCROLL = "BITTYJOO Scroll: Make Lies Undetectable"
-    FILLER_BLORB_SCROLL = "BLORB Scroll: Safely Protext a Small Object"
+    FILLER_BLORB_SCROLL = "BLORB Scroll: Safely Protect a Small Object"
     FILLER_BLORPLE_SCROLL = "BLORPLE Scroll: Explore an Object's Mystic Connections"
     FILLER_BOOZNIK_SCROLL = "BOOZNIK Scroll: Reverse Spells in Spellbook"
     FILLER_BORCH_SCROLL = "BORCH Scroll: Put Insects to Sleep"
