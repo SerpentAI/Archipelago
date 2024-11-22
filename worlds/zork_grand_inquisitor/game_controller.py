@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
-from .data.mapping_data import hotspots_for_regional_hotspot
+from .data.mapping_data import hotspots_for_regional_hotspot, labels_for_enum_items
 
 from .data.missable_location_data import (
     missable_location_grant_conditions_data,
@@ -18,6 +18,7 @@ from .data.missable_location_data import (
 from .data_funcs import game_id_to_items, items_with_tag, locations_with_tag
 
 from .enums import (
+    ZorkGrandInquisitorCraftableSpellBehaviors,
     ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorHotspots,
@@ -42,7 +43,9 @@ class GameController:
     completed_locations_queue: collections.deque
     received_items_queue: collections.deque
 
+    all_spell_items: Set[ZorkGrandInquisitorItems]
     all_hotspot_items: Set[ZorkGrandInquisitorItems]
+    all_goal_items: Set[ZorkGrandInquisitorItems]
 
     game_id_to_items: Dict[int, ZorkGrandInquisitorItems]
 
@@ -50,11 +53,15 @@ class GameController:
 
     available_inventory_slots: Set[int]
 
+    goal_item_count: int
     goal_completed: bool
 
     option_goal: Optional[ZorkGrandInquisitorGoals]
+    option_artifacts_of_magic_required: Optional[int]
+    option_artifacts_of_magic_total: Optional[int]
     option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
     option_hotspots: Optional[ZorkGrandInquisitorHotspots]
+    option_craftable_spells: Optional[ZorkGrandInquisitorCraftableSpellBehaviors]
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
@@ -72,11 +79,19 @@ class GameController:
         self.completed_locations_queue = collections.deque()
         self.received_items_queue = collections.deque()
 
+        self.all_spell_items = items_with_tag(ZorkGrandInquisitorTags.SPELL)
+
         self.all_hotspot_items = (
             items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
             | items_with_tag(ZorkGrandInquisitorTags.SUBWAY_DESTINATION)
             | items_with_tag(ZorkGrandInquisitorTags.TOTEMIZER_DESTINATION)
         )
+
+        self.all_goal_items = {
+            ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC,
+            ZorkGrandInquisitorItems.LANDMARK,
+            ZorkGrandInquisitorItems.DEATH,
+        }
 
         self.game_id_to_items = game_id_to_items()
 
@@ -88,11 +103,15 @@ class GameController:
 
         self.available_inventory_slots = set()
 
+        self.goal_item_count = 0
         self.goal_completed = False
 
         self.option_goal = None
+        self.option_artifacts_of_magic_required = None
+        self.option_artifacts_of_magic_total = None
         self.option_starting_location = None
         self.option_hotspots = None
+        self.option_craftable_spells = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
@@ -154,6 +173,52 @@ class GameController:
 
     def is_process_running(self) -> bool:
         return self.game_state_manager.is_process_running
+
+    def output_seed_information(self) -> None:
+        if self.option_goal is not None:
+            self.log("Seed Information:")
+            self.log(f"    Goal: {labels_for_enum_items[self.option_goal]}")
+
+            if self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+                self.log(f"    Artifacts of Magic Required: {self.option_artifacts_of_magic_required}")
+                self.log(f"    Artifacts of Magic Total: {self.option_artifacts_of_magic_total}")
+
+            self.log(f"    Starting Location: {labels_for_enum_items[self.option_starting_location]}")
+            self.log(f"    Hotspots: {labels_for_enum_items[self.option_hotspots]}")
+            self.log(f"    Craftable Spells: {labels_for_enum_items[self.option_craftable_spells]}")
+            self.log(f"    Deathsanity: {labels_for_enum_items[self.option_deathsanity]}")
+            self.log(f"    Landmarksanity: {labels_for_enum_items[self.option_landmarksanity]}")
+
+            if self.option_grant_missable_location_checks:
+                self.log(f"    Grant Missable Location Checks: On")
+            else:
+                self.log(f"    Grant Missable Location Checks: Off")
+
+    def output_goal_item_update(self) -> None:
+        if self.goal_completed:
+            return
+
+        if self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+            self.log(
+                f"Received Artifact of Magic {self.goal_item_count} of {self.option_artifacts_of_magic_required}"
+            )
+
+            if self.goal_item_count >= self.option_artifacts_of_magic_required:
+                self.log("All needed Artifacts of Magic have been found! Get to the Walking Castle")
+        elif self.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+            self.log(
+                f"Visited {self.goal_item_count} of 20 Landmarks"
+            )
+
+            if self.goal_item_count == 20:
+                self.log("All Landmarks have been visited! Get to the Port Foozle signpost")
+        elif self.option_goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+            self.log(
+                f"Experienced {self.goal_item_count} of 22 Deaths"
+            )
+
+            if self.goal_item_count == 22:
+                self.log("All Deaths have been experienced! Go beyond the gates of hell")
 
     def list_received_brog_items(self) -> None:
         self.log("Received Brog Items:")
@@ -1091,6 +1156,22 @@ class GameController:
             skull_is_placed = self._read_game_state_value_for(2321) == 1
 
             self.goal_completed = coconut_is_placed and cube_is_placed and skull_is_placed
+        elif self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+            if self.goal_item_count >= self.option_artifacts_of_magic_required:
+                if self._player_is_at("dc10") and self._player_is_afgncaap():
+                    self.goal_completed = True
+        elif self.option_goal == ZorkGrandInquisitorGoals.SPELL_HEIST:
+            if not len(self.all_spell_items - self.received_items):
+                if self._player_is_at("ps1e"):
+                    self.goal_completed = True
+        elif self.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+            if self.goal_item_count == 20:
+                if self._player_is_at("ps1e"):
+                    self.goal_completed = True
+        elif self.option_goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+            if self.goal_item_count == 22:
+                if self._player_is_at("hp60"):
+                    self.goal_completed = True
 
     def _determine_game_state_inventory(self) -> Set[ZorkGrandInquisitorItems]:
         game_state_inventory: Set[ZorkGrandInquisitorItems] = set()
@@ -1103,7 +1184,16 @@ class GameController:
                 game_state_inventory.add(self.game_id_to_items[item_on_cursor])
 
         # Item in Inspector
-        item_in_inspector: int = self._read_game_state_value_for(4512)
+        item_in_inspector: int = 0
+
+        if self._player_is_afgncaap():
+            item_in_inspector = self._read_game_state_value_for(4512)
+        elif self._player_is_brog():
+            item_in_inspector = self._read_game_state_value_for(2194)
+        elif self._player_is_griff():
+            item_in_inspector = self._read_game_state_value_for(2196)
+        elif self._player_is_lucy():
+            item_in_inspector = self._read_game_state_value_for(2198)
 
         if item_in_inspector != 0:
             if item_in_inspector in self.game_id_to_items:
@@ -1305,6 +1395,8 @@ class GameController:
                 elif self._read_game_state_value_for(17620) == 3:
                     to_filter_inventory_items.add(item)
                 elif self._read_game_state_value_for(4034) == 1:
+                    to_filter_inventory_items.add(item)
+                elif self._read_game_state_value_for(12167) == 1:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.ZORK_ROCKS:
                 if self._read_game_state_value_for(12486) == 1:

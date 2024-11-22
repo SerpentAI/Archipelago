@@ -78,7 +78,7 @@ item_data_transforms: Dict[
     ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: None,
     ZorkGrandInquisitorGoals.SPELL_HEIST: None,
     ZorkGrandInquisitorGoals.ZORK_TOUR: None,
-    ZorkGrandInquisitorGoals.NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE: None,
+    ZorkGrandInquisitorGoals.GRIM_JOURNEY: None,
     ZorkGrandInquisitorDeathsanity.OFF: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
@@ -104,29 +104,41 @@ location_data_transforms: Dict[
     ZorkGrandInquisitorStartingLocations.CROSSROADS: None,
     ZorkGrandInquisitorStartingLocations.DM_LAIR: None,
     ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: None,
-    ZorkGrandInquisitorStartingLocations.GUE_TECH: {
-        ZorkGrandInquisitorLocationTransforms.REMOVE: (
-            ZorkGrandInquisitorLocations.LANDMARK_GUE_TECH_FOUNTAIN_INSIDE,
-        )
-    },
+    ZorkGrandInquisitorStartingLocations.GUE_TECH: None,
     ZorkGrandInquisitorStartingLocations.SPELL_LAB: None,
-    ZorkGrandInquisitorStartingLocations.HADES_SHORE: {
-        ZorkGrandInquisitorLocationTransforms.REMOVE: (
-            ZorkGrandInquisitorLocations.LANDMARK_HADES_SHORE,
-        )
-    },
+    ZorkGrandInquisitorStartingLocations.HADES_SHORE: None,
     ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: None,
-    ZorkGrandInquisitorStartingLocations.MONASTERY: {
-        ZorkGrandInquisitorLocationTransforms.REMOVE: (
-            ZorkGrandInquisitorLocations.LANDMARK_TOTEMIZER,
-        )
-    },
+    ZorkGrandInquisitorStartingLocations.MONASTERY: None,
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: None,
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: None,
-    ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: None,  # TODO: Remember to remove 3 locations of artifacts
-    ZorkGrandInquisitorGoals.SPELL_HEIST: None,
-    ZorkGrandInquisitorGoals.ZORK_TOUR: None,
-    ZorkGrandInquisitorGoals.NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE: None,
+    ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: {
+        ZorkGrandInquisitorLocationTransforms.REMOVE: (
+            ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
+            ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
+            ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP,
+        ),
+    },
+    ZorkGrandInquisitorGoals.SPELL_HEIST: {
+        ZorkGrandInquisitorLocationTransforms.REMOVE: (
+            ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
+            ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
+            ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP,
+        ),
+    },
+    ZorkGrandInquisitorGoals.ZORK_TOUR: {
+        ZorkGrandInquisitorLocationTransforms.REMOVE: (
+            ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
+            ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
+            ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP,
+        ),
+    },
+    ZorkGrandInquisitorGoals.GRIM_JOURNEY: {
+        ZorkGrandInquisitorLocationTransforms.REMOVE: (
+            ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
+            ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
+            ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP,
+        ),
+    },
     ZorkGrandInquisitorDeathsanity.OFF: {
         ZorkGrandInquisitorLocationTransforms.REMOVE: (
             ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK,

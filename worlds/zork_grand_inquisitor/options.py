@@ -1,19 +1,57 @@
 from dataclasses import dataclass
 
-from Options import Choice, DefaultOnToggle, PerGameCommonOptions, Toggle
+from Options import Choice, DefaultOnToggle, PerGameCommonOptions, Range, Toggle
 
 
 class Goal(Choice):
     """
     Determines the victory condition
 
-    Three Artifacts: Retrieve the three artifacts of magic and place them in the walking castle
+    Three Artifacts: Retrieve the Coconut of Quendor, the Cube of Foundation and the Skull of Yoruk
+    Artifact of Magic Hunt: Retrieve X artifacts of magic and bring them to the walking castle
+    Spell Heist: Acquire all spells and travel to the Port Foozle signpost
+    Zork Tour: Visit all 20 landmarks and travel to the Port Foozle signpost
+    Grim Journey: Experience all 22 player deaths and go beyond the gates of Hades
     """
     display_name: str = "Goal"
 
     option_three_artifacts: int = 0
+    option_artifact_of_magic_hunt: int = 1
+    option_spell_heist: int = 2
+    option_zork_tour: int = 3
+    option_grim_journey: int = 4
 
     default = 0
+
+
+class ArtifactsOfMagicTotal(Range):
+    """
+    Determines how many Artifacts of Magic are in the item pool
+
+    Only relevant if the selected goal is Artifact of Magic Hunt
+    """
+
+    display_name = "Artifacts of Magic Total"
+
+    range_start = 5
+    range_end = 25
+
+    default = 15
+
+
+class ArtifactsOfMagicRequired(Range):
+    """
+    Determines how many Artifacts of Magic are required to win
+
+    Only relevant if the selected goal is Artifact of Magic Hunt
+    """
+
+    display_name = "Artifacts of Magic Required"
+
+    range_start = 5
+    range_end = 25
+
+    default = 10
 
 
 class StartingLocation(Choice):
@@ -77,21 +115,23 @@ class CraftableSpells(Choice):
 
 
 class Deathsanity(Toggle):
-    """If true, adds 22 unique player death locations to the world"""  # TODO: Add note about it being forced in Necro goal
+    """
+    If true, adds 22 unique player death locations to the world
+
+    This option will be forced on if your goal is Grim Journey
+    """
 
     display_name: str = "Deathsanity"
 
 
 class Landmarksanity(DefaultOnToggle):
-    """If true, adds 20 landmark locations to the world"""  # TODO: Add note about it being forced in Zork Tour goal
+    """
+    If true, adds 20 landmark locations to the world
+
+    This option will be forced on if your goal is Zork Tour
+    """
 
     display_name: str = "Landmarksanity"
-
-
-class PlaceEarlyItemsLocally(Toggle):
-    """If true, items to be placed early in the multiworld (when applicable) will be placed locally"""
-
-    display_name: str = "Place Early Items Locally"
 
 
 class GrantMissableLocationChecks(Toggle):
@@ -110,10 +150,11 @@ class GrantMissableLocationChecks(Toggle):
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     goal: Goal
+    artifacts_of_magic_total: ArtifactsOfMagicTotal
+    artifacts_of_magic_required: ArtifactsOfMagicRequired
     starting_location: StartingLocation
     hotspots: Hotspots
     craftable_spells: CraftableSpells
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
-    place_early_items_locally: PlaceEarlyItemsLocally
     grant_missable_location_checks: GrantMissableLocationChecks

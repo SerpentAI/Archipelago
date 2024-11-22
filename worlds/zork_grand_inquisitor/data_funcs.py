@@ -218,12 +218,6 @@ def prepare_location_data(
         Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents], ZorkGrandInquisitorLocationData
     ] = dict()
 
-    # Force certain options depending on goal
-    if goal == ZorkGrandInquisitorGoals.NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE:
-        deathsanity = ZorkGrandInquisitorDeathsanity.ON
-    elif goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
-        landmarksanity = ZorkGrandInquisitorLandmarksanity.ON
-
     # Filter locations
     location: Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents]
     data: ZorkGrandInquisitorLocationData
@@ -246,7 +240,8 @@ def prepare_location_data(
 
     location: ZorkGrandInquisitorLocations
     for location in locations_to_remove:
-        del transformed_location_data[location]
+        if location in transformed_location_data:
+            del transformed_location_data[location]
 
     return transformed_location_data
 
@@ -373,6 +368,8 @@ def entrance_access_rule_for(
                 lambda_string += f"state.has(\"{requirement.value}\", {player})"
             elif requirement_type == ZorkGrandInquisitorRegions:
                 lambda_string += f"state.can_reach(\"{requirement.value}\", \"Region\", {player})"
+            elif isinstance(requirement, list):
+                lambda_string += f"state.has(\"{requirement[0].value}\", {player}, {requirement[1]})"
             elif isinstance(requirement, tuple):
                 lambda_string += "("
 
@@ -401,10 +398,42 @@ def goal_access_rule_for(
     region: ZorkGrandInquisitorRegions,
     goal: ZorkGrandInquisitorGoals,
     player: int,
+    artifacts_of_magic_required: int,
 ) -> str:
+    dataset: Dict[
+        Tuple[
+            ZorkGrandInquisitorRegions,
+            ZorkGrandInquisitorRegions,
+        ],
+        Union[
+            Tuple[
+                Tuple[
+                    Union[
+                        ZorkGrandInquisitorEvents,
+                        ZorkGrandInquisitorItems,
+                        ZorkGrandInquisitorRegions,
+                        List[Union[ZorkGrandInquisitorItems, int]],
+                    ],
+                    ...,
+                ],
+                ...,
+            ],
+            None,
+        ],
+    ] = endgame_entrance_data_by_goal[goal]
+
+    # Replace placeholder with actual number of artifacts of magic required
+    if goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+        dataset[
+            (
+                ZorkGrandInquisitorRegions.WALKING_CASTLE,
+                ZorkGrandInquisitorRegions.ENDGAME
+            )
+        ][0][0][1] = artifacts_of_magic_required
+
     return entrance_access_rule_for(
         region,
         ZorkGrandInquisitorRegions.ENDGAME,
         player,
-        dataset=endgame_entrance_data_by_goal[goal],
+        dataset=dataset,
     )

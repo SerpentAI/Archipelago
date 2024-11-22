@@ -10,6 +10,7 @@ from .data_funcs import (
     item_names_to_id,
     item_names_to_item,
     location_names_to_id,
+    id_to_craftable_spell_behaviors,
     id_to_deathsanity,
     id_to_hotspots,
     id_to_items,
@@ -31,6 +32,8 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
         if result:
             self.ctx.process_attached_at_least_once = True
             self.output("Successfully attached to Zork Grand Inquisitor process.")
+
+            self.ctx.game_controller.output_seed_information()
         else:
             self.output("Failed to attach to Zork Grand Inquisitor process.")
 
@@ -105,12 +108,24 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             # Options
             self.game_controller.option_goal = id_to_goals()[_args["slot_data"]["goal"]]
 
+            self.game_controller.option_artifacts_of_magic_required = (
+                _args["slot_data"]["artifacts_of_magic_required"]
+            )
+
+            self.game_controller.option_artifacts_of_magic_total = (
+                _args["slot_data"]["artifacts_of_magic_total"]
+            )
+
             self.game_controller.option_starting_location = (
                 id_to_starting_locations()[_args["slot_data"]["starting_location"]]
             )
 
             self.game_controller.option_hotspots = (
                 id_to_hotspots()[_args["slot_data"]["hotspots"]]
+            )
+
+            self.game_controller.option_craftable_spells = (
+                id_to_craftable_spell_behaviors()[_args["slot_data"]["craftable_spells"]]
             )
 
             self.game_controller.option_deathsanity = (
@@ -135,13 +150,23 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             await asyncio.sleep(0.1)
 
             # Enqueue Received Item Delta
+            goal_item_count: int = 0
+
             network_item: NetUtils.NetworkItem
             for network_item in self.items_received:
                 item: ZorkGrandInquisitorItems = self.id_to_items[network_item.item]
 
+                if item in self.game_controller.all_goal_items:
+                    goal_item_count += 1
+                    continue
+
                 if item not in self.game_controller.received_items:
                     if item not in self.game_controller.received_items_queue:
                         self.game_controller.received_items_queue.append(item)
+
+            if goal_item_count > self.game_controller.goal_item_count:
+                self.game_controller.goal_item_count = goal_item_count
+                self.game_controller.output_goal_item_update()
 
             # Game Controller Update
             if self.game_controller.is_process_running():

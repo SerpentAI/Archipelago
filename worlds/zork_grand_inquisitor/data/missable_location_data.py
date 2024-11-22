@@ -117,6 +117,27 @@ missable_location_grant_conditions_data: Dict[
             item_conditions=(ZorkGrandInquisitorItems.SPELL_IGRAM,),
         )
     ,
+    ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE:
+        ZorkGrandInquisitorMissableLocationGrantConditionsData(
+            game_location_condition="th10",
+            location_condition=(ZorkGrandInquisitorLocations.A_SMALLWAY,),
+            item_conditions=None,
+        )
+    ,
+    ZorkGrandInquisitorLocations.ITS_PLAYING_A_LITTLE_HARD_TO_GET:
+        ZorkGrandInquisitorMissableLocationGrantConditionsData(
+            game_location_condition="dg2f",
+            location_condition=(ZorkGrandInquisitorLocations.PROZORKED,),
+            item_conditions=(ZorkGrandInquisitorItems.SPELL_OBIDIL,),
+        )
+    ,
+    ZorkGrandInquisitorLocations.IT_DOESNT_APPEAR_TO_BE_FOOLED:
+        ZorkGrandInquisitorMissableLocationGrantConditionsData(
+            game_location_condition="dg2f",
+            location_condition=(ZorkGrandInquisitorLocations.PROZORKED,),
+            item_conditions=(ZorkGrandInquisitorItems.SPELL_BEBURTT,),
+        )
+    ,
     ZorkGrandInquisitorLocations.I_DONT_THINK_YOU_WOULDVE_WANTED_THAT_TO_WORK_ANYWAY:
         ZorkGrandInquisitorMissableLocationGrantConditionsData(
             game_location_condition="dg2f",
@@ -220,7 +241,10 @@ missable_location_grant_conditions_data: Dict[
         ZorkGrandInquisitorMissableLocationGrantConditionsData(
             game_location_condition="dv10",
             location_condition=(ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO,),
-            item_conditions=(ZorkGrandInquisitorItems.SWORD, ZorkGrandInquisitorItems.HOTSPOT_HARRY),
+            item_conditions=(
+                ZorkGrandInquisitorItems.SWORD,
+                ZorkGrandInquisitorItems.HOTSPOT_HARRY
+            ),
         )
     ,
     ZorkGrandInquisitorLocations.YOU_DONT_GO_MESSING_WITH_A_MANS_ZIPPER:
@@ -235,6 +259,16 @@ missable_location_grant_conditions_data: Dict[
             game_location_condition="pe20",
             location_condition=(ZorkGrandInquisitorLocations.HELP_ME_CANT_BREATHE,),
             item_conditions=None,
+        )
+    ,
+    ZorkGrandInquisitorLocations.ZIMDOR_IS_UNDAMAGED:
+        ZorkGrandInquisitorMissableLocationGrantConditionsData(
+            game_location_condition="tp4g",
+            location_condition=(ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO,),
+            item_conditions=(
+                ZorkGrandInquisitorItems.ZIMDOR_SCROLL,
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+            ),
         )
     ,
 }

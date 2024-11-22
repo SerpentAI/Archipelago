@@ -1,8 +1,12 @@
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Union
 
 from ..enums import (
+    ZorkGrandInquisitorCraftableSpellBehaviors,
+    ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorGoals,
+    ZorkGrandInquisitorHotspots,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorRegions,
     ZorkGrandInquisitorStartingLocations,
 )
@@ -35,8 +39,8 @@ endgame_connecting_regions_for_goal: Dict[
     ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: ZorkGrandInquisitorRegions.WALKING_CASTLE,
     ZorkGrandInquisitorGoals.SPELL_HEIST: ZorkGrandInquisitorRegions.PORT_FOOZLE,
     ZorkGrandInquisitorGoals.ZORK_TOUR: ZorkGrandInquisitorRegions.PORT_FOOZLE,
-    ZorkGrandInquisitorGoals.NECROMANCER_OF_THE_GREAT_UNDERGROUND_EMPIRE: (
-        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+    ZorkGrandInquisitorGoals.GRIM_JOURNEY: (
+        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
     ),
 }
 
@@ -302,6 +306,44 @@ hotspots_for_regional_hotspot: Dict[ZorkGrandInquisitorItems, Tuple[ZorkGrandInq
         ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
         ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE,
     ),
+}
+
+labels_for_enum_items: Dict[
+    Union[
+        ZorkGrandInquisitorCraftableSpellBehaviors,
+        ZorkGrandInquisitorDeathsanity,
+        ZorkGrandInquisitorGoals,
+        ZorkGrandInquisitorHotspots,
+        ZorkGrandInquisitorLandmarksanity,
+        ZorkGrandInquisitorStartingLocations,
+    ],
+    str
+] = {
+    ZorkGrandInquisitorCraftableSpellBehaviors.VANILLA: "Vanilla",
+    ZorkGrandInquisitorCraftableSpellBehaviors.ANY_SPELL: "Any Spell",
+    ZorkGrandInquisitorCraftableSpellBehaviors.ANYTHING: "Anything",
+    ZorkGrandInquisitorDeathsanity.OFF: "Off",
+    ZorkGrandInquisitorDeathsanity.ON: "On",
+    ZorkGrandInquisitorGoals.THREE_ARTIFACTS: "Three Artifacts",
+    ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: "Artifact of Magic Hunt",
+    ZorkGrandInquisitorGoals.SPELL_HEIST: "Spell Heist",
+    ZorkGrandInquisitorGoals.ZORK_TOUR: "Zork Tour",
+    ZorkGrandInquisitorGoals.GRIM_JOURNEY: "Grim Journey",
+    ZorkGrandInquisitorHotspots.ENABLED: "Enabled",
+    ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION: "Require Item Per Region",
+    ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT: "Require Item Per Hotspot",
+    ZorkGrandInquisitorLandmarksanity.OFF: "Off",
+    ZorkGrandInquisitorLandmarksanity.ON: "On",
+    ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: "Port Foozle",
+    ZorkGrandInquisitorStartingLocations.CROSSROADS: "Crossroads",
+    ZorkGrandInquisitorStartingLocations.DM_LAIR: "Dungeon Master's Lair",
+    ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: "Dungeon Master's House",
+    ZorkGrandInquisitorStartingLocations.GUE_TECH: "GUE Tech",
+    ZorkGrandInquisitorStartingLocations.SPELL_LAB: "Spell Lab",
+    ZorkGrandInquisitorStartingLocations.HADES_SHORE: "Hades Shore",
+    ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: "Flood Control Dam #3",
+    ZorkGrandInquisitorStartingLocations.MONASTERY: "Monastery Totemizer",
+    ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: "Monastery Exhibit",
 }
 
 starter_kits_for_starting_location: Dict[

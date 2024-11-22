@@ -30,6 +30,7 @@ from .data_funcs import (
     items_with_tag,
     location_groups,
     locations_by_region_for_world,
+    locations_with_tag,
     prepare_item_data,
     prepare_location_data,
     location_access_rule_for,
@@ -101,6 +102,8 @@ class ZorkGrandInquisitorWorld(World):
 
     web = ZorkGrandInquisitorWebWorld()
 
+    artifacts_of_magic_required: int
+    artifacts_of_magic_total: int
     craftable_spells: ZorkGrandInquisitorCraftableSpellBehaviors
     deathsanity: ZorkGrandInquisitorDeathsanity
     early_items: Tuple[ZorkGrandInquisitorItems, ...]
@@ -118,12 +121,18 @@ class ZorkGrandInquisitorWorld(World):
     ]
 
     locked_items: Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems]
-    place_early_items_locally: bool
     starter_kit: Tuple[ZorkGrandInquisitorItems, ...]
     starting_location: ZorkGrandInquisitorStartingLocations
 
     def generate_early(self) -> None:
         self.goal = id_to_goals()[self.options.goal.value]
+
+        self.artifacts_of_magic_required = self.options.artifacts_of_magic_required.value
+        self.artifacts_of_magic_total = self.options.artifacts_of_magic_total.value
+
+        if self.artifacts_of_magic_required > self.artifacts_of_magic_total:
+            self.artifacts_of_magic_total = self.artifacts_of_magic_required
+
         self.starting_location = id_to_starting_locations()[self.options.starting_location.value]
 
         self.starter_kit = tuple()
@@ -144,9 +153,19 @@ class ZorkGrandInquisitorWorld(World):
         self.hotspots = id_to_hotspots()[self.options.hotspots]
 
         self.deathsanity = id_to_deathsanity()[self.options.deathsanity]
+
+        if self.goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY and (
+            self.deathsanity == ZorkGrandInquisitorDeathsanity.OFF
+        ):
+            self.deathsanity = ZorkGrandInquisitorDeathsanity.ON
+
         self.landmarksanity = id_to_landmarksanity()[self.options.landmarksanity]
 
-        self.place_early_items_locally = bool(self.options.place_early_items_locally)
+        if self.goal == ZorkGrandInquisitorGoals.ZORK_TOUR and (
+            self.landmarksanity == ZorkGrandInquisitorLandmarksanity.OFF
+        ):
+            self.landmarksanity = ZorkGrandInquisitorLandmarksanity.ON
+
         self.grant_missable_location_checks = bool(self.options.grant_missable_location_checks)
 
         self.item_data = prepare_item_data(
@@ -228,7 +247,13 @@ class ZorkGrandInquisitorWorld(World):
                     region.connect(region_mapping[region_exit], rule=eval(entrance_access_rule))
 
             if region_enum_item == region_connecting_endgame:
-                goal_access_rule: str = goal_access_rule_for(region_enum_item, self.goal, self.player)
+                goal_access_rule: str = goal_access_rule_for(
+                    region_enum_item,
+                    self.goal,
+                    self.player,
+                    self.artifacts_of_magic_required,
+                )
+
                 region.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
 
             self.multiworld.regions.append(region)
@@ -241,7 +266,13 @@ class ZorkGrandInquisitorWorld(World):
         region_menu.connect(region_mapping[region_starting_location])
 
         if region_connecting_endgame == ZorkGrandInquisitorRegions.MENU:
-            goal_access_rule: str = goal_access_rule_for(ZorkGrandInquisitorRegions.MENU, self.goal, self.player)
+            goal_access_rule: str = goal_access_rule_for(
+                ZorkGrandInquisitorRegions.MENU,
+                self.goal,
+                self.player,
+                self.artifacts_of_magic_required,
+            )
+
             region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
 
         self.multiworld.regions.append(region_menu)
@@ -258,6 +289,12 @@ class ZorkGrandInquisitorWorld(World):
 
         for item in items_with_tag(ZorkGrandInquisitorTags.GOAL_THREE_ARTIFACTS):
             items_to_ignore.add(item)
+
+        if self.goal != ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+            items_to_ignore.add(ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC)
+
+        items_to_ignore.add(ZorkGrandInquisitorItems.LANDMARK)
+        items_to_ignore.add(ZorkGrandInquisitorItems.DEATH)
 
         for item in self.locked_items.values():
             items_to_ignore.add(item)
@@ -302,7 +339,11 @@ class ZorkGrandInquisitorWorld(World):
             if item in items_to_ignore or item in items_to_precollect:
                 continue
 
-            item_pool.append(self.create_item(item.value))
+            if item == ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC:
+                for _ in range(self.artifacts_of_magic_total):
+                    item_pool.append(self.create_item(item.value))
+            else:
+                item_pool.append(self.create_item(item.value))
 
         total_locations: int = len(self.multiworld.get_unfilled_locations(self.player))
         item_pool += [self.create_filler() for _ in range(total_locations - len(item_pool))]
@@ -313,14 +354,10 @@ class ZorkGrandInquisitorWorld(World):
         for item in items_to_precollect:
             self.multiworld.push_precollected(self.create_item(item.value))
 
-        # Set Early Items
-        # TODO: Does this even work? Needs testing
+        # Early Items
         if len(items_to_place_early):
-            early: Dict[int, Dict[str, int]]
-            early = self.multiworld.local_early_items if self.place_early_items_locally else self.multiworld.early_items
-
             for item in items_to_place_early:
-                early[self.player][item.value] = 1
+                self.multiworld.early_items[self.player][item.value] = 1
 
     def create_item(self, name: str) -> ZorkGrandInquisitorItem:
         data: ZorkGrandInquisitorItemData = self.item_data[self.item_name_to_item[name]]
@@ -338,6 +375,8 @@ class ZorkGrandInquisitorWorld(World):
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data: Dict[str, Any] = self.options.as_dict(
             "goal",
+            "artifacts_of_magic_required",
+            "artifacts_of_magic_total",
             "starting_location",
             "hotspots",
             "craftable_spells",
@@ -371,6 +410,22 @@ class ZorkGrandInquisitorWorld(World):
             locked_items[
                 ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP
             ] = ZorkGrandInquisitorItems.CUBE_OF_FOUNDATION
+        elif self.goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+            landmarksanity_locations: Set[ZorkGrandInquisitorLocations] = locations_with_tag(
+                ZorkGrandInquisitorTags.LANDMARKSANITY
+            )
+
+            location: ZorkGrandInquisitorLocations
+            for location in landmarksanity_locations:
+                locked_items[location] = ZorkGrandInquisitorItems.LANDMARK
+        elif self.goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+            deathsanity_locations: Set[ZorkGrandInquisitorLocations] = locations_with_tag(
+                ZorkGrandInquisitorTags.DEATHSANITY
+            )
+
+            location: ZorkGrandInquisitorLocations
+            for location in deathsanity_locations:
+                locked_items[location] = ZorkGrandInquisitorItems.DEATH
 
         # Craftable Spells
         if self.craftable_spells == ZorkGrandInquisitorCraftableSpellBehaviors.VANILLA:

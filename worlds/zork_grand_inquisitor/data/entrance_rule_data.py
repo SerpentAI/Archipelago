@@ -1,4 +1,4 @@
-from typing import Dict, Tuple, Union
+from typing import Dict, List, Tuple, Union
 
 from ..enums import (
     ZorkGrandInquisitorEvents,
@@ -20,6 +20,7 @@ entrance_rule_data: Dict[
                     ZorkGrandInquisitorEvents,
                     ZorkGrandInquisitorItems,
                     ZorkGrandInquisitorRegions,
+                    List[Union[ZorkGrandInquisitorItems, int]],
                 ],
                 ...,
             ],
@@ -499,6 +500,7 @@ endgame_entrance_data_by_goal: Dict[
                         ZorkGrandInquisitorEvents,
                         ZorkGrandInquisitorItems,
                         ZorkGrandInquisitorRegions,
+                        List[Union[ZorkGrandInquisitorItems, int]]
                     ],
                     ...,
                 ],
@@ -506,7 +508,7 @@ endgame_entrance_data_by_goal: Dict[
             ],
             None,
         ],
-    ],
+    ]
 ] = {
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: {
         (ZorkGrandInquisitorRegions.MENU, ZorkGrandInquisitorRegions.ENDGAME): (
@@ -517,21 +519,42 @@ endgame_entrance_data_by_goal: Dict[
             ),
         )
     },
-    # ZorkGrandInquisitorGoals.SPELL_HEIST: {
-    #     (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
-    #         (
-    #             ZorkGrandInquisitorItems.SPELL_BEBURTT,
-    #             ZorkGrandInquisitorItems.SPELL_GLORF,
-    #             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
-    #             ZorkGrandInquisitorItems.SPELL_IGRAM,
-    #             ZorkGrandInquisitorItems.SPELL_KENDALL,
-    #             ZorkGrandInquisitorItems.SPELL_OBIDIL,
-    #             ZorkGrandInquisitorItems.SPELL_NARWILE,
-    #             ZorkGrandInquisitorItems.SPELL_REZROV,
-    #             ZorkGrandInquisitorItems.SPELL_SNAVIG,
-    #             ZorkGrandInquisitorItems.SPELL_THROCK,
-    #             ZorkGrandInquisitorItems.SPELL_YASTARD,
-    #         ),
-    #     )
-    # },
+    ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: {
+        (ZorkGrandInquisitorRegions.WALKING_CASTLE, ZorkGrandInquisitorRegions.ENDGAME): (
+            (
+                [ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC, 999],  # Will get replaced with the actual number
+            ),
+        )
+    },
+    ZorkGrandInquisitorGoals.SPELL_HEIST: {
+        (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
+            (
+                ZorkGrandInquisitorItems.SPELL_BEBURTT,
+                ZorkGrandInquisitorItems.SPELL_GLORF,
+                ZorkGrandInquisitorItems.SPELL_GOLGATEM,
+                ZorkGrandInquisitorItems.SPELL_IGRAM,
+                ZorkGrandInquisitorItems.SPELL_KENDALL,
+                ZorkGrandInquisitorItems.SPELL_OBIDIL,
+                ZorkGrandInquisitorItems.SPELL_NARWILE,
+                ZorkGrandInquisitorItems.SPELL_REZROV,
+                ZorkGrandInquisitorItems.SPELL_SNAVIG,
+                ZorkGrandInquisitorItems.SPELL_THROCK,
+                ZorkGrandInquisitorItems.SPELL_YASTARD,
+            ),
+        )
+    },
+    ZorkGrandInquisitorGoals.ZORK_TOUR: {
+        (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
+            (
+                [ZorkGrandInquisitorItems.LANDMARK, 20],
+            ),
+        ),
+    },
+    ZorkGrandInquisitorGoals.GRIM_JOURNEY: {
+        (ZorkGrandInquisitorRegions.HADES_BEYOND_GATES, ZorkGrandInquisitorRegions.ENDGAME): (
+            (
+                [ZorkGrandInquisitorItems.DEATH, 22],
+            ),
+        ),
+    },
 }

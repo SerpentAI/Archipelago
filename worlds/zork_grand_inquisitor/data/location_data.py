@@ -56,9 +56,19 @@ location_data: Dict[
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
+    ZorkGrandInquisitorLocations.AN_EXCELLENT_POPPING_UTENSIL: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((2196, 84),),
+        archipelago_id=LOCATION_OFFSET + 1,
+        region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(
+            ZorkGrandInquisitorItems.TOTEM_GRIFF,
+            ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH,
+        ),
+    ),
     ZorkGrandInquisitorLocations.ARREST_THE_VANDAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10789, 1),),
-        archipelago_id=LOCATION_OFFSET + 1,
+        archipelago_id=LOCATION_OFFSET + 2,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -71,20 +81,20 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.ARTIFACTS_EXPLAINED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11787, 1), (11788, 1), (11789, 1)),
-        archipelago_id=LOCATION_OFFSET + 2,
+        archipelago_id=LOCATION_OFFSET + 3,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.A_BIG_FAT_SASSY_2_HEADED_MONSTER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8929, 1),),
-        archipelago_id=LOCATION_OFFSET + 3,
+        archipelago_id=LOCATION_OFFSET + 4,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_OBIDIL,),
     ),
     ZorkGrandInquisitorLocations.A_LETTER_FROM_THE_WHITE_HOUSE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9124, 1),),
-        archipelago_id=LOCATION_OFFSET + 4,
+        archipelago_id=LOCATION_OFFSET + 5,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -97,7 +107,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.A_SMALLWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11777, 1),),
-        archipelago_id=LOCATION_OFFSET + 5,
+        archipelago_id=LOCATION_OFFSET + 6,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -110,7 +120,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BEAUTIFUL_THATS_PLENTY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13278, 1),),
-        archipelago_id=LOCATION_OFFSET + 6,
+        archipelago_id=LOCATION_OFFSET + 7,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -123,7 +133,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BEBURTT_DEMYSTIFIED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16315, 1),),
-        archipelago_id=LOCATION_OFFSET + 7,
+        archipelago_id=LOCATION_OFFSET + 8,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -133,14 +143,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BETTER_SPELL_MANUFACTURING_IN_UNDER_10_MINUTES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3x"),),
-        archipelago_id=LOCATION_OFFSET + 8,
+        archipelago_id=LOCATION_OFFSET + 9,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE,),
     ),
     ZorkGrandInquisitorLocations.BOING_BOING_BOING: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4220, 1),),
-        archipelago_id=LOCATION_OFFSET + 9,
+        archipelago_id=LOCATION_OFFSET + 10,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -154,7 +164,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BONK: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19491, 1),),
-        archipelago_id=LOCATION_OFFSET + 10,
+        archipelago_id=LOCATION_OFFSET + 11,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -167,13 +177,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BRAVE_SOULS_WANTED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "us2g"),),
-        archipelago_id=LOCATION_OFFSET + 11,
+        archipelago_id=LOCATION_OFFSET + 12,
         region=ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.BROG_DO_GOOD: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2644, 1),),
-        archipelago_id=LOCATION_OFFSET + 12,
+        archipelago_id=LOCATION_OFFSET + 13,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -186,20 +196,20 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.BROG_EAT_ROCKS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2629, 1),),
-        archipelago_id=LOCATION_OFFSET + 13,
+        archipelago_id=LOCATION_OFFSET + 14,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.BROG_KNOW_DUMB_THAT_DUMB: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2650, 1),),
-        archipelago_id=LOCATION_OFFSET + 14,
+        archipelago_id=LOCATION_OFFSET + 15,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.BROGS_GRUE_EGG,),
     ),
     ZorkGrandInquisitorLocations.BROG_MUCH_BETTER_AT_THIS_GAME: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15715, 1),),
-        archipelago_id=LOCATION_OFFSET + 15,
+        archipelago_id=LOCATION_OFFSET + 16,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -217,26 +227,26 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.CASTLE_WATCHING_A_FIELD_GUIDE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1t"),),
-        archipelago_id=LOCATION_OFFSET + 16,
+        archipelago_id=LOCATION_OFFSET + 17,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.CAVES_NOTES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3y"),),
-        archipelago_id=LOCATION_OFFSET + 17,
+        archipelago_id=LOCATION_OFFSET + 18,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE,),
     ),
     ZorkGrandInquisitorLocations.CLOSING_THE_TIME_TUNNELS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9543, 1),),
-        archipelago_id=LOCATION_OFFSET + 18,
+        archipelago_id=LOCATION_OFFSET + 19,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd6k"), (1673, 1), (1660, 1), (1312, 1)),
-        archipelago_id=LOCATION_OFFSET + 19,
+        archipelago_id=LOCATION_OFFSET + 20,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -252,7 +262,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.CRISIS_AVERTED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11769, 1),),
-        archipelago_id=LOCATION_OFFSET + 20,
+        archipelago_id=LOCATION_OFFSET + 21,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -270,13 +280,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.CUT_THAT_OUT_YOU_LITTLE_CREEP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19350, 1),),
-        archipelago_id=LOCATION_OFFSET + 21,
+        archipelago_id=LOCATION_OFFSET + 22,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((17632, 1),),
-        archipelago_id=LOCATION_OFFSET + 22,
+        archipelago_id=LOCATION_OFFSET + 23,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -287,16 +297,29 @@ location_data: Dict[
             ZorkGrandInquisitorItems.SPELL_GOLGATEM,
         ),
     ),
+    ZorkGrandInquisitorLocations.DINGWHACKER_DELUXE: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((2417, 1),),
+        archipelago_id=LOCATION_OFFSET + 24,
+        region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "hp5e"), (8919, 2), (9, 100)),
-        archipelago_id=LOCATION_OFFSET + 23,
+        archipelago_id=LOCATION_OFFSET + 25,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SWORD,),
     ),
+    ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((4512, 87),),
+        archipelago_id=LOCATION_OFFSET + 26,
+        region=ZorkGrandInquisitorRegions.ANYWHERE,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,),
+    ),
     ZorkGrandInquisitorLocations.DOOOOOOWN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 3600),),
-        archipelago_id=LOCATION_OFFSET + 24,
+        archipelago_id=LOCATION_OFFSET + 27,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -309,7 +332,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DOWN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 5300),),
-        archipelago_id=LOCATION_OFFSET + 25,
+        archipelago_id=LOCATION_OFFSET + 28,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -322,14 +345,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DRAGON_ARCHIPELAGO_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9216, 1),),
-        archipelago_id=LOCATION_OFFSET + 26,
+        archipelago_id=LOCATION_OFFSET + 29,
         region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_NARWILE,),
     ),
     ZorkGrandInquisitorLocations.DUNCE_LOCKER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11851, 1),),
-        archipelago_id=LOCATION_OFFSET + 27,
+        archipelago_id=LOCATION_OFFSET + 30,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -346,39 +369,39 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.EGGPLANTS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 11000),),
-        archipelago_id=LOCATION_OFFSET + 28,
+        archipelago_id=LOCATION_OFFSET + 31,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.ELSEWHERE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pc1e"),),
-        archipelago_id=LOCATION_OFFSET + 29,
+        archipelago_id=LOCATION_OFFSET + 32,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.EMERGENCY_MAGICATRONIC_MESSAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11784, 1),),
-        archipelago_id=LOCATION_OFFSET + 30,
+        archipelago_id=LOCATION_OFFSET + 33,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
     ),
     ZorkGrandInquisitorLocations.ENJOY_YOUR_TRIP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13743, 1),),
-        archipelago_id=LOCATION_OFFSET + 31,
+        archipelago_id=LOCATION_OFFSET + 34,
         region=ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_KENDALL,),
     ),
     ZorkGrandInquisitorLocations.FAT_LOT_OF_GOOD_THATLL_DO_YA: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16368, 1),),
-        archipelago_id=LOCATION_OFFSET + 32,
+        archipelago_id=LOCATION_OFFSET + 35,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(ZorkGrandInquisitorItems.SPELL_IGRAM,),
     ),
     ZorkGrandInquisitorLocations.FIRE_FIRE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((10277, 1),),
-        archipelago_id=LOCATION_OFFSET + 33,
+        game_state_trigger=((10277, (1, 2)),),
+        archipelago_id=LOCATION_OFFSET + 36,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -390,14 +413,14 @@ location_data: Dict[
         ),
     ),
     ZorkGrandInquisitorLocations.FLOOD_CONTROL_DAM_3_THE_NOT_REMOTELY_BORING_TALE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "ue1h"),),
-        archipelago_id=LOCATION_OFFSET + 34,
+        game_state_trigger=((13259, 1),),
+        archipelago_id=LOCATION_OFFSET + 37,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.FLYING_SNAPDRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4222, 1),),
-        archipelago_id=LOCATION_OFFSET + 35,
+        archipelago_id=LOCATION_OFFSET + 38,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -412,13 +435,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.FROBUARY_3_UNDERGROUNDHOG_DAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dw2g"),),
-        archipelago_id=LOCATION_OFFSET + 36,
+        archipelago_id=LOCATION_OFFSET + 39,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.GETTING_SOME_CHANGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12892, 1),),
-        archipelago_id=LOCATION_OFFSET + 37,
+        archipelago_id=LOCATION_OFFSET + 40,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -431,13 +454,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.GO_AWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10654, 1),),
-        archipelago_id=LOCATION_OFFSET + 38,
+        archipelago_id=LOCATION_OFFSET + 41,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "sg6e"), (17103, 1), (15715, 1), (15707, 1)),
-        archipelago_id=LOCATION_OFFSET + 39,
+        archipelago_id=LOCATION_OFFSET + 42,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -455,13 +478,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.GUE_TECH_ENTRANCE_EXAM: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11082, 1), (11307, 1), (11536, 1)),
-        archipelago_id=LOCATION_OFFSET + 40,
+        archipelago_id=LOCATION_OFFSET + 43,
         region=ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HAVE_A_HELL_OF_A_DAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8443, 1),),
-        archipelago_id=LOCATION_OFFSET + 41,
+        archipelago_id=LOCATION_OFFSET + 44,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -477,13 +500,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HELLO_THIS_IS_SHONA_FROM_GURTH_PUBLISHING: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 1),),
-        archipelago_id=LOCATION_OFFSET + 42,
+        archipelago_id=LOCATION_OFFSET + 45,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HELP_ME_CANT_BREATHE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10421, 1),),
-        archipelago_id=LOCATION_OFFSET + 43,
+        archipelago_id=LOCATION_OFFSET + 46,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -496,7 +519,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HEY_FREE_DIRT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11747, 1),),
-        archipelago_id=LOCATION_OFFSET + 44,
+        archipelago_id=LOCATION_OFFSET + 47,
         region=ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -507,28 +530,35 @@ location_data: Dict[
             ZorkGrandInquisitorItems.SHOVEL,
         ),
     ),
+    ZorkGrandInquisitorLocations.HMMM_BIG_TOOTHPICK: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((2194, 69),),
+        archipelago_id=LOCATION_OFFSET + 48,
+        region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(ZorkGrandInquisitorItems.BROGS_PLANK,),
+    ),
     ZorkGrandInquisitorLocations.HMMM_INFORMATIVE_YET_DEEPLY_DISTURBING: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mt2h"),),
-        archipelago_id=LOCATION_OFFSET + 45,
+        archipelago_id=LOCATION_OFFSET + 49,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HOW_TO_HYPNOTIZE_YOURSELF: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1e"),),
-        archipelago_id=LOCATION_OFFSET + 46,
+        archipelago_id=LOCATION_OFFSET + 50,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HOW_TO_WIN_AT_DOUBLE_FANUCCI: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3s"),),
-        archipelago_id=LOCATION_OFFSET + 47,
+        archipelago_id=LOCATION_OFFSET + 51,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE,),
     ),
     ZorkGrandInquisitorLocations.IMBUE_BEBURTT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12166, 1),),
-        archipelago_id=LOCATION_OFFSET + 48,
+        archipelago_id=LOCATION_OFFSET + 52,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -544,13 +574,19 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IM_COMPLETELY_NUDE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19344, 1),),
-        archipelago_id=LOCATION_OFFSET + 49,
+        archipelago_id=LOCATION_OFFSET + 53,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
+    ZorkGrandInquisitorLocations.INFLATUS_THE_ETERNAL: ZorkGrandInquisitorLocationData(
+        game_state_trigger=(("location", "cd4h"),),
+        archipelago_id=LOCATION_OFFSET + 54,
+        region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.INTO_THE_FOLIAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13060, 1),),
-        archipelago_id=LOCATION_OFFSET + 50,
+        archipelago_id=LOCATION_OFFSET + 55,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -563,14 +599,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.INVISIBLE_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12967, 1),),
-        archipelago_id=LOCATION_OFFSET + 51,
+        archipelago_id=LOCATION_OFFSET + 56,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_IGRAM,),
     ),
     ZorkGrandInquisitorLocations.IN_CASE_OF_ADVENTURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12931, 1),),
-        archipelago_id=LOCATION_OFFSET + 52,
+        archipelago_id=LOCATION_OFFSET + 57,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -583,7 +619,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IN_MAGIC_WE_TRUST: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13062, 1),),
-        archipelago_id=LOCATION_OFFSET + 53,
+        archipelago_id=LOCATION_OFFSET + 58,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -594,15 +630,54 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((11005, 15),),
+        archipelago_id=LOCATION_OFFSET + 59,
+        region=ZorkGrandInquisitorRegions.GUE_TECH,
+        tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
+    ),
     ZorkGrandInquisitorLocations.ITS_ONE_OF_THOSE_ADVENTURERS_AGAIN: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe3j"),),
-        archipelago_id=LOCATION_OFFSET + 54,
+        archipelago_id=LOCATION_OFFSET + 60,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
+    ZorkGrandInquisitorLocations.ITS_PLAYING_A_LITTLE_HARD_TO_GET: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((3816, 1006),),
+        archipelago_id=LOCATION_OFFSET + 61,
+        region=ZorkGrandInquisitorRegions.DM_LAIR,
+        tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
+        requirements=(
+            ZorkGrandInquisitorItems.SPELL_OBIDIL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
+        ),
+    ),
+    ZorkGrandInquisitorLocations.IT_DOESNT_APPEAR_TO_BE_FOOLED: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((3816, 1009),),
+        archipelago_id=LOCATION_OFFSET + 62,
+        region=ZorkGrandInquisitorRegions.DM_LAIR,
+        tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
+        requirements=(
+            ZorkGrandInquisitorItems.SPELL_BEBURTT,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR,
+            ),
+        ),
+    ),
+    ZorkGrandInquisitorLocations.I_AM_NOT_IMPRESSED: ZorkGrandInquisitorLocationData(
+        game_state_trigger=(("location", "hp4f"), (8419, 1)),
+        archipelago_id=LOCATION_OFFSET + 63,
+        region=ZorkGrandInquisitorRegions.HADES,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(ZorkGrandInquisitorItems.SPELL_SNAVIG,),
+    ),
     ZorkGrandInquisitorLocations.I_DONT_THINK_YOU_WOULDVE_WANTED_THAT_TO_WORK_ANYWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 1008),),
-        archipelago_id=LOCATION_OFFSET + 55,
+        archipelago_id=LOCATION_OFFSET + 64,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -615,13 +690,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_DONT_WANT_NO_TROUBLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10694, 1),),
-        archipelago_id=LOCATION_OFFSET + 56,
+        archipelago_id=LOCATION_OFFSET + 65,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.I_LIKE_YOUR_STYLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16374, 1),),
-        archipelago_id=LOCATION_OFFSET + 57,
+        archipelago_id=LOCATION_OFFSET + 66,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -640,21 +715,21 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tp1e"), (9, 87), (1011, 1)),
-        archipelago_id=LOCATION_OFFSET + 58,
+        archipelago_id=LOCATION_OFFSET + 67,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,),
     ),
     ZorkGrandInquisitorLocations.LIT_SUNFLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4129, 1),),
-        archipelago_id=LOCATION_OFFSET + 59,
+        archipelago_id=LOCATION_OFFSET + 68,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_THROCK,),
     ),
     ZorkGrandInquisitorLocations.LOOK_AN_ICE_CREAM_BAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12517, 1),),
-        archipelago_id=LOCATION_OFFSET + 60,
+        archipelago_id=LOCATION_OFFSET + 69,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -671,7 +746,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MAILED_IT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2498, (1, 2)),),
-        archipelago_id=LOCATION_OFFSET + 61,
+        archipelago_id=LOCATION_OFFSET + 70,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -688,7 +763,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(((8623, 8734), 21),),
-        archipelago_id=LOCATION_OFFSET + 62,
+        archipelago_id=LOCATION_OFFSET + 71,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -698,7 +773,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MEAD_LIGHT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10485, 1),),
-        archipelago_id=LOCATION_OFFSET + 63,
+        archipelago_id=LOCATION_OFFSET + 72,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -709,15 +784,21 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.ME_I_AM_THE_BOSS_OF_YOU: ZorkGrandInquisitorLocationData(
+        game_state_trigger=(("location", "px1k"),),
+        archipelago_id=LOCATION_OFFSET + 73,
+        region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.MIKES_PANTS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tr2p"),),
-        archipelago_id=LOCATION_OFFSET + 64,
+        archipelago_id=LOCATION_OFFSET + 74,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4217, 1),),
-        archipelago_id=LOCATION_OFFSET + 65,
+        archipelago_id=LOCATION_OFFSET + 75,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -730,7 +811,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NATIONAL_TREASURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14318, 1),),
-        archipelago_id=LOCATION_OFFSET + 66,
+        archipelago_id=LOCATION_OFFSET + 76,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -747,13 +828,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NATURAL_AND_SUPERNATURAL_CREATURES_OF_QUENDOR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1p"),),
-        archipelago_id=LOCATION_OFFSET + 67,
+        archipelago_id=LOCATION_OFFSET + 77,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.NOOOOOOOOOOOOO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12706, 1),),
-        archipelago_id=LOCATION_OFFSET + 68,
+        archipelago_id=LOCATION_OFFSET + 78,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -770,7 +851,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NOTHIN_LIKE_A_GOOD_STOGIE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4237, 1),),
-        archipelago_id=LOCATION_OFFSET + 69,
+        archipelago_id=LOCATION_OFFSET + 79,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -783,14 +864,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NOW_YOU_LOOK_LIKE_US_WHICH_IS_AN_IMPROVEMENT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8935, 1),),
-        archipelago_id=LOCATION_OFFSET + 70,
+        archipelago_id=LOCATION_OFFSET + 80,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_SNAVIG,),
     ),
     ZorkGrandInquisitorLocations.NO_AUTOGRAPHS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10476, 1),),
-        archipelago_id=LOCATION_OFFSET + 71,
+        archipelago_id=LOCATION_OFFSET + 81,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -802,7 +883,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NO_BONDAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe2e"), (10262, 2), (15150, 83)),
-        archipelago_id=LOCATION_OFFSET + 72,
+        archipelago_id=LOCATION_OFFSET + 82,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -813,9 +894,15 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.NO_ONE_RETURNS_FROM_HADES: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((15204, 1),),
+        archipelago_id=LOCATION_OFFSET + 83,
+        region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12164, 1),),
-        archipelago_id=LOCATION_OFFSET + 73,
+        archipelago_id=LOCATION_OFFSET + 84,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -828,7 +915,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_DEAR_GOD_ITS_A_DRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=((1300, 1),),
-        archipelago_id=LOCATION_OFFSET + 74,
+        archipelago_id=LOCATION_OFFSET + 85,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -843,7 +930,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2448, 1),),
-        archipelago_id=LOCATION_OFFSET + 75,
+        archipelago_id=LOCATION_OFFSET + 86,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -856,7 +943,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4869, 1),),
-        archipelago_id=LOCATION_OFFSET + 76,
+        archipelago_id=LOCATION_OFFSET + 87,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -866,20 +953,20 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OLD_SCRATCH_WINNER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4512, 32),),
-        archipelago_id=LOCATION_OFFSET + 77,
+        archipelago_id=LOCATION_OFFSET + 88,
         region=ZorkGrandInquisitorRegions.ANYWHERE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.OLD_SCRATCH_CARD,),
     ),
     ZorkGrandInquisitorLocations.ONLY_YOU_CAN_PREVENT_FOOZLE_FIRES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe5n"),),
-        archipelago_id=LOCATION_OFFSET + 78,
+        archipelago_id=LOCATION_OFFSET + 89,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.OPEN_THE_GATES_OF_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8730, 1),),
-        archipelago_id=LOCATION_OFFSET + 79,
+        archipelago_id=LOCATION_OFFSET + 90,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -889,7 +976,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4241, 1),),
-        archipelago_id=LOCATION_OFFSET + 80,
+        archipelago_id=LOCATION_OFFSET + 91,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -903,25 +990,25 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.PERMASEAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mt1g"),),
-        archipelago_id=LOCATION_OFFSET + 81,
+        archipelago_id=LOCATION_OFFSET + 92,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.PLANETFALL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pp1j"),),
-        archipelago_id=LOCATION_OFFSET + 82,
+        archipelago_id=LOCATION_OFFSET + 93,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.PLEASE_DONT_THROCK_THE_GRASS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "te1g"),),
-        archipelago_id=LOCATION_OFFSET + 83,
+        archipelago_id=LOCATION_OFFSET + 94,
         region=ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.PORT_FOOZLE_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9404, 1),),
-        archipelago_id=LOCATION_OFFSET + 84,
+        archipelago_id=LOCATION_OFFSET + 95,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -939,7 +1026,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.PROZORKED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4115, 1),),
-        archipelago_id=LOCATION_OFFSET + 85,
+        archipelago_id=LOCATION_OFFSET + 96,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -950,9 +1037,15 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.PURPLE_BEAST_ALARM_SYSTEM: ZorkGrandInquisitorLocationData(
+        game_state_trigger=(("location", "tp1f"),),
+        archipelago_id=LOCATION_OFFSET + 97,
+        region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.REASSEMBLE_SNAVIG: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4512, 98),),
-        archipelago_id=LOCATION_OFFSET + 86,
+        archipelago_id=LOCATION_OFFSET + 98,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -964,15 +1057,27 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.RESTOCKED_ON_GRUESDAY: ZorkGrandInquisitorLocationData(
+        game_state_trigger=(("location", "tr2h"),),
+        archipelago_id=LOCATION_OFFSET + 99,
+        region=ZorkGrandInquisitorRegions.GUE_TECH,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.RIGHT_HELLO_YES_UH_THIS_IS_SNEFFLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 3),),
-        archipelago_id=LOCATION_OFFSET + 87,
+        archipelago_id=LOCATION_OFFSET + 100,
+        region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
+    ZorkGrandInquisitorLocations.RIGHT_UH_SORRY_ITS_ME_AGAIN_SNEFFLE: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((4698, 4),),
+        archipelago_id=LOCATION_OFFSET + 101,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.SNAVIG_REPAIRED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12161, 1),),
-        archipelago_id=LOCATION_OFFSET + 88,
+        archipelago_id=LOCATION_OFFSET + 102,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -985,7 +1090,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.SOUVENIR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13408, 1),),
-        archipelago_id=LOCATION_OFFSET + 89,
+        archipelago_id=LOCATION_OFFSET + 103,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -996,9 +1101,25 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.SPELL_CHECK_COMPLETE: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((12168, 1),),
+        archipelago_id=LOCATION_OFFSET + 104,
+        region=ZorkGrandInquisitorRegions.SPELL_LAB,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
+        )
+    ),
     ZorkGrandInquisitorLocations.STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9719, 1),),
-        archipelago_id=LOCATION_OFFSET + 90,
+        archipelago_id=LOCATION_OFFSET + 105,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1015,7 +1136,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14511, 1), (14524, 5)),
-        archipelago_id=LOCATION_OFFSET + 91,
+        archipelago_id=LOCATION_OFFSET + 106,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1035,7 +1156,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.SUCKING_ROCKS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12859, 1),),
-        archipelago_id=LOCATION_OFFSET + 92,
+        archipelago_id=LOCATION_OFFSET + 107,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1057,7 +1178,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TALK_TO_ME_GRAND_INQUISITOR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10299, 1),),
-        archipelago_id=LOCATION_OFFSET + 93,
+        archipelago_id=LOCATION_OFFSET + 108,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1069,13 +1190,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TAMING_YOUR_SNAPDRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1h"),),
-        archipelago_id=LOCATION_OFFSET + 94,
+        archipelago_id=LOCATION_OFFSET + 109,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THAR_SHE_BLOWS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((1311, 1), (1312, 1)),
-        archipelago_id=LOCATION_OFFSET + 95,
+        archipelago_id=LOCATION_OFFSET + 110,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1091,7 +1212,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THATS_A_ROPE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10486, 1),),
-        archipelago_id=LOCATION_OFFSET + 96,
+        archipelago_id=LOCATION_OFFSET + 111,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1104,20 +1225,20 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THATS_IT_JUST_KEEP_HITTING_THOSE_BUTTONS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13805, 1),),
-        archipelago_id=LOCATION_OFFSET + 97,
+        archipelago_id=LOCATION_OFFSET + 112,
         region=ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
     ),
     ZorkGrandInquisitorLocations.THATS_STILL_A_ROPE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tp1e"), (9, 83), (1011, 1)),
-        archipelago_id=LOCATION_OFFSET + 98,
+        archipelago_id=LOCATION_OFFSET + 113,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(ZorkGrandInquisitorEvents.ROPE_GLORFABLE,),
     ),
     ZorkGrandInquisitorLocations.THATS_THE_SPIRIT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10341, 95),),
-        archipelago_id=LOCATION_OFFSET + 99,
+        archipelago_id=LOCATION_OFFSET + 114,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1129,25 +1250,25 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THE_ALCHEMICAL_DEBACLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9459, 1),),
-        archipelago_id=LOCATION_OFFSET + 100,
+        archipelago_id=LOCATION_OFFSET + 115,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_ENDLESS_FIRE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9473, 1),),
-        archipelago_id=LOCATION_OFFSET + 101,
+        archipelago_id=LOCATION_OFFSET + 116,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_FLATHEADIAN_FUDGE_FIASCO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9520, 1),),
-        archipelago_id=LOCATION_OFFSET + 102,
+        archipelago_id=LOCATION_OFFSET + 117,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_ONLY_WAY_TO_WIN_IS_NOT_TO_PLAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16286, 1),),
-        archipelago_id=LOCATION_OFFSET + 103,
+        archipelago_id=LOCATION_OFFSET + 118,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1157,13 +1278,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THE_PERILS_OF_MAGIC: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "me1j"),),
-        archipelago_id=LOCATION_OFFSET + 104,
+        archipelago_id=LOCATION_OFFSET + 119,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_UNDERGROUND_UNDERGROUND: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13167, 1),),
-        archipelago_id=LOCATION_OFFSET + 105,
+        archipelago_id=LOCATION_OFFSET + 120,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1176,14 +1297,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THIS_DOESNT_LOOK_ANYTHING_LIKE_THE_BROCHURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"), (1524, 1)),
-        archipelago_id=LOCATION_OFFSET + 106,
+        archipelago_id=LOCATION_OFFSET + 121,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.TOTEM_LUCY,),
     ),
     ZorkGrandInquisitorLocations.THROCKED_MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4219, 1),),
-        archipelago_id=LOCATION_OFFSET + 107,
+        archipelago_id=LOCATION_OFFSET + 122,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1197,34 +1318,40 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TIME_TRAVEL_FOR_DUMMIES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3z"),),
-        archipelago_id=LOCATION_OFFSET + 108,
+        archipelago_id=LOCATION_OFFSET + 123,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE,),
     ),
     ZorkGrandInquisitorLocations.TOTEMIZED_DAILY_BILLBOARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px1h"),),
-        archipelago_id=LOCATION_OFFSET + 109,
+        archipelago_id=LOCATION_OFFSET + 124,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.UH_OH_BROG_CANT_SWIM: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"), (1520, 1)),
-        archipelago_id=LOCATION_OFFSET + 110,
+        archipelago_id=LOCATION_OFFSET + 125,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.TOTEM_BROG,),
     ),
+    ZorkGrandInquisitorLocations.UM_AH_UM_AH_UM_AH: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((16997, 4),),
+        archipelago_id=LOCATION_OFFSET + 126,
+        region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.UMBRELLA_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12926, 1),),
-        archipelago_id=LOCATION_OFFSET + 111,
+        archipelago_id=LOCATION_OFFSET + 127,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_BEBURTT,),
     ),
     ZorkGrandInquisitorLocations.UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 5200),),
-        archipelago_id=LOCATION_OFFSET + 112,
+        archipelago_id=LOCATION_OFFSET + 128,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1237,14 +1364,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.USELESS_BUT_FUN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14321, 1),),
-        archipelago_id=LOCATION_OFFSET + 113,
+        archipelago_id=LOCATION_OFFSET + 129,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(ZorkGrandInquisitorItems.SPELL_GOLGATEM,),
     ),
     ZorkGrandInquisitorLocations.UUUUUP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 3500),),
-        archipelago_id=LOCATION_OFFSET + 114,
+        archipelago_id=LOCATION_OFFSET + 130,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1257,13 +1384,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1h"),),
-        archipelago_id=LOCATION_OFFSET + 115,
+        archipelago_id=LOCATION_OFFSET + 131,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4034, 1),),
-        archipelago_id=LOCATION_OFFSET + 116,
+        archipelago_id=LOCATION_OFFSET + 132,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1276,9 +1403,15 @@ location_data: Dict[
             ),
         ),
     ),
+    ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO_PAST: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((17006, 5001),),
+        archipelago_id=LOCATION_OFFSET + 133,
+        region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+    ),
     ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2461, 1),),
-        archipelago_id=LOCATION_OFFSET + 117,
+        archipelago_id=LOCATION_OFFSET + 134,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1291,7 +1424,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WE_GOT_A_HIGH_ROLLER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15472, 1),),
-        archipelago_id=LOCATION_OFFSET + 118,
+        archipelago_id=LOCATION_OFFSET + 135,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1311,7 +1444,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WHAT_ARE_YOU_STUPID: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10484, 1),),
-        archipelago_id=LOCATION_OFFSET + 119,
+        archipelago_id=LOCATION_OFFSET + 136,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1324,7 +1457,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WHITE_HOUSE_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4983, 1),),
-        archipelago_id=LOCATION_OFFSET + 120,
+        archipelago_id=LOCATION_OFFSET + 137,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1335,15 +1468,22 @@ location_data: Dict[
             ZorkGrandInquisitorItems.SPELL_NARWILE,
         ),
     ),
+    ZorkGrandInquisitorLocations.WHOOPS: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((15959, (1, 2)),),
+        archipelago_id=LOCATION_OFFSET + 138,
+        region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(ZorkGrandInquisitorItems.BROGS_GRUE_EGG,)
+    ),
     ZorkGrandInquisitorLocations.WOW_IVE_NEVER_GONE_INSIDE_HIM_BEFORE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dc10"), (1596, 1)),
-        archipelago_id=LOCATION_OFFSET + 121,
+        archipelago_id=LOCATION_OFFSET + 139,
         region=ZorkGrandInquisitorRegions.WALKING_CASTLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.YAD_GOHDNUORGREDNU_3_YRAUBORF: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dm2g"),),
-        archipelago_id=LOCATION_OFFSET + 122,
+        archipelago_id=LOCATION_OFFSET + 140,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1355,7 +1495,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.YOUR_PUNY_WEAPONS_DONT_PHASE_ME_BABY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dg4e"), (4266, 1), (9, 21), (4035, 1)),
-        archipelago_id=LOCATION_OFFSET + 123,
+        archipelago_id=LOCATION_OFFSET + 141,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1368,14 +1508,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.YOU_DONT_GO_MESSING_WITH_A_MANS_ZIPPER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16405, 1),),
-        archipelago_id=LOCATION_OFFSET + 124,
+        archipelago_id=LOCATION_OFFSET + 142,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(ZorkGrandInquisitorItems.SPELL_REZROV,),
     ),
     ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16342, 1),),
-        archipelago_id=LOCATION_OFFSET + 125,
+        archipelago_id=LOCATION_OFFSET + 143,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1388,7 +1528,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "qs1e"), (14511, 1), (14524, 5)),
-        archipelago_id=LOCATION_OFFSET + 126,
+        archipelago_id=LOCATION_OFFSET + 144,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
@@ -1408,13 +1548,13 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.YOU_ONE_OF_THEM_AGITATORS_AINT_YA: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10586, 1),),
-        archipelago_id=LOCATION_OFFSET + 127,
+        archipelago_id=LOCATION_OFFSET + 145,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.YOU_WANT_A_PIECE_OF_ME_DOCK_BOY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15151, 1),),
-        archipelago_id=LOCATION_OFFSET + 128,
+        archipelago_id=LOCATION_OFFSET + 146,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
@@ -1423,6 +1563,19 @@ location_data: Dict[
                 ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE,
             ),
         ),
+    ),
+    ZorkGrandInquisitorLocations.ZIMDOR_IS_UNDAMAGED: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((12167, 1),),
+        archipelago_id=LOCATION_OFFSET + 147,
+        region=ZorkGrandInquisitorRegions.SPELL_LAB,
+        tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
+        requirements=(
+            ZorkGrandInquisitorItems.ZIMDOR_SCROLL,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
+            ),
+        )
     ),
     # Deathsanity
     ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK: ZorkGrandInquisitorLocationData(
