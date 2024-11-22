@@ -66,6 +66,7 @@ class GameController:
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
 
+    starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
 
     def __init__(self, logger=None) -> None:
@@ -116,6 +117,7 @@ class GameController:
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
 
+        self.starter_kit = None
         self.initial_totemizer_destination = None
 
     @functools.cached_property
@@ -193,6 +195,28 @@ class GameController:
                 self.log(f"    Grant Missable Location Checks: On")
             else:
                 self.log(f"    Grant Missable Location Checks: Off")
+
+    def output_starter_kit(self) -> None:
+        if self.starter_kit is None:
+            return
+
+        self.log("Starter Kit:")
+
+        if len(self.starter_kit):
+            item: str
+            for item in self.starter_kit:
+                if self.option_hotspots == ZorkGrandInquisitorHotspots.ENABLED:
+                    if item.startswith("Hotspot"):
+                        continue
+                elif item in (
+                    "Hotspot: Dungeon Master's Lair Entrance",
+                    "Hotspot: Spell Lab Bridge Exit",
+                ):
+                    continue
+
+                self.log(f"    {item}")
+        else:
+            self.log("    Nothing")
 
     def output_goal_item_update(self) -> None:
         if self.goal_completed:

@@ -385,6 +385,7 @@ class ZorkGrandInquisitorWorld(World):
             "grant_missable_location_checks",
         )
 
+        slot_data["starter_kit"] = sorted([item.value for item in self.starter_kit])
         slot_data["initial_totemizer_destination"] = self.initial_totemizer_destination.value
 
         return slot_data

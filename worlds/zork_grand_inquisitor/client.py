@@ -34,6 +34,7 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
             self.output("Successfully attached to Zork Grand Inquisitor process.")
 
             self.ctx.game_controller.output_seed_information()
+            self.ctx.game_controller.output_starter_kit()
         else:
             self.output("Failed to attach to Zork Grand Inquisitor process.")
 
@@ -139,6 +140,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.game_controller.option_grant_missable_location_checks = (
                 _args["slot_data"]["grant_missable_location_checks"] == 1
             )
+
+            # Starter Kit
+            self.game_controller.starter_kit = _args["slot_data"]["starter_kit"]
 
             # Initial Totemizer Destination
             self.game_controller.initial_totemizer_destination = item_names_to_item()[
