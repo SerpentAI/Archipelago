@@ -584,6 +584,7 @@ class GameController:
         self._write_game_flags_value_for(4875, 2)  # Cocoa Ingredient - Mug
         self._write_game_flags_value_for(4873, 2)  # Cocoa Ingredient - Quelbee Honeycomb
         self._write_game_flags_value_for(10809, 2)  # Back of Jack's Shop
+        self._write_game_flags_value_for(10314, 2)  # Well Rope
 
     def _check_for_completed_locations(self) -> None:
         location: ZorkGrandInquisitorLocations
