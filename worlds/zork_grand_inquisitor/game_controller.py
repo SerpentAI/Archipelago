@@ -470,6 +470,7 @@ class GameController:
         self._write_game_state_value_for(1341, 1)  # Griff's Inflatable Raft Taken
         self._write_game_state_value_for(1477, 1)  # Griff's Air Pump Taken
         self._write_game_state_value_for(1814, 1)  # Griff's Dragon Tooth Taken
+        self._write_game_state_value_for(15424, 1)  # Initial State of Card Game
         self._write_game_state_value_for(15403, 0)  # Lucy's Cards Taken
         self._write_game_state_value_for(15404, 1)  # Lucy's Cards Taken
         self._write_game_state_value_for(15405, 4)  # Lucy's Cards Taken
