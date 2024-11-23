@@ -5,7 +5,7 @@ from Options import Choice, DefaultOnToggle, PerGameCommonOptions, Range, Toggle
 
 class Goal(Choice):
     """
-    Determines the victory condition
+    Determines the victory condition.
 
     Three Artifacts: Retrieve the Coconut of Quendor, the Cube of Foundation and the Skull of Yoruk
     Artifact of Magic Hunt: Retrieve X artifacts of magic and bring them to the walking castle
@@ -26,9 +26,9 @@ class Goal(Choice):
 
 class ArtifactsOfMagicTotal(Range):
     """
-    Determines how many Artifacts of Magic are in the item pool
+    Determines how many Artifacts of Magic are in the item pool.
 
-    Only relevant if the selected goal is Artifact of Magic Hunt
+    Only relevant if the selected goal is Artifact of Magic Hunt.
     """
 
     display_name = "Artifacts of Magic Total"
@@ -41,9 +41,9 @@ class ArtifactsOfMagicTotal(Range):
 
 class ArtifactsOfMagicRequired(Range):
     """
-    Determines how many Artifacts of Magic are required to win
+    Determines how many Artifacts of Magic are required to win.
 
-    Only relevant if the selected goal is Artifact of Magic Hunt
+    Only relevant if the selected goal is Artifact of Magic Hunt.
     """
 
     display_name = "Artifacts of Magic Required"
@@ -58,7 +58,7 @@ class StartingLocation(Choice):
     """
     Determines the in-game location the player will start at. The player always starts with VOXAM, which can be used to
     teleport back to the starting location at any time. Depending on the starting location, the player may also be given
-    a starter kit of items to help them get going
+    a starter kit of items to help them get going.
     """
 
     display_name: str = "Starting Location"
@@ -98,7 +98,7 @@ class Hotspots(Choice):
 class CraftableSpells(Choice):
     """
     Determines the behavior when craftable spells (BEBURTT, OBIDIL, SNAVIG, YASTARD) are obtained.
-    Spells in a starting location's starter kit always have precedence over this option
+    Spells in a starting location's starter kit always have precedence over this option.
 
     Vanilla: After crafting a spell, the player will be given that exact spell
     Any Spell: After crafting a spell, the player will be given a random spell
@@ -114,11 +114,35 @@ class CraftableSpells(Choice):
     default = 2
 
 
+class WildVoxam(Toggle):
+    """
+    If true, casting VOXAM will have a small chance to teleport the player to a different location.
+
+    This option can enable small stretches of out-of-logic gameplay in the early game, with strong diminishing returns
+    as the game progresses.
+    """
+
+    display_name: str = "Wild VOXAM"
+
+
+class WildVoxamChance(Range):
+    """
+    Determines the percentage chance that a VOXAM cast will be wild.
+    """
+
+    display_name = "Wild VOXAM Chance %"
+
+    range_start = 1
+    range_end = 10
+
+    default = 5
+
+
 class Deathsanity(Toggle):
     """
-    If true, adds 22 unique player death locations to the world
+    If true, adds 22 unique player death locations to the world.
 
-    This option will be forced on if your goal is Grim Journey
+    This option will be forced on if your goal is Grim Journey.
     """
 
     display_name: str = "Deathsanity"
@@ -126,9 +150,9 @@ class Deathsanity(Toggle):
 
 class Landmarksanity(DefaultOnToggle):
     """
-    If true, adds 20 landmark locations to the world
+    If true, adds 20 landmark locations to the world.
 
-    This option will be forced on if your goal is Zork Tour
+    This option will be forced on if your goal is Zork Tour.
     """
 
     display_name: str = "Landmarksanity"
@@ -137,11 +161,11 @@ class Landmarksanity(DefaultOnToggle):
 class GrantMissableLocationChecks(Toggle):
     """
     If true, performing an irreversible action will grant the locations checks that would have become unobtainable as a
-    result of that action when you meet the item requirements
+    result of that action when you meet the item requirements.
 
     Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
     don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
-    enabled
+    enabled.
     """
 
     display_name: str = "Grant Missable Checks"
@@ -149,7 +173,7 @@ class GrantMissableLocationChecks(Toggle):
 
 class ClientSeedInformation(Choice):
     """
-    Determines what information about the seed the client will reveal after using the /zork command
+    Determines what information about the seed the client will reveal after using the /zork command.
 
     Reveal Nothing: No information about the seed is displayed
     Reveal Goal: Only the goal of the seed is displayed
@@ -173,6 +197,8 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions):
     starting_location: StartingLocation
     hotspots: Hotspots
     craftable_spells: CraftableSpells
+    wild_voxam: WildVoxam
+    wild_voxam_chance: WildVoxamChance
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
     grant_missable_location_checks: GrantMissableLocationChecks

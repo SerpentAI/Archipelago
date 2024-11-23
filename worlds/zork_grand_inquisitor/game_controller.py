@@ -1,6 +1,7 @@
 import collections
 import functools
 import logging
+import random
 import traceback  # TODO: Only in dev
 import time
 
@@ -8,7 +9,12 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
-from .data.mapping_data import hotspots_for_regional_hotspot, labels_for_enum_items
+
+from .data.mapping_data import (
+    hotspots_for_regional_hotspot,
+    labels_for_enum_items,
+    voxam_cast_game_locations,
+)
 
 from .data.missable_location_data import (
     missable_location_grant_conditions_data,
@@ -63,6 +69,8 @@ class GameController:
     option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
     option_hotspots: Optional[ZorkGrandInquisitorHotspots]
     option_craftable_spells: Optional[ZorkGrandInquisitorCraftableSpellBehaviors]
+    option_wild_voxam: Optional[bool]
+    option_wild_voxam_chance: Optional[int]
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
@@ -115,6 +123,8 @@ class GameController:
         self.option_starting_location = None
         self.option_hotspots = None
         self.option_craftable_spells = None
+        self.option_wild_voxam = None
+        self.option_wild_voxam_chance = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
@@ -199,6 +209,12 @@ class GameController:
             self.log(f"    Starting Location: {labels_for_enum_items[self.option_starting_location]}")
             self.log(f"    Hotspots: {labels_for_enum_items[self.option_hotspots]}")
             self.log(f"    Craftable Spells: {labels_for_enum_items[self.option_craftable_spells]}")
+
+            if self.option_wild_voxam:
+                self.log(f"    Wild VOXAM: On ({self.option_wild_voxam_chance}% chance)")
+            else:
+                self.log(f"    Wild VOXAM: Off")
+
             self.log(f"    Deathsanity: {labels_for_enum_items[self.option_deathsanity]}")
             self.log(f"    Landmarksanity: {labels_for_enum_items[self.option_landmarksanity]}")
 
@@ -362,15 +378,15 @@ class GameController:
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR:
                 self.game_state_manager.set_game_location("dv10", 1673)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.GUE_TECH:
-                self.game_state_manager.set_game_location("tr10", 150)
+                self.game_state_manager.set_game_location("tr20", 150)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SPELL_LAB:
                 self.game_state_manager.set_game_location("tp20", 1244)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.HADES_SHORE:
-                self.game_state_manager.set_game_location("hp10", 534)
+                self.game_state_manager.set_game_location("uh10", 950)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM:
                 self.game_state_manager.set_game_location("ue10", 1578)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY:
-                self.game_state_manager.set_game_location("mt10", 1483)
+                self.game_state_manager.set_game_location("mt20", 0)
             elif self.option_starting_location == ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT:
                 self.game_state_manager.set_game_location("me10", 1023)
 
@@ -1179,10 +1195,37 @@ class GameController:
         zork_rocks_inert = self._read_game_state_value_for(11767) == 0
 
         if self._read_game_state_value_for(9) == 224:
+            time.sleep(0.1)
             self._write_game_state_value_for(9, 0)
 
             if zork_rocks_inert:
-                self._apply_starting_location(force=True)
+                self._cast_voxam()
+
+    def _cast_voxam(self) -> None:
+        if not self.option_wild_voxam:
+            self._apply_starting_location(force=True)
+
+        voxam_roll: int = random.randint(1, 100)
+
+        if voxam_roll <= self.option_wild_voxam_chance:
+            starting_location: ZorkGrandInquisitorStartingLocations = (
+                random.choice(tuple(voxam_cast_game_locations.keys()))
+            )
+
+            game_location: Tuple[Tuple[str, int], ...] = (
+                random.choice(voxam_cast_game_locations[starting_location])
+            )
+
+            game_location_offset: int = 0
+
+            if game_location[1] == 1:
+                game_location_offset = random.randint(0, 1800)
+
+            self.game_state_manager.set_game_location(
+                game_location[0], game_location_offset
+            )
+        else:
+            self._apply_starting_location(force=True)
 
     def _check_for_victory(self) -> None:
         if self.option_goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:

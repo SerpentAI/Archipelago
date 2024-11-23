@@ -380,6 +380,8 @@ class ZorkGrandInquisitorWorld(World):
             "starting_location",
             "hotspots",
             "craftable_spells",
+            "wild_voxam",
+            "wild_voxam_chance",
             "deathsanity",
             "landmarksanity",
             "grant_missable_location_checks",

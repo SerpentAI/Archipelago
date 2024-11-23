@@ -130,6 +130,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 id_to_craftable_spell_behaviors()[_args["slot_data"]["craftable_spells"]]
             )
 
+            self.game_controller.option_wild_voxam = _args["slot_data"]["wild_voxam"] == 1
+            self.game_controller.option_wild_voxam_chance = _args["slot_data"]["wild_voxam_chance"]
+
             self.game_controller.option_deathsanity = (
                 id_to_deathsanity()[_args["slot_data"]["deathsanity"]]
             )
