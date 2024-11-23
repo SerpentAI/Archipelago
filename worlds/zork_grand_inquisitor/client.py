@@ -28,6 +28,10 @@ from .game_controller import GameController
 class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
     def _cmd_zork(self) -> None:
         """Attach to an open Zork Grand Inquisitor process."""
+        if not self.ctx.server or not self.ctx.slot:
+            self.output("You must be connected to an Archipelago server before using /zork.")
+            return
+
         result: bool = self.ctx.game_controller.open_process_handle()
 
         if result:
@@ -111,6 +115,18 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         await self.get_username()
         await self.send_connect()
 
+    async def disconnect(self, allow_autoreconnect: bool = False):
+        try:
+            # Close process handle if possible, ensuring that the player will have to /zork again upon reconnect
+            self.game_controller.close_process_handle()
+
+            self.game_controller.valid_save_message_shown = False
+            self.game_controller.invalid_save_message_shown = False
+        except Exception:
+            pass
+
+        await super().disconnect(allow_autoreconnect)
+
     def on_package(self, cmd: str, _args: Any) -> None:
         if cmd == "Connected":
             self.game = self.slot_info[self.slot].game
@@ -169,6 +185,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.game_controller.initial_totemizer_destination = item_names_to_item()[
                 _args["slot_data"]["initial_totemizer_destination"]
             ]
+
+            # Save IDs
+            self.game_controller.save_ids = tuple(_args["slot_data"]["save_ids"])
 
     def on_deathlink(self, data: Dict[str, Any]) -> None:
         self.last_death_link = max(data["time"], self.last_death_link)

@@ -392,6 +392,12 @@ class ZorkGrandInquisitorWorld(World):
         slot_data["starter_kit"] = sorted([item.value for item in self.starter_kit])
         slot_data["initial_totemizer_destination"] = self.initial_totemizer_destination.value
 
+        slot_data["save_ids"] = (
+            self.random.randint(1, 65365),
+            self.random.randint(1, 65365),
+            self.random.randint(1, 65365),
+        )
+
         return slot_data
 
     def get_filler_item_name(self) -> str:

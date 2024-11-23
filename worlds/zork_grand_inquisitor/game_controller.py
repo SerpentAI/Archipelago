@@ -85,6 +85,11 @@ class GameController:
     outgoing_death_link: Tuple[bool, Optional[str]]
     pause_death_monitoring: bool
 
+    save_ids: Optional[Tuple[int, int, int]]
+
+    valid_save_message_shown: bool
+    invalid_save_message_shown: bool
+
     def __init__(self, logger=None) -> None:
         self.logger = logger
 
@@ -143,6 +148,11 @@ class GameController:
         self.pending_death_link = (False, None, None)
         self.outgoing_death_link = (False, None)
         self.pause_death_monitoring = False
+
+        self.save_ids = None
+
+        self.valid_save_message_shown = False
+        self.invalid_save_message_shown = False
 
     @functools.cached_property
     def brog_items(self) -> Set[ZorkGrandInquisitorItems]:
@@ -355,6 +365,9 @@ class GameController:
             try:
                 self.game_state_manager.refresh_game_location()
 
+                if not self._check_for_valid_save():
+                    return
+
                 self._apply_initial_totemizer_destination()
                 self._apply_starting_location()
 
@@ -382,6 +395,55 @@ class GameController:
             except Exception as e:
                 self.log_debug(e)
                 traceback.print_exc()
+
+    def _check_for_valid_save(self) -> bool:
+        if self._player_is_at("gary"):
+            return False
+
+        save_ids: Tuple[int, int, int] = (
+            self._read_game_state_value_for(19997),
+            self._read_game_state_value_for(19998),
+            self._read_game_state_value_for(19999),
+        )
+
+        if save_ids == (0, 0, 0):
+            self._write_game_state_value_for(19997, self.save_ids[0])
+            self._write_game_state_value_for(19998, self.save_ids[1])
+            self._write_game_state_value_for(19999, self.save_ids[2])
+        elif save_ids != self.save_ids:
+            if not self.invalid_save_message_shown:
+                self.log(
+                    "Unexpected save file for this seed. Please load a valid save file or start a new game."
+                )
+
+                self.invalid_save_message_shown = True
+                self.valid_save_message_shown = False
+
+            return False
+
+        if not self.valid_save_message_shown:
+            self.log("Valid save file detected. Have fun!")
+
+            self.valid_save_message_shown = True
+            self.invalid_save_message_shown = False
+
+        return True
+
+    def _apply_initial_totemizer_destination(self) -> None:
+        if self.initial_totemizer_destination is None:
+            return None
+
+        if self._read_game_state_value_for(19986) == 0:
+            mapping: Dict[ZorkGrandInquisitorItems, int] = {
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION: 0,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ: 1,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY: 2,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY: 3,
+                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL: 4,
+            }
+
+            self._write_game_state_value_for(9617, mapping[self.initial_totemizer_destination])
+            self._write_game_state_value_for(19986, 1)
 
     def _apply_starting_location(self, force: bool = False) -> None:
         if self.option_starting_location is None:
@@ -411,22 +473,6 @@ class GameController:
 
             self._write_game_state_value_for(19985, 1)
             time.sleep(0.1)
-
-    def _apply_initial_totemizer_destination(self) -> None:
-        if self.initial_totemizer_destination is None:
-            return None
-
-        if self._read_game_state_value_for(19986) == 0:
-            mapping: Dict[ZorkGrandInquisitorItems, int] = {
-                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION: 0,
-                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ: 1,
-                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY: 2,
-                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY: 3,
-                ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL: 4,
-            }
-
-            self._write_game_state_value_for(9617, mapping[self.initial_totemizer_destination])
-            self._write_game_state_value_for(19986, 1)
 
     def _apply_permanent_game_state(self) -> None:
         self._write_game_state_value_for(10934, 1)  # Rope Taken
