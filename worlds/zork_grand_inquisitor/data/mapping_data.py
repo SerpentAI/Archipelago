@@ -12,6 +12,32 @@ from ..enums import (
     ZorkGrandInquisitorStartingLocations,
 )
 
+
+death_cause_labels: Dict[int, str] = {
+    1: "PLAYER got their noggin smitten in twain",
+    3: "PLAYER decided to jump into a bottomless pit",
+    4: "PLAYER decided to step into the infinite",
+    5: "PLAYER became an evil spawn's plaything",
+    6: "PLAYER started a career as a talking manhole cover",
+    7: "PLAYER got sucked into a starship's tractor beam",
+    8: "PLAYER became a paperweight",
+    9: "PLAYER rolled into the airless expanse of the cosmos",
+    10: "PLAYER got their head bitten off",
+    11: "PLAYER was swallowed whole by a dragon",
+    13: "PLAYER decided to spend an eternity staring at scenic vistas",
+    18: "PLAYER was eaten by a grue",
+    19: "PLAYER was vaporized by Zork Rocks",
+    20: "PLAYER got stung by a thousand quelbees",
+    21: "PLAYER broke curfew",
+    22: "PLAYER lost their soul to a scratch-and-win card",
+    29: "PLAYER was outsmarted by bees",
+    30: "PLAYER got pureed by a six-armed invisible guard",
+    32: "PLAYER's head exploded",
+    33: "PLAYER died of arteriosclerosis",
+    34: "PLAYER decided to ignore the sign and THROCK the grass",
+    37: "PLAYER lost a game of strip grue, fire, water",
+}
+
 # Avoid spells in early items to prevent clash with craftable spells
 early_items_for_starting_location: Dict[
     ZorkGrandInquisitorStartingLocations, Optional[Tuple[Tuple[ZorkGrandInquisitorItems, ...], ...]]

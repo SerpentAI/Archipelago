@@ -11,6 +11,7 @@ from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 
 from .data.mapping_data import (
+    death_cause_labels,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
     voxam_cast_game_locations,
@@ -75,9 +76,14 @@ class GameController:
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
     option_grant_missable_location_checks: Optional[bool]
     option_client_seed_information: Optional[ZorkGrandInquisitorClientSeedInformation]
+    option_death_link: Optional[bool]
 
     starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
+
+    pending_death_link: Tuple[bool, Optional[str], Optional[str]]
+    outgoing_death_link: Tuple[bool, Optional[str]]
+    pause_death_monitoring: bool
 
     def __init__(self, logger=None) -> None:
         self.logger = logger
@@ -129,9 +135,14 @@ class GameController:
         self.option_landmarksanity = None
         self.option_grant_missable_location_checks = None
         self.option_client_seed_information = None
+        self.option_death_link = None
 
         self.starter_kit = None
         self.initial_totemizer_destination = None
+
+        self.pending_death_link = (False, None, None)
+        self.outgoing_death_link = (False, None)
+        self.pause_death_monitoring = False
 
     @functools.cached_property
     def brog_items(self) -> Set[ZorkGrandInquisitorItems]:
@@ -358,6 +369,9 @@ class GameController:
                 self._manage_items()
 
                 self._apply_conditional_teleports()
+
+                if self.option_death_link:
+                    self._handle_death_link()
 
                 self._check_for_victory()
             except Exception as e:
@@ -1226,6 +1240,36 @@ class GameController:
             )
         else:
             self._apply_starting_location(force=True)
+
+    def _handle_death_link(self) -> None:
+        # Pause Monitoring Flag
+        if self.pause_death_monitoring and not self._player_is_at("gjde"):
+            self.pause_death_monitoring = False
+
+        # Incoming Death Link
+        if not self._player_is_at("gjde") and self.pending_death_link[0]:
+            self._write_game_state_value_for(2201, 35)
+            self.game_state_manager.set_game_location("gjde", 0)
+
+            if self.pending_death_link[2]:
+                self.log(f"Death Link: {self.pending_death_link[2]}")
+            else:
+                self.log(f"Death Link: Triggered by {self.pending_death_link[1]}")
+
+            self.pending_death_link = (False, None, None)
+
+        # Outgoing Death Link
+        if not self.pause_death_monitoring:
+            death_cause_id: int = self._read_game_state_value_for(2201)
+
+            if self._player_is_at("gjde") and death_cause_id != 35:
+                death_cause: str = death_cause_labels.get(
+                    death_cause_id,
+                    "PLAYER died of unknown causes"
+                )
+
+                self.outgoing_death_link = (True, death_cause)
+                self.pause_death_monitoring = True
 
     def _check_for_victory(self) -> None:
         if self.option_goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:

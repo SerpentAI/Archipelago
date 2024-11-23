@@ -55,6 +55,13 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
         """List received Hotspots."""
         self.ctx.game_controller.list_received_hotspots()
 
+    def _cmd_deathlink(self) -> None:
+        """Toggle deathlink status."""
+        if not self.ctx.game_controller.option_death_link:
+            return
+
+        self.ctx.death_link_status = not self.ctx.death_link_status
+
 
 class ZorkGrandInquisitorContext(CommonClient.CommonContext):
     tags: Set[str] = {"AP"}
@@ -70,6 +77,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
     id_to_locations: Dict[int, ZorkGrandInquisitorLocations] = id_to_locations()
 
     game_controller: GameController
+    death_link_status: bool = False
 
     controller_task: Optional[asyncio.Task]
 
@@ -149,6 +157,11 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 id_to_client_seed_information()[_args["slot_data"]["client_seed_information"]]
             )
 
+            is_death_link = _args["slot_data"]["death_link"] == 1
+
+            self.game_controller.option_death_link = is_death_link  # Represents the option; will never change
+            self.death_link_status = is_death_link  # Represents the toggleable status
+
             # Starter Kit
             self.game_controller.starter_kit = _args["slot_data"]["starter_kit"]
 
@@ -156,6 +169,10 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.game_controller.initial_totemizer_destination = item_names_to_item()[
                 _args["slot_data"]["initial_totemizer_destination"]
             ]
+
+    def on_deathlink(self, data: Dict[str, Any]) -> None:
+        self.last_death_link = max(data["time"], self.last_death_link)
+        self.game_controller.pending_death_link = (True, data.get("source"), data.get("cause"))
 
     async def controller(self):
         while not self.exit_event.is_set():
@@ -225,6 +242,25 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                         "status": CommonClient.ClientStatus.CLIENT_GOAL
                     }
                 ])
+
+            # Handle Death Link
+            await self.update_death_link(self.death_link_status)
+
+            if self.game_controller.outgoing_death_link[0]:
+                if self.death_link_status:
+                    death_cause: Optional[str] = self.game_controller.outgoing_death_link[1]
+
+                    if death_cause:
+                        death_cause = death_cause.replace(
+                            "PLAYER",
+                            self.player_names[self.slot]
+                        )
+                    else:
+                        death_cause = ""
+
+                    await self.send_death(death_cause)
+
+                self.game_controller.outgoing_death_link = (False, None)
 
 
 def main() -> None:

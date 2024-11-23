@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from Options import (
     Choice,
+    DeathLinkMixin,
     DefaultOnToggle,
     PerGameCommonOptions,
     Range,
@@ -197,7 +198,7 @@ class ClientSeedInformation(Choice):
 
 
 @dataclass
-class ZorkGrandInquisitorOptions(PerGameCommonOptions):
+class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     start_inventory_from_pool: StartInventoryPool
     goal: Goal
     artifacts_of_magic_total: ArtifactsOfMagicTotal
