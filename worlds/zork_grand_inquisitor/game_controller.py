@@ -598,12 +598,17 @@ class GameController:
             is_location_completed: bool = True
 
             trigger: Union[str, int, Tuple[int, ...]]
-            value: Union[str, int, Tuple[int, ...]]
+            value: Union[str, int, Tuple[int, ...], Tuple[str, ...]]
             for trigger, value in data.game_state_trigger:
                 if trigger == "location":
-                    if not self._player_is_at(value):
-                        is_location_completed = False
-                        break
+                    if isinstance(value, str):
+                        if not self._player_is_at(value):
+                            is_location_completed = False
+                            break
+                    elif isinstance(value, tuple):
+                        if not any(self._player_is_at(key) for key in value):
+                            is_location_completed = False
+                            break
                 elif isinstance(trigger, int):
                     if isinstance(value, int):
                         if self._read_game_state_value_for(trigger) != value:

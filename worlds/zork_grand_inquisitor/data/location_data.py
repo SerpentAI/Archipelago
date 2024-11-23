@@ -17,6 +17,7 @@ class ZorkGrandInquisitorLocationData(NamedTuple):
                 Tuple[int, int],
                 Tuple[int, Tuple[int, ...]],
                 Tuple[Tuple[int, ...], int],
+                Tuple[str, Tuple[str, ...]],
             ],
             ...,
         ]
@@ -669,7 +670,7 @@ location_data: Dict[
         ),
     ),
     ZorkGrandInquisitorLocations.I_AM_NOT_IMPRESSED: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "hp4f"), (8419, 1)),
+        game_state_trigger=(("location", ("hp4f", "hp1g")), (8419, 1)),
         archipelago_id=LOCATION_OFFSET + 63,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
