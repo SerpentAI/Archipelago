@@ -1505,7 +1505,8 @@ class GameController:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.STUDENT_ID:
                 if self._read_game_state_value_for(11838) == 1:
-                    to_filter_inventory_items.add(item)
+                    if self._read_game_state_value_for(9) != 39:
+                        to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.SUBWAY_TOKEN:
                 if self._read_game_state_value_for(13167) == 1:
                     to_filter_inventory_items.add(item)
