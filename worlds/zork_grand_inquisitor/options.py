@@ -1,6 +1,13 @@
 from dataclasses import dataclass
 
-from Options import Choice, DefaultOnToggle, PerGameCommonOptions, Range, Toggle
+from Options import (
+    Choice,
+    DefaultOnToggle,
+    PerGameCommonOptions,
+    Range,
+    StartInventoryPool,
+    Toggle,
+)
 
 
 class Goal(Choice):
@@ -191,6 +198,7 @@ class ClientSeedInformation(Choice):
 
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions):
+    start_inventory_from_pool: StartInventoryPool
     goal: Goal
     artifacts_of_magic_total: ArtifactsOfMagicTotal
     artifacts_of_magic_required: ArtifactsOfMagicRequired
