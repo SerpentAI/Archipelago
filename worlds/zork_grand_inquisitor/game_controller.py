@@ -234,6 +234,11 @@ class GameController:
             else:
                 self.log(f"    Grant Missable Location Checks: Off")
 
+            if self.option_death_link:
+                self.log(f"    Death Link: On")
+            else:
+                self.log(f"    Death Link: Off")
+
     def output_starter_kit(self) -> None:
         if self.starter_kit is None:
             return
