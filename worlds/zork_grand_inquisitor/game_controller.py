@@ -396,6 +396,44 @@ class GameController:
                 self.log_debug(e)
                 traceback.print_exc()
 
+    def reset(self) -> None:
+        self.received_items = set()
+        self.completed_locations = set()
+
+        self.completed_locations_queue = collections.deque()
+        self.received_items_queue = collections.deque()
+
+        self.available_inventory_slots = set()
+
+        self.goal_item_count = 0
+        self.goal_completed = False
+
+        self.option_goal = None
+        self.option_artifacts_of_magic_required = None
+        self.option_artifacts_of_magic_total = None
+        self.option_starting_location = None
+        self.option_hotspots = None
+        self.option_craftable_spells = None
+        self.option_wild_voxam = None
+        self.option_wild_voxam_chance = None
+        self.option_deathsanity = None
+        self.option_landmarksanity = None
+        self.option_grant_missable_location_checks = None
+        self.option_client_seed_information = None
+        self.option_death_link = None
+
+        self.starter_kit = None
+        self.initial_totemizer_destination = None
+
+        self.pending_death_link = (False, None, None)
+        self.outgoing_death_link = (False, None)
+        self.pause_death_monitoring = False
+
+        self.save_ids = None
+
+        self.valid_save_message_shown = False
+        self.invalid_save_message_shown = False
+
     def _check_for_valid_save(self) -> bool:
         if self._player_is_at("gary"):
             return False

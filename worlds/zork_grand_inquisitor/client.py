@@ -117,13 +117,16 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
     async def disconnect(self, allow_autoreconnect: bool = False):
         try:
-            # Close process handle if possible, ensuring that the player will have to /zork again upon reconnect
             self.game_controller.close_process_handle()
-
-            self.game_controller.valid_save_message_shown = False
-            self.game_controller.invalid_save_message_shown = False
         except Exception:
             pass
+
+        self.game_controller.reset()
+
+        self.items_received = []
+        self.locations_info = {}
+
+        self.can_display_process_message = True
 
         await super().disconnect(allow_autoreconnect)
 
@@ -237,49 +240,51 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                     CommonClient.logger.info(process_message)
                     self.can_display_process_message = False
 
-            # Send Checked Locations
-            checked_location_ids: List[int] = list()
+            # Network Operations
+            if self.server and self.slot:
+                # Send Checked Locations
+                checked_location_ids: List[int] = list()
 
-            while len(self.game_controller.completed_locations_queue) > 0:
-                location: ZorkGrandInquisitorLocations = self.game_controller.completed_locations_queue.popleft()
-                location_id: int = self.location_name_to_id[location.value]
+                while len(self.game_controller.completed_locations_queue) > 0:
+                    location: ZorkGrandInquisitorLocations = self.game_controller.completed_locations_queue.popleft()
+                    location_id: int = self.location_name_to_id[location.value]
 
-                checked_location_ids.append(location_id)
+                    checked_location_ids.append(location_id)
 
-            await self.send_msgs([
-                {
-                    "cmd": "LocationChecks",
-                    "locations": checked_location_ids
-                }
-            ])
-
-            # Check for Goal Completion
-            if self.game_controller.goal_completed:
                 await self.send_msgs([
                     {
-                        "cmd": "StatusUpdate",
-                        "status": CommonClient.ClientStatus.CLIENT_GOAL
+                        "cmd": "LocationChecks",
+                        "locations": checked_location_ids
                     }
                 ])
 
-            # Handle Death Link
-            await self.update_death_link(self.death_link_status)
+                # Check for Goal Completion
+                if self.game_controller.goal_completed:
+                    await self.send_msgs([
+                        {
+                            "cmd": "StatusUpdate",
+                            "status": CommonClient.ClientStatus.CLIENT_GOAL
+                        }
+                    ])
 
-            if self.game_controller.outgoing_death_link[0]:
-                if self.death_link_status:
-                    death_cause: Optional[str] = self.game_controller.outgoing_death_link[1]
+                # Handle Death Link
+                await self.update_death_link(self.death_link_status)
 
-                    if death_cause:
-                        death_cause = death_cause.replace(
-                            "PLAYER",
-                            self.player_names[self.slot]
-                        )
-                    else:
-                        death_cause = ""
+                if self.game_controller.outgoing_death_link[0]:
+                    if self.death_link_status:
+                        death_cause: Optional[str] = self.game_controller.outgoing_death_link[1]
 
-                    await self.send_death(death_cause)
+                        if death_cause:
+                            death_cause = death_cause.replace(
+                                "PLAYER",
+                                self.player_names[self.slot]
+                            )
+                        else:
+                            death_cause = ""
 
-                self.game_controller.outgoing_death_link = (False, None)
+                        await self.send_death(death_cause)
+
+                    self.game_controller.outgoing_death_link = (False, None)
 
 
 def main() -> None:
