@@ -64,9 +64,12 @@ class ArtifactsOfMagicRequired(Range):
 
 class StartingLocation(Choice):
     """
-    Determines the in-game location the player will start at. The player always starts with VOXAM, which can be used to
-    teleport back to the starting location at any time. Depending on the starting location, the player may also be given
-    a starter kit of items to help them get going.
+    Determines the in-game location the player will start at.
+
+    The player always starts with VOXAM, which can be used to teleport back to the starting location at any time.
+    Depending on the starting location, the player may also be given a starter kit of items to help them get going.
+
+    Note: VOXAM will only work from the spell quickbar. It will have no effect from the spellbook.
     """
 
     display_name: str = "Starting Location"

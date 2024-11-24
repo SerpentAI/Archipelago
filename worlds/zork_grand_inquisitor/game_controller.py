@@ -568,6 +568,7 @@ class GameController:
         self._write_game_state_value_for(8620, 1)  # First Coin Paid to Charon
         self._write_game_state_value_for(8731, 1)  # First Coin Paid to Charon
         self._write_game_state_value_for(191, 1)  # VOXAM Learned
+        self._write_game_state_value_for(19243, 0)  # Keep VOXAM Miscast Counter at 0
         self._write_game_state_value_for(15384, 0)  # Never Consider All Artifacts to be Placed
 
     def _apply_conditional_game_state(self):
@@ -670,6 +671,33 @@ class GameController:
         self._write_game_flags_value_for(4873, 2)  # Cocoa Ingredient - Quelbee Honeycomb
         self._write_game_flags_value_for(10809, 2)  # Back of Jack's Shop
         self._write_game_flags_value_for(10314, 2)  # Well Rope
+        self._write_game_flags_value_for(10848, 2)  # Keep Spellbar Enabled (ps10)
+        self._write_game_flags_value_for(10862, 2)  # Keep Spellbar Enabled (ps1e)
+        self._write_game_flags_value_for(10868, 2)  # Keep Spellbar Enabled (ps20)
+        self._write_game_flags_value_for(10302, 2)  # Keep Spellbar Enabled (pc10)
+        self._write_game_flags_value_for(10311, 2)  # Keep Spellbar Enabled (pc1e)
+        self._write_game_flags_value_for(10918, 2)  # Keep Spellbar Enabled (px10)
+        self._write_game_flags_value_for(10967, 2)  # Keep Spellbar Enabled (px1h)
+        self._write_game_flags_value_for(10984, 2)  # Keep Spellbar Enabled (px1j)
+        self._write_game_flags_value_for(10993, 2)  # Keep Spellbar Enabled (px1k)
+        self._write_game_flags_value_for(10414, 2)  # Keep Spellbar Enabled (pe10)
+        self._write_game_flags_value_for(10492, 2)  # Keep Spellbar Enabled (pe20)
+        self._write_game_flags_value_for(10516, 2)  # Keep Spellbar Enabled (pe2e)
+        self._write_game_flags_value_for(10589, 2)  # Keep Spellbar Enabled (pe30)
+        self._write_game_flags_value_for(10639, 2)  # Keep Spellbar Enabled (pe3k)
+        self._write_game_flags_value_for(10659, 2)  # Keep Spellbar Enabled (pe40)
+        self._write_game_flags_value_for(10677, 2)  # Keep Spellbar Enabled (pe4g)
+        self._write_game_flags_value_for(10697, 2)  # Keep Spellbar Enabled (pe50)
+        self._write_game_flags_value_for(10773, 2)  # Keep Spellbar Enabled (pe5h)
+        self._write_game_flags_value_for(10756, 2)  # Keep Spellbar Enabled (pe5f)
+        self._write_game_flags_value_for(10786, 2)  # Keep Spellbar Enabled (pe6e)
+        self._write_game_flags_value_for(10722, 2)  # Keep Spellbar Enabled (pe5e)
+        self._write_game_flags_value_for(19603, 2)  # Keep Spellbar Enabled (pe5n)
+        self._write_game_flags_value_for(10620, 2)  # Keep Spellbar Enabled (pe3j)
+        self._write_game_flags_value_for(10439, 2)  # Keep Spellbar Enabled (pe1e)
+        self._write_game_flags_value_for(10805, 2)  # Keep Spellbar Enabled (pp10)
+        self._write_game_flags_value_for(10805, 2)  # Keep Spellbar Enabled (pp10)
+        self._write_game_flags_value_for(10838, 2)  # Keep Spellbar Enabled (pp1j)
 
     def _check_for_completed_locations(self) -> None:
         location: ZorkGrandInquisitorLocations
