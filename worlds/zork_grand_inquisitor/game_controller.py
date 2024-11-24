@@ -189,7 +189,7 @@ class GameController:
     def missable_locations(self) -> Set[ZorkGrandInquisitorLocations]:
         return locations_with_tag(ZorkGrandInquisitorTags.MISSABLE)
 
-    @functools.cached_property
+    @property
     def is_deathsanity(self) -> bool:
         return self.option_deathsanity == ZorkGrandInquisitorDeathsanity.ON
 
