@@ -546,14 +546,14 @@ endgame_entrance_data_by_goal: Dict[
     ZorkGrandInquisitorGoals.ZORK_TOUR: {
         (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
             (
-                [ZorkGrandInquisitorItems.LANDMARK, 20],
+                [ZorkGrandInquisitorItems.LANDMARK, 999],  # Will get replaced with the actual number
             ),
         ),
     },
     ZorkGrandInquisitorGoals.GRIM_JOURNEY: {
         (ZorkGrandInquisitorRegions.HADES_BEYOND_GATES, ZorkGrandInquisitorRegions.ENDGAME): (
             (
-                [ZorkGrandInquisitorItems.DEATH, 22],
+                [ZorkGrandInquisitorItems.DEATH, 999],  # Will get replaced with the actual number
             ),
         ),
     },

@@ -145,6 +145,14 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 _args["slot_data"]["artifacts_of_magic_total"]
             )
 
+            self.game_controller.option_landmarks_required = (
+                _args["slot_data"]["landmarks_required"]
+            )
+
+            self.game_controller.option_deaths_required = (
+                _args["slot_data"]["deaths_required"]
+            )
+
             self.game_controller.option_starting_location = (
                 id_to_starting_locations()[_args["slot_data"]["starting_location"]]
             )

@@ -404,6 +404,8 @@ def goal_access_rule_for(
     goal: ZorkGrandInquisitorGoals,
     player: int,
     artifacts_of_magic_required: int,
+    landmarks_required: int,
+    deaths_required: int,
 ) -> str:
     dataset: Dict[
         Tuple[
@@ -427,7 +429,7 @@ def goal_access_rule_for(
         ],
     ] = endgame_entrance_data_by_goal[goal]
 
-    # Replace placeholder with actual number of artifacts of magic required
+    # Replace placeholder with actual number of goal items required
     if goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
         dataset[
             (
@@ -435,6 +437,20 @@ def goal_access_rule_for(
                 ZorkGrandInquisitorRegions.ENDGAME
             )
         ][0][0][1] = artifacts_of_magic_required
+    elif goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+        dataset[
+            (
+                ZorkGrandInquisitorRegions.PORT_FOOZLE,
+                ZorkGrandInquisitorRegions.ENDGAME
+            )
+        ][0][0][1] = landmarks_required
+    elif goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+        dataset[
+            (
+                ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+                ZorkGrandInquisitorRegions.ENDGAME
+            )
+        ][0][0][1] = deaths_required
 
     return entrance_access_rule_for(
         region,

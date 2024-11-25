@@ -105,6 +105,7 @@ class ZorkGrandInquisitorWorld(World):
     artifacts_of_magic_required: int
     artifacts_of_magic_total: int
     craftable_spells: ZorkGrandInquisitorCraftableSpellBehaviors
+    deaths_required: int
     deathsanity: ZorkGrandInquisitorDeathsanity
     early_items: Tuple[ZorkGrandInquisitorItems, ...]
     filler_item_names: List[str] = item_groups()["Filler"]
@@ -114,6 +115,7 @@ class ZorkGrandInquisitorWorld(World):
     initial_totemizer_destination: ZorkGrandInquisitorItems
     item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
+    landmarks_required: int
     landmarksanity: ZorkGrandInquisitorLandmarksanity
 
     location_data: Dict[
@@ -132,6 +134,9 @@ class ZorkGrandInquisitorWorld(World):
 
         if self.artifacts_of_magic_required > self.artifacts_of_magic_total:
             self.artifacts_of_magic_total = self.artifacts_of_magic_required
+
+        self.landmarks_required = self.options.landmarks_required.value
+        self.deaths_required = self.options.deaths_required.value
 
         self.starting_location = id_to_starting_locations()[self.options.starting_location.value]
 
@@ -252,6 +257,8 @@ class ZorkGrandInquisitorWorld(World):
                     self.goal,
                     self.player,
                     self.artifacts_of_magic_required,
+                    self.landmarks_required,
+                    self.deaths_required,
                 )
 
                 region.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
@@ -271,6 +278,8 @@ class ZorkGrandInquisitorWorld(World):
                 self.goal,
                 self.player,
                 self.artifacts_of_magic_required,
+                self.landmarks_required,
+                self.deaths_required,
             )
 
             region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
@@ -377,6 +386,8 @@ class ZorkGrandInquisitorWorld(World):
             "goal",
             "artifacts_of_magic_required",
             "artifacts_of_magic_total",
+            "landmarks_required",
+            "deaths_required",
             "starting_location",
             "hotspots",
             "craftable_spells",

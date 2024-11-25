@@ -67,6 +67,8 @@ class GameController:
     option_goal: Optional[ZorkGrandInquisitorGoals]
     option_artifacts_of_magic_required: Optional[int]
     option_artifacts_of_magic_total: Optional[int]
+    option_landmarks_required: Optional[int]
+    option_deaths_required: Optional[int]
     option_starting_location: Optional[ZorkGrandInquisitorStartingLocations]
     option_hotspots: Optional[ZorkGrandInquisitorHotspots]
     option_craftable_spells: Optional[ZorkGrandInquisitorCraftableSpellBehaviors]
@@ -131,6 +133,8 @@ class GameController:
         self.option_goal = None
         self.option_artifacts_of_magic_required = None
         self.option_artifacts_of_magic_total = None
+        self.option_landmarks_required = None
+        self.option_deaths_required = None
         self.option_starting_location = None
         self.option_hotspots = None
         self.option_craftable_spells = None
@@ -226,6 +230,10 @@ class GameController:
             if self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
                 self.log(f"    Artifacts of Magic Required: {self.option_artifacts_of_magic_required}")
                 self.log(f"    Artifacts of Magic Total: {self.option_artifacts_of_magic_total}")
+            elif self.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+                self.log(f"    Landmarks Required: {self.option_landmarks_required}")
+            elif self.option_goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+                self.log(f"    Deaths Required: {self.option_deaths_required}")
 
             self.log(f"    Starting Location: {labels_for_enum_items[self.option_starting_location]}")
             self.log(f"    Hotspots: {labels_for_enum_items[self.option_hotspots]}")
@@ -277,25 +285,25 @@ class GameController:
 
         if self.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
             self.log(
-                f"Received Artifact of Magic {self.goal_item_count} of {self.option_artifacts_of_magic_required}"
+                f"Received {self.goal_item_count} of {self.option_artifacts_of_magic_required} required Artifacts of Magic"
             )
 
             if self.goal_item_count >= self.option_artifacts_of_magic_required:
-                self.log("All needed Artifacts of Magic have been found! Get to the Walking Castle")
+                self.log("All needed Artifacts of Magic have been found! Get to the Walking Castle to win")
         elif self.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
             self.log(
-                f"Visited {self.goal_item_count} of 20 Landmarks"
+                f"Visited {self.goal_item_count} of {self.option_landmarks_required} required Landmarks"
             )
 
-            if self.goal_item_count == 20:
-                self.log("All Landmarks have been visited! Get to the Port Foozle signpost")
+            if self.goal_item_count >= self.option_landmarks_required:
+                self.log("All needed Landmarks have been visited! Get to the Port Foozle signpost to win")
         elif self.option_goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
             self.log(
-                f"Experienced {self.goal_item_count} of 22 Deaths"
+                f"Experienced {self.goal_item_count} of {self.option_deaths_required} required Deaths"
             )
 
-            if self.goal_item_count == 22:
-                self.log("All Deaths have been experienced! Go beyond the gates of hell")
+            if self.goal_item_count >= self.option_deaths_required:
+                self.log("All needed Deaths have been experienced! Go beyond the gates of hell to win")
 
     def list_received_brog_items(self) -> None:
         self.log("Received Brog Items:")
@@ -411,6 +419,8 @@ class GameController:
         self.option_goal = None
         self.option_artifacts_of_magic_required = None
         self.option_artifacts_of_magic_total = None
+        self.option_landmarks_required = None
+        self.option_deaths_required = None
         self.option_starting_location = None
         self.option_hotspots = None
         self.option_craftable_spells = None
@@ -1411,11 +1421,11 @@ class GameController:
                 if self._player_is_at("ps1e"):
                     self.goal_completed = True
         elif self.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
-            if self.goal_item_count == 20:
+            if self.goal_item_count >= self.option_landmarks_required:
                 if self._player_is_at("ps1e"):
                     self.goal_completed = True
         elif self.option_goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
-            if self.goal_item_count == 22:
+            if self.goal_item_count >= self.option_deaths_required:
                 if self._player_is_at("hp60"):
                     self.goal_completed = True
 

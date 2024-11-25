@@ -62,6 +62,36 @@ class ArtifactsOfMagicRequired(Range):
     default = 10
 
 
+class LandmarksRequired(Range):
+    """
+    Determines how many Landmarks are required to win.
+
+    Only relevant if the selected goal is Zork Tour.
+    """
+
+    display_name = "Landmarks Required"
+
+    range_start = 10
+    range_end = 20
+
+    default = 20
+
+
+class DeathsRequired(Range):
+    """
+    Determines how many Deaths are required to win.
+
+    Only relevant if the selected goal is Grim Journey.
+    """
+
+    display_name = "Deaths Required"
+
+    range_start = 10
+    range_end = 22
+
+    default = 22
+
+
 class StartingLocation(Choice):
     """
     Determines the in-game location the player will start at.
@@ -206,6 +236,8 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     goal: Goal
     artifacts_of_magic_total: ArtifactsOfMagicTotal
     artifacts_of_magic_required: ArtifactsOfMagicRequired
+    landmarks_required: LandmarksRequired
+    deaths_required: DeathsRequired
     starting_location: StartingLocation
     hotspots: Hotspots
     craftable_spells: CraftableSpells
