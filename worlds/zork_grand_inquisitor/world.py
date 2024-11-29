@@ -1,6 +1,9 @@
+import logging
+
 from typing import Any, Dict, List, Set, Tuple, Union
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
+from Options import OptionError
 
 from worlds.AutoWorld import WebWorld, World
 
@@ -52,7 +55,7 @@ from .enums import (
     ZorkGrandInquisitorTags,
 )
 
-from .options import ZorkGrandInquisitorOptions
+from .options import ZorkGrandInquisitorOptions, option_groups
 
 
 class ZorkGrandInquisitorItem(Item):
@@ -76,6 +79,9 @@ class ZorkGrandInquisitorWebWorld(WebWorld):
             ["Serpent.AI"],
         )
     ]
+
+    # Option presets here...
+    option_groups = option_groups
 
 
 class ZorkGrandInquisitorWorld(World):
@@ -125,6 +131,8 @@ class ZorkGrandInquisitorWorld(World):
     locked_items: Dict[ZorkGrandInquisitorLocations, ZorkGrandInquisitorItems]
     starter_kit: Tuple[ZorkGrandInquisitorItems, ...]
     starting_location: ZorkGrandInquisitorStartingLocations
+    trap_percentage: int
+    trap_weights: Tuple[int, ...]
 
     def generate_early(self) -> None:
         self.goal = id_to_goals()[self.options.goal.value]
@@ -134,6 +142,12 @@ class ZorkGrandInquisitorWorld(World):
 
         if self.artifacts_of_magic_required > self.artifacts_of_magic_total:
             self.artifacts_of_magic_total = self.artifacts_of_magic_required
+
+            if self.goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+                logging.warning(
+                    f"Zork Grand Inquisitor: {self.player_name} has more required artifacts than " 
+                    "total artifacts. Using required artifacts as total artifacts..."
+                )
 
         self.landmarks_required = self.options.landmarks_required.value
         self.deaths_required = self.options.deaths_required.value
@@ -190,6 +204,20 @@ class ZorkGrandInquisitorWorld(World):
         self.locked_items = self._prepare_locked_items()
 
         self.initial_totemizer_destination = self._select_initial_totemizer_destination()
+
+        self.trap_percentage = self.options.trap_percentage.value / 100
+
+        self.trap_weights = (
+            self.options.infinite_corridor_trap_weight.value,
+            self.options.reverse_controls_trap_weight.value,
+            self.options.teleport_trap_weight.value,
+            self.options.zvision_trap_weight.value,
+        )
+
+        if self.trap_percentage and not any(self.trap_weights):
+            raise OptionError(
+                f"Zork Grand Inquisitor: {self.player_name} has traps enabled but all traps are weighted at 0."
+            )
 
     def create_regions(self) -> None:
         region_mapping: Dict[ZorkGrandInquisitorRegions, Region] = dict()
@@ -287,29 +315,23 @@ class ZorkGrandInquisitorWorld(World):
         self.multiworld.regions.append(region_menu)
 
     def create_items(self) -> None:
-        items_to_ignore: Set[ZorkGrandInquisitorItems] = set()
-        items_to_precollect: Set[ZorkGrandInquisitorItems] = set()
-        items_to_place_early: Set[ZorkGrandInquisitorItems]
-
-        item: ZorkGrandInquisitorItems
-
-        for item in items_with_tag(ZorkGrandInquisitorTags.FILLER):
-            items_to_ignore.add(item)
-
-        for item in items_with_tag(ZorkGrandInquisitorTags.GOAL_THREE_ARTIFACTS):
-            items_to_ignore.add(item)
+        # Populate Items to Ignore and Precollect
+        items_to_ignore: Set[ZorkGrandInquisitorItems] = (
+            items_with_tag(ZorkGrandInquisitorTags.FILLER)
+            | items_with_tag(ZorkGrandInquisitorTags.TRAP)
+            | items_with_tag(ZorkGrandInquisitorTags.GOAL_THREE_ARTIFACTS)
+            | items_with_tag(ZorkGrandInquisitorTags.GOAL_ZORK_TOUR)
+            | items_with_tag(ZorkGrandInquisitorTags.GOAL_GRIM_JOURNEY)
+            | set(self.locked_items.values())
+        )
 
         if self.goal != ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
-            items_to_ignore.add(ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC)
+            items_to_ignore |= items_with_tag(ZorkGrandInquisitorTags.GOAL_ARTIFACT_OF_MAGIC_HUNT)
 
-        items_to_ignore.add(ZorkGrandInquisitorItems.LANDMARK)
-        items_to_ignore.add(ZorkGrandInquisitorItems.DEATH)
-
-        for item in self.locked_items.values():
-            items_to_ignore.add(item)
-
-        for item in self.starter_kit:
-            items_to_precollect.add(item)
+        items_to_precollect: Set[ZorkGrandInquisitorItems] = (
+            set(self.starter_kit)
+            | {self.initial_totemizer_destination}
+        )
 
         hotspot_items: Set[ZorkGrandInquisitorItems] = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
 
@@ -318,19 +340,12 @@ class ZorkGrandInquisitorWorld(World):
         )
 
         if self.hotspots == ZorkGrandInquisitorHotspots.ENABLED:
-            for item in hotspot_items:
-                items_to_ignore.add(item)
-
-            for item in hotspot_regional_items:
-                items_to_precollect.add(item)
+            items_to_ignore |= hotspot_items
+            items_to_precollect |= hotspot_regional_items
         elif self.hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION:
-            for item in hotspot_items:
-                items_to_ignore.add(item)
+            items_to_ignore |= hotspot_items
         elif self.hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT:
-            for item in hotspot_regional_items:
-                items_to_ignore.add(item)
-
-        items_to_precollect.add(self.initial_totemizer_destination)
+            items_to_ignore |= hotspot_regional_items
 
         if self.starting_location != ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR:
             items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT)
@@ -338,14 +353,14 @@ class ZorkGrandInquisitorWorld(World):
         if self.starting_location != ZorkGrandInquisitorStartingLocations.SPELL_LAB:
             items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT)
 
-        items_to_place_early = set(self.early_items) - items_to_precollect
+        items_to_ignore |= items_to_precollect
 
         # Create Item Pool
         item_pool: List[ZorkGrandInquisitorItem] = list()
 
         data: ZorkGrandInquisitorItemData
         for item, data in self.item_data.items():
-            if item in items_to_ignore or item in items_to_precollect:
+            if item in items_to_ignore:
                 continue
 
             if item == ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC:
@@ -354,8 +369,19 @@ class ZorkGrandInquisitorWorld(World):
             else:
                 item_pool.append(self.create_item(item.value))
 
-        total_locations: int = len(self.multiworld.get_unfilled_locations(self.player))
-        item_pool += [self.create_filler() for _ in range(total_locations - len(item_pool))]
+        total_location_count: int = len(self.multiworld.get_unfilled_locations(self.player))
+        to_fill_location_count: int = total_location_count - len(item_pool)
+
+        trap_count: int = int(round(to_fill_location_count * self.trap_percentage))
+
+        if trap_count:
+            item_pool += [
+                self.create_item(trap.value) for trap in self._sample_trap_items(trap_count)
+            ]
+
+        item_pool += [
+            self.create_filler() for _ in range(to_fill_location_count - trap_count)
+        ]
 
         self.multiworld.itempool += item_pool
 
@@ -363,7 +389,11 @@ class ZorkGrandInquisitorWorld(World):
         for item in items_to_precollect:
             self.multiworld.push_precollected(self.create_item(item.value))
 
-        # Early Items
+        # Define Early Items
+        items_to_place_early: Set[ZorkGrandInquisitorItems] = (
+            set(self.early_items) - items_to_ignore
+        )
+
         if len(items_to_place_early):
             for item in items_to_place_early:
                 self.multiworld.early_items[self.player][item.value] = 1
@@ -395,6 +425,7 @@ class ZorkGrandInquisitorWorld(World):
             "wild_voxam_chance",
             "deathsanity",
             "landmarksanity",
+            "trap_percentage",
             "grant_missable_location_checks",
             "client_seed_information",
             "death_link",
@@ -526,3 +557,15 @@ class ZorkGrandInquisitorWorld(World):
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY,
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
         ))
+
+    def _sample_trap_items(self, count: int) -> List[ZorkGrandInquisitorItems]:
+        return self.random.choices(
+            (
+                ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR,
+                ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS,
+                ZorkGrandInquisitorItems.TRAP_TELEPORT,
+                ZorkGrandInquisitorItems.TRAP_ZVISION,
+            ),
+            weights=self.trap_weights,
+            k=count,
+        )

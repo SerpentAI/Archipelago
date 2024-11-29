@@ -176,6 +176,8 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 id_to_landmarksanity()[_args["slot_data"]["landmarksanity"]]
             )
 
+            self.game_controller.option_trap_percentage = _args["slot_data"]["trap_percentage"]
+
             self.game_controller.option_grant_missable_location_checks = (
                 _args["slot_data"]["grant_missable_location_checks"] == 1
             )
@@ -211,6 +213,10 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             # Enqueue Received Item Delta
             goal_item_count: int = 0
 
+            trap_item_counts: Dict[ZorkGrandInquisitorItems, int] = {
+                item: 0 for item in self.game_controller.all_trap_items
+            }
+
             network_item: NetUtils.NetworkItem
             for network_item in self.items_received:
                 item: ZorkGrandInquisitorItems = self.id_to_items[network_item.item]
@@ -218,14 +224,18 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 if item in self.game_controller.all_goal_items:
                     goal_item_count += 1
                     continue
-
-                if item not in self.game_controller.received_items:
+                elif item in self.game_controller.all_trap_items:
+                    trap_item_counts[item] += 1
+                    continue
+                elif item not in self.game_controller.received_items:
                     if item not in self.game_controller.received_items_queue:
                         self.game_controller.received_items_queue.append(item)
 
             if goal_item_count > self.game_controller.goal_item_count:
                 self.game_controller.goal_item_count = goal_item_count
                 self.game_controller.output_goal_item_update()
+
+            self.game_controller.trap_counters = trap_item_counts
 
             # Game Controller Update
             if self.game_controller.is_process_running():

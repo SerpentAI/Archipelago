@@ -1,9 +1,12 @@
+from typing import List
+
 from dataclasses import dataclass
 
 from Options import (
     Choice,
     DeathLinkMixin,
     DefaultOnToggle,
+    OptionGroup,
     PerGameCommonOptions,
     Range,
     StartInventoryPool,
@@ -199,6 +202,85 @@ class Landmarksanity(DefaultOnToggle):
     display_name: str = "Landmarksanity"
 
 
+class TrapPercentage(Range):
+    """
+    Determines the percentage chance that a trap will replace a filler item.
+
+    Possible traps are:
+    - Infinite Corridor Trap: The player is teleported to a random depth in the Infinite Corridor
+    - Reverse Controls Trap: The player's panorama controls are reversed for 30 seconds
+    - Teleport Trap: The player is teleported to a random location
+    - ZVision Trap: The player's vision is obscured for 30 seconds
+    """
+
+    display_name = "Trap Percentage"
+
+    range_start = 0
+    range_end = 100
+
+    default = 0
+
+
+class InfiniteCorridorTrapWeight(Range):
+    """
+    Determines the weight of the Infinite Corridor Trap.
+
+    The higher the weight, the more likely this trap will be chosen when a trap is rolled.
+    """
+
+    display_name = "Infinite Corridor Trap Weight"
+
+    range_start = 0
+    range_end = 100
+
+    default = 1
+
+
+class ReverseControlsTrapWeight(Range):
+    """
+    Determines the weight of the Reverse Controls Trap.
+
+    The higher the weight, the more likely this trap will be chosen when a trap is rolled.
+    """
+
+    display_name = "Reverse Controls Trap Weight"
+
+    range_start = 0
+    range_end = 100
+
+    default = 1
+
+
+class TeleportTrapWeight(Range):
+    """
+    Determines the weight of the Teleport Trap.
+
+    The higher the weight, the more likely this trap will be chosen when a trap is rolled.
+    """
+
+    display_name = "Teleport Trap Weight"
+
+    range_start = 0
+    range_end = 100
+
+    default = 1
+
+
+class ZVisionTrapWeight(Range):
+    """
+    Determines the weight of the ZVision Trap.
+
+    The higher the weight, the more likely this trap will be chosen when a trap is rolled.
+    """
+
+    display_name = "ZVision Trap Weight"
+
+    range_start = 0
+    range_end = 100
+
+    default = 1
+
+
 class GrantMissableLocationChecks(Toggle):
     """
     If true, performing an irreversible action will grant the locations checks that would have become unobtainable as a
@@ -245,5 +327,55 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     wild_voxam_chance: WildVoxamChance
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
+    trap_percentage: TrapPercentage
+    infinite_corridor_trap_weight: InfiniteCorridorTrapWeight
+    reverse_controls_trap_weight: ReverseControlsTrapWeight
+    teleport_trap_weight: TeleportTrapWeight
+    zvision_trap_weight: ZVisionTrapWeight
     grant_missable_location_checks: GrantMissableLocationChecks
     client_seed_information: ClientSeedInformation
+
+
+# Option presets here...
+
+option_groups: List[OptionGroup] = [
+    OptionGroup(
+        "Goal Options",
+        [
+            Goal,
+            ArtifactsOfMagicTotal,
+            ArtifactsOfMagicRequired,
+            LandmarksRequired,
+            DeathsRequired,
+        ],
+    ),
+    OptionGroup(
+        "Gameplay Options",
+        [
+            StartingLocation,
+            Hotspots,
+            CraftableSpells,
+            WildVoxam,
+            WildVoxamChance,
+            Deathsanity,
+            Landmarksanity,
+        ],
+    ),
+    OptionGroup(
+        "Trap Options",
+        [
+            TrapPercentage,
+            InfiniteCorridorTrapWeight,
+            ReverseControlsTrapWeight,
+            TeleportTrapWeight,
+            ZVisionTrapWeight,
+        ],
+    ),
+    OptionGroup(
+        "Client Options",
+        [
+            GrantMissableLocationChecks,
+            ClientSeedInformation,
+        ],
+    ),
+]

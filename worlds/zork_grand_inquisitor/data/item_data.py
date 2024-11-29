@@ -1397,4 +1397,29 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.GOAL_GRIM_JOURNEY,),
     ),
+    # Trap Items
+    ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 900 + 0,
+        classification=ItemClassification.trap | ItemClassification.useful,
+        tags=(ZorkGrandInquisitorTags.TRAP,),
+    ),
+    ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 900 + 1,
+        classification=ItemClassification.trap,
+        tags=(ZorkGrandInquisitorTags.TRAP,),
+    ),
+    ZorkGrandInquisitorItems.TRAP_TELEPORT: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 900 + 2,
+        classification=ItemClassification.trap | ItemClassification.useful,
+        tags=(ZorkGrandInquisitorTags.TRAP,),
+    ),
+    ZorkGrandInquisitorItems.TRAP_ZVISION: ZorkGrandInquisitorItemData(
+        statemap_keys=None,
+        archipelago_id=ITEM_OFFSET + 900 + 3,
+        classification=ItemClassification.trap,
+        tags=(ZorkGrandInquisitorTags.TRAP,),
+    ),
 }

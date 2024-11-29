@@ -83,6 +83,14 @@ class GameStateManager:
         return self.script_manager_struct_address + 0x40C
 
     @property
+    def zvision_address(self) -> int:
+        return self.render_manager_struct_address + 0x0
+
+    @property
+    def render_type_address(self) -> int:
+        return self.render_manager_struct_address + 0x10
+
+    @property
     def panorama_reversed_address(self) -> int:
         return self.render_manager_struct_address + 0x1C
 
@@ -245,6 +253,22 @@ class GameStateManager:
 
             self.process.write_bytes(self.next_location_address, game_location_bytes, 4)
             self.process.write_int(self.next_location_offset_address, offset)
+
+            return True
+
+        return None
+
+    def set_zvision(self, is_zvision: bool) -> Optional[bool]:
+        if self.is_process_running:
+            self.process.write_int(self.zvision_address, 320 if is_zvision else 640)
+
+            return True
+
+        return None
+
+    def set_render_type(self, render_type: int) -> Optional[bool]:
+        if self.is_process_running:
+            self.process.write_int(self.render_type_address, render_type)
 
             return True
 

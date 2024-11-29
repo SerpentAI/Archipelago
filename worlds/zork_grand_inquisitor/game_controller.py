@@ -1,4 +1,5 @@
 import collections
+import datetime
 import functools
 import logging
 import random
@@ -14,6 +15,7 @@ from .data.mapping_data import (
     death_cause_labels,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
+    traps_to_game_state_key,
     voxam_cast_game_locations,
 )
 
@@ -54,6 +56,7 @@ class GameController:
     all_spell_items: Set[ZorkGrandInquisitorItems]
     all_hotspot_items: Set[ZorkGrandInquisitorItems]
     all_goal_items: Set[ZorkGrandInquisitorItems]
+    all_trap_items: Set[ZorkGrandInquisitorItems]
 
     game_id_to_items: Dict[int, ZorkGrandInquisitorItems]
 
@@ -76,12 +79,18 @@ class GameController:
     option_wild_voxam_chance: Optional[int]
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
+    option_trap_percentage: Optional[int]
     option_grant_missable_location_checks: Optional[bool]
     option_client_seed_information: Optional[ZorkGrandInquisitorClientSeedInformation]
     option_death_link: Optional[bool]
 
     starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
+
+    trap_counters: Dict[ZorkGrandInquisitorItems, int]
+
+    active_trap: Optional[ZorkGrandInquisitorItems]
+    active_trap_until: Optional[datetime.datetime]
 
     pending_death_link: Tuple[bool, Optional[str], Optional[str]]
     outgoing_death_link: Tuple[bool, Optional[str]]
@@ -117,6 +126,8 @@ class GameController:
             ZorkGrandInquisitorItems.DEATH,
         }
 
+        self.all_trap_items = items_with_tag(ZorkGrandInquisitorTags.TRAP)
+
         self.game_id_to_items = game_id_to_items()
 
         self.possible_inventory_items = (
@@ -142,12 +153,23 @@ class GameController:
         self.option_wild_voxam_chance = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
+        self.option_trap_percentage = None
         self.option_grant_missable_location_checks = None
         self.option_client_seed_information = None
         self.option_death_link = None
 
         self.starter_kit = None
         self.initial_totemizer_destination = None
+
+        self.trap_counters = {
+            ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: 0,
+            ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: 0,
+            ZorkGrandInquisitorItems.TRAP_TELEPORT: 0,
+            ZorkGrandInquisitorItems.TRAP_ZVISION: 0,
+        }
+
+        self.active_trap = None
+        self.active_trap_until = None
 
         self.pending_death_link = (False, None, None)
         self.outgoing_death_link = (False, None)
@@ -246,6 +268,7 @@ class GameController:
 
             self.log(f"    Deathsanity: {labels_for_enum_items[self.option_deathsanity]}")
             self.log(f"    Landmarksanity: {labels_for_enum_items[self.option_landmarksanity]}")
+            self.log(f"    Trap Percentage: {self.option_trap_percentage}%")
 
             if self.option_grant_missable_location_checks:
                 self.log(f"    Grant Missable Location Checks: On")
@@ -396,6 +419,9 @@ class GameController:
 
                 self._apply_conditional_teleports()
 
+                if self.option_trap_percentage:
+                    self._manage_traps()
+
                 if self.option_death_link:
                     self._handle_death_link()
 
@@ -428,12 +454,23 @@ class GameController:
         self.option_wild_voxam_chance = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
+        self.option_trap_percentage = None
         self.option_grant_missable_location_checks = None
         self.option_client_seed_information = None
         self.option_death_link = None
 
         self.starter_kit = None
         self.initial_totemizer_destination = None
+
+        self.trap_counters = {
+            ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: 0,
+            ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: 0,
+            ZorkGrandInquisitorItems.TRAP_TELEPORT: 0,
+            ZorkGrandInquisitorItems.TRAP_ZVISION: 0,
+        }
+
+        self.active_trap = None
+        self.active_trap_until = None
 
         self.pending_death_link = (False, None, None)
         self.outgoing_death_link = (False, None)
@@ -1349,13 +1386,13 @@ class GameController:
             if zork_rocks_inert:
                 self._cast_voxam()
 
-    def _cast_voxam(self) -> None:
-        if not self.option_wild_voxam:
+    def _cast_voxam(self, force_wild: bool = False) -> None:
+        if not self.option_wild_voxam and not force_wild:
             self._apply_starting_location(force=True)
 
         voxam_roll: int = random.randint(1, 100)
 
-        if voxam_roll <= self.option_wild_voxam_chance:
+        if voxam_roll <= self.option_wild_voxam_chance or force_wild:
             starting_location: ZorkGrandInquisitorStartingLocations = (
                 random.choice(tuple(voxam_cast_game_locations.keys()))
             )
@@ -1374,6 +1411,80 @@ class GameController:
             )
         else:
             self._apply_starting_location(force=True)
+
+    def _manage_traps(self) -> None:
+        if not self._player_is_afgncaap() or self._read_game_state_value_for(19985) == 0:
+            return None
+
+        if self.active_trap_until:
+            if datetime.datetime.now() > self.active_trap_until:
+                if self.active_trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
+                    self._deactivate_trap_reverse_controls()
+                elif self.active_trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
+                    self._deactivate_trap_zvision()
+
+                self.active_trap = None
+                self.active_trap_until = None
+
+        if self.active_trap is not None:
+            if self.active_trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
+                self._activate_trap_reverse_controls()
+            elif self.active_trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
+                self._activate_trap_zvision()
+
+            return None
+
+        trap: ZorkGrandInquisitorItems
+        count: int
+        for trap, count in self.trap_counters.items():
+            game_count: int = self._read_game_state_value_for(traps_to_game_state_key[trap])
+
+            if game_count < count:
+                if trap == ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR:
+                    self._activate_trap_infinite_corridor()
+                elif trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
+                    self.active_trap = ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS
+                    self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
+
+                    self._activate_trap_reverse_controls()
+                elif trap == ZorkGrandInquisitorItems.TRAP_TELEPORT:
+                    self._activate_trap_teleport()
+                elif trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
+                    self.active_trap = ZorkGrandInquisitorItems.TRAP_ZVISION
+                    self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
+
+                    self._activate_trap_zvision()
+
+                self._write_game_state_value_for(traps_to_game_state_key[trap], count)
+                self.trap_counters[trap] = game_count
+
+                break
+
+    def _activate_trap_infinite_corridor(self) -> None:
+        depth = random.randint(10, 20)
+
+        self._write_game_state_value_for(11005, depth)
+        self.game_state_manager.set_game_location("th20", random.randint(0, 1800))
+
+        time.sleep(0.1)
+
+        self._write_game_state_value_for(11005, depth)
+
+    def _activate_trap_reverse_controls(self) -> None:
+        self.game_state_manager.set_panorama_reversed(True)
+
+    def _deactivate_trap_reverse_controls(self) -> None:
+        self.game_state_manager.set_panorama_reversed(False)
+
+    def _activate_trap_teleport(self) -> None:
+        self._cast_voxam(force_wild=True)
+        time.sleep(0.1)
+
+    def _activate_trap_zvision(self) -> None:
+        self.game_state_manager.set_zvision(True)
+
+    def _deactivate_trap_zvision(self) -> None:
+        self.game_state_manager.set_zvision(False)
 
     def _handle_death_link(self) -> None:
         # Pause Monitoring Flag
