@@ -1393,7 +1393,7 @@ class GameController:
 
         voxam_roll: int = random.randint(1, 100)
 
-        if voxam_roll <= self.option_wild_voxam_chance or force_wild:
+        if (voxam_roll <= self.option_wild_voxam_chance) or force_wild:
             starting_location: ZorkGrandInquisitorStartingLocations = (
                 random.choice(tuple(voxam_cast_game_locations.keys()))
             )
