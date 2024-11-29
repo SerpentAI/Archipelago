@@ -730,6 +730,7 @@ class GameController:
         self._write_game_flags_value_for(10414, 2)  # Keep Spellbar Enabled (pe10)
         self._write_game_flags_value_for(10492, 2)  # Keep Spellbar Enabled (pe20)
         self._write_game_flags_value_for(10516, 2)  # Keep Spellbar Enabled (pe2e)
+        self._write_game_flags_value_for(10575, 2)  # Keep Spellbar Enabled (pe2j)
         self._write_game_flags_value_for(10589, 2)  # Keep Spellbar Enabled (pe30)
         self._write_game_flags_value_for(10639, 2)  # Keep Spellbar Enabled (pe3k)
         self._write_game_flags_value_for(10659, 2)  # Keep Spellbar Enabled (pe40)
