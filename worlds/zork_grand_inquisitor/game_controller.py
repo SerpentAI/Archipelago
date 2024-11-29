@@ -1456,9 +1456,7 @@ class GameController:
 
                     self._activate_trap_zvision()
 
-                self._write_game_state_value_for(traps_to_game_state_key[trap], count)
-                self.trap_counters[trap] = game_count
-
+                self._write_game_state_value_for(traps_to_game_state_key[trap], game_count + 1)
                 break
 
     def _activate_trap_infinite_corridor(self) -> None:
