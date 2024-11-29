@@ -1401,7 +1401,7 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
     ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 0,
-        classification=ItemClassification.trap | ItemClassification.useful,
+        classification=ItemClassification.trap,
         tags=(ZorkGrandInquisitorTags.TRAP,),
     ),
     ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: ZorkGrandInquisitorItemData(
@@ -1413,7 +1413,7 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
     ZorkGrandInquisitorItems.TRAP_TELEPORT: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 900 + 2,
-        classification=ItemClassification.trap | ItemClassification.useful,
+        classification=ItemClassification.trap,
         tags=(ZorkGrandInquisitorTags.TRAP,),
     ),
     ZorkGrandInquisitorItems.TRAP_ZVISION: ZorkGrandInquisitorItemData(
