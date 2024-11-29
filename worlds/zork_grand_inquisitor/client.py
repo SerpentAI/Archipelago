@@ -285,6 +285,24 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                         }
                     ])
 
+                # Handle Energy Link
+                while len(self.game_controller.energy_link_queue) > 0:
+                    energy_to_add: int = self.game_controller.energy_link_queue.popleft()
+
+                    await self.send_msgs([
+                        {
+                            "cmd": "Set",
+                            "key": f"EnergyLink{self.team}",
+                            "slot": self.slot,
+                            "operations":
+                                [
+                                    {"operation": "add", "value": energy_to_add},
+                                ],
+                        },
+                    ])
+
+                    CommonClient.logger.info(f"Added {energy_to_add} J to the Energy Link pool")
+
                 # Handle Death Link
                 await self.update_death_link(self.death_link_status)
 

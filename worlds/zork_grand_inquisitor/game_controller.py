@@ -92,6 +92,9 @@ class GameController:
     active_trap: Optional[ZorkGrandInquisitorItems]
     active_trap_until: Optional[datetime.datetime]
 
+    energy_link_queue: collections.deque
+    pause_energy_link_monitoring: bool
+
     pending_death_link: Tuple[bool, Optional[str], Optional[str]]
     outgoing_death_link: Tuple[bool, Optional[str]]
     pause_death_monitoring: bool
@@ -170,6 +173,9 @@ class GameController:
 
         self.active_trap = None
         self.active_trap_until = None
+
+        self.energy_link_queue = collections.deque()
+        self.pause_energy_link_monitoring = False
 
         self.pending_death_link = (False, None, None)
         self.outgoing_death_link = (False, None)
@@ -422,6 +428,9 @@ class GameController:
                 if self.option_trap_percentage:
                     self._manage_traps()
 
+                if self._player_is_at("dg3e"):
+                    self._manage_energy_link()
+
                 if self.option_death_link:
                     self._handle_death_link()
 
@@ -471,6 +480,9 @@ class GameController:
 
         self.active_trap = None
         self.active_trap_until = None
+
+        self.energy_link_queue = collections.deque()
+        self.pause_energy_link_monitoring = False
 
         self.pending_death_link = (False, None, None)
         self.outgoing_death_link = (False, None)
@@ -1484,6 +1496,36 @@ class GameController:
 
     def _deactivate_trap_zvision(self) -> None:
         self.game_state_manager.set_zvision(False)
+
+    def _manage_energy_link(self) -> None:
+        mushroom_hammered: bool = self._read_game_state_value_for(4217) == 1
+        mushroom_hammered_throck: bool = self._read_game_state_value_for(4219) == 1
+        mushroom_hammered_snapdragon: bool = self._read_game_state_value_for(4220) == 1
+        mushroom_hammered_snapdragon_throck: bool = self._read_game_state_value_for(4222) == 1
+
+        any_mushroom_hammered: bool = (
+            mushroom_hammered
+            or mushroom_hammered_throck
+            or mushroom_hammered_snapdragon
+            or mushroom_hammered_snapdragon_throck
+        )
+
+        # Pause Monitoring Flag
+        if self.pause_energy_link_monitoring and not any_mushroom_hammered:
+            self.pause_energy_link_monitoring = False
+
+        if not self.pause_energy_link_monitoring and any_mushroom_hammered:
+            # Contribute Energy
+            if mushroom_hammered:
+                self.energy_link_queue.append(750)
+            elif mushroom_hammered_throck:
+                self.energy_link_queue.append(1500)
+            elif mushroom_hammered_snapdragon:
+                self.energy_link_queue.append(750)
+            elif mushroom_hammered_snapdragon_throck:
+                self.energy_link_queue.append(1500)
+
+            self.pause_energy_link_monitoring = True
 
     def _handle_death_link(self) -> None:
         # Pause Monitoring Flag
