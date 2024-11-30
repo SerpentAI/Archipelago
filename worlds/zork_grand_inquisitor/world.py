@@ -7,6 +7,7 @@ from Options import OptionError
 
 from worlds.AutoWorld import WebWorld, World
 
+from .data.entrance_data import entrances_by_region
 from .data.item_data import ZorkGrandInquisitorItemData
 from .data.location_data import ZorkGrandInquisitorLocationData
 
@@ -16,8 +17,6 @@ from .data.mapping_data import (
     starter_kits_for_starting_location,
     starting_location_to_region,
 )
-
-from .data.region_data import region_data
 
 from .data_funcs import (
     item_names_to_id,
@@ -227,7 +226,7 @@ class ZorkGrandInquisitorWorld(World):
         region_mapping: Dict[ZorkGrandInquisitorRegions, Region] = dict()
 
         region_enum_item: ZorkGrandInquisitorRegions
-        for region_enum_item in region_data.keys():
+        for region_enum_item in entrances_by_region.keys():
             region_mapping[region_enum_item] = Region(region_enum_item.value, self.player, self.multiworld)
 
         region_locations_mapping: Dict[ZorkGrandInquisitorRegions, List[ZorkGrandInquisitorLocations]]
@@ -275,7 +274,7 @@ class ZorkGrandInquisitorWorld(World):
 
             # Connections
             region_exit: ZorkGrandInquisitorRegions
-            for region_exit in region_data[region_enum_item].exits or tuple():
+            for _, region_exit in entrances_by_region[region_enum_item]:
                 entrance_access_rule: str = entrance_access_rule_for(region_enum_item, region_exit, self.player)
 
                 if entrance_access_rule == "lambda state: True":

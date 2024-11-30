@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 from BaseClasses import ItemClassification
 
-from .data.entrance_rule_data import entrance_rule_data, endgame_entrance_data_by_goal
+from .data.entrance_data import entrance_rule_data, endgame_entrance_data_by_goal
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.transform_data import item_data_transforms, location_data_transforms
