@@ -698,6 +698,10 @@ class GameController:
         else:
             self._write_game_state_value_for(10998, 0)
 
+        # Lucy Strip Grue, Fire, Water Losses
+        if self._read_game_state_value_for(14568) < 8:
+            self._write_game_state_value_for(14568, 8)
+
     def _apply_permanent_game_flags(self) -> None:
         self._write_game_flags_value_for(13597, 2)  # Monastery Vent
         self._write_game_flags_value_for(9437, 2)  # Monastery Exhibit Door to Outside
