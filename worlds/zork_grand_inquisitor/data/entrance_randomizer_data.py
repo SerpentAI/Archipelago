@@ -18,7 +18,6 @@ one_way_entrances: Tuple[
         ZorkGrandInquisitorRegions,
     ]
 ] = (
-    (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE),
     (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.CROSSROADS),
     (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.DM_LAIR),
     (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE),
@@ -118,10 +117,6 @@ randomizable_entrances: Dict[
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
     ): ZorkGrandInquisitorRegions.SUBWAY_HADES,
-    (
-        ZorkGrandInquisitorRegions.MONASTERY,
-        ZorkGrandInquisitorRegions.HADES_SHORE,
-    ): ZorkGrandInquisitorRegions.HADES_SHORE,
     (
         ZorkGrandInquisitorRegions.MONASTERY,
         ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
