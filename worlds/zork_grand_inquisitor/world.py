@@ -219,6 +219,10 @@ class ZorkGrandInquisitorWorld(World):
                 f"Zork Grand Inquisitor: {self.player_name} has traps enabled but all traps are weighted at 0."
             )
 
+        # Universal Tracker Support
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            self._apply_ut_passthrough()
+
     def create_regions(self) -> None:
         region_mapping: Dict[ZorkGrandInquisitorRegions, Region] = dict()
 
@@ -434,16 +438,80 @@ class ZorkGrandInquisitorWorld(World):
         slot_data["starter_kit"] = sorted([item.value for item in self.starter_kit])
         slot_data["initial_totemizer_destination"] = self.initial_totemizer_destination.value
 
+        slot_data["trap_weights"] = self.trap_weights
+
         slot_data["save_ids"] = (
             self.random.randint(1, 65365),
             self.random.randint(1, 65365),
             self.random.randint(1, 65365),
         )
 
+        # Relay generate_early Overrides
+        if slot_data["artifacts_of_magic_total"] != self.artifacts_of_magic_total:
+            slot_data["artifacts_of_magic_total"] = self.artifacts_of_magic_total
+
+        if slot_data["deathsanity"] != self.deathsanity.value:
+            slot_data["deathsanity"] = self.deathsanity.value
+
+        if slot_data["landmarksanity"] != self.landmarksanity.value:
+            slot_data["landmarksanity"] = self.landmarksanity.value
+
         return slot_data
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
+
+    # Universal Tracker Support
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        slot_data["goal"] = id_to_goals()[slot_data["goal"]]
+        slot_data["starting_location"] = id_to_starting_locations()[slot_data["starting_location"]]
+        slot_data["hotspots"] = id_to_hotspots()[slot_data["hotspots"]]
+        slot_data["craftable_spells"] = id_to_craftable_spell_behaviors()[slot_data["craftable_spells"]]
+        slot_data["deathsanity"] = id_to_deathsanity()[slot_data["deathsanity"]]
+        slot_data["landmarksanity"] = id_to_landmarksanity()[slot_data["landmarksanity"]]
+        slot_data["starter_kit"] = tuple([ZorkGrandInquisitorItems(item) for item in slot_data["starter_kit"]])
+
+        slot_data["initial_totemizer_destination"] = ZorkGrandInquisitorItems(
+            slot_data["initial_totemizer_destination"]
+        )
+
+        return slot_data
+
+    def _apply_ut_passthrough(self) -> None:
+        if "Zork Grand Inquisitor" in self.multiworld.re_gen_passthrough:
+            passthrough: Dict[str, Any] = self.multiworld.re_gen_passthrough["Zork Grand Inquisitor"]
+
+            self.goal = passthrough["goal"]
+            self.artifacts_of_magic_required = passthrough["artifacts_of_magic_required"]
+            self.artifacts_of_magic_total = passthrough["artifacts_of_magic_total"]
+            self.landmarks_required = passthrough["landmarks_required"]
+            self.deaths_required = passthrough["deaths_required"]
+            self.starting_location = passthrough["starting_location"]
+            self.starter_kit = passthrough["starter_kit"]
+            self.craftable_spells = passthrough["craftable_spells"]
+            self.hotspots = passthrough["hotspots"]
+            self.deathsanity = passthrough["deathsanity"]
+            self.landmarksanity = passthrough["landmarksanity"]
+
+            self.item_data = prepare_item_data(
+                self.starting_location,
+                self.goal,
+                self.deathsanity,
+                self.landmarksanity,
+            )
+
+            self.location_data = prepare_location_data(
+                self.starting_location,
+                self.goal,
+                self.deathsanity,
+                self.landmarksanity,
+            )
+
+            self.locked_items = self._prepare_locked_items()
+            self.initial_totemizer_destination = passthrough["initial_totemizer_destination"]
+            self.trap_percentage = passthrough["trap_percentage"] / 100
+            self.trap_weights = passthrough["trap_weights"]
 
     def _prepare_locked_items(
         self,
