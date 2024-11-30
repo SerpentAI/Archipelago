@@ -505,6 +505,7 @@ class ZorkGrandInquisitorRegions(enum.Enum):
     SUBWAY_FLOOD_CONTROL_DAM = "Subway Platform - Flood Control Dam #3"
     SUBWAY_HADES = "Subway Platform - Hades"
     SUBWAY_MONASTERY = "Subway Platform - Monastery"
+    TELEPORTER = "Teleporter"
     WALKING_CASTLE = "Walking Castle"
     WHITE_HOUSE = "White House"
     WHITE_HOUSE_INTERIOR = "White House - Interior"

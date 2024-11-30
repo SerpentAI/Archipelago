@@ -20,21 +20,15 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
             ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
             ZorkGrandInquisitorRegions.DM_LAIR,
             ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
-            ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
-            ZorkGrandInquisitorRegions.HADES_SHORE,
-            ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
             ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
-            ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+            ZorkGrandInquisitorRegions.TELEPORTER,
         )
     ),
     ZorkGrandInquisitorRegions.DM_LAIR: ZorkGrandInquisitorRegionData(
         exits=(
             ZorkGrandInquisitorRegions.CROSSROADS,
             ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
-            ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
-            ZorkGrandInquisitorRegions.HADES_SHORE,
-            ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
-            ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+            ZorkGrandInquisitorRegions.TELEPORTER,
         )
     ),
     ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR: ZorkGrandInquisitorRegionData(
@@ -75,12 +69,8 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ),
     ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE: ZorkGrandInquisitorRegionData(
         exits=(
-            ZorkGrandInquisitorRegions.CROSSROADS,
-            ZorkGrandInquisitorRegions.DM_LAIR,
             ZorkGrandInquisitorRegions.GUE_TECH,
-            ZorkGrandInquisitorRegions.HADES_SHORE,
-            ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
-            ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+            ZorkGrandInquisitorRegions.TELEPORTER,
         )
     ),
     ZorkGrandInquisitorRegions.HADES: ZorkGrandInquisitorRegionData(
@@ -97,12 +87,9 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ),
     ZorkGrandInquisitorRegions.HADES_SHORE: ZorkGrandInquisitorRegionData(
         exits=(
-            ZorkGrandInquisitorRegions.CROSSROADS,
-            ZorkGrandInquisitorRegions.DM_LAIR,
-            ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
             ZorkGrandInquisitorRegions.HADES,
-            ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
             ZorkGrandInquisitorRegions.SUBWAY_HADES,
+            ZorkGrandInquisitorRegions.TELEPORTER,
         )
     ),
     ZorkGrandInquisitorRegions.MONASTERY: ZorkGrandInquisitorRegionData(
@@ -159,13 +146,9 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ),
     ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE: ZorkGrandInquisitorRegionData(
         exits=(
-            ZorkGrandInquisitorRegions.CROSSROADS,
-            ZorkGrandInquisitorRegions.DM_LAIR,
-            ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
             ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
-            ZorkGrandInquisitorRegions.HADES_SHORE,
             ZorkGrandInquisitorRegions.SPELL_LAB,
-            ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+            ZorkGrandInquisitorRegions.TELEPORTER,
         )
     ),
     ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS: ZorkGrandInquisitorRegionData(
@@ -193,15 +176,21 @@ region_data: Dict[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegionData] = {
     ),
     ZorkGrandInquisitorRegions.SUBWAY_MONASTERY: ZorkGrandInquisitorRegionData(
         exits=(
+            ZorkGrandInquisitorRegions.MONASTERY,
+            ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
+            ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
+            ZorkGrandInquisitorRegions.SUBWAY_HADES,
+            ZorkGrandInquisitorRegions.TELEPORTER,
+        )
+    ),
+    ZorkGrandInquisitorRegions.TELEPORTER: ZorkGrandInquisitorRegionData(
+        exits=(
             ZorkGrandInquisitorRegions.CROSSROADS,
             ZorkGrandInquisitorRegions.DM_LAIR,
             ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
             ZorkGrandInquisitorRegions.HADES_SHORE,
-            ZorkGrandInquisitorRegions.MONASTERY,
             ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
-            ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
-            ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
-            ZorkGrandInquisitorRegions.SUBWAY_HADES,
+            ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         )
     ),
     ZorkGrandInquisitorRegions.WALKING_CASTLE: ZorkGrandInquisitorRegionData(

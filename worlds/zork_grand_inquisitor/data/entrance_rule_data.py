@@ -48,10 +48,6 @@ entrance_rule_data: Dict[
                 ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
             ),
         ),
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE): (
         (
@@ -60,24 +56,6 @@ entrance_rule_data: Dict[
                 ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR,
                 ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
             ),
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
         ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
@@ -89,12 +67,7 @@ entrance_rule_data: Dict[
             ),
         ),
     ),
-    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-        ),
-    ),
+    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): (
         (
@@ -102,30 +75,7 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorEvents.DOOR_DRANK_MEAD,
         ),
     ),
-    (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-        ),
-    ),
+    (ZorkGrandInquisitorRegions.DM_LAIR, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR, ZorkGrandInquisitorRegions.DM_LAIR): (
         (
             (
@@ -206,18 +156,6 @@ entrance_rule_data: Dict[
             ),
         ),
     ),
-    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.CROSSROADS): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.DM_LAIR): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH): (
         (
             (
@@ -226,24 +164,7 @@ entrance_rule_data: Dict[
             ),
         ),
     ),
-    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-        ),
-    ),
+    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): (
         (
             ZorkGrandInquisitorItems.SPELL_SNAVIG,
@@ -260,24 +181,6 @@ entrance_rule_data: Dict[
         ),
     ),
     (ZorkGrandInquisitorRegions.HADES_BEYOND_GATES, ZorkGrandInquisitorRegions.HADES): None,
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.CROSSROADS): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.DM_LAIR): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.HADES): (
         (
             (
@@ -291,13 +194,8 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
         ),
     ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_HADES): None,
+    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
         (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
@@ -388,36 +286,12 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST): None,
     (ZorkGrandInquisitorRegions.SPELL_LAB, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): None,
-    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.CROSSROADS): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.DM_LAIR): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY): (
         (
             (
                 ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT,
                 ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB,
             ),
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
         ),
     ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.SPELL_LAB): (
@@ -435,12 +309,7 @@ entrance_rule_data: Dict[
             ),
         ),
     ),
-    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-        ),
-    ),
+    (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM): (
         (
@@ -479,38 +348,8 @@ entrance_rule_data: Dict[
     (ZorkGrandInquisitorRegions.SUBWAY_HADES, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,),
     ),
-    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.CROSSROADS): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.DM_LAIR): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.MONASTERY): (
         (ZorkGrandInquisitorItems.MONASTERY_ROPE,),
-    ),
-    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
-        (
-            ZorkGrandInquisitorItems.MAP,
-            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
-        ),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS,),
@@ -520,6 +359,43 @@ entrance_rule_data: Dict[
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_HADES): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.TELEPORTER): None,
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.CROSSROADS): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.DM_LAIR): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.HADES_SHORE): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.TELEPORTER, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
+        ),
     ),
     (ZorkGrandInquisitorRegions.WALKING_CASTLE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
     (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
