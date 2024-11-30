@@ -377,7 +377,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.ELSEWHERE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pc1e"),),
         archipelago_id=LOCATION_OFFSET + 32,
-        region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.EMERGENCY_MAGICATRONIC_MESSAGE: ZorkGrandInquisitorLocationData(
@@ -547,7 +547,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.HOW_TO_HYPNOTIZE_YOURSELF: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1e"),),
         archipelago_id=LOCATION_OFFSET + 50,
-        region=ZorkGrandInquisitorRegions.HADES_SHORE,
+        region=ZorkGrandInquisitorRegions.SUBWAY_HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HOW_TO_WIN_AT_DOUBLE_FANUCCI: ZorkGrandInquisitorLocationData(
@@ -788,7 +788,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.ME_I_AM_THE_BOSS_OF_YOU: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px1k"),),
         archipelago_id=LOCATION_OFFSET + 73,
-        region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.MIKES_PANTS: ZorkGrandInquisitorLocationData(
@@ -1327,7 +1327,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.TOTEMIZED_DAILY_BILLBOARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px1h"),),
         archipelago_id=LOCATION_OFFSET + 124,
-        region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.UH_OH_BROG_CANT_SWIM: ZorkGrandInquisitorLocationData(
@@ -1386,7 +1386,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1h"),),
         archipelago_id=LOCATION_OFFSET + 131,
-        region=ZorkGrandInquisitorRegions.HADES_SHORE,
+        region=ZorkGrandInquisitorRegions.SUBWAY_HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO: ZorkGrandInquisitorLocationData(
@@ -1608,7 +1608,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.DEATH_CLIMBED_OUT_OF_THE_WELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 21)),
         archipelago_id=LOCATION_OFFSET + 200 + 2,
-        region=ZorkGrandInquisitorRegions.CROSSROADS,
+        region=ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(ZorkGrandInquisitorItems.WELL_ROPE,),
     ),
@@ -1883,7 +1883,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.LANDMARK_GREAT_UNDERGROUND_EMPIRE_ENTRANCE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uw10"),),
         archipelago_id=LOCATION_OFFSET + 300 + 4,
-        region=ZorkGrandInquisitorRegions.CROSSROADS,
+        region=ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
         tags=(ZorkGrandInquisitorTags.LANDMARKSANITY,),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_GUE_TECH_FOUNTAIN_INSIDE: ZorkGrandInquisitorLocationData(
@@ -1913,7 +1913,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.LANDMARK_INQUISITION_HEADQUARTERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px10"),),
         archipelago_id=LOCATION_OFFSET + 300 + 9,
-        region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         tags=(ZorkGrandInquisitorTags.LANDMARKSANITY,),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_JACKS_SHOP: ZorkGrandInquisitorLocationData(
@@ -2092,23 +2092,6 @@ location_data: Dict[
         ),
         event_item_name=ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value,
     ),
-    ZorkGrandInquisitorEvents.HAS_REPAIRABLE_OBIDIL: ZorkGrandInquisitorLocationData(
-        game_state_trigger=None,
-        archipelago_id=None,
-        region=ZorkGrandInquisitorRegions.GUE_TECH,
-        requirements=(
-            ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
-            (
-                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT,
-                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
-            ),
-            (
-                ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS,
-                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
-            ),
-        ),
-        event_item_name=ZorkGrandInquisitorEvents.HAS_REPAIRABLE_OBIDIL.value,
-    ),
     ZorkGrandInquisitorEvents.HAS_REPAIRABLE_SNAVIG: ZorkGrandInquisitorLocationData(
         game_state_trigger=None,
         archipelago_id=None,
@@ -2126,7 +2109,7 @@ location_data: Dict[
     ZorkGrandInquisitorEvents.ROPE_GLORFABLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=None,
         archipelago_id=None,
-        region=ZorkGrandInquisitorRegions.CROSSROADS,
+        region=ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
         requirements=(
             ZorkGrandInquisitorItems.WELL_ROPE,
             ZorkGrandInquisitorItems.SPELL_GLORF,

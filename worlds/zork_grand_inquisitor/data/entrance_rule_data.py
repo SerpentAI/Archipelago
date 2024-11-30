@@ -29,6 +29,17 @@ entrance_rule_data: Dict[
         None,
     ],
 ] = {
+    (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.CROSSROADS): None,
+    (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL): (
+        (
+            ZorkGrandInquisitorItems.WELL_ROPE,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_BUCKET,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
+            ),
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL): None,
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.DM_LAIR): (
         (
             ZorkGrandInquisitorItems.SWORD,
@@ -61,15 +72,6 @@ entrance_rule_data: Dict[
         (
             ZorkGrandInquisitorItems.MAP,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        ),
-    ),
-    (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.PORT_FOOZLE): (
-        (
-            ZorkGrandInquisitorItems.WELL_ROPE,
-            (
-                ZorkGrandInquisitorItems.HOTSPOT_BUCKET,
-                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS,
-            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
@@ -295,15 +297,7 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
         ),
     ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
-        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS,),
-    ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM): (
-        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM,),
-    ),
-    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
-        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,),
-    ),
+    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_HADES): None,
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
         (
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL,
@@ -347,9 +341,27 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.SPELL_YASTARD,
         ),
     ),
-    (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.CROSSROADS): (
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
+    ): None,
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ
+    ): None,
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL
+    ): None,
+    (ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST, ZorkGrandInquisitorRegions.PORT_FOOZLE): None,
+    (ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL, ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL): (
         (ZorkGrandInquisitorItems.WELL_ROPE,),
     ),
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
+    ): None,
+    (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST): None,
     (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP): (
         (
             ZorkGrandInquisitorItems.CIGAR,
@@ -430,16 +442,16 @@ entrance_rule_data: Dict[
         ),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.CROSSROADS): None,
-    (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (
-            ZorkGrandInquisitorItems.SPELL_KENDALL,
-            ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,
-        ),
-    ),
     (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM): (
         (
             ZorkGrandInquisitorItems.SPELL_KENDALL,
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_HADES): (
+        (
+            ZorkGrandInquisitorItems.SPELL_KENDALL,
+            ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,
         ),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
@@ -448,13 +460,23 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,
         ),
     ),
-    (ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,),
-    ),
     (ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS,),
     ),
+    (ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM, ZorkGrandInquisitorRegions.SUBWAY_HADES): (
+        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,),
+    ),
     (ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
+        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_HADES, ZorkGrandInquisitorRegions.HADES_SHORE): None,
+    (ZorkGrandInquisitorRegions.SUBWAY_HADES, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
+        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_HADES, ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM): (
+        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_HADES, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.CROSSROADS): (
@@ -463,17 +485,41 @@ entrance_rule_data: Dict[
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
         ),
     ),
+    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.DM_LAIR): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
+        ),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH,
+        ),
+    ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,),
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
+        ),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.MONASTERY): (
         (ZorkGrandInquisitorItems.MONASTERY_ROPE,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
+        (
+            ZorkGrandInquisitorItems.MAP,
+            ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
+        ),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS,),
     ),
     (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM): (
         (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM,),
+    ),
+    (ZorkGrandInquisitorRegions.SUBWAY_MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_HADES): (
+        (ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,),
     ),
     (ZorkGrandInquisitorRegions.WALKING_CASTLE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
     (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
@@ -527,7 +573,7 @@ endgame_entrance_data_by_goal: Dict[
         )
     },
     ZorkGrandInquisitorGoals.SPELL_HEIST: {
-        (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
+        (ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST, ZorkGrandInquisitorRegions.ENDGAME): (
             (
                 ZorkGrandInquisitorItems.SPELL_BEBURTT,
                 ZorkGrandInquisitorItems.SPELL_GLORF,
@@ -544,7 +590,7 @@ endgame_entrance_data_by_goal: Dict[
         )
     },
     ZorkGrandInquisitorGoals.ZORK_TOUR: {
-        (ZorkGrandInquisitorRegions.PORT_FOOZLE, ZorkGrandInquisitorRegions.ENDGAME): (
+        (ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST, ZorkGrandInquisitorRegions.ENDGAME): (
             (
                 [ZorkGrandInquisitorItems.LANDMARK, 999],  # Will get replaced with the actual number
             ),

@@ -64,8 +64,8 @@ endgame_connecting_regions_for_goal: Dict[
 ] = {
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: ZorkGrandInquisitorRegions.MENU,
     ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: ZorkGrandInquisitorRegions.WALKING_CASTLE,
-    ZorkGrandInquisitorGoals.SPELL_HEIST: ZorkGrandInquisitorRegions.PORT_FOOZLE,
-    ZorkGrandInquisitorGoals.ZORK_TOUR: ZorkGrandInquisitorRegions.PORT_FOOZLE,
+    ZorkGrandInquisitorGoals.SPELL_HEIST: ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+    ZorkGrandInquisitorGoals.ZORK_TOUR: ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
     ZorkGrandInquisitorGoals.GRIM_JOURNEY: (
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
     ),
@@ -745,13 +745,13 @@ starter_kits_for_starting_location: Dict[
 starting_location_to_region: Dict[
     ZorkGrandInquisitorStartingLocations, ZorkGrandInquisitorRegions
 ] = {
-    ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: ZorkGrandInquisitorRegions.PORT_FOOZLE,
+    ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
     ZorkGrandInquisitorStartingLocations.CROSSROADS: ZorkGrandInquisitorRegions.CROSSROADS,
     ZorkGrandInquisitorStartingLocations.DM_LAIR: ZorkGrandInquisitorRegions.DM_LAIR,
     ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
     ZorkGrandInquisitorStartingLocations.GUE_TECH: ZorkGrandInquisitorRegions.GUE_TECH,
     ZorkGrandInquisitorStartingLocations.SPELL_LAB: ZorkGrandInquisitorRegions.SPELL_LAB,
-    ZorkGrandInquisitorStartingLocations.HADES_SHORE: ZorkGrandInquisitorRegions.HADES_SHORE,
+    ZorkGrandInquisitorStartingLocations.HADES_SHORE: ZorkGrandInquisitorRegions.SUBWAY_HADES,
     ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
     ZorkGrandInquisitorStartingLocations.MONASTERY: ZorkGrandInquisitorRegions.MONASTERY,
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,

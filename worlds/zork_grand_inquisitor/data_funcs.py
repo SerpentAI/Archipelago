@@ -440,7 +440,7 @@ def goal_access_rule_for(
     elif goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
         dataset[
             (
-                ZorkGrandInquisitorRegions.PORT_FOOZLE,
+                ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
                 ZorkGrandInquisitorRegions.ENDGAME
             )
         ][0][0][1] = landmarks_required
