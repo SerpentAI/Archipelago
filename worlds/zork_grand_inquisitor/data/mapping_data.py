@@ -757,13 +757,6 @@ starting_location_to_region: Dict[
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
 }
 
-traps_to_game_state_key: Dict[ZorkGrandInquisitorItems, int] = {
-    ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: 19990,
-    ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: 19991,
-    ZorkGrandInquisitorItems.TRAP_TELEPORT: 19992,
-    ZorkGrandInquisitorItems.TRAP_ZVISION: 19993,
-}
-
 voxam_cast_game_locations: Dict[
     ZorkGrandInquisitorStartingLocations,
     Tuple[Tuple[str, int], ...]

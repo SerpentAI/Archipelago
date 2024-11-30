@@ -15,7 +15,6 @@ from .data.mapping_data import (
     death_cause_labels,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
-    traps_to_game_state_key,
     voxam_cast_game_locations,
 )
 
@@ -87,7 +86,7 @@ class GameController:
     starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
 
-    trap_counters: Dict[ZorkGrandInquisitorItems, int]
+    received_traps: List[ZorkGrandInquisitorItems]
 
     active_trap: Optional[ZorkGrandInquisitorItems]
     active_trap_until: Optional[datetime.datetime]
@@ -164,12 +163,7 @@ class GameController:
         self.starter_kit = None
         self.initial_totemizer_destination = None
 
-        self.trap_counters = {
-            ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: 0,
-            ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: 0,
-            ZorkGrandInquisitorItems.TRAP_TELEPORT: 0,
-            ZorkGrandInquisitorItems.TRAP_ZVISION: 0,
-        }
+        self.received_traps = list()
 
         self.active_trap = None
         self.active_trap_until = None
@@ -471,12 +465,7 @@ class GameController:
         self.starter_kit = None
         self.initial_totemizer_destination = None
 
-        self.trap_counters = {
-            ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: 0,
-            ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: 0,
-            ZorkGrandInquisitorItems.TRAP_TELEPORT: 0,
-            ZorkGrandInquisitorItems.TRAP_ZVISION: 0,
-        }
+        self.received_traps = list()
 
         self.active_trap = None
         self.active_trap_until = None
@@ -1447,29 +1436,56 @@ class GameController:
 
             return None
 
+        processed_trap_counters: Dict[ZorkGrandInquisitorItems, int] = {
+            ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR: self._read_game_state_value_for(19990),
+            ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS: self._read_game_state_value_for(19991),
+            ZorkGrandInquisitorItems.TRAP_TELEPORT: self._read_game_state_value_for(19992),
+            ZorkGrandInquisitorItems.TRAP_ZVISION: self._read_game_state_value_for(19993),
+        }
+
+        traps_remaining: int = len(self.received_traps) - sum(processed_trap_counters.values()) - 1
+        traps_remaining_message: str = f"Traps remaining: {traps_remaining}" if traps_remaining else ""
+
         trap: ZorkGrandInquisitorItems
-        count: int
-        for trap, count in self.trap_counters.items():
-            game_count: int = self._read_game_state_value_for(traps_to_game_state_key[trap])
+        for trap in self.received_traps:
+            if processed_trap_counters[trap]:
+                processed_trap_counters[trap] -= 1
+                continue
 
-            if game_count < count:
-                if trap == ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR:
-                    self._activate_trap_infinite_corridor()
-                elif trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
-                    self.active_trap = ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS
-                    self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
+            game_state_key: int = -1
+            if trap == ZorkGrandInquisitorItems.TRAP_INFINITE_CORRIDOR:
+                game_state_key = 19990
+                self._activate_trap_infinite_corridor()
 
-                    self._activate_trap_reverse_controls()
-                elif trap == ZorkGrandInquisitorItems.TRAP_TELEPORT:
-                    self._activate_trap_teleport()
-                elif trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
-                    self.active_trap = ZorkGrandInquisitorItems.TRAP_ZVISION
-                    self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
+                self.log(f"Infinite Corridor Trap! {traps_remaining_message}")
+            elif trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
+                game_state_key = 19991
 
-                    self._activate_trap_zvision()
+                self.active_trap = ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS
+                self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
 
-                self._write_game_state_value_for(traps_to_game_state_key[trap], game_count + 1)
-                break
+                self._activate_trap_reverse_controls()
+
+                self.log(f"Reverse Controls Trap for 30 seconds! {traps_remaining_message}")
+            elif trap == ZorkGrandInquisitorItems.TRAP_TELEPORT:
+                game_state_key = 19992
+                self._activate_trap_teleport()
+
+                self.log(f"Teleport Trap! {traps_remaining_message}")
+            elif trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
+                game_state_key = 19993
+
+                self.active_trap = ZorkGrandInquisitorItems.TRAP_ZVISION
+                self.active_trap_until = datetime.datetime.now() + datetime.timedelta(seconds=30)
+
+                self._activate_trap_zvision()
+
+                self.log(f"ZVision Trap for 30 seconds! {traps_remaining_message}")
+
+            current_count: int = self._read_game_state_value_for(game_state_key)
+            self._write_game_state_value_for(game_state_key, current_count + 1)
+
+            break
 
     def _activate_trap_infinite_corridor(self) -> None:
         depth = random.randint(10, 20)

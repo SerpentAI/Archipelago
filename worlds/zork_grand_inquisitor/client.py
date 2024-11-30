@@ -211,9 +211,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             # Enqueue Received Item Delta
             goal_item_count: int = 0
 
-            trap_item_counts: Dict[ZorkGrandInquisitorItems, int] = {
-                item: 0 for item in self.game_controller.all_trap_items
-            }
+            received_traps: List[ZorkGrandInquisitorItems] = list()
 
             network_item: NetUtils.NetworkItem
             for network_item in self.items_received:
@@ -223,7 +221,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                     goal_item_count += 1
                     continue
                 elif item in self.game_controller.all_trap_items:
-                    trap_item_counts[item] += 1
+                    received_traps.append(item)
                     continue
                 elif item not in self.game_controller.received_items:
                     if item not in self.game_controller.received_items_queue:
@@ -233,7 +231,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 self.game_controller.goal_item_count = goal_item_count
                 self.game_controller.output_goal_item_update()
 
-            self.game_controller.trap_counters = trap_item_counts
+            self.game_controller.received_traps = received_traps
 
             # Game Controller Update
             if self.game_controller.is_process_running():
