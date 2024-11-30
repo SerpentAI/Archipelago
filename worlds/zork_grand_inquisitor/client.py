@@ -126,8 +126,6 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         self.items_received = []
         self.locations_info = {}
 
-        self.can_display_process_message = True
-
         await super().disconnect(allow_autoreconnect)
 
     def on_package(self, cmd: str, _args: Any) -> None:
@@ -246,12 +244,13 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
                 if self.process_attached_at_least_once:
                     process_message = (
-                        "Lost connection to Zork Grand Inquisitor process. Please restart the game and use the /zork "
-                        "command to reattach."
+                        "Connection to the Zork Grand Inquisitor process was lost. Ensure you are connected "
+                        "to an Archipelago server and the game is running, then use the /zork command to reconnect."
                     )
                 else:
                     process_message = (
-                        "Please use the /zork command to attach to a running Zork Grand Inquisitor process."
+                        "To start playing, connect to an Archipelago server and use the /zork command to "
+                        "link to an active Zork Grand Inquisitor process."
                     )
 
                 if self.can_display_process_message:
