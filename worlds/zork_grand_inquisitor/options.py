@@ -202,6 +202,24 @@ class Landmarksanity(DefaultOnToggle):
     display_name: str = "Landmarksanity"
 
 
+class EntranceRandomizer(Choice):
+    """
+    Determines the behavior of entrances in the game.
+
+    Disabled: Entrances are not randomized and lead to their vanilla areas
+    Coupled: Entrances are randomized. Going back through an entrance will lead back to the previous area
+    Uncoupled: Entrances are randomized. Going back through an entrance will lead to a different area
+    """
+
+    display_name: str = "Entrance Randomizer"
+
+    option_disabled: int = 0
+    option_coupled: int = 1
+    option_uncoupled: int = 2
+
+    default = 0
+
+
 class TrapPercentage(Range):
     """
     Determines the percentage chance that a trap will replace a filler item.
@@ -327,6 +345,7 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     wild_voxam_chance: WildVoxamChance
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
+    entrance_randomizer: EntranceRandomizer
     trap_percentage: TrapPercentage
     infinite_corridor_trap_weight: InfiniteCorridorTrapWeight
     reverse_controls_trap_weight: ReverseControlsTrapWeight
@@ -359,6 +378,7 @@ option_groups: List[OptionGroup] = [
             WildVoxamChance,
             Deathsanity,
             Landmarksanity,
+            EntranceRandomizer,
         ],
     ),
     OptionGroup(

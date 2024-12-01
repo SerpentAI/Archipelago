@@ -8,7 +8,7 @@ from ..enums import (
 )
 
 
-entrance_rule_data: Dict[
+EntranceRuleData = Dict[
     Tuple[
         ZorkGrandInquisitorRegions,
         ZorkGrandInquisitorRegions,
@@ -28,7 +28,9 @@ entrance_rule_data: Dict[
         ],
         None,
     ],
-] = {
+]
+
+entrance_rule_data: EntranceRuleData = {
     (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL): (
         (
@@ -433,27 +435,7 @@ for region_from, region_to in entrance_rule_data.keys():
 
 endgame_entrance_data_by_goal: Dict[
     ZorkGrandInquisitorGoals,
-    Dict[
-        Tuple[
-            ZorkGrandInquisitorRegions,
-            ZorkGrandInquisitorRegions,
-        ],
-        Union[
-            Tuple[
-                Tuple[
-                    Union[
-                        ZorkGrandInquisitorEvents,
-                        ZorkGrandInquisitorItems,
-                        ZorkGrandInquisitorRegions,
-                        List[Union[ZorkGrandInquisitorItems, int]]
-                    ],
-                    ...,
-                ],
-                ...,
-            ],
-            None,
-        ],
-    ]
+    EntranceRuleData,
 ] = {
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: {
         (ZorkGrandInquisitorRegions.MENU, ZorkGrandInquisitorRegions.ENDGAME): (

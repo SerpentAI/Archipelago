@@ -18,6 +18,12 @@ class ZorkGrandInquisitorDeathsanity(enum.Enum):
     ON = 1
 
 
+class ZorkGrandInquisitorEntranceRandomizer(enum.Enum):
+    DISABLED = 0
+    COUPLED = 1
+    UNCOUPLED = 2
+
+
 class ZorkGrandInquisitorEvents(enum.Enum):
     CHARON_CALLED = "Event: Charon Called"
     DALBOZ_LOCKER_OPENABLE = "Event: Dalboz Locker Openable"
