@@ -1,8 +1,8 @@
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Set, Tuple, Union
 
 from BaseClasses import ItemClassification
 
-from .data.entrance_data import entrance_rule_data, endgame_entrance_data_by_goal
+from .data.entrance_data import Entrance, EntranceRule, EntranceRuleData, endgame_entrance_data_by_goal
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.transform_data import item_data_transforms, location_data_transforms
@@ -11,6 +11,7 @@ from .enums import (
     ZorkGrandInquisitorClientSeedInformation,
     ZorkGrandInquisitorCraftableSpellBehaviors,
     ZorkGrandInquisitorDeathsanity,
+    ZorkGrandInquisitorEntranceRandomizer,
     ZorkGrandInquisitorEvents,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorHotspots,
@@ -59,6 +60,10 @@ def id_to_craftable_spell_behaviors() -> Dict[int, ZorkGrandInquisitorCraftableS
 
 def id_to_deathsanity() -> Dict[int, ZorkGrandInquisitorDeathsanity]:
     return {deathsanity.value: deathsanity for deathsanity in ZorkGrandInquisitorDeathsanity}
+
+
+def id_to_entrance_randomizer() -> Dict[int, ZorkGrandInquisitorEntranceRandomizer]:
+    return {er.value: er for er in ZorkGrandInquisitorEntranceRandomizer}
 
 
 def id_to_goals() -> Dict[int, ZorkGrandInquisitorGoals]:
@@ -294,50 +299,32 @@ def location_access_rule_for(location: ZorkGrandInquisitorLocations, player: int
     return lambda_string
 
 
+def entrances_by_region_for_world(
+    entrance_rule_data: EntranceRuleData
+) -> Dict[ZorkGrandInquisitorRegions, List[Entrance]]:
+    entrances_by_region: Dict[ZorkGrandInquisitorRegions, List[Entrance]] = {
+        ZorkGrandInquisitorRegions.ANYWHERE: list(),
+        ZorkGrandInquisitorRegions.ENDGAME: list(),
+    }
+
+    region_from: ZorkGrandInquisitorRegions
+    region_to: ZorkGrandInquisitorRegions
+    for region_from, region_to in entrance_rule_data.keys():
+        if region_from not in entrances_by_region:
+            entrances_by_region[region_from] = list()
+
+        entrances_by_region[region_from].append((region_from, region_to))
+
+    return entrances_by_region
+
+
 def entrance_access_rule_for(
     region_origin: ZorkGrandInquisitorRegions,
     region_destination: ZorkGrandInquisitorRegions,
     player: int,
-    dataset: Optional[
-        Dict[
-            Tuple[
-                ZorkGrandInquisitorRegions,
-                ZorkGrandInquisitorRegions,
-            ],
-            Union[
-                Tuple[
-                    Tuple[
-                        Union[
-                            ZorkGrandInquisitorEvents,
-                            ZorkGrandInquisitorItems,
-                            ZorkGrandInquisitorRegions,
-                        ],
-                        ...,
-                    ],
-                    ...,
-                ],
-                None,
-            ],
-        ]
-    ] = None
+    dataset: EntranceRuleData
 ) -> str:
-    if dataset is None:
-        dataset = entrance_rule_data
-
-    data: Union[
-        Tuple[
-            Tuple[
-                Union[
-                    ZorkGrandInquisitorEvents,
-                    ZorkGrandInquisitorItems,
-                    ZorkGrandInquisitorRegions,
-                ],
-                ...,
-            ],
-            ...,
-        ],
-        None,
-    ] = dataset[(region_origin, region_destination)]
+    data: EntranceRule = dataset[(region_origin, region_destination)]
 
     if data is None:
         return "lambda state: True"

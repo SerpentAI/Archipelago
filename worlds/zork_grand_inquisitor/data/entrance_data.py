@@ -8,26 +8,30 @@ from ..enums import (
 )
 
 
+Entrance = Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+
+EntranceRule = Union[
+    Tuple[
+        Tuple[
+            Union[
+                ZorkGrandInquisitorEvents,
+                ZorkGrandInquisitorItems,
+                ZorkGrandInquisitorRegions,
+                List[Union[ZorkGrandInquisitorItems, int]],
+            ],
+            ...,
+        ],
+        ...,
+    ],
+    None,
+]
+
 EntranceRuleData = Dict[
     Tuple[
         ZorkGrandInquisitorRegions,
         ZorkGrandInquisitorRegions,
     ],
-    Union[
-        Tuple[
-            Tuple[
-                Union[
-                    ZorkGrandInquisitorEvents,
-                    ZorkGrandInquisitorItems,
-                    ZorkGrandInquisitorRegions,
-                    List[Union[ZorkGrandInquisitorItems, int]],
-                ],
-                ...,
-            ],
-            ...,
-        ],
-        None,
-    ],
+    EntranceRule,
 ]
 
 entrance_rule_data: EntranceRuleData = {
@@ -409,29 +413,6 @@ entrance_rule_data: EntranceRuleData = {
     ),
     (ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR, ZorkGrandInquisitorRegions.WHITE_HOUSE): None,
 }
-
-
-entrances_by_region: Dict[
-    ZorkGrandInquisitorRegions,
-    List[
-        Tuple[
-            ZorkGrandInquisitorRegions,
-            ZorkGrandInquisitorRegions,
-        ]
-    ]
-] = {
-    ZorkGrandInquisitorRegions.ANYWHERE: list(),
-    ZorkGrandInquisitorRegions.ENDGAME: list(),
-}
-
-region_from: ZorkGrandInquisitorRegions
-region_to: ZorkGrandInquisitorRegions
-for region_from, region_to in entrance_rule_data.keys():
-    if region_from not in entrances_by_region:
-        entrances_by_region[region_from] = list()
-
-    entrances_by_region[region_from].append((region_from, region_to))
-
 
 endgame_entrance_data_by_goal: Dict[
     ZorkGrandInquisitorGoals,
