@@ -197,7 +197,7 @@ class ZorkGrandInquisitorWorld(World):
             self.topology_present = True
 
         self.entrance_randomizer = EntranceRandomizer(self.entrance_randomizer_mode, self.random)
-        self.entrance_rule_data = self.entrance_randomizer.generate_entrance_rule_data(self.starting_location)
+        self.entrance_rule_data = self.entrance_randomizer.generate_entrance_rule_data()
 
         self.item_data = prepare_item_data(
             self.starting_location,
@@ -479,8 +479,8 @@ class ZorkGrandInquisitorWorld(World):
         if slot_data["landmarksanity"] != self.landmarksanity.value:
             slot_data["landmarksanity"] = self.landmarksanity.value
 
-        # Entrance Randomizer Swaps
-        slot_data["entrance_randomizer_swaps"] = self.entrance_randomizer.swaps
+        # Entrance Randomizer Replacements
+        slot_data["entrance_randomizer_replacements"] = self.entrance_randomizer.replacement_entrances
 
         return slot_data
 

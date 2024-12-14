@@ -1,5 +1,5 @@
 from random import Random
-from typing import Dict, List, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 from .data.entrance_data import Entrance, EntranceRule, EntranceRuleData, entrance_rule_data
 
@@ -10,37 +10,27 @@ from .data.entrance_randomizer_data import (
     randomizable_entrances,
 )
 
-from .data.mapping_data import starting_location_to_region
-
-from .data_funcs import entrances_by_region_for_world
-
-from .enums import (
-    ZorkGrandInquisitorEntranceRandomizer,
-    ZorkGrandInquisitorRegions,
-    ZorkGrandInquisitorStartingLocations,
-)
+from .enums import ZorkGrandInquisitorEntranceRandomizer, ZorkGrandInquisitorRegions
 
 
 class EntranceRandomizer:
     mode: ZorkGrandInquisitorEntranceRandomizer
     random: Random
 
+    passes: int
+
     randomizable_entrances: List[Entrance]
+    one_way_entrances: List[Entrance]
 
-    remaining_randomizable_entrances: List[Entrance]
-    remaining_randomizable_destinations: List[Entrance]
-
-    processed_regions: Set[ZorkGrandInquisitorRegions]
-    processed_entrances: Set[Entrance]
+    replacement_entrances: Dict[Entrance, Entrance]
 
     randomized_entrance_rule_data: EntranceRuleData
-
-    swaps: Dict[Entrance, Entrance]
-    swaps_reversed: Dict[Entrance, Entrance]
 
     def __init__(self, mode: ZorkGrandInquisitorEntranceRandomizer, random_instance: Random):
         self.mode = mode
         self.random = random_instance
+
+        self.passes = 0
 
         self.randomizable_entrances = (
             list(randomizable_entrances)
@@ -48,141 +38,59 @@ class EntranceRandomizer:
             + list(dead_end_entrances_reverse)
         )
 
-        self.remaining_randomizable_entrances = list(self.randomizable_entrances)
-        self.remaining_randomizable_destinations = list(self.randomizable_entrances)
+        self.one_way_entrances = list(one_way_entrances)
 
-        self.processed_regions = set()
-        self.processed_entrances = set()
+        self.replacement_entrances = dict()
 
         self.randomized_entrance_rule_data = dict()
 
-        self.swaps = dict()
-        self.swaps_reversed = dict()
-
-    # Rename to generate_entrance_rule_data
-    def generate_entrance_rule_data(self, starting_location: ZorkGrandInquisitorStartingLocations) -> EntranceRuleData:
+    def generate_entrance_rule_data(self) -> EntranceRuleData:
         if self.mode == ZorkGrandInquisitorEntranceRandomizer.DISABLED:
             return entrance_rule_data
 
-        # TODO: Have a retry mechanism in place in case of failure (e.g. too many passes)
-        return self._generate_randomized_entrance_rule_data(starting_location)
-
-    def _generate_randomized_entrance_rule_data(
-        self,
-        starting_location: ZorkGrandInquisitorStartingLocations
-    ) -> EntranceRuleData:
-        # Randomize entrances moving out from starting location
-        initial_region: ZorkGrandInquisitorRegions = starting_location_to_region[starting_location]
-
-        next_regions: List[ZorkGrandInquisitorRegions] = [initial_region]
-        next_entrances: List[Entrance] = list()
-
-        passes: int = 0
-        final_pass: bool = False
+        graph: Graph = Graph(
+            edges=entrance_rule_data.keys(),
+            edges_randomizable=self.randomizable_entrances,
+            edges_one_way=self.one_way_entrances,
+        )
 
         while True:
-            passes += 1
+            self.passes += 1
+            print(f"Zork Grand Inquisitor - Entrance Randomizer Pass #{self.passes}...")
 
-            # Determine entrances in next regions
-            region: ZorkGrandInquisitorRegions
-            for region in next_regions[:]:
-                entrance: Entrance
-                for entrance in entrances_by_region_for_world(entrance_rule_data)[region]:
-                    if entrance in self.randomizable_entrances and entrance not in self.processed_entrances:
-                        next_entrances.append(entrance)
+            if self.passes > 100:
+                raise Exception("Zork Grand Inquisitor - Entrance Randomizer Failure")
 
-                self.processed_regions.add(region)
-                next_regions.remove(region)
-
-            if not len(next_entrances):
-                if len(self.remaining_randomizable_entrances):
-                    next_entrances = self.remaining_randomizable_entrances[:]
-                    final_pass = True
-                else:
+            if self.mode == ZorkGrandInquisitorEntranceRandomizer.COUPLED:
+                if graph.shuffle_edges_coupled(random=self.random):
+                    break
+            elif self.mode == ZorkGrandInquisitorEntranceRandomizer.UNCOUPLED:
+                if graph.shuffle_edges_uncoupled(random=self.random):
                     break
 
-            # Randomize next entrances
-            self.random.shuffle(next_entrances)
-
-            entrance: Entrance
-            for entrance in next_entrances[:]:
-                if entrance in self.processed_entrances:
-                    continue
-
-                swap: Entrance
-                filtered_dataset: List[Entrance] = list()
-
-                for swap in self.remaining_randomizable_destinations:
-                    # Don't swap with dead ends in coupled mode unless it's the final pass
-                    if self.mode == ZorkGrandInquisitorEntranceRandomizer.COUPLED:
-                        if swap in dead_end_entrances_reverse and not final_pass:
-                            continue
-
-                    # Don't swap with entrances that lead back to the same region
-                    if swap[1] != entrance[0]:
-                        filtered_dataset.append(swap)
-
-                if not filtered_dataset:
-                    next_entrances.remove(entrance)
-                    continue
-
-                swap = self.random.choice(filtered_dataset)
-                swap_region: ZorkGrandInquisitorRegions = swap[1]
-
-                if swap_region not in self.processed_regions and swap_region not in next_regions:
-                    next_regions.append(swap_region)
-
-                self.swaps[entrance] = swap
-                self.swaps_reversed[swap] = entrance
-
-                self._commit_entrance_rule_data((entrance[0], swap[1]), entrance)
-
-                self.remaining_randomizable_entrances.remove(entrance)
-                self.remaining_randomizable_destinations.remove(swap)
-
-                self.processed_entrances.add(entrance)
-                next_entrances.remove(entrance)
-
-                if self.mode == ZorkGrandInquisitorEntranceRandomizer.COUPLED:
-                    # Register opposite entrance immediately
-                    opposite_entrance: Entrance = (swap[1], swap[0])
-                    opposite_swap: Entrance = (entrance[1], entrance[0])
-
-                    self.swaps[opposite_entrance] = opposite_swap
-                    self.swaps_reversed[opposite_swap] = opposite_entrance
-
-                    self._commit_entrance_rule_data((opposite_entrance[0], opposite_swap[1]), opposite_entrance)
-
-                    self.remaining_randomizable_entrances.remove(opposite_entrance)
-                    self.remaining_randomizable_destinations.remove(opposite_swap)
-
-                    self.processed_entrances.add(opposite_entrance)
-
-                    if opposite_entrance in next_entrances:
-                        next_entrances.remove(opposite_entrance)
-
-            if passes >= 100:
-                raise Exception("Too many entrance randomizer passes! Something went wrong!")
+        self.replacement_entrances = graph.replacement_edges
 
         # One-way entrances
-        sampled_swaps: List[Entrance] = self.random.sample(
+        sampled_replacement_entrances: List[Entrance] = self.random.sample(
             self.randomizable_entrances,
-            len(one_way_entrances)
+            len(self.one_way_entrances)
         )
 
         i: int
         entrance: Entrance
-        for i, entrance in enumerate(one_way_entrances):
-            self.swaps[entrance] = sampled_swaps[i]
-            self.swaps_reversed[sampled_swaps[i]] = entrance
+        for i, entrance in enumerate(self.one_way_entrances):
+            self.replacement_entrances[entrance] = sampled_replacement_entrances[i]
 
-            swap: Entrance = (entrance[0], sampled_swaps[i][1])
+        self.randomized_entrance_rule_data = dict()
 
-            self._commit_entrance_rule_data(swap, entrance)
+        return self._assemble_entrance_rule_data()
 
-        # Non-randomizable entrances
+    def _assemble_entrance_rule_data(self) -> EntranceRuleData:
+        entrance: Entrance
         for entrance in entrance_rule_data.keys():
-            if entrance not in self.randomizable_entrances and entrance not in one_way_entrances:
+            if entrance in self.replacement_entrances:
+                self._commit_entrance_rule_data((entrance[0], self.replacement_entrances[entrance][1]), entrance)
+            else:
                 self._commit_entrance_rule_data(entrance, entrance)
 
         return self.randomized_entrance_rule_data
@@ -203,68 +111,213 @@ class EntranceRandomizer:
 
     @classmethod
     def test(cls):
-        er = cls(ZorkGrandInquisitorEntranceRandomizer.COUPLED, Random(x=12345))
-        er.generate_entrance_rule_data(ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR)
+        max_passes: int = 0
 
-        for entrance in randomizable_entrances:
-            print(f"{entrance[0].value} -> {entrance[1].value}")
+        for _ in range(1):
+            er = EntranceRandomizer(
+                ZorkGrandInquisitorEntranceRandomizer.COUPLED,
+                Random(x=12345),
+            )
 
-            if entrance in er.swaps:
-                print(f"{er.swaps[entrance][0].value} -> {er.swaps[entrance][1].value}")
-            else:
-                print("UNCONNECTED! UNCONNECTED! UNCONNECTED!")
+            er.generate_entrance_rule_data()
 
+            if er.passes > max_passes:
+                max_passes = er.passes
+
+        print(f"Max passes: {max_passes}")
+
+
+GraphNode = ZorkGrandInquisitorRegions
+GraphNodes = List[ZorkGrandInquisitorRegions]
+
+GraphEdge = Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+GraphEdges = List[Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]]
+
+
+class Graph:
+    nodes: GraphNodes
+
+    edges: GraphEdges
+
+    edges_non_randomizable: GraphEdges
+    edges_randomizable: GraphEdges
+    edges_one_way: GraphEdges
+
+    replacement_edges: Dict[GraphEdge, GraphEdge]
+
+    def __init__(self, edges: GraphEdges, edges_randomizable: GraphEdges, edges_one_way: GraphEdges):
+        self.edges = edges
+
+        self.edges_randomizable = edges_randomizable
+        self.edges_one_way = edges_one_way
+
+        self.nodes = list()
+        self.edges_non_randomizable = list()
+
+        edge: GraphEdge
+        for edge in self.edges:
+            if edge[0] not in self.nodes:
+                self.nodes.append(edge[0])
+
+            if edge not in edges_randomizable and edge not in edges_one_way:
+                self.edges_non_randomizable.append(edge)
+
+        assert self.is_fully_connected()
+
+        self.replacement_edges = dict()
+
+    def shuffle_edges_coupled(self, random: Optional[Random] = None) -> bool:
+        if random is None:
+            random = Random()
+
+        shuffled_edges: GraphEdges = self.edges_non_randomizable[:]
+
+        remaining_edges: GraphEdges = self.edges_randomizable[:]
+        random.shuffle(remaining_edges)
+
+        remaining_replacement_edges: GraphEdges = self.edges_randomizable[:]
+        random.shuffle(remaining_replacement_edges)
+
+        cycle: int = 0
+        while remaining_edges:
+            cycle += 1
+
+            if cycle > 250:
+                return False
+
+            edge: GraphEdge = remaining_edges.pop()
+
+            potential_replacement_edges: GraphEdges = [
+                replacement for replacement in remaining_replacement_edges if replacement != (edge[1], edge[0])
+            ]
+
+            if not potential_replacement_edges:
+                remaining_edges.append(edge)
+                continue
+
+            replacement_edge: GraphEdge = random.choice(potential_replacement_edges)
+            remaining_replacement_edges.remove(replacement_edge)
+
+            new_edge: GraphEdge = (edge[0], replacement_edge[1])
+            shuffled_edges.append(new_edge)
+
+            reverse_replacement_edge: GraphEdge = (replacement_edge[1], replacement_edge[0])
+            remaining_edges.remove(reverse_replacement_edge)
+
+            reverse_edge: GraphEdge = (edge[1], edge[0])
+            remaining_replacement_edges.remove(reverse_edge)
+
+            new_reverse_edge: GraphEdge = (replacement_edge[1], edge[0])
+            shuffled_edges.append(new_reverse_edge)
+
+            node_adjacency_list: Dict[GraphNode, GraphNodes] = self.generate_node_adjacency_list(
+                edges=shuffled_edges + remaining_edges
+            )
+
+            if not self.is_fully_connected(node_adjacency_list):
+                remaining_edges.append(edge)
+                remaining_replacement_edges.append(replacement_edge)
+
+                shuffled_edges.remove(new_edge)
+
+                remaining_edges.append(reverse_replacement_edge)
+                remaining_replacement_edges.append(reverse_edge)
+
+                shuffled_edges.remove(new_reverse_edge)
+
+                continue
+
+            self.replacement_edges[edge] = replacement_edge
+            self.replacement_edges[reverse_replacement_edge] = reverse_edge
+
+        print(f"Success! Cycles: {cycle}")
+
+        for edge, replacement_edge in self.replacement_edges.items():
+            print(edge)
+            print(replacement_edge)
             print()
 
-        for entrance in dead_end_entrances:
-            print(f"{entrance[0].value} -> {entrance[1].value}")
+        return True
 
-            if entrance in er.swaps:
-                print(f"{er.swaps[entrance][0].value} -> {er.swaps[entrance][1].value}")
-            else:
-                print("UNCONNECTED! UNCONNECTED! UNCONNECTED!")
+    def shuffle_edges_uncoupled(self, random: Optional[Random] = None) -> GraphEdges:
+        if random is None:
+            random = Random()
 
-            print()
+        shuffled_edges: GraphEdges = self.edges_non_randomizable[:]
 
-        for entrance in dead_end_entrances_reverse:
-            print(f"{entrance[0].value} -> {entrance[1].value}")
+        remaining_edges: GraphEdges = self.edges_randomizable[:]
+        random.shuffle(remaining_edges)
 
-            if entrance in er.swaps:
-                print(f"{er.swaps[entrance][0].value} -> {er.swaps[entrance][1].value}")
-            else:
-                print("UNCONNECTED! UNCONNECTED! UNCONNECTED!")
+        remaining_replacement_edges: GraphEdges = self.edges_randomizable[:]
+        random.shuffle(remaining_replacement_edges)
 
-            print()
+        cycle: int = 0
+        while remaining_edges:
+            cycle += 1
 
-        for entrance in one_way_entrances:
-            print(f"{entrance[0].value} -> {entrance[1].value}")
+            if cycle > 500:
+                return False
 
-            if entrance in er.swaps:
-                print(f"{er.swaps[entrance][0].value} -> {er.swaps[entrance][1].value}")
-            else:
-                print("UNCONNECTED! UNCONNECTED! UNCONNECTED!")
+            edge: GraphEdge = remaining_edges.pop()
 
-            print()
+            potential_replacement_edges: GraphEdges = [
+                replacement for replacement in remaining_replacement_edges if replacement != (edge[1], edge[0])
+            ]
 
-        import pprint
-        pprint.pprint(er.randomized_entrance_rule_data)
+            if not potential_replacement_edges:
+                remaining_edges.append(edge)
+                continue
 
-        count_1 = dict()
+            replacement_edge: GraphEdge = random.choice(potential_replacement_edges)
+            remaining_replacement_edges.remove(replacement_edge)
 
-        for entrance in entrance_rule_data:
-            if entrance[0] not in count_1:
-                count_1[entrance[0]] = 0
+            new_edge: GraphEdge = (edge[0], replacement_edge[1])
+            shuffled_edges.append(new_edge)
 
-            count_1[entrance[0]] += 1
+            node_adjacency_list: Dict[GraphNode, GraphNodes] = self.generate_node_adjacency_list(
+                edges=shuffled_edges + remaining_edges
+            )
 
-        count_2 = dict()
+            if not self.is_fully_connected(node_adjacency_list):
+                remaining_edges.append(edge)
+                remaining_replacement_edges.append(replacement_edge)
 
-        for entrance in er.randomized_entrance_rule_data:
-            if entrance[0] not in count_2:
-                count_2[entrance[0]] = 0
+                shuffled_edges.remove(new_edge)
 
-            count_2[entrance[0]] += 1
+                continue
 
-        for region, count in count_1.items():
-            if count != count_2[region]:
-                print(f"{region} has {count} entrances in original, but {count_2[region]} in randomized")
+            self.replacement_edges[edge] = replacement_edge
+
+        print(f"Success! Cycles: {cycle}")
+
+        return True
+
+    def is_fully_connected(self, node_adjacency_list: Dict[GraphNode, GraphNodes] = None) -> bool:
+        node_adjacency_list = node_adjacency_list or self.generate_node_adjacency_list()
+        nodes_seen: Set[GraphNode] = set()
+
+        def dfs(node: GraphNode):
+            nodes_seen.add(node)
+
+            adjacent_node: GraphNode
+            for adjacent_node in node_adjacency_list[node]:
+                if adjacent_node not in nodes_seen:
+                    dfs(adjacent_node)
+
+        dfs(self.nodes[0])
+
+        return len(nodes_seen) == len(self.nodes)
+
+    def generate_node_adjacency_list(
+        self, nodes: Optional[GraphNodes] = None, edges: Optional[GraphEdges] = None,
+    ) -> Dict[GraphNode, GraphNodes]:
+        nodes = nodes or self.nodes
+        edges = edges or self.edges
+
+        adjacency_list: Dict[GraphNode, GraphNodes] = {node: list() for node in nodes}
+
+        edge: GraphEdge
+        for edge in edges:
+            adjacency_list[edge[0]].append(edge[1])
+
+        return adjacency_list
