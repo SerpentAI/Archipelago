@@ -83,6 +83,20 @@ class RabbitAndSteelGame(Game):
                 weight=2
             ),
             GameObjectiveTemplate(
+                label="Complete 5 stages while playing as the CHARACTER",
+                data={"CHARACTER": (self.characters, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Complete 5 stages on DIFF difficulty",
+                data={"DIFF": (self.difficulties, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=3
+            ),
+            GameObjectiveTemplate(
                 label="Pet Asha, the Shopkeeper",
                 data={},
                 is_time_consuming=False,
