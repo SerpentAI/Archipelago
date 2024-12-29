@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 
 from typing import List
@@ -11,8 +13,16 @@ from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
 
+
+@dataclass
+class RabbitAndSteelArchipelagoOptions:
+    rabbit_and_steel_unlocked_characters: RabbitAndSteelUnlockedCharacters
+    rabbit_and_steel_allow_lunar: RabbitAndSteelAllowLunar
+
+
 class RabbitAndSteelGame(Game):
     name = "Rabbit & Steel"
+    options_cls = RabbitAndSteelArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
     is_adult_only_or_unrated = False
 
@@ -22,8 +32,8 @@ class RabbitAndSteelGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label= "Complete the STAGE on DIFF difficulty",
-                data = {"STAGE": (self.stages, 1), "DIFF": (self.difficulties, 1)},
+                label="Complete the STAGE on DIFF difficulty",
+                data={"STAGE": (self.stages, 1), "DIFF": (self.difficulties, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3
@@ -43,8 +53,8 @@ class RabbitAndSteelGame(Game):
                 weight=2
             ),
             GameObjectiveTemplate(
-                label = "Scale the Moonlit Pinnacle and defeat Shira, Rabbit of the Moon on DIFF difficulty",
-                data = {"DIFF": (self.difficulties, 1)},
+                label="Scale the Moonlit Pinnacle and defeat Shira, Rabbit of the Moon on DIFF difficulty",
+                data={"DIFF": (self.difficulties, 1)},
                 is_time_consuming=True,
                 is_difficult=False, # Depends on optional factors, very easy on Easy
                 weight=2
@@ -57,7 +67,8 @@ class RabbitAndSteelGame(Game):
                 weight=2
             ),
             GameObjectiveTemplate(
-                label="Scale the Moonlit Pinnacle and defeat Shira, Rabbit of the Moon on DIFF difficulty as the CHARACTER",
+                label="Scale the Moonlit Pinnacle and defeat Shira, Rabbit of the Moon on DIFF difficulty "
+                      "as the CHARACTER",
                 data={"DIFF": (self.difficulties, 1), "CHARACTER": (self.characters, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
@@ -65,15 +76,15 @@ class RabbitAndSteelGame(Game):
             ),
             GameObjectiveTemplate(
                 # I'm pretty sure this is impossible on Lunar...
-                label = "Complete the STAGE while skipping on all loot rolls on DIFF difficulty",
-                data = {"STAGE": (self.stages, 1), "DIFF": (self.base_difficulties, 1)},
+                label="Complete the STAGE while skipping on all loot rolls on DIFF difficulty",
+                data={"STAGE": (self.stages, 1), "DIFF": (self.base_difficulties, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=2
             ),
             GameObjectiveTemplate(
-                label = "Pet Asha, the Shopkeeper",
-                data = {},
+                label="Pet Asha, the Shopkeeper",
+                data={},
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1
@@ -148,11 +159,7 @@ class RabbitAndSteelUnlockedCharacters(OptionSet):
     }
     default = valid_keys
 
+
 class RabbitAndSteelAllowLunar(Toggle):
     """Whether or not the Lunar difficulty should be an option for objectives in Rabbit & Steel"""
     display_name = "Rabbit & Steel Allow Lunar Difficulty"
-
-@dataclass
-class RabbitAndSteelArchipelagoOptions:
-    rabbit_and_steel_unlocked_characters: RabbitAndSteelUnlockedCharacters
-    rabbit_and_steel_allow_lunar: RabbitAndSteelAllowLunar
