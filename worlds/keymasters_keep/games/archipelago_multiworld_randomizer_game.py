@@ -12,7 +12,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 class ArchipelagoMultiworldRandomizerGame(Game):
     name = "Archipelago Multiworld Randomizer"
-    platform = KeymastersKeepGamePlatforms.PC
+    platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 
@@ -63,13 +63,6 @@ class ArchipelagoMultiworldRandomizerGame(Game):
                 GameObjectiveTemplate(
                     label="Blackout a SIZExSIZE APBingo board in a multiworld randomizer with GAMES",
                     data={"GAMES": (self.games, 3), "SIZE": (self.bingo_board_sizes, 1)},
-                    is_time_consuming=True,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
-                    label="Blackout a SIZExSIZE APBingo board in a multiworld randomizer with GAMES",
-                    data={"GAMES": (self.games, 5), "SIZE": (self.bingo_board_sizes, 1)},
                     is_time_consuming=True,
                     is_difficult=False,
                     weight=1,
