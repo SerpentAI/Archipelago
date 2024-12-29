@@ -5,8 +5,6 @@ from dataclasses import dataclass
 
 from ..game import AutoGameRegister
 
-from os.path import dirname, join
-from glob import glob
 from pkgutil import iter_modules
 from importlib import import_module
 
