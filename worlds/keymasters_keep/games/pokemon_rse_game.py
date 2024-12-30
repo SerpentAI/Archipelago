@@ -764,7 +764,7 @@ class PokemonRSEGame(Game):
 # Archipelago Options
 class RSEOwnedGames(OptionSet):
     """
-    Indicates which versions of the games the player owns between Ruby, Sapphire, and Emerald.
+    Indicates which versions of the games the player owns between Pokémon Ruby/Sapphire/Emerald.
     """
 
     display_name = "Ruby/Sapphire/Emerald Owned Games"
@@ -778,7 +778,7 @@ class RSEOwnedGames(OptionSet):
 
 class RSEObjectives(OptionSet):
     """
-    Indicates which objective types the player would like to engage in
+    Indicates which objective types the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
     """
     display_name = "Ruby/Sapphire/Emerald Objective Types"
     valid_keys = [
