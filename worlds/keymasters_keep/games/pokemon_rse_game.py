@@ -198,7 +198,7 @@ class PokemonRSEGame(Game):
                 weight=100,
             ),
             GameObjectiveTemplate(
-                label="Beat the Elite Four with only one Pokemon",
+                label="Beat the Elite Four with only one Pokémon",
                 data={},
                 is_time_consuming=False,
                 is_difficult=True,
