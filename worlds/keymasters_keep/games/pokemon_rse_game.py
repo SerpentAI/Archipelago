@@ -767,7 +767,7 @@ class RSEOwnedGames(OptionSet):
     Indicates which versions of the games the player owns between Pokémon Ruby/Sapphire/Emerald.
     """
 
-    display_name = "Ruby/Sapphire/Emerald Owned Games"
+    display_name = "Pokémon Ruby/Sapphire/Emerald Owned Games"
     valid_keys = [
         "Ruby",
         "Sapphire",
@@ -780,7 +780,7 @@ class RSEObjectives(OptionSet):
     """
     Indicates which objective types the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
     """
-    display_name = "Ruby/Sapphire/Emerald Objective Types"
+    display_name = "Pokémon Ruby/Sapphire/Emerald Objective Types"
     valid_keys = [
         "Catching",
         "Contests",
