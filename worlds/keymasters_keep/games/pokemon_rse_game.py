@@ -184,7 +184,7 @@ class PokemonRSEGame(Game):
     def battle_objectives(self) -> List[GameObjectiveTemplate]:
         objectives: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
-                label="Beat the Elite Four",
+                label="Defeat the Pokémon League and enter the Hall of Fame",
                 data={},
                 is_time_consuming=False,
                 is_difficult=False,
@@ -198,7 +198,7 @@ class PokemonRSEGame(Game):
                 weight=100,
             ),
             GameObjectiveTemplate(
-                label="Beat the Elite Four with only one Pokémon",
+                label="Defeat the Pokémon League and enter the Hall of Fame with only one Pokémon",
                 data={},
                 is_time_consuming=False,
                 is_difficult=True,
