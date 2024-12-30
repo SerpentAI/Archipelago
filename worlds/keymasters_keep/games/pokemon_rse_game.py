@@ -406,6 +406,8 @@ class PokemonRSEGame(Game):
             pokemon.append("Dusclops") # Evolution-only in all other games
         if not self.has_sapphire and not self.has_emerald:
             pokemon.append("Banette") # Evolution-only in Ruby
+        if not self.has_emerald:
+            pokemon.append("Mightyena") # Evolution-only outside of Emerald
 
         if self.has_ruby or self.has_sapphire:
             pokemon.append("Masquerain")
