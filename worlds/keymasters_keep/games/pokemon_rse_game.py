@@ -205,7 +205,8 @@ class PokemonRSEGame(Game):
                 weight=10,
             ),
             GameObjectiveTemplate(
-                label="Without using Fly, items, or a Pokémon Center, travel between the following cities, defeating every wild encounter you see: CITY",
+                label="Without using Fly, items, or a Pokémon Center, travel between the following cities "
+                      "while defeating every wild encounter you see: CITY",
                 data={"CITY": (self.cities, 2)},
                 is_time_consuming=True,
                 is_difficult=False,
