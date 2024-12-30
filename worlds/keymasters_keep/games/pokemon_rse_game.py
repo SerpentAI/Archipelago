@@ -272,7 +272,7 @@ class PokemonRSEGame(Game):
                     label="Win 7 battles in a row in the Battle Tower",
                     data={},
                     is_time_consuming=False,
-                    is_difficult=True,
+                    is_difficult=False,
                     weight=20,
                 ),
             ]
