@@ -142,28 +142,28 @@ class PokemonRSEGame(Game):
                 data={"RANKING": (self.base_contest_ranks, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=50,
+                weight=30,
             ),
             GameObjectiveTemplate(
                 label="Win a Hyper Rank Contest",
                 data={},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=25,
+                weight=15,
             ),
             GameObjectiveTemplate(
                 label="Win a Master Rank Contest",
                 data={},
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=15,
+                weight=10,
             ),
             GameObjectiveTemplate(
                 label="Win a RANKING Rank TYPE Contest",
                 data={"RANKING": (self.base_contest_ranks, 1), "TYPE": (self.contest_types, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=25,
+                weight=20,
             ),
             GameObjectiveTemplate(
                 label="Win a Hyper Rank TYPE Contest",
@@ -177,7 +177,7 @@ class PokemonRSEGame(Game):
                 data={"TYPE": (self.contest_types, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=5,
+                weight=8,
             ),
         ]
 
