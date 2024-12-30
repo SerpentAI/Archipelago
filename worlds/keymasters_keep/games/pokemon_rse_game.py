@@ -31,12 +31,12 @@ class PokemonRSEGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Use POKEMON as your lead (not applicable for Battle Factory)",
+                label="Use POKEMON as your lead (not applicable for Battle Factory or Battle Tent Slateport Site)",
                 data={"POKEMON": (self.wild_pokemon, 1)},
                 weight=3
             ),
             GameObjectiveTemplate(
-                label="Use RAREPOKEMON as your lead (not applicable for Battle Factory)",
+                label="Use RAREPOKEMON as your lead (not applicable for Battle Factory or Battle Tent Slateport Site)",
                 data={"RAREPOKEMON": (self.difficult_pokemon, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
