@@ -669,7 +669,6 @@ class PokemonRSEGame(Game):
     @staticmethod
     def common_pokeblock_types() -> List[str]:
         return [
-            "Black",
             "Red",
             "Blue",
             "Pink",
@@ -680,6 +679,7 @@ class PokemonRSEGame(Game):
     @staticmethod
     def rare_pokeblock_types() -> List[str]:
         return [
+            "Black",
             "Gold",
             "Purple",
             "Indigo",
