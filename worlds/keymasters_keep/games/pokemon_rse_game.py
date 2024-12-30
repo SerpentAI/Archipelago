@@ -65,7 +65,7 @@ class PokemonRSEGame(Game):
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild POKEMON",
-                    data={"Pokemon": (self.wild_pokemon, 1)},
+                    data={"POKEMON": (self.wild_pokemon, 1)},
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=70
