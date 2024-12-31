@@ -83,7 +83,7 @@ class MarioParty2Game(Game):
                 weight=8,
             ),
             GameObjectiveTemplate(
-                label="Win the DIFFICULTY Course in Mini-Game Coaster",
+                label="Complete the DIFFICULTY Course in Mini-Game Coaster",
                 data={"DIFFICULTY": (self.skill_levels, 1)},  # Course names are the same as COM Skill Levels
                 is_time_consuming=True,
                 is_difficult=False,
