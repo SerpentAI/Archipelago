@@ -56,7 +56,7 @@ class KeepAreaLayout(BoxLayout):
 
     area: KeymastersKeepRegions
     unlock_button: Button
-    locked_by_button: Label
+    locked_by_button: Button
 
     def __init__(
         self,
@@ -135,8 +135,7 @@ class KeepAreaLayout(BoxLayout):
             game: str = self.ctx.area_games[self.area.value]
             trial_count: int = len(self.ctx.area_trials[self.area])
 
-            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=4e7aa6]{trial_count} trials[/color]"
-            self.locked_by_button.color = [111/255, 174/255, 237/255, 1] # same color as #6faeed
+            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=6faeed][u]{trial_count} trials[/u][/color]"
             self.locked_by_button.bind(on_press=lambda _: self.ctx.ui.tabs.switch_to(self.ctx.ui.available_trials_tab)) 
         else:
             self.unlock_button.disabled = False
