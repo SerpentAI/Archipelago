@@ -180,7 +180,12 @@ class ProjectSekaiGame(Game):
                     label="Play SONG on DIFF difficulty (or higher)",
                     data={"SONG": (self.songs, 1), "DIFF": (self.difficulties, 1)},
                     weight=max(1, ceil(len(self.songs()) / 4))
-                )
+                ),
+                GameObjectiveTemplate(
+                    label="Play SONG on DIFF difficulty (or higher) with 7 or less GOOD/BAD/MISS",
+                    data={"SONG": (self.songs, 1), "DIFF": (self.difficulties, 1)},
+                    weight=max(1, ceil(len(self.songs()) / 4) - 2)
+                ),
             ])
         return objectives
 
