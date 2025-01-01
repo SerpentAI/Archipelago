@@ -51,8 +51,7 @@ masuda_games = [
 
 poke_radar = [
     GEN_4_PRIMARY,
-    GEN_6_PRIMARY,
-    GEN_8_REMAKE
+    GEN_6_PRIMARY
 ]
 
 chain_fishing = [
@@ -105,7 +104,9 @@ class ShinyPokemonHuntGame(Game):
                 is_time_consuming=True,
             )
         ]
-        if any(game in masuda_games for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
+        if any(game in masuda_games for game in self.archipelago_options.shiny_pokemon_hunt_owned_games) or \
+                (self.archipelago_options.include_modern_console_games and
+                 GEN_8_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games):
             objectives.append(GameObjectiveTemplate(
                 label="Hatch a Shiny Pokémon from an Egg",
                 data={},
@@ -147,25 +148,25 @@ class ShinyPokemonHuntGame(Game):
                 data={},
                 is_time_consuming=True,
             ))
-        if self.archipelago_options.
-        if GEN_7_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon by maintaining a catch combo",
-                data={},
-                is_time_consuming=True,
-            ))
-        if GEN_8_DLC in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon within a Dynamax Adventure",
-                data={},
-                is_time_consuming=True,
-            ))
-        if any(game in outbreaks for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon within a mass outbreak",
-                data={},
-                is_time_consuming=True,
-            ))
+        if self.archipelago_options.include_modern_console_games:
+            if GEN_7_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games:
+                objectives.append(GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon by maintaining a catch combo",
+                    data={},
+                    is_time_consuming=True,
+                ))
+            if GEN_8_DLC in self.archipelago_options.shiny_pokemon_hunt_owned_games:
+                objectives.append(GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon within a Dynamax Adventure",
+                    data={},
+                    is_time_consuming=True,
+                ))
+            if any(game in outbreaks for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
+                objectives.append(GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon within a mass outbreak",
+                    data={},
+                    is_time_consuming=True,
+                ))
 
     def games(self):
         return sorted(self.archipelago_options.shiny_pokemon_hunt_owned_games.value)
