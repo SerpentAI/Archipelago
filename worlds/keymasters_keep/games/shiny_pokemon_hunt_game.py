@@ -83,6 +83,7 @@ class ShinyPokemonHuntGame(Game):
         KeymastersKeepGamePlatforms.SW,
     ]
     is_metagame = True
+    options_cls = ShinyPokemonHuntArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [GameObjectiveTemplate(
