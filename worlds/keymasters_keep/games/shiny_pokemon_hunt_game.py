@@ -196,3 +196,6 @@ class ShinyPokemonHuntOwnedGames(OptionSet):
         GEN_9_PRIMARY,
         GEN_9_DLC,
     ]
+
+    default = valid_keys
+    
