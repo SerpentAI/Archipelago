@@ -615,6 +615,8 @@ class PokemonRSEGame(Game):
             "without using Super-Effective moves",
             "without using any moves over 40 Power",
             "without using any moves with 100 accuracy or moves that bypass accuracy checks",
+            "only using Pokémon that can still evolve",
+            "only using Pokémon that can still evolve twice",
         ]
 
     @staticmethod
