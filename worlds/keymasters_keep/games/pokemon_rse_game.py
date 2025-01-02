@@ -193,7 +193,7 @@ class PokemonRSEGame(Game):
                 label="Defeat the Pokémon League and enter the Hall of Fame CONDITION",
                 data={"CONDITION": (self.pokemon_league_battle_conditions, 1)},
                 is_time_consuming=False,
-                is_difficult=False,
+                is_difficult=True,
                 weight=50,
             ),
             GameObjectiveTemplate(
