@@ -309,7 +309,7 @@ class PokemonRSEGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Encounter a shiny Pokémon in LOCATION",
-                data={"LOCATION": (self.encounter_locations, 1)},
+                data={"LOCATION": (self.encounter_locations_with_safari, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
@@ -943,8 +943,26 @@ class PokemonRSEGame(Game):
 
         return encounters
 
+    def encounter_locations_with_safari(self) -> List[str]:
+        encounters = self.encounter_locations()[:]
+
+        encounters.extend([
+            "Safari Zone Area 1", # Incompatible with most encounter objectives
+            "Safari Zone Area 2", # Incompatible with most encounter objectives
+            "Safari Zone Area 3", # Incompatible with most encounter objectives
+            "Safari Zone Area 4", # Incompatible with most encounter objectives
+        ][:])
+
+        if self.has_emerald:
+            encounters.extend([
+                "Safari Zone Area 5",
+                "Safari Zone Area 6",
+            ][:])
+
+        return encounters
+
     def locations(self) -> List[str]:
-        locations = self.encounter_locations()[:]
+        locations = self.encounter_locations_with_safari()[:]
 
         locations.extend([
             "Littleroot Town", # No encounters
@@ -1040,10 +1058,10 @@ class PokemonRSEGame(Game):
             "Granite Cave B2F",
             "Granite Cave Steven's Room",
             # "Mt. Chimney", # No encounters
-            "Safari Zone Area 1",
-            "Safari Zone Area 2",
-            "Safari Zone Area 3",
-            "Safari Zone Area 4",
+            # "Safari Zone Area 1", # Incompatible with most encounter objectives
+            # "Safari Zone Area 2", # Incompatible with most encounter objectives
+            # "Safari Zone Area 3", # Incompatible with most encounter objectives
+            # "Safari Zone Area 4", # Incompatible with most encounter objectives
             # "Battle Tower", # No encounters
             "Petalburg Woods",
             "Rusturf Tunnel",
@@ -1094,8 +1112,8 @@ class PokemonRSEGame(Game):
     @staticmethod
     def encounter_locations_e() -> List[str]:
         return [
-            "Safari Zone Area 5",
-            "Safari Zone Area 6",
+            # "Safari Zone Area 5", # Incompatible with most encounter objectives
+            # "Safari Zone Area 6", # Incompatible with most encounter objectives
             "Meteor Falls Steven's Room",
             # "Battle Frontier", Only one encounter, not repeatable
             # "Aqua Hideout", # Closed after badge 7
