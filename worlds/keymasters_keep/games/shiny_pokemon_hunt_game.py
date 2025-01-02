@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from typing import List
-from math import ceil
 
 from dataclasses import dataclass
 
@@ -10,8 +9,9 @@ from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
 
-from Options import Choice, OptionSet
+from Options import OptionSet
 
+@dataclass
 class ShinyPokemonHuntArchipelagoOptions:
     shiny_pokemon_hunt_owned_games: ShinyPokemonHuntOwnedGames
 
@@ -82,7 +82,10 @@ class ShinyPokemonHuntGame(Game):
         KeymastersKeepGamePlatforms._3DS,
         KeymastersKeepGamePlatforms.SW,
     ]
+
+    is_adult_only_or_unrated = False
     is_metagame = True
+
     options_cls = ShinyPokemonHuntArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
@@ -120,11 +123,18 @@ class ShinyPokemonHuntGame(Game):
                 is_time_consuming=True,
             ))
         if any(game in chain_fishing for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon by chain fishing",
-                data={},
-                is_time_consuming=True,
-            ))
+            objectives.extend([
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon by chain fishing",
+                    data={},
+                    is_time_consuming=True,
+                ),
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon during a horde encounter",
+                    data={},
+                    is_time_consuming=True,
+                )
+            ])
         if GEN_6_PRIMARY in self.archipelago_options.shiny_pokemon_hunt_owned_games:
             objectives.append(GameObjectiveTemplate(
                 label="Encounter and capture a Shiny Pokémon in the Friend Safari",
@@ -169,6 +179,8 @@ class ShinyPokemonHuntGame(Game):
                     is_time_consuming=True,
                 ))
 
+        return objectives
+
     def games(self):
         return sorted(self.archipelago_options.shiny_pokemon_hunt_owned_games.value)
 
@@ -198,4 +210,3 @@ class ShinyPokemonHuntOwnedGames(OptionSet):
     ]
 
     default = valid_keys
-    
