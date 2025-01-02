@@ -836,7 +836,7 @@ class PokemonRSEGame(Game):
             "a LiteBlue",
             "an Olive",
             "a Gray",
-            # "White", # Impossible in single player
+            # "a White", # Impossible in single player
         ]
 
     @staticmethod
