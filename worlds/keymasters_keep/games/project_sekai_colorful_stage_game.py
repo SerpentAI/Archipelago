@@ -132,27 +132,27 @@ class ProjectSekaiColorfulStageGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Complete NUM shows with 3DMVs",
-                data={"NUM": (lambda: self.random.randint(3, 10), 1)},
+                data={"NUM": (range(3, 11), 1)},
                 weight=2
             ),
             GameObjectiveTemplate(
                 label="Complete NUM shows with 2DMVs/Original MVs",
-                data={"NUM": (lambda: self.random.randint(3, 10), 1)},
+                data={"NUM": (range(3, 11), 1)},
                 weight=2
             ),
             GameObjectiveTemplate(
                 label="Complete NUM Co-op/Cheerful Shows",
-                data={"NUM": (lambda: self.random.randint(3, 10), 1)},
+                data={"NUM": (range(3, 11), 1)},
                 weight=4
             ),
             GameObjectiveTemplate(
                 label="Complete NUM shows featuring songs from the following groups: GROUP",
-                data={"GROUP": (self.groups, range(1, 4)), "NUM": (lambda: self.random.randint(3, 10), 1)},
+                data={"GROUP": (self.groups, range(1, 4)), "NUM": (range(3, 11), 1)},
                 weight=6
             ),
             GameObjectiveTemplate(
                 label="Complete NUM shows with Mirror Mode enabled",
-                data={"NUM": (lambda: self.random.randint(3, 10), 1)},
+                data={"NUM": (range(3, 11), 1)},
                 weight=3
             ),
             GameObjectiveTemplate(
