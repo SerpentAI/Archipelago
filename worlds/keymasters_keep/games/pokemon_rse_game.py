@@ -947,10 +947,10 @@ class PokemonRSEGame(Game):
         encounters = self.encounter_locations()[:]
 
         encounters.extend([
-            "Safari Zone Area 1", # Incompatible with most encounter objectives
-            "Safari Zone Area 2", # Incompatible with most encounter objectives
-            "Safari Zone Area 3", # Incompatible with most encounter objectives
-            "Safari Zone Area 4", # Incompatible with most encounter objectives
+            "Safari Zone Area 1",
+            "Safari Zone Area 2",
+            "Safari Zone Area 3",
+            "Safari Zone Area 4",
         ][:])
 
         if self.has_emerald:
