@@ -76,12 +76,12 @@ class NightsIntoDreamsGame(Game):
             stages.append("Christmas Spring Valley")
         return stages
 
-    @functools.cached_property
-    def ranks(self):
+    @staticmethod
+    def ranks():
         return ["E", "D", "C", "B", "A"]
 
-    @functools.cached_property
-    def acrobat_ratings(self):
+    @staticmethod
+    def acrobat_ratings():
         return [
             "-DO NOT MIND!-",
             "-NICE ONE-",
