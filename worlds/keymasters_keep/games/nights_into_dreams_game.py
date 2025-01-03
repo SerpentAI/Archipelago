@@ -19,7 +19,7 @@ class NightsIntoDreamsArchipelagoOptions:
 
 
 class NightsIntoDreamsGame(Game):
-    name = "NiGHTS into dreams..."
+    name = "NiGHTS into Dreams..."
     platform = KeymastersKeepGamePlatforms.SAT
 
     platforms_other = [
