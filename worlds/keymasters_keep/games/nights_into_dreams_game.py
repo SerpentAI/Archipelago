@@ -57,7 +57,7 @@ class NightsIntoDreamsGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Achieve a RATING rating while NiGHTS has a Trick Ribbon",
-                data={"RATING", (self.acrobat_ratings, 1)},
+                data={"RATING": (self.acrobat_ratings, 1)},
             )
         ]
 
@@ -74,6 +74,7 @@ class NightsIntoDreamsGame(Game):
 
         if self.archipelago_options.nights_into_dreams_enable_christmas:
             stages.append("Christmas Spring Valley")
+        return stages
 
     @functools.cached_property
     def ranks(self):
