@@ -23,6 +23,7 @@ class SaltAndSacrificeGame(Game):
         KeymastersKeepGamePlatforms.PS4,
         KeymastersKeepGamePlatforms.PS5,
         KeymastersKeepGamePlatforms.SW,
+    ]
 
     is_adult_only_or_unrated = False
 
@@ -35,6 +36,7 @@ class SaltAndSacrificeGame(Game):
                 data={
                     "WEAPONTYPE": (self.weapontype, 5),
                 },
+                ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
