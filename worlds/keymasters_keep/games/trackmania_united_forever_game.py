@@ -104,7 +104,7 @@ class TrackManiaUnitedForeverGame(Game):
 
     @property
     def star(self) -> bool:
-        return "Star" in self.modes
+        return "Star Track" in self.modes
 
     @property
     def stunt(self) -> bool:
@@ -143,9 +143,9 @@ class TrackManiaUnitedForeverGame(Game):
         if self.nations:
             for letter in self.track_letters():
                 for i in range(1, 16):
-                    tracks.append(f"Nations {letter}{str(i).zfill(2)}")
+                    tracks.append(f"Nations - {letter}{str(i).zfill(2)}")
             for i in range(1, 6):
-                tracks.append(f"Nations E0{str(i)}")
+                tracks.append(f"Nations - E0{str(i)}")
 
         if self.united:
             for environment in self.environments():
@@ -190,14 +190,14 @@ class TrackManiaUnitedForeverGame(Game):
 # Archipelago Options
 class TrackManiaUnitedForeverModes(OptionSet):
     """
-    Indicates which TrackMania United Forever modes to include
+    Indicates which TrackMania United Forever modes to include.
     """
 
     display_name = "TrackMania United Forever Modes"
     valid_keys = [
         "Nations",
         "United",
-        "Star",
+        "Star Track",
         "Platform",
         "Stunt",
         "Puzzle",
