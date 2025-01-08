@@ -772,7 +772,7 @@ class MarioKart8IsDeluxe(DefaultOnToggle):
     """
     If true, use Mario Kart 8 Deluxe content. If false, only use Mario Kart 8 (Wii U) content.
     """
-    display_name = "Mario Kart 8 Is Deluxe"
+    display_name = "Mario Kart 8 is Deluxe"
 
 class MarioKart8WiiUDLCOwned(OptionSet):
     """
