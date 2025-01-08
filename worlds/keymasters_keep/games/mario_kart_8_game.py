@@ -134,7 +134,7 @@ class MarioKart8Game(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Finish 1st in a race while holding the following item: ITEM",
+                label="Finish 1st in a race while holding a ITEM",
                 data={
                     "ITEM": (self.items, 1),
                 },
@@ -694,7 +694,7 @@ class MarioKart8Game(Game):
     def battle_modes(self) -> List[str]:
         modes: List[str] = [
             "Balloon Battle",
-        ]
+        ][:]
         if self.is_deluxe:
             modes.extend([
                 "Bob-omb Blast",
@@ -704,13 +704,8 @@ class MarioKart8Game(Game):
             ][:])
         return modes
 
-    def battle_stages(self) -> List[str]:
-        if self.is_deluxe:
-            return self.battle_stages_deluxe()
-        return self.battle_stages_wii_u()
-
-    @staticmethod
-    def battle_stages_wii_u() -> List[str]:
+    @functools.cached_property
+    def battle_stages_wii_u(self) -> List[str]:
         return [
             "Wii Moo Moo Meadows",
             "GCN Dry Dry Desert",
@@ -722,8 +717,8 @@ class MarioKart8Game(Game):
             "N64 Yoshi Valley"
         ]
 
-    @staticmethod
-    def battle_stages_deluxe() -> List[str]:
+    @functools.cached_property
+    def battle_stages_deluxe(self) -> List[str]:
         return [
             "3DS Wuhu Town",
             "Battle Stadium",
@@ -734,6 +729,11 @@ class MarioKart8Game(Game):
             "Sweet Sweet Kingdom",
             "Urchin Underpass",
         ]
+
+    def battle_stages(self) -> List[str]:
+        if self.is_deluxe:
+            return self.battle_stages_deluxe
+        return self.battle_stages_wii_u
 
     def items(self) -> List[str]:
         items: List[str] = [
