@@ -514,6 +514,8 @@ class PokemonRSEGame(Game):
             if self.has_emerald:
                 pokemon.append("Sudowoodo")
 
+        return pokemon
+
     def difficult_pokemon(self) -> List[str]:
         pokemon: List[str] = self.rare_wild_pokemon()[:]
 
