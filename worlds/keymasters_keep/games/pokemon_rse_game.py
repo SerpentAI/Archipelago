@@ -719,31 +719,31 @@ class PokemonRSEGame(Game):
     def gym_leaders_and_level_caps(self) -> List[str]:
         leaders: List[str] = [
             "Roxanne",
-            "Roxanne  (with level cap: 15)",
+            "Roxanne (using level cap: 15)",
             "Brawly",
             "Wattson",
             "Norman",
-            "Norman (with level cap: 31)",
+            "Norman (using level cap: 31)",
             "Winona",
-            "Winona (with level cap: 33)",
+            "Winona (using level cap: 33)",
             "Tate & Liza",
-            "Tate & Liza (with level cap: 42)",
+            "Tate & Liza (using level cap: 42)",
         ][:]
         if self.has_ruby or self.has_sapphire:
             leaders.extend([
-                "Brawly  (with level cap: 18)",
-                "Wattson  (with level cap: 23)",
-                "Flannery  (with level cap: 28)",
+                "Brawly (using level cap: 18)",
+                "Wattson (using level cap: 23)",
+                "Flannery (using level cap: 28)",
                 "Wallace",
-                "Wallace (with level cap: 43)",
+                "Wallace (using level cap: 43)",
             ][:])
         if self.has_emerald:
             leaders.extend([
-                "Brawly  (with level cap: 19)",
-                "Wattson  (with level cap: 24)",
-                "Flannery  (with level cap: 29)",
+                "Brawly (using level cap: 19)",
+                "Wattson (using level cap: 24)",
+                "Flannery (using level cap: 29)",
                 "Juan",
-                "Juan (with level cap: 46)",
+                "Juan (using level cap: 46)",
             ][:])
         return leaders
 
