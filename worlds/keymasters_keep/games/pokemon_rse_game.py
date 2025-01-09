@@ -328,7 +328,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=5,
+                weight=15,
             ))
 
         return objectives
