@@ -1,3 +1,5 @@
+import logging
+
 from random import Random
 from typing import Any, List, Tuple, Type, Union
 
@@ -18,11 +20,14 @@ class GameObjectiveGeneratorException(Exception):
 
 class GameObjectiveGenerator:
     games: List[Type[Game]]
+    games_medley: List[Type[Game]]
+
     archipelago_options: Any
 
     def __init__(
         self,
         allowable_games: List[str] = None,
+        allowable_games_medley: List[str] = None,
         include_adult_only_or_unrated_games: bool = False,
         include_modern_console_games: bool = False,
         include_difficult_objectives: bool = False,
@@ -41,6 +46,21 @@ class GameObjectiveGenerator:
 
         if not len(self.games):
             raise GameObjectiveGeneratorException("No games are left after game / objective filtering")
+
+        self.games_medley = self._filter_games(
+            allowable_games_medley,
+            include_adult_only_or_unrated_games,
+            include_modern_console_games,
+            include_difficult_objectives,
+            include_time_consuming_objectives,
+        )
+
+        if not len(self.games_medley):
+            logging.warning(
+                "Keymaster's Keep: No medley games are left after game / objective filtering. Using all games."
+            )
+
+            self.games_medley = self.games[:]
 
     def generate_from_plan(
         self,
@@ -83,7 +103,7 @@ class GameObjectiveGenerator:
                 game: GameMedleyGame = game_class(
                     random=random,
                     archipelago_options=self.archipelago_options,
-                    game_selection=self.games,
+                    game_selection=self.games_medley,
                 )
 
                 optional_constraints: List[str]
@@ -144,10 +164,19 @@ class GameObjectiveGenerator:
 
         game_name: str
         for game_name in allowable_games:
-            if game_name not in AutoGameRegister.games and game_name not in AutoGameRegister.metagames:
+            in_games: bool = game_name in AutoGameRegister.games
+            in_metagames: bool = game_name in AutoGameRegister.metagames
+            in_modded_games: bool = game_name in AutoGameRegister.modded_games
+
+            if not in_games and not in_metagames and not in_modded_games:
                 continue
 
-            game: Type[Game] = AutoGameRegister.games.get(game_name, AutoGameRegister.metagames.get(game_name))
+            game: Type[Game] = AutoGameRegister.games.get(
+                game_name, AutoGameRegister.metagames.get(
+                    game_name, AutoGameRegister.modded_games.get(game_name)
+                )
+            )
+
             game_instance: Game = game(archipelago_options=self.archipelago_options)
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:

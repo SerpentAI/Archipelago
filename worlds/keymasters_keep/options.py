@@ -2,7 +2,16 @@ import typing
 
 from dataclasses import dataclass
 
-from Options import Choice, OptionGroup, OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle
+from Options import (
+    Choice,
+    DefaultOnToggle,
+    OptionGroup,
+    OptionSet,
+    PerGameCommonOptions,
+    Range,
+    StartInventoryPool,
+    Toggle,
+)
 
 from .game import AutoGameRegister
 from .games import GameArchipelagoOptions
@@ -182,7 +191,7 @@ class AreaTrialsMaximum(Range):
 class GameMedleyMode(Toggle):
     """
     If true, a percentage of keep areas will feature Game Medley as their game, with each trial sourced randomly from
-    the pool of available games.
+    a separate, dedicated pool of games.
 
     Activating Game Medley Mode will disable optional game conditions for keep areas assigned to Game Medley.
     """
@@ -203,17 +212,25 @@ class GameMedleyPercentageChance(Range):
     default = 100
 
 
-class GameSelection(OptionSet):
+class GameMedleyGameSelection(OptionSet):
     """
-    Defines the game pool to select from.
+    Defines the game pool that will be used to generate Game Medley trials.
 
-    All supported games are listed. Remove the ones you don't own or want to play.
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
+
+    You are allowed to place games that already appear in other selection options here.
+
+    If this is left empty, all games from other selection options will be used as a default.
     """
 
-    display_name: str = "Game Selection"
-    valid_keys = sorted(AutoGameRegister.games.keys())
+    display_name: str = "Game Medley Game Selection"
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
 
-    default = sorted(AutoGameRegister.games.keys())
+    default = list()
 
 
 class MetagameSelection(OptionSet):
@@ -229,6 +246,32 @@ class MetagameSelection(OptionSet):
     default = sorted(AutoGameRegister.metagames.keys())
 
 
+class GameSelection(OptionSet):
+    """
+    Defines the game pool to select from.
+
+    All supported games are listed. Remove the ones you don't own or want to play.
+    """
+
+    display_name: str = "Game Selection"
+    valid_keys = sorted(AutoGameRegister.games.keys())
+
+    default = sorted(AutoGameRegister.games.keys())
+
+
+class ModdedGameSelection(OptionSet):
+    """
+    Defines the modded game pool to select from.
+
+    All supported modded games are listed. Remove the ones you don't own or want to play.
+    """
+
+    display_name: str = "Modded Game Selection"
+    valid_keys = sorted(AutoGameRegister.modded_games.keys())
+
+    default = sorted(AutoGameRegister.modded_games.keys())
+
+
 class IncludeAdultOnlyOrUnratedGames(Toggle):
     """
     Determines if adult only or unrated games should be considered for the game pool.
@@ -239,7 +282,7 @@ class IncludeAdultOnlyOrUnratedGames(Toggle):
     display_name: str = "Include Adult Only or Unrated Games"
 
 
-class IncludeModernConsoleGames(Toggle):
+class IncludeModernConsoleGames(DefaultOnToggle):
     """
     Determines if modern console games should be considered for the game pool.
 
@@ -265,18 +308,22 @@ class ExcludedGamesDifficultObjectives(OptionSet):
     """
     When 'include_difficult_objectives' is enabled, this option allows you to still exclude specific games.
 
-    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
 
     If a game specified here only offers difficult objectives, this option will have no effect for it.
     """
 
     display_name: str = "Excluded Games Difficult Objectives"
-    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
 
     default = list()
 
 
-class IncludeTimeConsumingObjectives(Toggle):
+class IncludeTimeConsumingObjectives(DefaultOnToggle):
     """
     Determines if time-consuming objectives should be considered.
 
@@ -292,13 +339,17 @@ class ExcludedGamesTimeConsumingObjectives(OptionSet):
     """
     When 'include_time_consuming_objectives' is enabled, this option allows you to still exclude specific games.
 
-    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
 
     If a game specified here only offers time-consuming objectives, this option will have no effect for it.
     """
 
     display_name: str = "Excluded Games Time-Consuming Objectives"
-    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
 
     default = list()
 
@@ -329,8 +380,10 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     area_trials_maximum: AreaTrialsMaximum
     game_medley_mode: GameMedleyMode
     game_medley_percentage_chance: GameMedleyPercentageChance
-    game_selection: GameSelection
+    game_medley_game_selection: GameMedleyGameSelection
     metagame_selection: MetagameSelection
+    game_selection: GameSelection
+    modded_game_selection: ModdedGameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
@@ -377,8 +430,10 @@ option_groups: typing.List[OptionGroup] = [
             HintsRevealObjectives,
             GameMedleyMode,
             GameMedleyPercentageChance,
+            GameMedleyGameSelection,
             MetagameSelection,
             GameSelection,
+            ModdedGameSelection,
         ],
     ),
     OptionGroup(
