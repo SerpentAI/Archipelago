@@ -13,11 +13,7 @@ from ..enums import KeymastersKeepGamePlatforms
 ################################################
 @dataclass
 class GTFOArchipelagoOptions:
-    GTFO_Bosses: GTFOBosses
-
-@property
-def GTFO_Bosses(self) -> List[str]:
-    return sorted(self.archipelago_options.GTFO_Bosses.value)
+    Pass
 
 class GTFOGame(Game):
     name = "GTFO"
