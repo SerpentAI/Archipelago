@@ -765,22 +765,23 @@ class GTFOGame(Game):
         )
 
 # Archipelago Options
-class GTFOBosses(Toggle):
-    """
-    Indicates whether you want the Tank, Mother and Kraken bosses included in your objectives list.
-    """
-
-    display_name = "GTFO Bosses as Challenges"
-    default = False
-    
-class ExtremelyPainful(Toggle):
-    """
-    Indicates whether you wish to enable challenges that could be considered Extreme, even beyond a normal level of masochism. This include things such as completing Prisoner Efficiency objectives or Completing 'Hard' alarms with specific limitations. You have been warned if you enable these.
-    """
-
-    display_name = "GTFO Extremely Painful Challenges"
-    default = False
-    
+#class GTFOBosses(Toggle):
+#    """
+#    Indicates whether you want the Tank, Mother and Kraken bosses included in your objectives list.
+#    """
+#
+#    display_name = "GTFO Bosses as Challenges"
+#    default = False
+#    
+#class ExtremelyPainful(Toggle):
+#    """
+#    Indicates whether you wish to enable challenges that could be considered Extreme, even beyond a normal level of masochism. This include things such as completing Prisoner Efficiency objectives or Completing 'Hard' alarms with specific limitations. You have been warned if you enable these.
+#    """
+#
+#    display_name = "GTFO Extremely Painful Challenges"
+#    default = False
+#    
 ### I'm not actually sure how to make these options work? I want it to disable the challenges involving the lists "Bosses", "hardalarms", "SecondaryObjectives", and "OverloadObjectives" when disabled, but allow those challenges when enabled. These are beyond just your standard is_difficult or not, as they can be an unreasonable step higher.
 ### If you could help by fixing this up, feel free. I'd like to learn how I could do this. -Garbo
+### Currently commenting out these lines as I believe they break in their current form.
 
