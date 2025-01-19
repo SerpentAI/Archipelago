@@ -183,6 +183,13 @@ class GTFOGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
+                label="Complete OVERLOADOBJECTIVES",
+                data={"OVERLOADOBJECTIVES": (self.overloadobjectives(), 1)},
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
                 label="Take damage from Falling",
                 data={},
                 is_time_consuming=False,
@@ -201,12 +208,12 @@ class GTFOGame(Game):
                 data={},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="With a RANDOMARTIFACT Equipped, complete any mission",
                 data={"RANDOMARTIFACT": (self.artifactlevels(), 1)},
-                is_time_consuming=True,
+                is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
@@ -535,37 +542,37 @@ class GTFOGame(Game):
     @staticmethod
     def weaponcategories() -> List[str]:
         return [
-            "Single fire"
-            "Burst"
-            "Two-Tap"
-            "Charge Up"
-            "Full Auto"
-            "Thermal Scope"
-            "Pump Action"
+            "Single fire",
+            "Burst",
+            "Two-Tap",
+            "Charge Up",
+            "Full Auto",
+            "Thermal Scope",
+            "Pump Action",
         ]
 
     @staticmethod
     def consumables() -> List[str]:
         return [
-            "Ammunition Pack"
-            "Medical Pack"
-            "Tool Refill Pack"
-            "Disinfection Pack"
-            "Fog Repeller"
-            "C-Foam Grenade"
-            "Lock Melter"
-            "Glow Sticks"
-            "Syringe"
-            "Explosive Tripmine"
-            "C-Foam Tripmine"
+            "Ammunition Pack",
+            "Medical Pack",
+            "Tool Refill Pack",
+            "Disinfection Pack",
+            "Fog Repeller",
+            "C-Foam Grenade",
+            "Lock Melter",
+            "Glow Sticks",
+            "Syringe",
+            "Explosive Tripmine",
+            "C-Foam Tripmine",
         ]
 
     @staticmethod
     def artifactlevels() -> List[str]:
         return [
-            "Muted"
-            "Bold"
-            "Aggressive"
+            "Muted",
+            "Bold",
+            "Aggressive",
         ]
 
     @staticmethod
@@ -634,90 +641,84 @@ class GTFOGame(Game):
     @staticmethod
     def nonconsumabletools() -> List[str]:
         return [
-            "Long Range Flashlight"
-            "Bio Tracker"
+            "Long Range Flashlight",
+            "Bio Tracker",
         ]
 
     @staticmethod
     def commonSpecials() -> List[str]:
         return [
-            "Scout"
-            "Giant"
-            "Big Shooter"
-            "Hybrid"
+            "Scout",
+            "Giant",
+            "Big Shooter",
+            "Hybrid",
         ]
 
     @staticmethod
     def uniqueSpecials() -> List[str]:
         return [
-            "Big Charger"
-            "Charger Scout"
-            "Big Shadow"
-            "Shadow Scout"
-            "Snatcher"
+            "Big Charger",
+            "Charger Scout",
+            "Big Shadow",
+            "Shadow Scout",
+            "Snatcher",
         ]
-
-    def bosses(self) -> List[str]:
-        if bool(self.archipelago_options.GTFO_Bosses.value):
-            return ["Tank", "Mother", "Kraken"]
-        else:
-            return []
 
     @staticmethod
     def alarmtypes() -> List[str]:
         return [
-            "Error Alarm"
-            "Diminished Alarm"
-            "Surge Alarm"
-            "S Scan"
-            "Cluster Scan"
-            "T Scan"
+            "Error Alarm",
+            "Diminished Alarm",
+            "Surge Alarm",
+            "S Scan",
+            "Cluster Scan",
+            "T Scan",
         ]
 
     @staticmethod
     def easyalarmclass() -> List[str]:
         return[
-            "Class II"
-            "Class III"
-            "Class IV"
+            "Class II",
+            "Class III",
+            "Class IV",
         ]
 
     @staticmethod
     def hardalarmclass() -> List[str]:
         return [
-            "Class V"
-            "Class VI"
-            "Class VII"
-            "Class VIII"
+            "Class V",
+            "Class VI",
+            "Class VII",
+            "Class VIII",
         ]
     @staticmethod
     def artifacttraits() -> List[str]:
         return [
-            "Regen Speed"
-            "Melee Resist"
-            "Projectile Resist"
-            "Rev.Speed"
-            "Med Efficiency"
-            "Supply Efficiency"
-            "Infection Resist"
-            "Main Ammo"
-            "Special Ammo" 
-            "Tool Ammo"
-            "Regen Cap"
-            "C - Foam Portion"
-            "Sentry CPU Speed"
-            "Sentry Damage"
-            "SR Sentry Damage"
-            "Trip Mine Damage"
-            "Glow Stick Power"
-            "Fog Rep.Power"
-            "Tracker CPU Speed"
-            "Hacking Skill"
-            "Bioscan Speed"
-            "Condition: Human Proximity"
-            "Condition: Below 50 % Health"
-            "Condition: Is Close to Enemy"
-            "Condition: Enemy Distant"
+            "Regen Speed",
+            "Melee Resist",
+            "Projectile Resist",
+            "Rev.Speed",
+            "Med Efficiency",
+            "Supply Efficiency",
+            "Infection Resist",
+            "Main Ammo",
+            "Special Ammo" ,
+            "Tool Ammo",
+            "Regen Cap",
+            "C-Foam Portion",
+            "Sentry CPU Speed",
+            "Sentry Damage",
+            "SR Sentry Damage",
+            "Trip Mine Damage",
+            "Glow Stick Power",
+            "Fog Rep.Power",
+            "Tracker CPU Speed",
+            "Hacking Skill",
+            "Bioscan Speed",
+            "Condition: Human Proximity",
+            "Condition: Below 50 % Health",
+            "Condition: Is Close to Enemy",
+            "Condition: Enemy Distant",
         ]
 
     def allalarmclass(self) -> List[str]:
