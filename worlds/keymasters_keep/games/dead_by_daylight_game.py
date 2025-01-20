@@ -51,7 +51,7 @@ class DeadByDaylightGame(Game):
             GameObjectiveTemplate(
                 label="As KILLERSOWNED earn Merciless Killer",
                 data={
-                    "KILLERSOWNED": (self.killers_all, 1),
+                    "KILLERSOWNED": (self.killers, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
@@ -60,7 +60,7 @@ class DeadByDaylightGame(Game):
             GameObjectiveTemplate(
                 label="As KILLERSOWNED sacrifice 2 Survivors without any addons",
                 data={
-                    "KILLERSOWNED": (self.killers_all, 1),
+                    "KILLERSOWNED": (self.killers, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
@@ -69,7 +69,7 @@ class DeadByDaylightGame(Game):
             GameObjectiveTemplate(
                 label="As KILLERSOWNED down every Survivor at least once before using your power",
                 data={
-                    "KILLERSOWNED": (self.killers_all, 1),
+                    "KILLERSOWNED": (self.killers, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
