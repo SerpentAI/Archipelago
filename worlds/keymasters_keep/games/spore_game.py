@@ -390,6 +390,17 @@ class SporeSporecastExclusiveMissions(OptionSet):
         "The Metamorphosis",
         "The Space Race!",
         "Welcome to Dancetopia",
+        "Bloody Sundae",
+        "Incontinent Continent",
+        "Litterbox Gulch",
+        "My Big Fat Pig Wedding",
+        "Planet of Needin'",
+        "Readerdome",
+        "Shake It Up",
+        "Shenanigans' Fun-Tasy Theme Park",
+        "That's My Lunch!",
+        "The Chicken and the Road",
+        "Whiney and his Poo",
     ]
 
     default = valid_keys
