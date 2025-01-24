@@ -386,7 +386,7 @@ class SporeSporecastExclusiveMissions(OptionSet):
         "Robots vs Dragons",
         "Spoffit Calculator!",
         "SporeBall",
-        "The Meaningless",
+        "The Meaningless Turtle",
         "The Metamorphosis",
         "The Space Race!",
         "Welcome to Dancetopia",
