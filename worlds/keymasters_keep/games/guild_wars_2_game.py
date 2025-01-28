@@ -123,6 +123,10 @@ class GuildWars2Game(Game):
                     is_difficult=False,
                     weight=5,
                 ),
+            ]
+
+        if "Jumping Puzzle" in self.game_modes_played:
+            objective_list += [
                 GameObjectiveTemplate(
                     label="Complete the JUMPING_PUZZLE jumping puzzle",
                     data={
@@ -134,7 +138,19 @@ class GuildWars2Game(Game):
                 ),
             ]
 
-        if "Gathering & Crafting" in self.game_modes_played:
+        if "End of Dragons" in self.storylines_owned and "Fishing" in self.game_modes_played:
+            objective_list.append(GameObjectiveTemplate(
+                label="Catch COUNTx FISHABLE",
+                data={
+                    "COUNT": (self.fishing_count_range, 1),
+                    "FISHABLE": (self.fishables, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=5,
+            ))
+
+        if "Gathering" in self.game_modes_played:
             objective_list += [
                 GameObjectiveTemplate(
                     label="Harvest COUNTx HARVESTABLE",
@@ -188,18 +204,7 @@ class GuildWars2Game(Game):
                 ),
             ]
 
-            if "End of Dragons" in self.storylines_owned:
-                objective_list.append(GameObjectiveTemplate(
-                    label="Catch COUNTx FISHABLE",
-                    data={
-                        "COUNT": (self.fishing_count_range, 1),
-                        "FISHABLE": (self.fishables, 1),
-                    },
-                    is_time_consuming=True,
-                    is_difficult=False,
-                    weight=5,
-                ))
-
+        if "Crafting" in self.game_modes_played:
             objective_list.append(
                 GameObjectiveTemplate(
                     label="Reach level LEVEL in DISCIPLINE",
@@ -384,7 +389,7 @@ class GuildWars2Game(Game):
             categories += ["Living World Season 4"]
         if "Season 3" in self.storylines_owned:
             categories += ["Living World Season 3"]
-        if "Janthir Wilds" in self.storylines_owned:
+        if "Janthir Wilds" in self.storylines_owned and "Jumping Puzzles" in self.game_modes_played:
             categories += ["Buzzy Treetops"]
 
         return categories
@@ -1904,8 +1909,11 @@ class GuildWars2GameModes(OptionSet):
 
     display_name = "Guild Wars 2 Game Modes"
     valid_keys = [
+        "Jumping Puzzles",
         "Exploration",
-        "Gathering & Crafting",
+        "Fishing",
+        "Gathering",
+        "Crafting",
         "Open World",
         "Story",
         "PvP",
