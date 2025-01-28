@@ -1217,7 +1217,7 @@ class GuildWars2Game(Game):
 
     @staticmethod
     def logging_count_range_low() -> range:
-        return range(10, 31)
+        return range(3, 10)
 
     @staticmethod
     def logging_count_range_high() -> range:
