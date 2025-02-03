@@ -1,6 +1,6 @@
 # Keymaster's Keep Supported Games by Platform
 
-Keymaster's Keep currently supports 170 games
+Keymaster's Keep currently supports 169 games
 
 ### Android (22)
 * A Dance of Fire and Ice
@@ -26,7 +26,7 @@ Keymaster's Keep currently supports 170 games
 * Voez
 * Warframe
 
-### Apple iOS (24)
+### Apple iOS (23)
 * A Dance of Fire and Ice
 * Balatro
 * Bloons TD 6
@@ -38,7 +38,6 @@ Keymaster's Keep currently supports 170 games
 * Halls of Torment
 * Insaniquarium Deluxe
 * Little Inferno
-* Monster Rancher 2 DX
 * Muse Dash
 * Plants vs. Zombies
 * Plants vs. Zombies 2: It's About Time
@@ -203,7 +202,7 @@ Keymaster's Keep currently supports 170 games
 * Super Mario Sunshine
 * Super Smash Bros. Melee
 
-### Nintendo Switch (62)
+### Nintendo Switch (61)
 * Arcaea
 * Balatro
 * Caveblazers
@@ -228,7 +227,6 @@ Keymaster's Keep currently supports 170 games
 * Kirby's Return to Dream Land
 * Little Inferno
 * MONSTER HUNTER RISE
-* Monster Rancher 2 DX
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Mario Kart 8
@@ -297,7 +295,7 @@ Keymaster's Keep currently supports 170 games
 ### Nokia N-GAGE (1)
 * Guitar Hero World Tour
 
-### PC (117)
+### PC (116)
 * 14 Minesweeper Variants
 * 14 Minesweeper Variants 2
 * A Dance of Fire and Ice
@@ -354,7 +352,6 @@ Keymaster's Keep currently supports 170 games
 * Lethal Company
 * Little Inferno
 * MONSTER HUNTER RISE
-* Monster Rancher 2 DX
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Marvel Rivals
@@ -422,9 +419,8 @@ Keymaster's Keep currently supports 170 games
 ### Sega Saturn (1)
 * NiGHTS into Dreams...
 
-### Sony PlayStation (3)
+### Sony PlayStation (2)
 * Frogger (1997)
-* Monster Rancher 2 DX
 * Re-Volt
 
 ### Sony PlayStation 2 (11)
