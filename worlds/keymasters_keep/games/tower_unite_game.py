@@ -483,7 +483,7 @@ class TowerUniteGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="In Accelerate, take the unit route at least once",
+                    label="In Accelerate, take a unit route at least once",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
