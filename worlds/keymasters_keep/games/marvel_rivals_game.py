@@ -41,50 +41,54 @@ class MarvelRivalsGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Win a Domination match on MAP as HERO",
+                label="Win a match as HERO",
+                data={
+                    "HERO": (self.heroes, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=9,
+            ),
+            GameObjectiveTemplate(
+                label="Win a Domination match on MAP",
                 data={
                     "MAP": (self.maps_domination, 1),
-                    "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=4,
+                weight=2,
             ),
             GameObjectiveTemplate(
-                label="Win a Convoy match on MAP as HERO",
+                label="Win a Convoy match on MAP",
                 data={
                     "MAP": (self.maps_convoy, 1),
-                    "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=4,
+                weight=2,
             ),
             GameObjectiveTemplate(
-                label="Win a Convergence match on MAP as HERO",
+                label="Win a Convergence match on MAP",
                 data={
                     "MAP": (self.maps_convergence, 1),
-                    "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=4,
+                weight=2,
             ),
             GameObjectiveTemplate(
-                label="Win a Conquest match on MAP as HERO",
+                label="Win a Conquest match on MAP",
                 data={
                     "MAP": (self.maps_conquest, 1),
-                    "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Win a Doom Match on MAP as HERO",
+                label="Win a Doom Match on MAP",
                 data={
                     "MAP": (self.maps_doom_match, 1),
-                    "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
@@ -101,7 +105,7 @@ class MarvelRivalsGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Get a kill streak of at least COUNT as HERO",
+                label="Get a K.O. streak of at least COUNT as HERO",
                 data={
                     "COUNT": (self.kill_streak_count_range, 1),
                     "HERO": (self.heroes, 1),
