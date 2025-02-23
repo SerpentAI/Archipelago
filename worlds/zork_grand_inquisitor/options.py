@@ -208,7 +208,7 @@ class EntranceRandomizer(Choice):
 
     Disabled: Entrances are not randomized and lead to their vanilla areas
     Coupled: Entrances are randomized. Going back through an entrance will lead back to the previous area
-    Uncoupled: Entrances are randomized. Going back through an entrance will lead to a different area
+    Uncoupled: Entrances are randomized. Going back through an entrance can lead to a different area
     """
 
     display_name: str = "Entrance Randomizer"
