@@ -71,6 +71,328 @@ endgame_connecting_regions_for_goal: Dict[
     ),
 }
 
+entrance_names: Dict[
+    Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+    str,
+] = {
+    (
+        ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
+        ZorkGrandInquisitorRegions.CROSSROADS
+    ): "Down the Dragon Staircase",
+    (
+        ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL
+    ): "Teleport Up the Well",
+    (
+        ZorkGrandInquisitorRegions.CROSSROADS,
+        ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL
+    ): "Up the Dragon Staircase",
+    (
+        ZorkGrandInquisitorRegions.CROSSROADS,
+        ZorkGrandInquisitorRegions.DM_LAIR
+    ): "Through the Overgrown Door",
+    (
+        ZorkGrandInquisitorRegions.CROSSROADS,
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE
+    ): "Through the 'In Magic We Trust' Door",
+    (
+        ZorkGrandInquisitorRegions.CROSSROADS,
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
+    ): "Through the Subway Turnstile",
+    (
+        ZorkGrandInquisitorRegions.CROSSROADS,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the Crossroads Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR,
+        ZorkGrandInquisitorRegions.CROSSROADS
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR,
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
+    ): "Through Sloshed Harry",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the Dungeon Master's Lair Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        ZorkGrandInquisitorRegions.DM_LAIR
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        ZorkGrandInquisitorRegions.WALKING_CASTLE
+    ): "Through the Walking Castle Porticullis",
+    (
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        ZorkGrandInquisitorRegions.WHITE_HOUSE
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON
+    ): "Towards the Dragon",
+    (
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
+        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
+    ): "Towards the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH,
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE
+    ): "Through the Right Window",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH,
+        ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY
+    ): "To the (Infinite) Corridor",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH,
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE
+    ): "Through the Entrance Door",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        ZorkGrandInquisitorRegions.CROSSROADS
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        ZorkGrandInquisitorRegions.GUE_TECH
+    ): "Through the 3rd Pillar's Window",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
+        ZorkGrandInquisitorRegions.GUE_TECH
+    ): "To the Lobby",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE
+    ): "Through the Student ID Door",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
+        ZorkGrandInquisitorRegions.GUE_TECH
+    ): "Through the Pillar's Window",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the GUE Tech Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.HADES,
+        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
+    ): "Through the Gates of Hell",
+    (
+        ZorkGrandInquisitorRegions.HADES,
+        ZorkGrandInquisitorRegions.HADES_SHORE
+    ): "Across the River Styx",
+    (
+        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        ZorkGrandInquisitorRegions.HADES
+    ): "Through the Gates of Hell",
+    (
+        ZorkGrandInquisitorRegions.HADES_SHORE,
+        ZorkGrandInquisitorRegions.HADES
+    ): "Across the River Styx",
+    (
+        ZorkGrandInquisitorRegions.HADES_SHORE,
+        ZorkGrandInquisitorRegions.SUBWAY_HADES
+    ): "To the Subway Station",
+    (
+        ZorkGrandInquisitorRegions.HADES_SHORE,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the Hades Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY,
+        ZorkGrandInquisitorRegions.HADES_SHORE
+    ): "Through the Totemizer Set to 'Straight to Hell'",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY,
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT
+    ): "Through the Totemizer Set to 'Hall of Inquisition'",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY,
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
+    ): "Down the Hatch",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
+        ZorkGrandInquisitorRegions.MONASTERY
+    ): "To the Totemizer",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
+    ): "Along the Path Down the Hill",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ
+    ): "Along the Path Up the Hill",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL
+    ): "Along the Path Into the Woods",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE
+    ): "Along the Path Towards Port Foozle",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL,
+        ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL
+    ): "Down the Well",
+    (
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
+    ): "Along the Path Out of the Woods",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
+    ): "Along the Path Out of Port Foozle",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP
+    ): "Through Jack's Door",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN
+    ): "Through the Tavern Door",
+    (
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
+        ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.SPELL_LAB,
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE
+    ): "Across the Bridge",
+    (
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
+        ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
+        ZorkGrandInquisitorRegions.SPELL_LAB
+    ): "Across the Bridge",
+    (
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the Spell Lab Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
+        ZorkGrandInquisitorRegions.CROSSROADS
+    ): "Up the Escalator",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
+    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
+        ZorkGrandInquisitorRegions.SUBWAY_HADES
+    ): "Subway Ride with Destination Set to 'Hades'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
+    ): "Subway Ride with Destination Set to 'Monastery'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
+    ): "Subway Ride with Destination Set to 'Crossroads'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
+        ZorkGrandInquisitorRegions.SUBWAY_HADES
+    ): "Subway Ride with Destination Set to 'Hades'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
+    ): "Subway Ride with Destination Set to 'Monastery'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_HADES,
+        ZorkGrandInquisitorRegions.HADES_SHORE
+    ): "Towards the Hades Shore",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_HADES,
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
+    ): "Subway Ride with Destination Set to 'Crossroads'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_HADES,
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
+    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_HADES,
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
+    ): "Subway Ride with Destination Set to 'Monastery'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+        ZorkGrandInquisitorRegions.MONASTERY
+    ): "Climb up the Rope",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+        ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
+    ): "Subway Ride with Destination Set to 'Crossroads'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+        ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
+    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+        ZorkGrandInquisitorRegions.SUBWAY_HADES
+    ): "Subway Ride with Destination Set to 'Hades'",
+    (
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
+        ZorkGrandInquisitorRegions.TELEPORTER
+    ): "At the Monastery Teleportation Station",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.CROSSROADS
+    ): "Teleport to Crossroads",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.DM_LAIR
+    ): "Teleport to Dungeon Master's Lair",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE
+    ): "Teleport to GUE Tech",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.HADES_SHORE
+    ): "Teleport to Hades",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE
+    ): "Teleport to Spell Lab",
+    (
+        ZorkGrandInquisitorRegions.TELEPORTER,
+        ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
+    ): "Teleport to Monastery",
+    (
+        ZorkGrandInquisitorRegions.WALKING_CASTLE,
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
+    ): "Through the Exit",
+    (
+        ZorkGrandInquisitorRegions.WHITE_HOUSE,
+        ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
+    ): "Through the Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.WHITE_HOUSE,
+        ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR
+    ): "Through the Front Door",
+    (
+        ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
+        ZorkGrandInquisitorRegions.WHITE_HOUSE
+    ): "Through the Exit",
+}
+
 hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItems] = {
     ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES
