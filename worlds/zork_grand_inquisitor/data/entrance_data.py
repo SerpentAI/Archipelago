@@ -148,8 +148,10 @@ entrance_rule_data: EntranceRuleData = {
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.GUE_TECH): (
         (
-            ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,
-            ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            (
+                ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS,
+                ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH,
+            ),
         ),
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.GUE_TECH): None,

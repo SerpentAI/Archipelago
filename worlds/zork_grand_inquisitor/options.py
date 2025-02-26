@@ -45,7 +45,7 @@ class ArtifactsOfMagicTotal(Range):
     display_name = "Artifacts of Magic Total"
 
     range_start = 5
-    range_end = 25
+    range_end = 15
 
     default = 15
 
@@ -60,7 +60,7 @@ class ArtifactsOfMagicRequired(Range):
     display_name = "Artifacts of Magic Required"
 
     range_start = 5
-    range_end = 25
+    range_end = 15
 
     default = 10
 
@@ -220,6 +220,16 @@ class EntranceRandomizer(Choice):
     default = 0
 
 
+class EntranceRandomizerIncludeSubwayDestinations(Toggle):
+    """
+    If true, the entrance randomizer will include subway destinations in the randomization pool.
+
+    Only relevant if the entrance randomizer is enabled.
+    """
+
+    display_name: str = "Entrance Randomizer - Include Subway Destinations"
+
+
 class TrapPercentage(Range):
     """
     Determines the percentage chance that a trap will replace a filler item.
@@ -346,6 +356,7 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
     entrance_randomizer: EntranceRandomizer
+    entrance_randomizer_include_subway_destinations: EntranceRandomizerIncludeSubwayDestinations
     trap_percentage: TrapPercentage
     infinite_corridor_trap_weight: InfiniteCorridorTrapWeight
     reverse_controls_trap_weight: ReverseControlsTrapWeight
@@ -379,6 +390,7 @@ option_groups: List[OptionGroup] = [
             Deathsanity,
             Landmarksanity,
             EntranceRandomizer,
+            EntranceRandomizerIncludeSubwayDestinations,
         ],
     ),
     OptionGroup(

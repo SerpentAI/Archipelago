@@ -184,6 +184,7 @@ def prepare_item_data(
     goal: ZorkGrandInquisitorGoals,
     deathsanity: ZorkGrandInquisitorDeathsanity,
     landmarksanity: ZorkGrandInquisitorLandmarksanity,
+    entrance_randomizer: ZorkGrandInquisitorEntranceRandomizer,
 ) -> Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]:
     transformed_item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = dict()
 
@@ -203,6 +204,10 @@ def prepare_item_data(
             items: Tuple[ZorkGrandInquisitorItems, ...]
             for transform, items in item_data_transforms[context].items():
                 if transform == ZorkGrandInquisitorItemTransforms.MAKE_FILLER:
+                    if context == starting_location:
+                        if entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+                            continue
+
                     item: ZorkGrandInquisitorItems
                     for item in items:
                         items_to_make_filler.add(item)

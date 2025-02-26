@@ -1,16 +1,23 @@
 import logging
 
-from typing import Any, Dict, List, Set, Tuple, Union
+from typing import Any, Dict, List, Set, TextIO, Tuple, Union
 
 from BaseClasses import Entrance, EntranceType, Item, ItemClassification, Location, Region, Tutorial
 from Options import OptionError
 from Utils import visualize_regions
 
-from entrance_rando import ERPlacementState, disconnect_entrance_for_randomization, randomize_entrances
+from entrance_rando import disconnect_entrance_for_randomization, randomize_entrances
 from worlds.AutoWorld import WebWorld, World
 
 from .data.entrance_data import Entrance, EntranceRuleData, entrance_rule_data
-from .data.entrance_randomizer_data import randomizable_entrances
+
+from .data.entrance_randomizer_data import (
+    entrances_to_game_location_teleports,
+    entrances_to_game_locations,
+    randomizable_entrances,
+    randomizable_entrances_subway,
+)
+
 from .data.item_data import ZorkGrandInquisitorItemData
 from .data.location_data import ZorkGrandInquisitorLocationData
 
@@ -18,6 +25,8 @@ from .data.mapping_data import (
     early_items_for_starting_location,
     endgame_connecting_regions_for_goal,
     entrance_names,
+    entrance_names_reverse,
+    starter_kit_for_entrance_randomizer,
     starter_kits_for_starting_location,
     starting_location_to_region,
 )
@@ -121,7 +130,13 @@ class ZorkGrandInquisitorWorld(World):
     deathsanity: ZorkGrandInquisitorDeathsanity
     early_items: Tuple[ZorkGrandInquisitorItems, ...]
     entrance_randomizer: ZorkGrandInquisitorEntranceRandomizer
-    entrance_randomizer_placements: ERPlacementState
+    entrance_randomizer_include_subway_destinations: bool
+
+    entrance_randomizer_pairings: Dict[
+        Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+        Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+    ]
+
     entrance_rule_data: EntranceRuleData
     filler_item_names: List[str] = item_groups()["Filler"]
     goal: ZorkGrandInquisitorGoals
@@ -159,12 +174,31 @@ class ZorkGrandInquisitorWorld(World):
 
         self.starting_location = id_to_starting_locations()[self.options.starting_location.value]
 
+        self.entrance_randomizer = id_to_entrance_randomizer()[self.options.entrance_randomizer.value]
+
+        if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+            self.topology_present = True
+
+        self.entrance_randomizer_include_subway_destinations = bool(
+            self.options.entrance_randomizer_include_subway_destinations
+        )
+
         self.starter_kit = tuple()
 
         if starter_kits_for_starting_location[self.starting_location] is not None:
             self.starter_kit = self.random.choice(
                 starter_kits_for_starting_location[self.starting_location]
             )
+
+            if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+                starter_kit_extended: List[ZorkGrandInquisitorItems] = list(self.starter_kit)
+
+                item: ZorkGrandInquisitorItems
+                for item in starter_kit_for_entrance_randomizer:
+                    if item not in starter_kit_extended:
+                        starter_kit_extended.append(item)
+
+                self.starter_kit = tuple(starter_kit_extended)
 
         self.early_items = tuple()
 
@@ -192,11 +226,6 @@ class ZorkGrandInquisitorWorld(World):
 
         self.grant_missable_location_checks = bool(self.options.grant_missable_location_checks)
 
-        self.entrance_randomizer = id_to_entrance_randomizer()[self.options.entrance_randomizer.value]
-
-        if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
-            self.topology_present = True
-
         self.entrance_rule_data = entrance_rule_data
 
         self.item_data = prepare_item_data(
@@ -204,6 +233,7 @@ class ZorkGrandInquisitorWorld(World):
             self.goal,
             self.deathsanity,
             self.landmarksanity,
+            self.entrance_randomizer,
         )
 
         self.location_data = prepare_location_data(
@@ -312,10 +342,6 @@ class ZorkGrandInquisitorWorld(World):
                     entrance = region.connect(region_mapping[region_exit], rule=eval(entrance_access_rule))
 
                 entrance.name = entrance_names.get(connection_tuple, entrance.name)
-
-                if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
-                    if connection_tuple in randomizable_entrances:
-                        entrance.randomization_type = EntranceType.TWO_WAY
 
             if region_enum_item == region_connecting_endgame:
                 goal_access_rule: str = goal_access_rule_for(
@@ -448,8 +474,15 @@ class ZorkGrandInquisitorWorld(World):
 
     def connect_entrances(self) -> None:
         if self.entrance_randomizer == ZorkGrandInquisitorEntranceRandomizer.DISABLED:
-            visualize_regions(self.multiworld.get_region("Menu", self.player), "zgi.puml")
+            visualize_regions(self.multiworld.get_region("Menu", self.player), "zgi-vanilla.puml")
             return
+
+        randomization_pool: List[Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]] = list(
+            randomizable_entrances
+        )
+
+        if self.entrance_randomizer_include_subway_destinations:
+            randomization_pool.extend(randomizable_entrances_subway)
 
         entrance: Entrance
         for entrance in self.get_entrances():
@@ -458,16 +491,19 @@ class ZorkGrandInquisitorWorld(World):
                 ZorkGrandInquisitorRegions(entrance.connected_region.name),
             )
 
-            if entrance_region_tuple in randomizable_entrances:
+            if entrance_region_tuple in randomization_pool:
+                entrance.randomization_type = EntranceType.TWO_WAY
                 disconnect_entrance_for_randomization(entrance)
 
-        self.entrance_randomizer_placements: ERPlacementState = randomize_entrances(
+        entrance_randomizer_pairings: List[Tuple[str, str]] = randomize_entrances(
             self,
             self.entrance_randomizer == ZorkGrandInquisitorEntranceRandomizer.COUPLED,
             {0: [0]},
-        )
+        ).pairings
 
-        visualize_regions(self.multiworld.get_region("Menu", self.player), "zgi.puml")
+        self.entrance_randomizer_pairings = self._process_entrance_randomizer_pairings(entrance_randomizer_pairings)
+
+        visualize_regions(self.multiworld.get_region("Menu", self.player), "zgi-er.puml")
 
     def generate_basic(self) -> None:
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
@@ -486,6 +522,8 @@ class ZorkGrandInquisitorWorld(World):
             "wild_voxam_chance",
             "deathsanity",
             "landmarksanity",
+            "entrance_randomizer",
+            "entrance_randomizer_include_subway_destinations",
             "trap_percentage",
             "grant_missable_location_checks",
             "client_seed_information",
@@ -513,10 +551,62 @@ class ZorkGrandInquisitorWorld(World):
         if slot_data["landmarksanity"] != self.landmarksanity.value:
             slot_data["landmarksanity"] = self.landmarksanity.value
 
-        # Entrance Randomizer Replacements
-        # slot_data["entrance_randomizer_replacements"] = self.entrance_randomizer.replacement_entrances
+        slot_data["entrance_randomizer_data"] = dict()
+
+        if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+            slot_data["entrance_randomizer_data"] = self._prepare_entrance_randomizer_slot_data()
 
         return slot_data
+
+    def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]) -> None:
+        if self.entrance_randomizer == ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+            return
+
+        entrance_name_cache: Dict[ZorkGrandInquisitorRegions, List[str]] = dict()
+
+        entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
+            if entrance_to[1] not in entrance_name_cache:
+                entrance_name_cache[entrance_to[1]] = list()
+
+            entrance_name_cache[entrance_to[1]].append(
+                f"{entrance_from[0].value}: {entrance_names[entrance_from]}"
+            )
+
+        data: Dict[int, str] = dict()
+
+        location_enum_item: Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents]
+        location_data: ZorkGrandInquisitorLocationData
+        for location_enum_item, location_data in self.location_data.items():
+            if isinstance(location_enum_item, ZorkGrandInquisitorEvents):
+                continue
+            elif location_data.region not in entrance_name_cache:
+                continue
+
+            data[location_data.archipelago_id] = "  OR  ".join(entrance_name_cache[location_data.region])
+
+        hint_data[self.player] = data
+
+    def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
+        if self.entrance_randomizer == ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+            return
+
+        spoiler_handle.write("\nRandomized Entrances:")
+
+        spoiler_lines: List[str] = list()
+
+        entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
+            spoiler_lines.append(
+                f"\n    {entrance_from[0].value}: {entrance_names[entrance_from]} -> "
+                f"{entrance_to[1].value} (Emerging out of: {entrance_names[entrance_to]})"
+            )
+
+        spoiler_line: str
+        for spoiler_line in sorted(spoiler_lines):
+            spoiler_handle.write(spoiler_line)
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
@@ -530,6 +620,7 @@ class ZorkGrandInquisitorWorld(World):
         slot_data["craftable_spells"] = id_to_craftable_spell_behaviors()[slot_data["craftable_spells"]]
         slot_data["deathsanity"] = id_to_deathsanity()[slot_data["deathsanity"]]
         slot_data["landmarksanity"] = id_to_landmarksanity()[slot_data["landmarksanity"]]
+        slot_data["entrance_randomizer"] = id_to_entrance_randomizer()[slot_data["entrance_randomizer"]]
         slot_data["starter_kit"] = tuple([ZorkGrandInquisitorItems(item) for item in slot_data["starter_kit"]])
 
         slot_data["initial_totemizer_destination"] = ZorkGrandInquisitorItems(
@@ -553,12 +644,14 @@ class ZorkGrandInquisitorWorld(World):
             self.hotspots = passthrough["hotspots"]
             self.deathsanity = passthrough["deathsanity"]
             self.landmarksanity = passthrough["landmarksanity"]
+            self.entrance_randomizer = passthrough["entrance_randomizer"]
 
             self.item_data = prepare_item_data(
                 self.starting_location,
                 self.goal,
                 self.deathsanity,
                 self.landmarksanity,
+                self.entrance_randomizer,
             )
 
             self.location_data = prepare_location_data(
@@ -572,6 +665,18 @@ class ZorkGrandInquisitorWorld(World):
             self.initial_totemizer_destination = passthrough["initial_totemizer_destination"]
             self.trap_percentage = passthrough["trap_percentage"] / 100
             self.trap_weights = passthrough["trap_weights"]
+
+    def _prepare_entrance_randomizer_slot_data(self) -> Dict[Tuple[str, str], Tuple[str, str]]:
+        entrance_randomizer_slot_data: Dict[Tuple[str, str], Tuple[str, str]] = dict()
+
+        entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
+            game_locations_pair: Tuple[str, str]
+            for game_locations_pair in entrances_to_game_locations[entrance_from]:
+                entrance_randomizer_slot_data[game_locations_pair] = entrances_to_game_location_teleports[entrance_to]
+
+        return entrance_randomizer_slot_data
 
     def _prepare_locked_items(
         self,
@@ -676,6 +781,25 @@ class ZorkGrandInquisitorWorld(World):
             locked_items[ZorkGrandInquisitorLocations.SNAVIG_REPAIRED] = spells_to_lock[2]
 
         return locked_items
+
+    @staticmethod
+    def _process_entrance_randomizer_pairings(pairings: List[Tuple[str, str]]) -> Dict[
+        Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+        Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+    ]:
+        entrance_randomizer_pairings: Dict[
+            Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+            Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
+        ] = dict()
+
+        entrance_from: str
+        entrance_to: str
+        for entrance_from, entrance_to in pairings:
+            entrance_randomizer_pairings[entrance_names_reverse[entrance_from]] = tuple(
+                reversed(entrance_names_reverse[entrance_to])
+            )
+
+        return entrance_randomizer_pairings
 
     def _select_initial_totemizer_destination(self) -> ZorkGrandInquisitorItems:
         return self.random.choice((

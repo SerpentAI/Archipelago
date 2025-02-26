@@ -106,7 +106,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.DM_LAIR,
         ZorkGrandInquisitorRegions.CROSSROADS
-    ): "Through the Exit",
+    ): "Exit Through the Overgrown Door",
     (
         ZorkGrandInquisitorRegions.DM_LAIR,
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
@@ -118,7 +118,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         ZorkGrandInquisitorRegions.DM_LAIR
-    ): "Through the Exit",
+    ): "Exit Through Sloshed Harry",
     (
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         ZorkGrandInquisitorRegions.WALKING_CASTLE
@@ -126,7 +126,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         ZorkGrandInquisitorRegions.WHITE_HOUSE
-    ): "Through the Time Tunnel",
+    ): "Through the White House Time Tunnel",
     (
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON
@@ -134,11 +134,11 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
-    ): "Through the Time Tunnel",
+    ): "Exit Through the Dragon Archipelago Time Tunnel",
     (
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
-    ): "Towards the Time Tunnel",
+    ): "Towards the Dragon Archipelago Time Tunnel",
     (
         ZorkGrandInquisitorRegions.GUE_TECH,
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE
@@ -154,7 +154,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         ZorkGrandInquisitorRegions.CROSSROADS
-    ): "Through the Exit",
+    ): "Exit Through the 'In Magic We Trust' Door",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         ZorkGrandInquisitorRegions.GUE_TECH
@@ -182,15 +182,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.HADES,
         ZorkGrandInquisitorRegions.HADES_SHORE
-    ): "Across the River Styx",
+    ): "Return Across the River Styx",
     (
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
-    ): "Through the Time Tunnel",
+    ): "Through the Dragon Archipelago Time Tunnel",
     (
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
         ZorkGrandInquisitorRegions.HADES
-    ): "Through the Gates of Hell",
+    ): "Exit Through the Gates of Hell",
     (
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.HADES
@@ -198,7 +198,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "To the Subway Station",
+    ): "Exit to the Subway Station",
     (
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.TELEPORTER
@@ -222,7 +222,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
-    ): "Through the Time Tunnel",
+    ): "Through the Past Port Foozle Time Tunnel",
     (
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
@@ -258,11 +258,11 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP,
         ZorkGrandInquisitorRegions.PORT_FOOZLE
-    ): "Through the Exit",
+    ): "Exit Through Jack's Door",
     (
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT
-    ): "Through the Time Tunnel",
+    ): "Exit Through the Past Port Foozle Time Tunnel",
     (
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN
@@ -270,15 +270,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
-    ): "Through the Exit",
+    ): "Exit Through the Tavern Door",
     (
         ZorkGrandInquisitorRegions.SPELL_LAB,
         ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE
-    ): "Across the Bridge",
+    ): "Return Across the Bridge",
     (
         ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY
-    ): "Through the Exit",
+    ): "Exit through the Student ID Door",
     (
         ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         ZorkGrandInquisitorRegions.SPELL_LAB
@@ -294,27 +294,27 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Crossroads with Destination Set to 'Flood Control Dam #3'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride with Destination Set to 'Hades'",
+    ): "Subway Ride from Crossroads with Destination Set to 'Hades'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride with Destination Set to 'Monastery'",
+    ): "Subway Ride from Crossroads with Destination Set to 'Monastery'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride with Destination Set to 'Crossroads'",
+    ): "Subway Ride from FCD #3 with Destination Set to 'Crossroads'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride with Destination Set to 'Hades'",
+    ): "Subway Ride from FCD #3 with Destination Set to 'Hades'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride with Destination Set to 'Monastery'",
+    ): "Subway Ride from FCD #3 with Destination Set to 'Monastery'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.HADES_SHORE
@@ -322,15 +322,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride with Destination Set to 'Crossroads'",
+    ): "Subway Ride from Hades with Destination Set to 'Crossroads'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Hades with Destination Set to 'Flood Control Dam #3'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride with Destination Set to 'Monastery'",
+    ): "Subway Ride from Hades with Destination Set to 'Monastery'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.MONASTERY
@@ -338,15 +338,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride with Destination Set to 'Crossroads'",
+    ): "Subway Ride from Monastery with Destination Set to 'Crossroads'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Monastery with Destination Set to 'Flood Control Dam #3'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride with Destination Set to 'Hades'",
+    ): "Subway Ride from Monastery with Destination Set to 'Hades'",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.TELEPORTER
@@ -378,19 +378,23 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.WALKING_CASTLE,
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
-    ): "Through the Exit",
+    ): "Exit Through the Walking Castle Porticullis",
     (
         ZorkGrandInquisitorRegions.WHITE_HOUSE,
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
-    ): "Through the Time Tunnel",
+    ): "Exit Through the White House Time Tunnel",
     (
         ZorkGrandInquisitorRegions.WHITE_HOUSE,
         ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR
-    ): "Through the Front Door",
+    ): "Through the White House Front Door",
     (
         ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         ZorkGrandInquisitorRegions.WHITE_HOUSE
-    ): "Through the Exit",
+    ): "Exit Through the White House Front Door",
+}
+
+entrance_names_reverse: Dict[str, Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]] = {
+    name: entrance for entrance, name in entrance_names.items()
 }
 
 hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItems] = {
@@ -697,6 +701,16 @@ labels_for_enum_items: Dict[
     ZorkGrandInquisitorStartingLocations.MONASTERY: "Monastery Totemizer",
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: "Monastery Exhibit",
 }
+
+starter_kit_for_entrance_randomizer: Tuple[ZorkGrandInquisitorItems, ...] = (
+    ZorkGrandInquisitorItems.HAMMER,
+    ZorkGrandInquisitorItems.OLD_SCRATCH_CARD,
+    ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
+    ZorkGrandInquisitorItems.SPELL_IGRAM,
+    ZorkGrandInquisitorItems.SPELL_REZROV,
+    ZorkGrandInquisitorItems.SPELL_THROCK,
+    ZorkGrandInquisitorItems.SWORD,
+)
 
 starter_kits_for_starting_location: Dict[
     ZorkGrandInquisitorStartingLocations, Optional[Tuple[Tuple[ZorkGrandInquisitorItems, ...], ...]]
