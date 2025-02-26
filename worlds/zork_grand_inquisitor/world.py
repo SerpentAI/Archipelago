@@ -18,7 +18,7 @@ from .data.entrance_randomizer_data import (
     randomizable_entrances_subway,
 )
 
-from .data.item_data import ZorkGrandInquisitorItemData
+from .data.item_data import ZorkGrandInquisitorItemData, item_data
 from .data.location_data import ZorkGrandInquisitorLocationData
 
 from .data.mapping_data import (
@@ -143,7 +143,7 @@ class ZorkGrandInquisitorWorld(World):
     grant_missable_location_checks: bool
     hotspots: ZorkGrandInquisitorHotspots
     initial_totemizer_destination: ZorkGrandInquisitorItems
-    item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
+    item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = item_data
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
     landmarks_required: int
     landmarksanity: ZorkGrandInquisitorLandmarksanity
