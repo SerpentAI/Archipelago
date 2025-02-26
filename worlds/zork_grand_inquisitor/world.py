@@ -143,7 +143,7 @@ class ZorkGrandInquisitorWorld(World):
     grant_missable_location_checks: bool
     hotspots: ZorkGrandInquisitorHotspots
     initial_totemizer_destination: ZorkGrandInquisitorItems
-    item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = item_data
+    item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
     item_name_to_item: Dict[str, ZorkGrandInquisitorItems] = item_names_to_item()
     landmarks_required: int
     landmarksanity: ZorkGrandInquisitorLandmarksanity
@@ -463,7 +463,7 @@ class ZorkGrandInquisitorWorld(World):
                 self.multiworld.early_items[self.player][item.value] = 1
 
     def create_item(self, name: str) -> ZorkGrandInquisitorItem:
-        data: ZorkGrandInquisitorItemData = self.item_data[self.item_name_to_item[name]]
+        data: ZorkGrandInquisitorItemData = (self.item_data or item_data)[self.item_name_to_item[name]]
 
         return ZorkGrandInquisitorItem(
             name,
