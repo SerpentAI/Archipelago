@@ -1473,7 +1473,7 @@ class GameController:
             self.game_state_manager.set_game_location("mt10", 1531)
 
         # VOXAM Cast
-        zork_rocks_inert = self._read_game_state_value_for(11767) == 0
+        zork_rocks_inert: bool = self._read_game_state_value_for(11767) == 0
 
         if self._read_game_state_value_for(9) == 224:
             time.sleep(0.1)
@@ -1513,6 +1513,11 @@ class GameController:
 
     def _manage_traps(self) -> None:
         if not self._player_is_afgncaap() or self._read_game_state_value_for(19985) == 0:
+            return None
+
+        zork_rocks_inert: bool = self._read_game_state_value_for(11767) == 0
+
+        if not zork_rocks_inert:
             return None
 
         if self.active_trap_until:

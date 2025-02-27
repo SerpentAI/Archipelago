@@ -137,6 +137,7 @@ class ZorkGrandInquisitorWorld(World):
         Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
     ]
 
+    entrance_randomizer_pairings_ut: Dict[str, str]
     entrance_rule_data: EntranceRuleData
     filler_item_names: List[str] = item_groups()["Filler"]
     goal: ZorkGrandInquisitorGoals
@@ -153,6 +154,10 @@ class ZorkGrandInquisitorWorld(World):
     starting_location: ZorkGrandInquisitorStartingLocations
     trap_percentage: int
     trap_weights: Tuple[int, ...]
+
+    @property
+    def is_universal_tracker(self) -> bool:
+        return hasattr(self.multiworld, "re_gen_passthrough")
 
     def generate_early(self) -> None:
         self.goal = id_to_goals()[self.options.goal.value]
@@ -235,6 +240,9 @@ class ZorkGrandInquisitorWorld(World):
                     "has the entrance randomizer enabled. Disabling the grantinmg of missable location checks..."
                 )
 
+        self.entrance_randomizer_pairings = dict()
+        self.entrance_randomizer_pairings_ut = dict()
+
         self.entrance_rule_data = entrance_rule_data
 
         self.item_data = prepare_item_data(
@@ -271,8 +279,8 @@ class ZorkGrandInquisitorWorld(World):
             )
 
         # Universal Tracker Support
-        if hasattr(self.multiworld, "re_gen_passthrough"):
-            self._apply_ut_passthrough()
+        if self.is_universal_tracker:
+            self._apply_universal_tracker_passthrough()
 
     def create_regions(self) -> None:
         entrances_by_region: Dict[ZorkGrandInquisitorRegions, List[Entrance]] = entrances_by_region_for_world(
@@ -504,6 +512,12 @@ class ZorkGrandInquisitorWorld(World):
                 entrance.randomization_type = EntranceType.TWO_WAY
                 disconnect_entrance_for_randomization(entrance)
 
+        if self.is_universal_tracker:
+            self._reconnect_entrances_for_universal_tracker()
+            visualize_regions(self.multiworld.get_region("Menu", self.player), "zgi-er-ut.puml")
+
+            return
+
         entrance_randomizer_pairings: List[Tuple[str, str]] = randomize_entrances(
             self,
             self.entrance_randomizer == ZorkGrandInquisitorEntranceRandomizer.COUPLED,
@@ -560,10 +574,15 @@ class ZorkGrandInquisitorWorld(World):
         if slot_data["landmarksanity"] != self.landmarksanity.value:
             slot_data["landmarksanity"] = self.landmarksanity.value
 
+        if slot_data["grant_missable_location_checks"] != self.grant_missable_location_checks:
+            slot_data["grant_missable_location_checks"] = self.grant_missable_location_checks
+
         slot_data["entrance_randomizer_data"] = dict()
+        slot_data["entrance_randomizer_data_ut"] = dict()
 
         if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
             slot_data["entrance_randomizer_data"] = self._prepare_entrance_randomizer_slot_data()
+            slot_data["entrance_randomizer_data_ut"] = self._prepare_entrance_randomizer_slot_data_ut()
 
         return slot_data
 
@@ -640,7 +659,7 @@ class ZorkGrandInquisitorWorld(World):
 
         return slot_data
 
-    def _apply_ut_passthrough(self) -> None:
+    def _apply_universal_tracker_passthrough(self) -> None:
         if "Zork Grand Inquisitor" in self.multiworld.re_gen_passthrough:
             passthrough: Dict[str, Any] = self.multiworld.re_gen_passthrough["Zork Grand Inquisitor"]
 
@@ -660,6 +679,8 @@ class ZorkGrandInquisitorWorld(World):
             self.entrance_randomizer_include_subway_destinations = passthrough[
                 "entrance_randomizer_include_subway_destinations"
             ]
+
+            self.entrance_randomizer_pairings_ut = passthrough["entrance_randomizer_data_ut"]
 
             self.item_data = prepare_item_data(
                 self.starting_location,
@@ -694,6 +715,16 @@ class ZorkGrandInquisitorWorld(World):
                 )
 
         return entrance_randomizer_slot_data
+
+    def _prepare_entrance_randomizer_slot_data_ut(self) -> Dict[str, str]:
+        entrance_randomizer_slot_data_ut: Dict[str, str] = dict()
+
+        entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
+        for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
+            entrance_randomizer_slot_data_ut[entrance_names[entrance_from]] = entrance_names[entrance_to]
+
+        return entrance_randomizer_slot_data_ut
 
     def _prepare_locked_items(
         self,
@@ -817,6 +848,18 @@ class ZorkGrandInquisitorWorld(World):
             )
 
         return entrance_randomizer_pairings
+
+    def _reconnect_entrances_for_universal_tracker(self) -> None:
+        entrance_from: Entrance
+        for entrance_from in self.get_entrances():
+            if entrance_from.name in self.entrance_randomizer_pairings_ut:
+                entrance_to_name: str = self.entrance_randomizer_pairings_ut[entrance_from.name]
+
+                entrance_to_region_pair: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions] = (
+                    entrance_names_reverse[entrance_to_name]
+                )
+
+                entrance_from.connect(self.get_region(entrance_to_region_pair[1].value))
 
     def _select_initial_totemizer_destination(self) -> ZorkGrandInquisitorItems:
         return self.random.choice((
