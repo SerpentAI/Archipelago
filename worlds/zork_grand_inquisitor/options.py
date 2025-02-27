@@ -45,7 +45,7 @@ class ArtifactsOfMagicTotal(Range):
     display_name = "Artifacts of Magic Total"
 
     range_start = 5
-    range_end = 25
+    range_end = 15
 
     default = 15
 
@@ -60,7 +60,7 @@ class ArtifactsOfMagicRequired(Range):
     display_name = "Artifacts of Magic Required"
 
     range_start = 5
-    range_end = 25
+    range_end = 15
 
     default = 10
 
@@ -202,6 +202,34 @@ class Landmarksanity(DefaultOnToggle):
     display_name: str = "Landmarksanity"
 
 
+class EntranceRandomizer(Choice):
+    """
+    Determines the behavior of entrances in the game.
+
+    Disabled: Entrances are not randomized and lead to their vanilla areas
+    Coupled: Entrances are randomized. Going back through an entrance will lead back to the previous area
+    Uncoupled: Entrances are randomized. Going back through an entrance can lead to a different area
+    """
+
+    display_name: str = "Entrance Randomizer"
+
+    option_disabled: int = 0
+    option_coupled: int = 1
+    option_uncoupled: int = 2
+
+    default = 0
+
+
+class EntranceRandomizerIncludeSubwayDestinations(Toggle):
+    """
+    If true, the entrance randomizer will include subway destinations in the randomization pool.
+
+    Only relevant if the entrance randomizer is enabled.
+    """
+
+    display_name: str = "Entrance Randomizer - Include Subway Destinations"
+
+
 class TrapPercentage(Range):
     """
     Determines the percentage chance that a trap will replace a filler item.
@@ -289,6 +317,9 @@ class GrantMissableLocationChecks(Toggle):
     Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
     don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
     enabled.
+
+    Note: This option is incompatible with the entrance randomizer and will be forced off in the scenario where
+    entrances are randomized.
     """
 
     display_name: str = "Grant Missable Checks"
@@ -327,6 +358,8 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     wild_voxam_chance: WildVoxamChance
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
+    entrance_randomizer: EntranceRandomizer
+    entrance_randomizer_include_subway_destinations: EntranceRandomizerIncludeSubwayDestinations
     trap_percentage: TrapPercentage
     infinite_corridor_trap_weight: InfiniteCorridorTrapWeight
     reverse_controls_trap_weight: ReverseControlsTrapWeight
@@ -359,6 +392,8 @@ option_groups: List[OptionGroup] = [
             WildVoxamChance,
             Deathsanity,
             Landmarksanity,
+            EntranceRandomizer,
+            EntranceRandomizerIncludeSubwayDestinations,
         ],
     ),
     OptionGroup(

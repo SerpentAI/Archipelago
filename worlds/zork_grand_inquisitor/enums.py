@@ -18,6 +18,12 @@ class ZorkGrandInquisitorDeathsanity(enum.Enum):
     ON = 1
 
 
+class ZorkGrandInquisitorEntranceRandomizer(enum.Enum):
+    DISABLED = 0
+    COUPLED = 1
+    UNCOUPLED = 2
+
+
 class ZorkGrandInquisitorEvents(enum.Enum):
     CHARON_CALLED = "Event: Charon Called"
     DALBOZ_LOCKER_OPENABLE = "Event: Dalboz Locker Openable"
@@ -25,7 +31,6 @@ class ZorkGrandInquisitorEvents(enum.Enum):
     DOOR_DRANK_MEAD = "Event: Door Drank Mead"
     DOOR_SMOKED_CIGAR = "Event: Door Smoked Cigar"
     DUNCE_LOCKER_OPENABLE = "Event: Dunce Locker Openable"
-    HAS_REPAIRABLE_OBIDIL = "Event: Has Repairable OBIDIL"
     HAS_REPAIRABLE_SNAVIG = "Event: Has Repairable SNAVIG"
     ROPE_GLORFABLE = "Event: Rope GLORFable"
     VICTORY = "Victory"
@@ -476,22 +481,26 @@ class ZorkGrandInquisitorLocationTransforms(enum.Enum):
 
 class ZorkGrandInquisitorRegions(enum.Enum):
     ANYWHERE = "Anywhere"
+    BOTTOM_OF_THE_WELL = "Bottom of the Well"
     CROSSROADS = "Crossroads"
     DM_LAIR = "Dungeon Master's Lair"
-    DM_LAIR_INTERIOR = "Dungeon Master's Lair - Interior"
+    DM_LAIR_INTERIOR = "Dungeon Master's Lair - House"
     DRAGON_ARCHIPELAGO = "Dragon Archipelago"
     DRAGON_ARCHIPELAGO_DRAGON = "Dragon Archipelago - Dragon"
     ENDGAME = "Endgame"
     GUE_TECH = "GUE Tech"
-    GUE_TECH_ENTRANCE = "GUE Tech - Entrance"
+    GUE_TECH_ENTRANCE = "GUE Tech - Entrance Area"
     GUE_TECH_HALLWAY = "GUE Tech - Hallway"
     GUE_TECH_OUTSIDE = "GUE Tech - Outside"
     HADES = "Hades"
-    HADES_BEYOND_GATES = "Hades - Beyond Gates"
+    HADES_BEYOND_GATES = "Hades - Beyond the Gates of Hell"
     HADES_SHORE = "Hades - Shore"
     MENU = "Menu"
     MONASTERY = "Monastery"
     MONASTERY_EXHIBIT = "Monastery - Exhibit"
+    OUTSIDE_PORT_FOOZLE_INQUISITION_HQ = "Outside Port Foozle - Inquisition Headquarters"
+    OUTSIDE_PORT_FOOZLE_SIGNPOST = "Outside Port Foozle - Signpost"
+    OUTSIDE_PORT_FOOZLE_WELL = "Outside Port Foozle - Well"
     PORT_FOOZLE = "Port Foozle"
     PORT_FOOZLE_JACKS_SHOP = "Port Foozle - Jack's Shop"
     PORT_FOOZLE_PAST = "Port Foozle Past"
@@ -500,7 +509,9 @@ class ZorkGrandInquisitorRegions(enum.Enum):
     SPELL_LAB_BRIDGE = "Spell Lab - Bridge"
     SUBWAY_CROSSROADS = "Subway Platform - Crossroads"
     SUBWAY_FLOOD_CONTROL_DAM = "Subway Platform - Flood Control Dam #3"
+    SUBWAY_HADES = "Subway Platform - Hades"
     SUBWAY_MONASTERY = "Subway Platform - Monastery"
+    TELEPORTER = "Teleportation Station"
     WALKING_CASTLE = "Walking Castle"
     WHITE_HOUSE = "White House"
     WHITE_HOUSE_INTERIOR = "White House - Interior"

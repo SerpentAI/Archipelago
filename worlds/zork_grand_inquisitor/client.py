@@ -13,6 +13,7 @@ from .data_funcs import (
     id_to_client_seed_information,
     id_to_craftable_spell_behaviors,
     id_to_deathsanity,
+    id_to_entrance_randomizer,
     id_to_hotspots,
     id_to_items,
     id_to_landmarksanity,
@@ -174,6 +175,14 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 id_to_landmarksanity()[_args["slot_data"]["landmarksanity"]]
             )
 
+            self.game_controller.option_entrance_randomizer = (
+                id_to_entrance_randomizer()[_args["slot_data"]["entrance_randomizer"]]
+            )
+
+            self.game_controller.option_entrance_randomizer_include_subway_destinations = (
+                _args["slot_data"]["entrance_randomizer_include_subway_destinations"] == 1
+            )
+
             self.game_controller.option_trap_percentage = _args["slot_data"]["trap_percentage"]
 
             self.game_controller.option_grant_missable_location_checks = (
@@ -196,6 +205,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.game_controller.initial_totemizer_destination = item_names_to_item()[
                 _args["slot_data"]["initial_totemizer_destination"]
             ]
+
+            # Entrance Randomizer Data
+            self.game_controller.entrance_randomizer_data = _args["slot_data"]["entrance_randomizer_data"]
 
             # Save IDs
             self.game_controller.save_ids = tuple(_args["slot_data"]["save_ids"])
