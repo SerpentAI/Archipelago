@@ -317,6 +317,9 @@ class GrantMissableLocationChecks(Toggle):
     Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
     don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
     enabled.
+
+    Note: This option is incompatible with the entrance randomizer and will be forced off in the scenario where
+    entrances are randomized.
     """
 
     display_name: str = "Grant Missable Checks"

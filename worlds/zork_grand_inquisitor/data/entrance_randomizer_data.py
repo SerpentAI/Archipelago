@@ -177,7 +177,7 @@ randomizable_entrances_subway: Tuple[Tuple[ZGIRegions, ZGIRegions]] = (
     (ZGIRegions.SUBWAY_MONASTERY, ZGIRegions.SUBWAY_HADES),
 )
 
-relevant_game_locations: Set[str] = set()
+relevant_game_locations: Set[str] = {"cd20", "qs1e", "sg60"}
 
 entrance_pairs: Tuple[Tuple[str, str]]
 for entrance_pairs in entrances_to_game_locations.values():

@@ -226,6 +226,15 @@ class ZorkGrandInquisitorWorld(World):
 
         self.grant_missable_location_checks = bool(self.options.grant_missable_location_checks)
 
+        if self.grant_missable_location_checks:
+            if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
+                self.grant_missable_location_checks = False
+
+                logging.warning(
+                    f"Zork Grand Inquisitor: {self.player_name} wants to grant missable location checks but "
+                    "has the entrance randomizer enabled. Disabling the grantinmg of missable location checks..."
+                )
+
         self.entrance_rule_data = entrance_rule_data
 
         self.item_data = prepare_item_data(
@@ -621,6 +630,8 @@ class ZorkGrandInquisitorWorld(World):
         slot_data["deathsanity"] = id_to_deathsanity()[slot_data["deathsanity"]]
         slot_data["landmarksanity"] = id_to_landmarksanity()[slot_data["landmarksanity"]]
         slot_data["entrance_randomizer"] = id_to_entrance_randomizer()[slot_data["entrance_randomizer"]]
+        slot_data["entrance_randomizer_include_subway_destinations"] = bool(slot_data["entrance_randomizer"])
+
         slot_data["starter_kit"] = tuple([ZorkGrandInquisitorItems(item) for item in slot_data["starter_kit"]])
 
         slot_data["initial_totemizer_destination"] = ZorkGrandInquisitorItems(
@@ -646,6 +657,10 @@ class ZorkGrandInquisitorWorld(World):
             self.landmarksanity = passthrough["landmarksanity"]
             self.entrance_randomizer = passthrough["entrance_randomizer"]
 
+            self.entrance_randomizer_include_subway_destinations = passthrough[
+                "entrance_randomizer_include_subway_destinations"
+            ]
+
             self.item_data = prepare_item_data(
                 self.starting_location,
                 self.goal,
@@ -666,15 +681,17 @@ class ZorkGrandInquisitorWorld(World):
             self.trap_percentage = passthrough["trap_percentage"] / 100
             self.trap_weights = passthrough["trap_weights"]
 
-    def _prepare_entrance_randomizer_slot_data(self) -> Dict[Tuple[str, str], Tuple[str, str]]:
-        entrance_randomizer_slot_data: Dict[Tuple[str, str], Tuple[str, str]] = dict()
+    def _prepare_entrance_randomizer_slot_data(self) -> Dict[str, str]:
+        entrance_randomizer_slot_data: Dict[str, str] = dict()
 
         entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
         entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
         for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
             game_locations_pair: Tuple[str, str]
             for game_locations_pair in entrances_to_game_locations[entrance_from]:
-                entrance_randomizer_slot_data[game_locations_pair] = entrances_to_game_location_teleports[entrance_to]
+                entrance_randomizer_slot_data["-".join(game_locations_pair)] = (
+                    " ".join(entrances_to_game_location_teleports[entrance_to])
+                )
 
         return entrance_randomizer_slot_data
 

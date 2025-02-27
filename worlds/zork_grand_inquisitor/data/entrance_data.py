@@ -180,7 +180,10 @@ entrance_rule_data: EntranceRuleData = {
         ),
     ),
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_SHORE): (
-        (ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,),
+        (
+            ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS,
+            ZorkGrandInquisitorItems.SPELL_SNAVIG,
+        ),
     ),
     (ZorkGrandInquisitorRegions.HADES_BEYOND_GATES, ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO): (
         (

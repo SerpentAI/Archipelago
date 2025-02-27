@@ -966,7 +966,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.OPEN_THE_GATES_OF_HELL: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((8730, 1),),
+        game_state_trigger=((8651, 1),),
         archipelago_id=LOCATION_OFFSET + 90,
         region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
