@@ -491,24 +491,16 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
         game_title: str = self.game_to_title
 
         if not self.state_game:
-            self.rich_presence.set({
-                "details": "Not Connected",
-                "assets": {
-                    "large_image": "archipelago",
-                }
-            })
+            self.rich_presence.clear()
         else:
             self.rich_presence.set({
                 "details": game_title,
-                "state": "In the Multiworld",
+                "state": f"In the Multiworld ({len(self.checked_locations)} / {len(self.server_locations)})",
                 "assets": {
                     "large_image": self.game_to_image_key or "archipelago",
                     "large_text": f"Last Location Checked: {self.state_last_location_checked}",
                     "small_image": "archipelago",
                     "small_text": f"{self.state_player_count} Player Multiworld",
-                },
-                "party": {
-                    "size": [len(self.checked_locations) or 1, len(self.server_locations)],
                 },
                 "timestamps": {
                     "start": self.timestamp,
