@@ -119,6 +119,18 @@ entrances_to_game_locations: Dict[
     (ZGIRegions.WALKING_CASTLE, ZGIRegions.DM_LAIR_INTERIOR): (("dc10", "dv10"),),
 }
 
+entrances_to_game_locations_reverse: Dict[
+    Tuple[str, str],
+    Tuple[ZGIRegions, ZGIRegions],
+] = dict()
+
+entrance_pair: Tuple[ZGIRegions, ZGIRegions]
+game_location_pairs: Tuple[Tuple[str, str], ...]
+for entrance_pair, game_location_pairs in entrances_to_game_locations.items():
+    game_location_pair: Tuple[str, str]
+    for game_location_pair in game_location_pairs:
+        entrances_to_game_locations_reverse[game_location_pair] = entrance_pair
+
 randomizable_entrances: Tuple[Tuple[ZGIRegions, ZGIRegions]] = (
     (ZGIRegions.BOTTOM_OF_THE_WELL, ZGIRegions.CROSSROADS),
     (ZGIRegions.BOTTOM_OF_THE_WELL, ZGIRegions.OUTSIDE_PORT_FOOZLE_WELL),

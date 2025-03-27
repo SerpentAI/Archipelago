@@ -137,7 +137,7 @@ class ZorkGrandInquisitorWorld(World):
         Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions],
     ]
 
-    entrance_randomizer_pairings_ut: Dict[str, str]
+    entrance_randomizer_pairings_by_name: Dict[str, str]
     entrance_rule_data: EntranceRuleData
     filler_item_names: List[str] = item_groups()["Filler"]
     goal: ZorkGrandInquisitorGoals
@@ -241,7 +241,7 @@ class ZorkGrandInquisitorWorld(World):
                 )
 
         self.entrance_randomizer_pairings = dict()
-        self.entrance_randomizer_pairings_ut = dict()
+        self.entrance_randomizer_pairings_by_name = dict()
 
         self.entrance_rule_data = entrance_rule_data
 
@@ -578,11 +578,11 @@ class ZorkGrandInquisitorWorld(World):
             slot_data["grant_missable_location_checks"] = self.grant_missable_location_checks
 
         slot_data["entrance_randomizer_data"] = dict()
-        slot_data["entrance_randomizer_data_ut"] = dict()
+        slot_data["entrance_randomizer_data_by_name"] = dict()
 
         if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
             slot_data["entrance_randomizer_data"] = self._prepare_entrance_randomizer_slot_data()
-            slot_data["entrance_randomizer_data_ut"] = self._prepare_entrance_randomizer_slot_data_ut()
+            slot_data["entrance_randomizer_data_by_name"] = self._prepare_entrance_randomizer_slot_data_by_name()
 
         return slot_data
 
@@ -680,7 +680,7 @@ class ZorkGrandInquisitorWorld(World):
                 "entrance_randomizer_include_subway_destinations"
             ]
 
-            self.entrance_randomizer_pairings_ut = passthrough["entrance_randomizer_data_ut"]
+            self.entrance_randomizer_pairings_by_name = passthrough["entrance_randomizer_data_by_name"]
 
             self.item_data = prepare_item_data(
                 self.starting_location,
@@ -716,15 +716,15 @@ class ZorkGrandInquisitorWorld(World):
 
         return entrance_randomizer_slot_data
 
-    def _prepare_entrance_randomizer_slot_data_ut(self) -> Dict[str, str]:
-        entrance_randomizer_slot_data_ut: Dict[str, str] = dict()
+    def _prepare_entrance_randomizer_slot_data_by_name(self) -> Dict[str, str]:
+        entrance_randomizer_slot_data_by_name: Dict[str, str] = dict()
 
         entrance_from: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
         entrance_to: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]
         for entrance_from, entrance_to in self.entrance_randomizer_pairings.items():
-            entrance_randomizer_slot_data_ut[entrance_names[entrance_from]] = entrance_names[entrance_to]
+            entrance_randomizer_slot_data_by_name[entrance_names[entrance_from]] = entrance_names[entrance_to]
 
-        return entrance_randomizer_slot_data_ut
+        return entrance_randomizer_slot_data_by_name
 
     def _prepare_locked_items(
         self,
@@ -852,8 +852,8 @@ class ZorkGrandInquisitorWorld(World):
     def _reconnect_entrances_for_universal_tracker(self) -> None:
         entrance_from: Entrance
         for entrance_from in self.get_entrances():
-            if entrance_from.name in self.entrance_randomizer_pairings_ut:
-                entrance_to_name: str = self.entrance_randomizer_pairings_ut[entrance_from.name]
+            if entrance_from.name in self.entrance_randomizer_pairings_by_name:
+                entrance_to_name: str = self.entrance_randomizer_pairings_by_name[entrance_from.name]
 
                 entrance_to_region_pair: Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions] = (
                     entrance_names_reverse[entrance_to_name]

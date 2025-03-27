@@ -295,27 +295,27 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride from Crossroads with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Crossroads to FCD #3",
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride from Crossroads with Destination Set to 'Hades'",
+    ): "Subway Ride from Crossroads to Hades",
     (
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride from Crossroads with Destination Set to 'Monastery'",
+    ): "Subway Ride from Crossroads to Monastery",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride from FCD #3 with Destination Set to 'Crossroads'",
+    ): "Subway Ride from FCD #3 to Crossroads",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride from FCD #3 with Destination Set to 'Hades'",
+    ): "Subway Ride from FCD #3 to Hades",
     (
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride from FCD #3 with Destination Set to 'Monastery'",
+    ): "Subway Ride from FCD #3 to Monastery",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.HADES_SHORE
@@ -323,15 +323,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride from Hades with Destination Set to 'Crossroads'",
+    ): "Subway Ride from Hades to Crossroads",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride from Hades with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Hades to FCD #3",
     (
         ZorkGrandInquisitorRegions.SUBWAY_HADES,
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY
-    ): "Subway Ride from Hades with Destination Set to 'Monastery'",
+    ): "Subway Ride from Hades to Monastery",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.MONASTERY
@@ -339,15 +339,15 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS
-    ): "Subway Ride from Monastery with Destination Set to 'Crossroads'",
+    ): "Subway Ride from Monastery to Crossroads",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM
-    ): "Subway Ride from Monastery with Destination Set to 'Flood Control Dam #3'",
+    ): "Subway Ride from Monastery to FCD #3",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.SUBWAY_HADES
-    ): "Subway Ride from Monastery with Destination Set to 'Hades'",
+    ): "Subway Ride from Monastery to Hades",
     (
         ZorkGrandInquisitorRegions.SUBWAY_MONASTERY,
         ZorkGrandInquisitorRegions.TELEPORTER

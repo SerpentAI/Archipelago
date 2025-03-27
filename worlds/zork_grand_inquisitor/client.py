@@ -4,7 +4,7 @@ import CommonClient
 import NetUtils
 import Utils
 
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set
 
 from .data_funcs import (
     item_names_to_id,
@@ -27,6 +27,8 @@ from .game_controller import GameController
 
 
 class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
+    ctx: "ZorkGrandInquisitorContext"
+
     def _cmd_zork(self) -> None:
         """Attach to an open Zork Grand Inquisitor process."""
         if not self.ctx.server or not self.ctx.slot:
@@ -41,6 +43,15 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
 
             self.ctx.game_controller.output_seed_information()
             self.ctx.game_controller.output_starter_kit()
+
+            Utils.async_start(
+                self.ctx.send_msgs([
+                    {
+                        "cmd": "StatusUpdate",
+                        "status": CommonClient.ClientStatus.CLIENT_PLAYING
+                    }
+                ])
+            )
         else:
             self.output("Failed to attach to Zork Grand Inquisitor process.")
 
@@ -82,7 +93,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
     id_to_locations: Dict[int, ZorkGrandInquisitorLocations] = id_to_locations()
 
     game_controller: GameController
+    data_storage_key: Optional[str]
     death_link_status: bool = False
+    entrance_randomizer_data_by_name: Optional[Dict[str, str]]
 
     controller_task: Optional[asyncio.Task]
 
@@ -94,19 +107,18 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
         self.game_controller = GameController(logger=CommonClient.logger)
 
+        self.data_storage_key = None
+        self.entrance_randomizer_data_by_name = None
+
         self.controller_task = None
 
         self.process_attached_at_least_once = False
         self.can_display_process_message = True
 
     def run_gui(self) -> None:
-        from kvui import GameManager
+        from .client_gui.client_gui import ZorkGrandInquisitorManager
 
-        class TextManager(GameManager):
-            logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
-            base_title: str = "Archipelago Zork Grand Inquisitor Client"
-
-        self.ui = TextManager(self)
+        self.ui: ZorkGrandInquisitorManager = ZorkGrandInquisitorManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
     async def server_auth(self, password_requested: bool = False):
@@ -124,8 +136,12 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
         self.game_controller.reset()
 
+        self.data_storage_key = None
+
         self.items_received = []
         self.locations_info = {}
+
+        self.ui.update_tabs()
 
         await super().disconnect(allow_autoreconnect)
 
@@ -208,9 +224,39 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             # Entrance Randomizer Data
             self.game_controller.entrance_randomizer_data = _args["slot_data"]["entrance_randomizer_data"]
+            self.entrance_randomizer_data_by_name = _args["slot_data"]["entrance_randomizer_data_by_name"]
 
             # Save IDs
             self.game_controller.save_ids = tuple(_args["slot_data"]["save_ids"])
+
+            # Data Storage
+            self.data_storage_key = f"zork_grand_inquisitor_{self.team}_{self.slot}"
+
+            Utils.async_start(
+                self.send_msgs([
+                    {
+                        "cmd": "Set",
+                        "key": self.data_storage_key,
+                        "default": {
+                            "discovered_regions": list(),
+                            "discovered_entrances": list(),
+                        },
+                        "operations": [
+                            {"operation": "default", "value": None},
+                        ],
+                    },
+                    {
+                        "cmd": "SetNotify",
+                        "keys": [self.data_storage_key],
+                    }
+                ])
+            )
+
+            # UI Tabs
+            self.ui.update_tabs()
+        elif cmd == "SetReply":
+            if _args["key"] == self.data_storage_key:
+                self.ui.update_tabs()
 
     def on_deathlink(self, data: Dict[str, Any]) -> None:
         self.last_death_link = max(data["time"], self.last_death_link)
@@ -293,6 +339,44 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                             "status": CommonClient.ClientStatus.CLIENT_GOAL
                         }
                     ])
+
+                # Update Data Storage
+                if self.data_storage_key is not None and self.data_storage_key in self.stored_data:
+                    update_dict: Dict[str, Any] = dict()
+
+                    current_discovered_regions: Set[str] = set(
+                        self.stored_data[self.data_storage_key]["discovered_regions"]
+                    )
+
+                    update_discovered_regions: Set[str] = (
+                        current_discovered_regions | self.game_controller.discovered_regions
+                    )
+
+                    if len(update_discovered_regions) > len(current_discovered_regions):
+                        update_dict["discovered_regions"] = sorted(update_discovered_regions)
+
+                    current_discovered_entrances: Set[str] = set(
+                        self.stored_data[self.data_storage_key]["discovered_entrances"]
+                    )
+
+                    update_discovered_entrances: Set[str] = (
+                        current_discovered_entrances | self.game_controller.discovered_entrances
+                    )
+
+                    if len(update_discovered_entrances) > len(current_discovered_entrances):
+                        update_dict["discovered_entrances"] = sorted(update_discovered_entrances)
+
+                    if len(update_dict):
+                        await self.send_msgs([
+                            {
+                                "cmd": "Set",
+                                "key": self.data_storage_key,
+                                "slot": self.slot,
+                                "operations": [
+                                    {"operation": "update", "value": update_dict},
+                                ],
+                            }
+                        ])
 
                 # Handle Energy Link
                 while len(self.game_controller.energy_link_queue) > 0:

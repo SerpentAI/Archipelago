@@ -8,12 +8,13 @@ import time
 
 from typing import Dict, List, Optional, Set, Tuple, Union
 
-from .data.entrance_randomizer_data import relevant_game_locations
+from .data.entrance_randomizer_data import entrances_to_game_locations_reverse, relevant_game_locations
 from .data.item_data import item_data, ZorkGrandInquisitorItemData
 from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 
 from .data.mapping_data import (
     death_cause_labels,
+    entrance_names,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
     voxam_cast_game_locations,
@@ -36,6 +37,7 @@ from .enums import (
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
+    ZorkGrandInquisitorRegions,
     ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
 )
@@ -95,6 +97,9 @@ class GameController:
 
     entrance_randomizer_data: Dict[Tuple[str, str], Tuple[str, str]]
     entrance_randomizer_last_locations_visited: collections.deque
+
+    discovered_regions: Set[ZorkGrandInquisitorRegions]
+    discovered_entrances: Set[Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]]
 
     received_traps: List[ZorkGrandInquisitorItems]
 
@@ -180,6 +185,9 @@ class GameController:
 
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_last_locations_visited = collections.deque(maxlen=2)
+
+        self.discovered_regions = set()
+        self.discovered_entrances = set()
 
         self.received_traps = list()
 
@@ -513,6 +521,9 @@ class GameController:
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_last_locations_visited = collections.deque(maxlen=2)
 
+        self.discovered_regions = set()
+        self.discovered_entrances = set()
+
         self.received_traps = list()
 
         self.active_trap = None
@@ -835,6 +846,13 @@ class GameController:
                 offset: int = int(self.entrance_randomizer_data[location_pairing_key].split(" ")[-1])
 
                 self.game_state_manager.set_game_location(next_game_location, offset)
+
+                entrance_pair: Tuple[str, str] = (
+                    self.entrance_randomizer_last_locations_visited[0],
+                    self.entrance_randomizer_last_locations_visited[1]
+                )
+
+                self.discovered_entrances.add(entrance_names[entrances_to_game_locations_reverse[entrance_pair]])
 
                 self.entrance_randomizer_last_locations_visited.clear()
 
