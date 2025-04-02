@@ -592,15 +592,13 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
             print("Handling socket error!")
             self.rich_presence = None
 
-    def run_gui(self) -> None:
+    def make_gui(self):
         from kvui import GameManager
 
         class TextManager(GameManager):
-            logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
             base_title: str = "Archipelago Discord Rich Presence Client"
 
-        self.ui = TextManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        return TextManager
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
