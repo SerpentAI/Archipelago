@@ -562,24 +562,35 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
         return mapping.get(self.state_game)
 
     def set_rich_presence(self) -> None:
+        if self.rich_presence is None:
+            try:
+                print("Trying to reconnect to discord!")
+                self.rich_presence = Presence("1339447230909644851")
+            except Exception:
+                return
+
         game_title: str = self.game_to_title
 
-        if not self.state_game:
-            self.rich_presence.clear()
-        else:
-            self.rich_presence.set({
-                "details": game_title,
-                "state": f"In the Multiworld ({len(self.checked_locations)} / {len(self.server_locations)})",
-                "assets": {
-                    "large_image": self.game_to_image_key or "archipelago",
-                    "large_text": f"Last Location Checked: {self.state_last_location_checked}",
-                    "small_image": "archipelago",
-                    "small_text": f"{self.state_player_count} Player Multiworld",
-                },
-                "timestamps": {
-                    "start": self.timestamp,
-                },
-            })
+        try:
+            if not self.state_game:
+                self.rich_presence.clear()
+            else:
+                self.rich_presence.set({
+                    "details": game_title,
+                    "state": f"In the Multiworld ({len(self.checked_locations)} / {len(self.server_locations)})",
+                    "assets": {
+                        "large_image": self.game_to_image_key or "archipelago",
+                        "large_text": f"Last Location Checked: {self.state_last_location_checked}",
+                        "small_image": "archipelago",
+                        "small_text": f"{self.state_player_count} Player Multiworld",
+                    },
+                    "timestamps": {
+                        "start": self.timestamp,
+                    },
+                })
+        except Exception:
+            print("Handling socket error!")
+            self.rich_presence = None
 
     def run_gui(self) -> None:
         from kvui import GameManager
