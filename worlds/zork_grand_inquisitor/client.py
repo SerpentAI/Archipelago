@@ -115,11 +115,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         self.process_attached_at_least_once = False
         self.can_display_process_message = True
 
-    def run_gui(self) -> None:
+    def make_gui(self):
         from .client_gui.client_gui import ZorkGrandInquisitorManager
-
-        self.ui: ZorkGrandInquisitorManager = ZorkGrandInquisitorManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        return ZorkGrandInquisitorManager
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
