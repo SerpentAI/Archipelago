@@ -6,7 +6,7 @@ from worlds.AutoWorld import World
 
 def launch_client(*args) -> None:
     from .client import main
-    LauncherComponents.launch_subprocess(main, name="DiscordRichPresenceClient", args=args)
+    LauncherComponents.launch(main, name="DiscordRichPresenceClient", args=args)
 
 
 LauncherComponents.components.append(
