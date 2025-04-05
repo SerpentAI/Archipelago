@@ -322,12 +322,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
                     checked_location_ids.append(location_id)
 
-                await self.send_msgs([
-                    {
-                        "cmd": "LocationChecks",
-                        "locations": checked_location_ids
-                    }
-                ])
+                await self.check_locations(checked_location_ids)
 
                 # Check for Goal Completion
                 if self.game_controller.goal_completed:
@@ -369,7 +364,6 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                             {
                                 "cmd": "Set",
                                 "key": self.data_storage_key,
-                                "slot": self.slot,
                                 "operations": [
                                     {"operation": "update", "value": update_dict},
                                 ],
@@ -384,7 +378,6 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                         {
                             "cmd": "Set",
                             "key": f"EnergyLink{self.team}",
-                            "slot": self.slot,
                             "operations":
                                 [
                                     {"operation": "add", "value": energy_to_add},
