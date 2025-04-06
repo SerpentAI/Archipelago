@@ -621,6 +621,8 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
 
     def on_package(self, cmd: str, _args: Any) -> None:
         if cmd == "Connected":
+            self.game = self.slot_info[self.slot].game
+
             self.timestamp = int(time.time())
 
             self.state_game = self.slot_info[self.slot].game
