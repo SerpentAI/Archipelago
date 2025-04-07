@@ -1,8 +1,11 @@
 from typing import Dict, List, Set, Tuple
 
+import kivy.utils
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 
+from kivymd.app import MDApp
 from kivymd.uix.scrollview import MDScrollView
 
 from ..client import ZorkGrandInquisitorContext
@@ -97,6 +100,8 @@ class EntranceLabel(Label):
     entrance_name: str
     entrance_markup: str
 
+    color_: str
+
     def __init__(self, ctx: ZorkGrandInquisitorContext, entrance_name: str, entrance_markup: str) -> None:
         super().__init__(
             text=entrance_markup,
@@ -113,6 +118,9 @@ class EntranceLabel(Label):
         self.entrance_name = entrance_name
         self.entrance_markup = entrance_markup
 
+        theme_color: List[float] = MDApp.get_running_app().theme_cls.secondaryColor
+        self.color_ = "".join(["{:02X}".format(round(c * 255)) for c in theme_color[:3]])
+
         self.bind(size=lambda label, size: setattr(label, "text_size", size))
 
     def update(self) -> None:
@@ -121,7 +129,7 @@ class EntranceLabel(Label):
                 destination_entrance_name: str = self.ctx.entrance_randomizer_data_by_name[self.entrance_name]
                 destination_region: ZorkGrandInquisitorRegions = entrance_names_reverse[destination_entrance_name][1]
 
-                self.text = self.entrance_markup + f" [b][color=B070E0]{destination_region.value}[/color][/b]"
+                self.text = self.entrance_markup + f" [b][color={self.color_}]{destination_region.value}[/color][/b]"
             else:
                 self.text = self.entrance_markup
 
@@ -141,6 +149,11 @@ class EntrancesContent(MDScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
+        theme_primary_color: str = kivy.utils.hex_colormap.get(
+            MDApp.get_running_app().theme_cls.primary_palette.lower(),
+            "springgreen",
+        )
+
         self.entrance_labels = dict()
 
         allowable_entrances: Set[Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]] = set(
@@ -159,7 +172,7 @@ class EntrancesContent(MDScrollView):
                 entrance_data.append(
                     (
                         entrance_name,
-                        f"[b][color=00FA9A]{regions[0].value}:[/color][/b] {entrance_name} >>>",
+                        f"[b][color={theme_primary_color}]{regions[0].value}:[/color][/b] {entrance_name} >>>",
                     )
                 )
 
