@@ -235,6 +235,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                     {
                         "cmd": "Set",
                         "key": self.data_storage_key,
+                        "want_reply": True,
                         "default": {
                             "discovered_regions": list(),
                             "discovered_entrances": list(),
@@ -364,6 +365,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                             {
                                 "cmd": "Set",
                                 "key": self.data_storage_key,
+                                "want_reply": True,
                                 "operations": [
                                     {"operation": "update", "value": update_dict},
                                 ],

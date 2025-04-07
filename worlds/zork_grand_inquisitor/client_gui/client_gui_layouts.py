@@ -2,7 +2,8 @@ from typing import Dict, List, Set, Tuple
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
-from kivy.uix.scrollview import ScrollView
+
+from kivymd.uix.scrollview import MDScrollView
 
 from ..client import ZorkGrandInquisitorContext
 from ..data.entrance_randomizer_data import randomizable_entrances, randomizable_entrances_subway
@@ -14,7 +15,7 @@ class NotConnectedLayout(BoxLayout):
     ctx: ZorkGrandInquisitorContext
 
     def __init__(self, ctx: ZorkGrandInquisitorContext) -> None:
-        super().__init__(orientation="horizontal", size_hint_y=0.08)
+        super().__init__(orientation="horizontal", size_hint_y=0.12)
 
         self.ctx = ctx
 
@@ -24,7 +25,7 @@ class NotConnectedLayout(BoxLayout):
 
     def show(self):
         self.opacity = 1.0
-        self.size_hint_y = 0.08
+        self.size_hint_y = 0.12
         self.disabled = False
 
     def hide(self):
@@ -125,7 +126,7 @@ class EntranceLabel(Label):
                 self.text = self.entrance_markup
 
 
-class EntrancesContent(ScrollView):
+class EntrancesContent(MDScrollView):
     ctx: ZorkGrandInquisitorContext
 
     layout: BoxLayout
@@ -213,19 +214,24 @@ class EntrancesTabLayout(BoxLayout):
 
             return
 
+        allowable_entrance_randomizer_values: Set[ZorkGrandInquisitorEntranceRandomizer] = {
+            ZorkGrandInquisitorEntranceRandomizer.COUPLED,
+            ZorkGrandInquisitorEntranceRandomizer.UNCOUPLED,
+        }
+
+        if self.ctx.game_controller.option_entrance_randomizer not in allowable_entrance_randomizer_values:
+            self.layout_no_entrance_randomizer.show()
+
+            self.layout_content.clear_widgets()
+            self.layout_not_connected.hide()
+
+            return
+
         self.layout_not_connected.hide()
         self.layout_no_entrance_randomizer.hide()
 
         if not len(self.layout_content.children):
-            allowable_entrance_randomizer_values: Set[ZorkGrandInquisitorEntranceRandomizer] = {
-                ZorkGrandInquisitorEntranceRandomizer.COUPLED,
-                ZorkGrandInquisitorEntranceRandomizer.UNCOUPLED,
-            }
+            self.layout_content_entrances = EntrancesContent(self.ctx)
+            self.layout_content.add_widget(self.layout_content_entrances)
 
-            if self.ctx.game_controller.option_entrance_randomizer in allowable_entrance_randomizer_values:
-                self.layout_content_entrances = EntrancesContent(self.ctx)
-                self.layout_content.add_widget(self.layout_content_entrances)
-
-                self.layout_content_entrances.update()
-            else:
-                self.layout_no_entrance_randomizer.show()
+        self.layout_content_entrances.update()
