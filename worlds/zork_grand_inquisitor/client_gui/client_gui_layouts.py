@@ -11,12 +11,16 @@ from kivymd.uix.scrollview import MDScrollView
 
 from ..client import ZorkGrandInquisitorContext
 from ..data.entrance_randomizer_data import randomizable_entrances, randomizable_entrances_subway
+from ..data.location_data import ZorkGrandInquisitorLocationData, location_data
 from ..data.mapping_data import entrance_names, entrance_names_reverse
 
 from ..enums import (
+    ZorkGrandInquisitorDeathsanity,
     ZorkGrandInquisitorEntranceRandomizer,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorLandmarksanity,
+    ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorRegions,
 )
 
@@ -45,10 +49,69 @@ class NotConnectedLayout(BoxLayout):
         self.disabled = True
 
 
+class TrackerLocationLabel(Label):
+    ctx: ZorkGrandInquisitorContext
+
+    region: ZorkGrandInquisitorRegions
+    location: ZorkGrandInquisitorLocations
+
+    # requirements: bool
+
+    color_: str
+
+    in_logic: bool
+    checked: bool
+
+    def __init__(
+        self,
+        ctx: ZorkGrandInquisitorContext,
+        region: ZorkGrandInquisitorRegions,
+        location: ZorkGrandInquisitorLocations,
+        # requirements: bool,
+    ) -> None:
+        theme_color: List[float] = MDApp.get_running_app().theme_cls.secondaryColor
+        self.color_ = "".join(["{:02X}".format(round(c * 255)) for c in theme_color[:3]])
+
+        super().__init__(
+            text=f"[b][color={self.color_}]{region.value}:[/color][/b]  {location.value}",
+            markup=True,
+            font_size="16dp",
+            size_hint_y=None,
+            height="22dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.ctx = ctx
+
+        self.region = region
+        self.location = location
+
+        # self.requirements = requirements
+
+        self.in_logic = False
+        self.checked = False
+
+        self.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+    def update(self) -> None:
+        self.checked = self.location in self.ctx.locations_checked
+
+        if self.checked:
+            self.opacity = 0.1
+        # elif self.in_logic:
+        #     self.opacity = 1.0
+        else:
+            # self.opacity = 0.25
+            self.opacity = 1.0
+
+
 class TrackerLocationsLayout(MDScrollView):
     ctx: ZorkGrandInquisitorContext
 
     layout: BoxLayout
+
+    location_labels: Dict[ZorkGrandInquisitorLocations, TrackerLocationLabel]
 
     def __init__(self, ctx: ZorkGrandInquisitorContext) -> None:
         super().__init__(size_hint=(0.45, 1.0))
@@ -58,8 +121,10 @@ class TrackerLocationsLayout(MDScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
+        self.location_labels = dict()
+
         title_label: Label = Label(
-            text="[b]Available Locations[/b]",
+            text="[b]Locations[/b]",
             markup=True,
             font_size="20dp",
             size_hint_y=None,
@@ -72,10 +137,296 @@ class TrackerLocationsLayout(MDScrollView):
 
         self.layout.add_widget(title_label)
 
+        locations_core: List[ZorkGrandInquisitorLocations] = [
+            ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE,
+            ZorkGrandInquisitorLocations.OLD_SCRATCH_WINNER,
+            ZorkGrandInquisitorLocations.IN_CASE_OF_ADVENTURE,
+            ZorkGrandInquisitorLocations.IN_MAGIC_WE_TRUST,
+            ZorkGrandInquisitorLocations.INTO_THE_FOLIAGE,
+            ZorkGrandInquisitorLocations.INVISIBLE_FLOWERS,
+            ZorkGrandInquisitorLocations.THE_UNDERGROUND_UNDERGROUND,
+            ZorkGrandInquisitorLocations.UMBRELLA_FLOWERS,
+            ZorkGrandInquisitorLocations.AN_EXCELLENT_POPPING_UTENSIL,
+            ZorkGrandInquisitorLocations.THIS_DOESNT_LOOK_ANYTHING_LIKE_THE_BROCHURE,
+            ZorkGrandInquisitorLocations.UH_OH_BROG_CANT_SWIM,
+            ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
+            ZorkGrandInquisitorLocations.INFLATUS_THE_ETERNAL,
+            ZorkGrandInquisitorLocations.OH_DEAR_GOD_ITS_A_DRAGON,
+            ZorkGrandInquisitorLocations.THAR_SHE_BLOWS,
+            ZorkGrandInquisitorLocations.BOING_BOING_BOING,
+            ZorkGrandInquisitorLocations.BONK,
+            ZorkGrandInquisitorLocations.EGGPLANTS,
+            ZorkGrandInquisitorLocations.FLYING_SNAPDRAGON,
+            ZorkGrandInquisitorLocations.I_DONT_THINK_YOU_WOULDVE_WANTED_THAT_TO_WORK_ANYWAY,
+            ZorkGrandInquisitorLocations.IT_DOESNT_APPEAR_TO_BE_FOOLED,
+            ZorkGrandInquisitorLocations.ITS_PLAYING_A_LITTLE_HARD_TO_GET,
+            ZorkGrandInquisitorLocations.LIT_SUNFLOWERS,
+            ZorkGrandInquisitorLocations.MUSHROOM_HAMMERED,
+            ZorkGrandInquisitorLocations.NOTHIN_LIKE_A_GOOD_STOGIE,
+            ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES,
+            ZorkGrandInquisitorLocations.PROZORKED,
+            ZorkGrandInquisitorLocations.THROCKED_MUSHROOM_HAMMERED,
+            ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO,
+            ZorkGrandInquisitorLocations.YOUR_PUNY_WEAPONS_DONT_PHASE_ME_BABY,
+            ZorkGrandInquisitorLocations.CASTLE_WATCHING_A_FIELD_GUIDE,
+            ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER,
+            ZorkGrandInquisitorLocations.FROBUARY_3_UNDERGROUNDHOG_DAY,
+            ZorkGrandInquisitorLocations.HELLO_THIS_IS_SHONA_FROM_GURTH_PUBLISHING,
+            ZorkGrandInquisitorLocations.NATURAL_AND_SUPERNATURAL_CREATURES_OF_QUENDOR,
+            ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU,
+            ZorkGrandInquisitorLocations.REASSEMBLE_SNAVIG,
+            ZorkGrandInquisitorLocations.RIGHT_HELLO_YES_UH_THIS_IS_SNEFFLE,
+            ZorkGrandInquisitorLocations.RIGHT_UH_SORRY_ITS_ME_AGAIN_SNEFFLE,
+            ZorkGrandInquisitorLocations.TAMING_YOUR_SNAPDRAGON,
+            ZorkGrandInquisitorLocations.WHITE_HOUSE_TIME_TUNNEL,
+            ZorkGrandInquisitorLocations.YAD_GOHDNUORGREDNU_3_YRAUBORF,
+            ZorkGrandInquisitorLocations.A_SMALLWAY,
+            ZorkGrandInquisitorLocations.ALARM_SYSTEM_IS_DOWN,
+            ZorkGrandInquisitorLocations.DUNCE_LOCKER,
+            ZorkGrandInquisitorLocations.EMERGENCY_MAGICATRONIC_MESSAGE,
+            ZorkGrandInquisitorLocations.GETTING_SOME_CHANGE,
+            ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE,
+            ZorkGrandInquisitorLocations.LOOK_AN_ICE_CREAM_BAR,
+            ZorkGrandInquisitorLocations.MIKES_PANTS,
+            ZorkGrandInquisitorLocations.NOOOOOOOOOOOOO,
+            ZorkGrandInquisitorLocations.RESTOCKED_ON_GRUESDAY,
+            ZorkGrandInquisitorLocations.SUCKING_ROCKS,
+            ZorkGrandInquisitorLocations.GUE_TECH_ENTRANCE_EXAM,
+            ZorkGrandInquisitorLocations.PLEASE_DONT_THROCK_THE_GRASS,
+            ZorkGrandInquisitorLocations.ARTIFACTS_EXPLAINED,
+            ZorkGrandInquisitorLocations.BEBURTT_DEMYSTIFIED,
+            ZorkGrandInquisitorLocations.BETTER_SPELL_MANUFACTURING_IN_UNDER_10_MINUTES,
+            ZorkGrandInquisitorLocations.CAVES_NOTES,
+            ZorkGrandInquisitorLocations.CRISIS_AVERTED,
+            ZorkGrandInquisitorLocations.HOW_TO_WIN_AT_DOUBLE_FANUCCI,
+            ZorkGrandInquisitorLocations.THE_ONLY_WAY_TO_WIN_IS_NOT_TO_PLAY,
+            ZorkGrandInquisitorLocations.TIME_TRAVEL_FOR_DUMMIES,
+            ZorkGrandInquisitorLocations.HEY_FREE_DIRT,
+            ZorkGrandInquisitorLocations.A_BIG_FAT_SASSY_2_HEADED_MONSTER,
+            ZorkGrandInquisitorLocations.A_LETTER_FROM_THE_WHITE_HOUSE,
+            ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY,
+            ZorkGrandInquisitorLocations.I_AM_NOT_IMPRESSED,
+            ZorkGrandInquisitorLocations.NOW_YOU_LOOK_LIKE_US_WHICH_IS_AN_IMPROVEMENT,
+            ZorkGrandInquisitorLocations.OPEN_THE_GATES_OF_HELL,
+            ZorkGrandInquisitorLocations.DRAGON_ARCHIPELAGO_TIME_TUNNEL,
+            ZorkGrandInquisitorLocations.NO_ONE_RETURNS_FROM_HADES,
+            ZorkGrandInquisitorLocations.HAVE_A_HELL_OF_A_DAY,
+            ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR,
+            ZorkGrandInquisitorLocations.HMMM_INFORMATIVE_YET_DEEPLY_DISTURBING,
+            ZorkGrandInquisitorLocations.PERMASEAL,
+            ZorkGrandInquisitorLocations.STRAIGHT_TO_HELL,
+            ZorkGrandInquisitorLocations.CLOSING_THE_TIME_TUNNELS,
+            ZorkGrandInquisitorLocations.PORT_FOOZLE_TIME_TUNNEL,
+            ZorkGrandInquisitorLocations.THE_ALCHEMICAL_DEBACLE,
+            ZorkGrandInquisitorLocations.THE_ENDLESS_FIRE,
+            ZorkGrandInquisitorLocations.THE_FLATHEADIAN_FUDGE_FIASCO,
+            ZorkGrandInquisitorLocations.THE_PERILS_OF_MAGIC,
+            ZorkGrandInquisitorLocations.ME_I_AM_THE_BOSS_OF_YOU,
+            ZorkGrandInquisitorLocations.TOTEMIZED_DAILY_BILLBOARD,
+            ZorkGrandInquisitorLocations.ELSEWHERE,
+            ZorkGrandInquisitorLocations.ARREST_THE_VANDAL,
+            ZorkGrandInquisitorLocations.CUT_THAT_OUT_YOU_LITTLE_CREEP,
+            ZorkGrandInquisitorLocations.FIRE_FIRE,
+            ZorkGrandInquisitorLocations.GO_AWAY,
+            ZorkGrandInquisitorLocations.HELP_ME_CANT_BREATHE,
+            ZorkGrandInquisitorLocations.I_DONT_WANT_NO_TROUBLE,
+            ZorkGrandInquisitorLocations.IM_COMPLETELY_NUDE,
+            ZorkGrandInquisitorLocations.ITS_ONE_OF_THOSE_ADVENTURERS_AGAIN,
+            ZorkGrandInquisitorLocations.MEAD_LIGHT,
+            ZorkGrandInquisitorLocations.NO_AUTOGRAPHS,
+            ZorkGrandInquisitorLocations.NO_BONDAGE,
+            ZorkGrandInquisitorLocations.ONLY_YOU_CAN_PREVENT_FOOZLE_FIRES,
+            ZorkGrandInquisitorLocations.TALK_TO_ME_GRAND_INQUISITOR,
+            ZorkGrandInquisitorLocations.THATS_A_ROPE,
+            ZorkGrandInquisitorLocations.THATS_THE_SPIRIT,
+            ZorkGrandInquisitorLocations.WHAT_ARE_YOU_STUPID,
+            ZorkGrandInquisitorLocations.YOU_ONE_OF_THEM_AGITATORS_AINT_YA,
+            ZorkGrandInquisitorLocations.YOU_WANT_A_PIECE_OF_ME_DOCK_BOY,
+            ZorkGrandInquisitorLocations.PLANETFALL,
+            ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS,
+            ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE,
+            ZorkGrandInquisitorLocations.DINGWHACKER_DELUXE,
+            ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER,
+            ZorkGrandInquisitorLocations.UM_AH_UM_AH_UM_AH,
+            ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO_PAST,
+            ZorkGrandInquisitorLocations.WE_GOT_A_HIGH_ROLLER,
+            ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP,
+            ZorkGrandInquisitorLocations.IMBUE_BEBURTT,
+            ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP,
+            ZorkGrandInquisitorLocations.SNAVIG_REPAIRED,
+            ZorkGrandInquisitorLocations.SPELL_CHECK_COMPLETE,
+            ZorkGrandInquisitorLocations.ZIMDOR_IS_UNDAMAGED,
+            ZorkGrandInquisitorLocations.FAT_LOT_OF_GOOD_THATLL_DO_YA,
+            ZorkGrandInquisitorLocations.I_LIKE_YOUR_STYLE,
+            ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE,
+            ZorkGrandInquisitorLocations.PURPLE_BEAST_ALARM_SYSTEM,
+            ZorkGrandInquisitorLocations.THATS_STILL_A_ROPE,
+            ZorkGrandInquisitorLocations.YOU_DONT_GO_MESSING_WITH_A_MANS_ZIPPER,
+            ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS,
+            ZorkGrandInquisitorLocations.BRAVE_SOULS_WANTED,
+            ZorkGrandInquisitorLocations.ENJOY_YOUR_TRIP,
+            ZorkGrandInquisitorLocations.THATS_IT_JUST_KEEP_HITTING_THOSE_BUTTONS,
+            ZorkGrandInquisitorLocations.NATIONAL_TREASURE,
+            ZorkGrandInquisitorLocations.BEAUTIFUL_THATS_PLENTY,
+            ZorkGrandInquisitorLocations.FLOOD_CONTROL_DAM_3_THE_NOT_REMOTELY_BORING_TALE,
+            ZorkGrandInquisitorLocations.SOUVENIR,
+            ZorkGrandInquisitorLocations.USELESS_BUT_FUN,
+            ZorkGrandInquisitorLocations.HOW_TO_HYPNOTIZE_YOURSELF,
+            ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB,
+            ZorkGrandInquisitorLocations.WOW_IVE_NEVER_GONE_INSIDE_HIM_BEFORE,
+            ZorkGrandInquisitorLocations.DOOOOOOWN,
+            ZorkGrandInquisitorLocations.DOWN,
+            ZorkGrandInquisitorLocations.MAILED_IT_TO_HELL,
+            ZorkGrandInquisitorLocations.UP,
+            ZorkGrandInquisitorLocations.UUUUUP,
+            ZorkGrandInquisitorLocations.BROG_DO_GOOD,
+            ZorkGrandInquisitorLocations.BROG_EAT_ROCKS,
+            ZorkGrandInquisitorLocations.BROG_KNOW_DUMB_THAT_DUMB,
+            ZorkGrandInquisitorLocations.BROG_MUCH_BETTER_AT_THIS_GAME,
+            ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
+            ZorkGrandInquisitorLocations.HMMM_BIG_TOOTHPICK,
+            ZorkGrandInquisitorLocations.WHOOPS,
+        ]
+
+        if self.ctx.game_controller.option_goal != ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
+            locations_core.remove(ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT)
+            locations_core.remove(ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG)
+            locations_core.remove(ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP)
+
+        location: ZorkGrandInquisitorLocations
+        for location in locations_core:
+            data: ZorkGrandInquisitorLocationData = location_data[location]
+
+            location_label: TrackerLocationLabel = TrackerLocationLabel(
+                self.ctx,
+                data.region,
+                location,
+                # data.requirements,
+            )
+
+            location_label.update()
+
+            self.location_labels[location] = location_label
+            self.layout.add_widget(location_label)
+
+        self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
+
+        if self.ctx.game_controller.option_deathsanity == ZorkGrandInquisitorDeathsanity.ON:
+            locations_deathsanity: List[ZorkGrandInquisitorLocations] = [
+                ZorkGrandInquisitorLocations.DEATH_LOST_SOUL_TO_OLD_SCRATCH,
+                ZorkGrandInquisitorLocations.DEATH_CLIMBED_OUT_OF_THE_WELL,
+                ZorkGrandInquisitorLocations.DEATH_SWALLOWED_BY_A_DRAGON,
+                ZorkGrandInquisitorLocations.DEATH_OUTSMARTED_BY_THE_QUELBEES,
+                ZorkGrandInquisitorLocations.DEATH_ATTACKED_THE_QUELBEES,
+                ZorkGrandInquisitorLocations.DEATH_STEPPED_INTO_THE_INFINITE,
+                ZorkGrandInquisitorLocations.DEATH_ZORK_ROCKS_EXPLODED,
+                ZorkGrandInquisitorLocations.DEATH_THROCKED_THE_GRASS,
+                ZorkGrandInquisitorLocations.DEATH_JUMPED_IN_BOTTOMLESS_PIT,
+                ZorkGrandInquisitorLocations.DEATH_YOURE_NOT_CHARON,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_INFINITY,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_NEWARK_NEW_JERSEY,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_SURFACE_OF_MERZ,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_STRAIGHT_TO_HELL,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_NEWARK_NEW_JERSEY,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_HALLS_OF_INQUISITION,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_INFINITY,
+                ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_SURFACE_OF_MERZ,
+                ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK,
+                ZorkGrandInquisitorLocations.DEATH_LOST_GAME_OF_STRIP_GRUE_FIRE_WATER,
+                ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD,
+                ZorkGrandInquisitorLocations.DEATH_EATEN_BY_A_GRUE
+            ]
+
+            self.layout.add_widget(
+                Label(
+                    text="[b]Deathsanity[/b]",
+                    markup=True,
+                    font_size="18dp",
+                    size_hint_y=None,
+                    height="36dp",
+                    halign="left",
+                    valign="top",
+                )
+            )
+
+            location: ZorkGrandInquisitorLocations
+            for location in locations_deathsanity:
+                data: ZorkGrandInquisitorLocationData = location_data[location]
+
+                location_label: TrackerLocationLabel = TrackerLocationLabel(
+                    self.ctx,
+                    data.region,
+                    location,
+                    # data.requirements,
+                )
+
+                location_label.update()
+
+                self.location_labels[location] = location_label
+                self.layout.add_widget(location_label)
+
+            self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
+
+        if self.ctx.game_controller.option_landmarksanity == ZorkGrandInquisitorLandmarksanity.ON:
+            locations_landmarksanity: List[ZorkGrandInquisitorLocations] = [
+                ZorkGrandInquisitorLocations.LANDMARK_GREAT_UNDERGROUND_EMPIRE_ENTRANCE,
+                ZorkGrandInquisitorLocations.LANDMARK_UMBRELLA_TREE,
+                ZorkGrandInquisitorLocations.LANDMARK_UNDERGROUND_UNDERGROUND_ENTRANCE,
+                ZorkGrandInquisitorLocations.LANDMARK_DRAGON_ARCHIPELAGO,
+                ZorkGrandInquisitorLocations.LANDMARK_DUNGEON_MASTERS_HOUSE,
+                ZorkGrandInquisitorLocations.LANDMARK_MIRROR_ROOM,
+                ZorkGrandInquisitorLocations.LANDMARK_GUE_TECH_FOUNTAIN_INSIDE,
+                ZorkGrandInquisitorLocations.LANDMARK_INFINITE_CORRIDOR,
+                ZorkGrandInquisitorLocations.LANDMARK_GUE_TECH_FOUNTAIN_OUTSIDE,
+                ZorkGrandInquisitorLocations.LANDMARK_GATES_OF_HELL,
+                ZorkGrandInquisitorLocations.LANDMARK_HADES_SHORE,
+                ZorkGrandInquisitorLocations.LANDMARK_TOTEMIZER,
+                ZorkGrandInquisitorLocations.LANDMARK_INQUISITION_HEADQUARTERS,
+                ZorkGrandInquisitorLocations.LANDMARK_PORT_FOOZLE,
+                ZorkGrandInquisitorLocations.LANDMARK_JACKS_SHOP,
+                ZorkGrandInquisitorLocations.LANDMARK_PAST_PORT_FOOZLE,
+                ZorkGrandInquisitorLocations.LANDMARK_SPELL_CHECKER,
+                ZorkGrandInquisitorLocations.LANDMARK_FLOOD_CONTROL_DAM_3,
+                ZorkGrandInquisitorLocations.LANDMARK_WALKING_CASTLES_HEART,
+                ZorkGrandInquisitorLocations.LANDMARK_WHITE_HOUSE,
+            ]
+
+            self.layout.add_widget(
+                Label(
+                    text="[b]Landmarksanity[/b]",
+                    markup=True,
+                    font_size="18dp",
+                    size_hint_y=None,
+                    height="36dp",
+                    halign="left",
+                    valign="top",
+                )
+            )
+
+            location: ZorkGrandInquisitorLocations
+            for location in locations_landmarksanity:
+                data: ZorkGrandInquisitorLocationData = location_data[location]
+
+                location_label: TrackerLocationLabel = TrackerLocationLabel(
+                    self.ctx,
+                    data.region,
+                    location,
+                    # data.requirements,
+                )
+
+                location_label.update()
+
+                self.location_labels[location] = location_label
+                self.layout.add_widget(location_label)
+
+            self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
+
         self.add_widget(self.layout)
 
     def update(self) -> None:
-        pass
+        location_label: TrackerLocationLabel
+        for location_label in self.location_labels.values():
+            location_label.update()
 
 
 class TrackerItemLabel(Label):
@@ -165,7 +516,13 @@ class TrackerItemsLayout(MDScrollView):
 
         items_goal: List[ZorkGrandInquisitorItems] = list()
 
-        if self.ctx.game_controller.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+        if self.ctx.game_controller.option_goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
+            items_goal.extend([
+                ZorkGrandInquisitorItems.COCONUT_OF_QUENDOR,
+                ZorkGrandInquisitorItems.CUBE_OF_FOUNDATION,
+                ZorkGrandInquisitorItems.SKULL_OF_YORUK,
+            ])
+        elif self.ctx.game_controller.option_goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
             items_goal.append(ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC)
         elif self.ctx.game_controller.option_goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
             items_goal.append(ZorkGrandInquisitorItems.LANDMARK)
