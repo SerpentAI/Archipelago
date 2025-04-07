@@ -253,6 +253,11 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             # UI Tabs
             self.ui.update_tabs()
+        elif cmd == "ReceivedItems":
+            self.ui.update_tabs()
+        elif cmd == "RoomUpdate":
+            if "checked_locations" in _args:
+                self.ui.update_tabs()
         elif cmd == "SetReply":
             if _args["key"] == self.data_storage_key:
                 self.ui.update_tabs()
