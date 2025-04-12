@@ -16,6 +16,8 @@ class DiscordRichPresenceCommandProcessor(CommonClient.ClientCommandProcessor):
 
 
 class DiscordRichPresenceContext(CommonClient.CommonContext):
+    game: Optional[str]
+
     tags: Set[str] = {"AP", "TextOnly"}
     command_processor: CommonClient.ClientCommandProcessor = DiscordRichPresenceCommandProcessor
     items_handling: int = 0b111
@@ -31,6 +33,8 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
 
     def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
         super().__init__(server_address, password)
+
+        self.game = None
 
         self.timestamp = int(time.time())
 
@@ -608,6 +612,8 @@ class DiscordRichPresenceContext(CommonClient.CommonContext):
         await self.send_connect()
 
     async def disconnect(self, allow_autoreconnect: bool = False):
+        self.game = None
+
         self.state_game = None
         self.state_player_count = 0
         self.state_last_location_checked = "Nothing Yet"
