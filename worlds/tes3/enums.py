@@ -1,6 +1,119 @@
 import enum
 
 
+class TES3APItems(enum.Enum):
+    ATTRIBUTE_AGILITY_5 = "+5 Agility"
+    ATTRIBUTE_ENDURANCE_5 = "+5 Endurance"
+    ATTRIBUTE_INTELLIGENCE_5 = "+5 Intelligence"
+    ATTRIBUTE_LUCK_5 = "+5 Luck"
+    ATTRIBUTE_PERSONALITY_5 = "+5 Personality"
+    ATTRIBUTE_SPEED_5 = "+5 Speed"
+    ATTRIBUTE_STRENGTH_5 = "+5 Strength"
+    ATTRIBUTE_WILLPOWER_5 = "+5 Willpower"
+    ATTRIBUTE_DERIVED_ENCUMBRANCE_50 = "+50 Encumbrance"
+    ATTRIBUTE_DERIVED_FATIGUE_50 = "+50 Fatigue"
+    ATTRIBUTE_DERIVED_HEALTH_25 = "+25 Health"
+    ATTRIBUTE_DERIVED_MAGICKA_25 = "+25 Magicka"
+    SKILL_ACROBATICS_10 = "+10 Acrobatics"
+    SKILL_ALCHEMY_10 = "+10 Alchemy"
+    SKILL_ALTERATION_10 = "+10 Alteration"
+    SKILL_ARMORER_10 = "+10 Armorer"
+    SKILL_ATHLETICS_10 = "+10 Athletics"
+    SKILL_AXE_10 = "+10 Axe"
+    SKILL_BLOCK_10 = "+10 Block"
+    SKILL_BLUNT_WEAPONS_10 = "+10 Blunt Weapons"
+    SKILL_CONJURATION_10 = "+10 Conjuration"
+    SKILL_DESTRUCTION_10 = "+10 Destruction"
+    SKILL_ENCHANT_10 = "+10 Enchant"
+    SKILL_HAND_TO_HAND_10 = "+10 Hand-to-Hand"
+    SKILL_HEAVY_ARMOR_10 = "+10 Heavy Armor"
+    SKILL_ILLUSION_10 = "+10 Illusion"
+    SKILL_LIGHT_ARMOR_10 = "+10 Light Armor"
+    SKILL_LONG_BLADE_10 = "+10 Long Blade"
+    SKILL_MARKSMAN_10 = "+10 Marksman"
+    SKILL_MEDIUM_ARMOR_10 = "+10 Medium Armor"
+    SKILL_MERCANTILE_10 = "+10 Mercantile"
+    SKILL_MYSTICISM_10 = "+10 Mysticism"
+    SKILL_RESTORATION_10 = "+10 Restoration"
+    SKILL_SECURITY_10 = "+10 Security"
+    SKILL_SHORT_BLADE_10 = "+10 Short Blade"
+    SKILL_SNEAK_10 = "+10 Sneak"
+    SKILL_SPEAR_10 = "+10 Spear"
+    SKILL_SPEECHCRAFT_10 = "+10 Speechcraft"
+    SKILL_UNARMORED_10 = "+10 Unarmored"
+
+
+class TES3Attributes(enum.Enum):
+    AGILITY = "Agility"
+    ENDURANCE = "Endurance"
+    INTELLIGENCE = "Intelligence"
+    LUCK = "Luck"
+    PERSONALITY = "Personality"
+    SPEED = "Speed"
+    STRENGTH = "Strength"
+    WILLPOWER = "Willpower"
+
+
+class TES3AttributesDerived(enum.Enum):
+    ENCUMBRANCE = "Encumbrance"
+    FATIGUE = "Fatigue"
+    HEALTH = "Health"
+    MAGICKA = "Magicka"
+
+
+class TES3Birthsigns(enum.Enum):
+    THE_APPRENTICE = "The Apprentice"
+    THE_ATRONACH = "The Atronach"
+    THE_LADY = "The Lady"
+    THE_LORD = "The Lord"
+    THE_LOVER = "The Lover"
+    THE_MAGE = "The Mage"
+    THE_RITUAL = "The Ritual"
+    THE_SERPENT = "The Serpent"
+    THE_SHADOW = "The Shadow"
+    THE_STEED = "The Steed"
+    THE_THIEF = "The Thief"
+    THE_TOWER = "The Tower"
+    THE_WARRIOR = "The Warrior"
+
+
+class TES3Classes(enum.Enum):
+    ACROBAT = "Acrobat"
+    AGENT = "Agent"
+    ARCHER = "Archer"
+    ASSASSIN = "Assassin"
+    BARBARIAN = "Barbarian"
+    BARD = "Bard"
+    BATTLEMAGE = "Battlemage"
+    CRUSADER = "Crusader"
+    HEALER = "Healer"
+    KNIGHT = "Knight"
+    MAGE = "Mage"
+    MONK = "Monk"
+    NIGHTBLADE = "Nightblade"
+    PILGRIM = "Pilgrim"
+    ROGUE = "Rogue"
+    SCOUT = "Scout"
+    SORCERER = "Sorcerer"
+    SPELLSWORD = "Spellsword"
+    THIEF = "Thief"
+    WARRIOR = "Warrior"
+    WITCHHUNTER = "Witchhunter"
+
+
+class TES3Races(enum.Enum):
+    ARGONIAN = "Argonian"
+    BRETON = "Breton"
+    DARK_ELF = "Dark Elf"
+    HIGH_ELF = "High Elf"
+    IMPERIAL = "Imperial"
+    KHAJIIT = "Kahjiit"
+    NORD = "Nord"
+    ORC = "Orc"
+    REDGUARD = "Redguard"
+    WOOD_ELF = "Wood Elf"
+
+
 class TES3Regions(enum.Enum):
     # Open World
     MOURNHOLD = "Mournhold"
@@ -1320,3 +1433,38 @@ class TES3Regions(enum.Enum):
     SOTHA_SIL_HALL_OF_THEUDA = "Sotha Sil - Hall of Theuda"
     SOTHA_SIL_INNER_FLOODED_HALLS = "Sotha Sil - Inner Flooded Halls"
     SOTHA_SIL_OUTER_FLOODED_HALLS = "Sotha Sil - Outer Flooded Halls"
+
+
+class TES3Sexes(enum.Enum):
+    FEMALE = "Female"
+    MALE = "Male"
+
+
+class TES3Skills(enum.Enum):
+    ACROBATICS = "Acrobatics"
+    ALCHEMY = "Alchemy"
+    ALTERATION = "Alteration"
+    ARMORER = "Armorer"
+    ATHLETICS = "Athletics"
+    AXE = "Axe"
+    BLOCK = "Block"
+    BLUNT_WEAPON = "Blunt Weapon"
+    CONJURATION = "Conjuration"
+    DESTRUCTION = "Destruction"
+    ENCHANT = "Enchant"
+    HAND_TO_HAND = "Hand-to-Hand"
+    HEAVY_ARMOR = "Heavy Armor"
+    ILLUSION = "Illusion"
+    LIGHT_ARMOR = "Light Armor"
+    LONG_BLADE = "Long Blade"
+    MARKSMAN = "Marksman"
+    MEDIUM_ARMOR = "Medium Armor"
+    MERCANTILE = "Mercantile"
+    MYSTICISM = "Mysticism"
+    RESTORATION = "Restoration"
+    SECURITY = "Security"
+    SHORT_BLADE = "Short Blade"
+    SNEAK = "Sneak"
+    SPEAR = "Spear"
+    SPEECHCRAFT = "Speechcraft"
+    UNARMORED = "Unarmored"
