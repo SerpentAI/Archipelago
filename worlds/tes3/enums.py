@@ -14,6 +14,39 @@ class TES3APItems(enum.Enum):
     ATTRIBUTE_DERIVED_FATIGUE_50 = "+50 Fatigue"
     ATTRIBUTE_DERIVED_HEALTH_25 = "+25 Health"
     ATTRIBUTE_DERIVED_MAGICKA_25 = "+25 Magicka"
+    KEY_ALD_RUHN = "Ald-ruhn Key"
+    KEY_ASCADIAN_ISLES = "Ascadian Isles Key"
+    KEY_ASHLANDS = "Ashlands Key"
+    KEY_AZURAS_COAST = "Azura's Coast Key"
+    KEY_BALMORA = "Balmora Key"
+    KEY_BITTER_COAST = "Bitter Coast Key"
+    KEY_BLOODMOON_FELSAAD_COAST = "Felsaad Coast Key"
+    KEY_BLOODMOON_HIRSTAANG_FOREST = "Hirstaang Forest Key"
+    KEY_BLOODMOON_ISINFIER_PLAINS = "Isinfier Plains Key"
+    KEY_BLOODMOON_MOESRING_MOUNTAINS = "Moesring Mountains Key"
+    KEY_BLOODMOON_RAVEN_ROCK = "Raven Rock Key"
+    KEY_CALDERA = "Caldera Key"
+    KEY_DAGOTH_UR = "Dagoth Ur Key"
+    KEY_EBONHEART = "Ebonheart Key"
+    KEY_GHOSTGATE = "Ghostgate Key"
+    KEY_GNISIS = "Gnisis Key"
+    KEY_GRAZELANDS = "Grazelands Key"
+    KEY_MAAR_GAN = "Maar Gan Key"
+    KEY_MOLAG_AMUR = "Molag Amur Key"
+    KEY_MOLAG_MAR = "Molag Mar Key"
+    KEY_PELAGIAD = "Pelagiad Key"
+    KEY_RED_MOUNTAIN = "Red Mountain Key"
+    KEY_SADRITH_MORA = "Sadrith Mora Key"
+    KEY_SHEOGORAD = "Sheogorad Key"
+    KEY_SURAN = "Suran Key"
+    KEY_TEL_ARUHN = "Tel Aruhn Key"
+    KEY_TEL_BRANORA = "Tel Branora Key"
+    KEY_TEL_MORA = "Tel Mora Key"
+    KEY_TRIBUNAL_MOURNHOLD = "Mournhold Key"
+    KEY_TRIBUNAL_OLD_MOURNHOLD = "Old Mournhold Key"
+    KEY_TRIBUNAL_SOTHA_SIL = "Sotha Sil Key"
+    KEY_VIVEC = "Vivec Key"
+    KEY_WEST_GASH = "West Gash Key"
     SKILL_ACROBATICS_10 = "+10 Acrobatics"
     SKILL_ALCHEMY_10 = "+10 Alchemy"
     SKILL_ALTERATION_10 = "+10 Alteration"
@@ -43,82 +76,12 @@ class TES3APItems(enum.Enum):
     SKILL_UNARMORED_10 = "+10 Unarmored"
 
 
-class TES3Attributes(enum.Enum):
-    AGILITY = "Agility"
-    ENDURANCE = "Endurance"
-    INTELLIGENCE = "Intelligence"
-    LUCK = "Luck"
-    PERSONALITY = "Personality"
-    SPEED = "Speed"
-    STRENGTH = "Strength"
-    WILLPOWER = "Willpower"
-
-
-class TES3AttributesDerived(enum.Enum):
-    ENCUMBRANCE = "Encumbrance"
-    FATIGUE = "Fatigue"
-    HEALTH = "Health"
-    MAGICKA = "Magicka"
-
-
-class TES3Birthsigns(enum.Enum):
-    THE_APPRENTICE = "The Apprentice"
-    THE_ATRONACH = "The Atronach"
-    THE_LADY = "The Lady"
-    THE_LORD = "The Lord"
-    THE_LOVER = "The Lover"
-    THE_MAGE = "The Mage"
-    THE_RITUAL = "The Ritual"
-    THE_SERPENT = "The Serpent"
-    THE_SHADOW = "The Shadow"
-    THE_STEED = "The Steed"
-    THE_THIEF = "The Thief"
-    THE_TOWER = "The Tower"
-    THE_WARRIOR = "The Warrior"
-
-
-class TES3Classes(enum.Enum):
-    ACROBAT = "Acrobat"
-    AGENT = "Agent"
-    ARCHER = "Archer"
-    ASSASSIN = "Assassin"
-    BARBARIAN = "Barbarian"
-    BARD = "Bard"
-    BATTLEMAGE = "Battlemage"
-    CRUSADER = "Crusader"
-    HEALER = "Healer"
-    KNIGHT = "Knight"
-    MAGE = "Mage"
-    MONK = "Monk"
-    NIGHTBLADE = "Nightblade"
-    PILGRIM = "Pilgrim"
-    ROGUE = "Rogue"
-    SCOUT = "Scout"
-    SORCERER = "Sorcerer"
-    SPELLSWORD = "Spellsword"
-    THIEF = "Thief"
-    WARRIOR = "Warrior"
-    WITCHHUNTER = "Witchhunter"
-
-
-class TES3Races(enum.Enum):
-    ARGONIAN = "Argonian"
-    BRETON = "Breton"
-    DARK_ELF = "Dark Elf"
-    HIGH_ELF = "High Elf"
-    IMPERIAL = "Imperial"
-    KHAJIIT = "Kahjiit"
-    NORD = "Nord"
-    ORC = "Orc"
-    REDGUARD = "Redguard"
-    WOOD_ELF = "Wood Elf"
-
-
-class TES3Regions(enum.Enum):
+class TES3APRegions(enum.Enum):
     # Open World
     MOURNHOLD = "Mournhold"
     SOLSTHEIM = "Solstheim"
     VVARDENFELL = "Vvardenfell"
+    VVARDENFELL_GHOSTGATE = "Vvardenfell - Ghostgate"
     # Base Game
     ABAELUN_MINE = "Abaelun Mine"
     ABAESEN_PULU_EGG_MINE = "Abaesen-Pulu Egg Mine"
@@ -1433,6 +1396,77 @@ class TES3Regions(enum.Enum):
     SOTHA_SIL_HALL_OF_THEUDA = "Sotha Sil - Hall of Theuda"
     SOTHA_SIL_INNER_FLOODED_HALLS = "Sotha Sil - Inner Flooded Halls"
     SOTHA_SIL_OUTER_FLOODED_HALLS = "Sotha Sil - Outer Flooded Halls"
+
+
+class TES3Attributes(enum.Enum):
+    AGILITY = "Agility"
+    ENDURANCE = "Endurance"
+    INTELLIGENCE = "Intelligence"
+    LUCK = "Luck"
+    PERSONALITY = "Personality"
+    SPEED = "Speed"
+    STRENGTH = "Strength"
+    WILLPOWER = "Willpower"
+
+
+class TES3AttributesDerived(enum.Enum):
+    ENCUMBRANCE = "Encumbrance"
+    FATIGUE = "Fatigue"
+    HEALTH = "Health"
+    MAGICKA = "Magicka"
+
+
+class TES3Birthsigns(enum.Enum):
+    THE_APPRENTICE = "The Apprentice"
+    THE_ATRONACH = "The Atronach"
+    THE_LADY = "The Lady"
+    THE_LORD = "The Lord"
+    THE_LOVER = "The Lover"
+    THE_MAGE = "The Mage"
+    THE_RITUAL = "The Ritual"
+    THE_SERPENT = "The Serpent"
+    THE_SHADOW = "The Shadow"
+    THE_STEED = "The Steed"
+    THE_THIEF = "The Thief"
+    THE_TOWER = "The Tower"
+    THE_WARRIOR = "The Warrior"
+
+
+class TES3Classes(enum.Enum):
+    ACROBAT = "Acrobat"
+    AGENT = "Agent"
+    ARCHER = "Archer"
+    ASSASSIN = "Assassin"
+    BARBARIAN = "Barbarian"
+    BARD = "Bard"
+    BATTLEMAGE = "Battlemage"
+    CRUSADER = "Crusader"
+    HEALER = "Healer"
+    KNIGHT = "Knight"
+    MAGE = "Mage"
+    MONK = "Monk"
+    NIGHTBLADE = "Nightblade"
+    PILGRIM = "Pilgrim"
+    ROGUE = "Rogue"
+    SCOUT = "Scout"
+    SORCERER = "Sorcerer"
+    SPELLSWORD = "Spellsword"
+    THIEF = "Thief"
+    WARRIOR = "Warrior"
+    WITCHHUNTER = "Witchhunter"
+
+
+class TES3Races(enum.Enum):
+    ARGONIAN = "Argonian"
+    BRETON = "Breton"
+    DARK_ELF = "Dark Elf"
+    HIGH_ELF = "High Elf"
+    IMPERIAL = "Imperial"
+    KHAJIIT = "Kahjiit"
+    NORD = "Nord"
+    ORC = "Orc"
+    REDGUARD = "Redguard"
+    WOOD_ELF = "Wood Elf"
 
 
 class TES3Sexes(enum.Enum):
