@@ -898,8 +898,9 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.NO_ONE_RETURNS_FROM_HADES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15204, 1),),
         archipelago_id=LOCATION_OFFSET + 83,
-        region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        region=ZorkGrandInquisitorRegions.HADES,
         tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(ZorkGrandInquisitorEvents.BEYOND_GATES_OF_HELL_ACCESSED,)
     ),
     ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12164, 1),),
@@ -1997,6 +1998,12 @@ location_data: Dict[
         ),
     ),
     # Events
+    ZorkGrandInquisitorEvents.BEYOND_GATES_OF_HELL_ACCESSED: ZorkGrandInquisitorLocationData(
+        game_state_trigger=None,
+        archipelago_id=None,
+        region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        event_item_name=ZorkGrandInquisitorEvents.BEYOND_GATES_OF_HELL_ACCESSED.value,
+    ),
     ZorkGrandInquisitorEvents.CHARON_CALLED: ZorkGrandInquisitorLocationData(
         game_state_trigger=None,
         archipelago_id=None,

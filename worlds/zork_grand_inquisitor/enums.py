@@ -25,6 +25,7 @@ class ZorkGrandInquisitorEntranceRandomizer(enum.Enum):
 
 
 class ZorkGrandInquisitorEvents(enum.Enum):
+    BEYOND_GATES_OF_HELL_ACCESSED = "Event: Beyond Gates of Hell Accessed"
     CHARON_CALLED = "Event: Charon Called"
     DALBOZ_LOCKER_OPENABLE = "Event: Dalboz Locker Openable"
     DAM_DESTROYED = "Event: Dam Destroyed"
