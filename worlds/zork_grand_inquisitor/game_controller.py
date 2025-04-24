@@ -1,3 +1,6 @@
+# TODO: Tracker items seem to be delayed by 1 item received? UI update firing before game_controller sets updated?
+# TODO: Tracker: Add location checked / location total in location label
+
 import collections
 import datetime
 import functools
@@ -15,6 +18,7 @@ from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.mapping_data import (
     death_cause_labels,
     entrance_names,
+    game_location_to_region,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
     voxam_cast_game_locations,
@@ -98,8 +102,8 @@ class GameController:
     entrance_randomizer_data: Dict[Tuple[str, str], Tuple[str, str]]
     entrance_randomizer_last_locations_visited: collections.deque
 
-    discovered_regions: Set[ZorkGrandInquisitorRegions]
-    discovered_entrances: Set[Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorRegions]]
+    discovered_regions: Set[str]
+    discovered_entrances: Set[str]
 
     received_traps: List[ZorkGrandInquisitorItems]
 
@@ -186,7 +190,7 @@ class GameController:
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_last_locations_visited = collections.deque(maxlen=2)
 
-        self.discovered_regions = set()
+        self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
         self.discovered_entrances = set()
 
         self.received_traps = list()
@@ -452,6 +456,8 @@ class GameController:
 
                 self._apply_permanent_game_flags()
 
+                self._manage_game_location()
+
                 if self.option_entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
                     self._manage_entrance_randomizer()
 
@@ -521,7 +527,7 @@ class GameController:
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_last_locations_visited = collections.deque(maxlen=2)
 
-        self.discovered_regions = set()
+        self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
         self.discovered_entrances = set()
 
         self.received_traps = list()
@@ -819,6 +825,16 @@ class GameController:
         self._write_game_flags_value_for(10838, 2)  # Keep Spellbar Enabled (pp1j)
         self._write_game_flags_value_for(8435, 0)  # Always Allow Moving to Hades Phone
         self._write_game_flags_value_for(4991, 0)  # Always Allow Moving to DM Lair Mirror
+
+    def _manage_game_location(self) -> None:
+        if self._read_game_state_value_for(19985) == 0:
+            return
+
+        if self.game_location not in game_location_to_region:
+            return
+
+        if self._player_is_at_for_at_least(self.game_location, 1000):
+            self.discovered_regions.add(game_location_to_region[self.game_location].value)
 
     def _manage_entrance_randomizer(self) -> None:
         if self._read_game_state_value_for(19985) == 0:
@@ -1866,7 +1882,14 @@ class GameController:
 
         i: int
         for i in range(151, 171):
-            inventory_item_values.add(self._read_game_state_value_for(i))
+            inventory_item_value: int = self._read_game_state_value_for(i)
+
+            # Always get rid of blue sword. Causes issues with ER
+            if inventory_item_value == 100:
+                inventory_item_value = 21
+                self._write_game_state_value_for(i, inventory_item_value)
+
+            inventory_item_values.add(inventory_item_value)
 
         cursor_item_value: int = self._read_game_state_value_for(9)
         inspector_item_value: int = self._read_game_state_value_for(4512)
@@ -1938,10 +1961,6 @@ class GameController:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.SWORD:
                 if 22 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif 100 in inventory_item_values:
-                    to_filter_inventory_items.add(item)
-                elif 111 in inventory_item_values:
                     to_filter_inventory_items.add(item)
             elif item == ZorkGrandInquisitorItems.ZIMDOR_SCROLL:
                 if self._read_game_state_value_for(12167) == 1:
