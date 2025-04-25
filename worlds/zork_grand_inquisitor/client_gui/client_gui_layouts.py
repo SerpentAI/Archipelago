@@ -111,6 +111,7 @@ class TrackerLocationsLayout(MDScrollView):
 
     layout: BoxLayout
 
+    title_label: Label
     location_labels: Dict[ZorkGrandInquisitorLocations, TrackerLocationLabel]
 
     def __init__(self, ctx: ZorkGrandInquisitorContext) -> None:
@@ -123,8 +124,8 @@ class TrackerLocationsLayout(MDScrollView):
 
         self.location_labels = dict()
 
-        title_label: Label = Label(
-            text="[b]Locations[/b]",
+        self.title_label = Label(
+            text=f"[b]Locations  ({len(self.ctx.checked_locations)} / {len(self.ctx.server_locations)})[/b]",
             markup=True,
             font_size="20dp",
             size_hint_y=None,
@@ -133,9 +134,9 @@ class TrackerLocationsLayout(MDScrollView):
             valign="middle",
         )
 
-        title_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.title_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-        self.layout.add_widget(title_label)
+        self.layout.add_widget(self.title_label)
 
         locations_core: List[ZorkGrandInquisitorLocations] = [
             ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE,
@@ -424,6 +425,10 @@ class TrackerLocationsLayout(MDScrollView):
         self.add_widget(self.layout)
 
     def update(self) -> None:
+        self.title_label.text = (
+            f"[b]Locations  ({len(self.ctx.checked_locations)} / {len(self.ctx.server_locations)})[/b]"
+        )
+
         location_label: TrackerLocationLabel
         for location_label in self.location_labels.values():
             location_label.update()

@@ -1,5 +1,4 @@
 # TODO: Tracker items seem to be delayed by 1 item received? UI update firing before game_controller sets updated?
-# TODO: Tracker: Add location checked / location total in location label
 
 import collections
 import datetime
