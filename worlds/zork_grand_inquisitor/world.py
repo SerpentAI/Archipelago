@@ -155,6 +155,12 @@ class ZorkGrandInquisitorWorld(World):
     trap_percentage: int
     trap_weights: Tuple[int, ...]
 
+    # Needed for item link
+    def __init__(self, multiworld: "MultiWorld", player: int):
+        super().__init__(multiworld, player)
+
+        self.item_data = dict()
+
     @property
     def is_universal_tracker(self) -> bool:
         return hasattr(self.multiworld, "re_gen_passthrough")
@@ -237,7 +243,7 @@ class ZorkGrandInquisitorWorld(World):
 
                 logging.warning(
                     f"Zork Grand Inquisitor: {self.player_name} wants to grant missable location checks but "
-                    "has the entrance randomizer enabled. Disabling the grantinmg of missable location checks..."
+                    "has the entrance randomizer enabled. Disabling the granting of missable location checks..."
                 )
 
         self.entrance_randomizer_pairings = dict()
