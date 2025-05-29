@@ -1391,7 +1391,7 @@ location_data: Dict[
         game_state_trigger=((16286, 1),),
         archipelago_id=LOCATION_OFFSET + 118,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
-        description="LCast KENDALL while reading How to Win at Double Fanucci inside locker #8 in the GUE Tech hallway",
+        description="Cast KENDALL while reading How to Win at Double Fanucci inside locker #8 in the GUE Tech hallway",
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE,

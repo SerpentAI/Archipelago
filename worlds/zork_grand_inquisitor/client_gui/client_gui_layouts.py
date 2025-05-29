@@ -1,9 +1,9 @@
 from typing import Dict, List, Set, Tuple
 
-import kivy.utils
-
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
 
@@ -45,6 +45,17 @@ class NotConnectedLayout(BoxLayout):
         self.size_hint_y = None
         self.height = "0dp"
         self.disabled = True
+
+
+class ExplainButton(Button):
+    popup: Popup
+
+    def __init__(self, popup: Popup = None, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.popup = popup
+
+    def on_press(self):
+        self.popup.open()
 
 
 class TrackerLocationLabel(Label):
@@ -112,7 +123,7 @@ class TrackerLocationsLayout(ScrollView):
 
         self.ctx = ctx
 
-        self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
+        self.layout = BoxLayout(orientation="vertical", size_hint_y=None, spacing="2dp")
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
         self.location_labels = dict()
@@ -289,7 +300,24 @@ class TrackerLocationsLayout(ScrollView):
 
         location: ZorkGrandInquisitorLocations
         for location in locations_core:
+            row_layout: BoxLayout = BoxLayout(orientation="horizontal", size_hint_y=None, height="22dp", spacing="6dp")
+
             data: ZorkGrandInquisitorLocationData = location_data[location]
+
+            popup: Popup = Popup(
+                title=f"How do I check {location.value}?",
+                content=Label(text=data.description),
+                size_hint=(0.6, 0.2),
+            )
+
+            explain_button: ExplainButton = ExplainButton(
+                text="?",
+                width="16dp",
+                size_hint_x=None,
+                popup=popup,
+            )
+
+            row_layout.add_widget(explain_button)
 
             location_label: TrackerLocationLabel = TrackerLocationLabel(
                 self.ctx,
@@ -301,7 +329,9 @@ class TrackerLocationsLayout(ScrollView):
             location_label.update()
 
             self.location_labels[location] = location_label
-            self.layout.add_widget(location_label)
+            row_layout.add_widget(location_label)
+
+            self.layout.add_widget(row_layout)
 
         self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
 
@@ -345,7 +375,24 @@ class TrackerLocationsLayout(ScrollView):
 
             location: ZorkGrandInquisitorLocations
             for location in locations_deathsanity:
+                row_layout: BoxLayout = BoxLayout(orientation="horizontal", size_hint_y=None, height="22dp", spacing="6dp")
+
                 data: ZorkGrandInquisitorLocationData = location_data[location]
+
+                popup: Popup = Popup(
+                    title=f"How do I check {location.value}?",
+                    content=Label(text=data.description),
+                    size_hint=(0.6, 0.2),
+                )
+
+                explain_button: ExplainButton = ExplainButton(
+                    text="?",
+                    width="16dp",
+                    size_hint_x=None,
+                    popup=popup,
+                )
+
+                row_layout.add_widget(explain_button)
 
                 location_label: TrackerLocationLabel = TrackerLocationLabel(
                     self.ctx,
@@ -357,7 +404,9 @@ class TrackerLocationsLayout(ScrollView):
                 location_label.update()
 
                 self.location_labels[location] = location_label
-                self.layout.add_widget(location_label)
+                row_layout.add_widget(location_label)
+
+                self.layout.add_widget(row_layout)
 
             self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
 
@@ -399,7 +448,24 @@ class TrackerLocationsLayout(ScrollView):
 
             location: ZorkGrandInquisitorLocations
             for location in locations_landmarksanity:
+                row_layout: BoxLayout = BoxLayout(orientation="horizontal", size_hint_y=None, height="22dp", spacing="6dp")
+
                 data: ZorkGrandInquisitorLocationData = location_data[location]
+
+                popup: Popup = Popup(
+                    title=f"How do I check {location.value}?",
+                    content=Label(text=data.description),
+                    size_hint=(0.6, 0.2),
+                )
+
+                explain_button: ExplainButton = ExplainButton(
+                    text="?",
+                    width="16dp",
+                    size_hint_x=None,
+                    popup=popup,
+                )
+
+                row_layout.add_widget(explain_button)
 
                 location_label: TrackerLocationLabel = TrackerLocationLabel(
                     self.ctx,
@@ -411,7 +477,9 @@ class TrackerLocationsLayout(ScrollView):
                 location_label.update()
 
                 self.location_labels[location] = location_label
-                self.layout.add_widget(location_label)
+                row_layout.add_widget(location_label)
+
+                self.layout.add_widget(row_layout)
 
             self.layout.add_widget(Widget(size_hint_y=None, height="20dp"))
 
