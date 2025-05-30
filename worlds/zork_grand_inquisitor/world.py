@@ -95,7 +95,6 @@ class ZorkGrandInquisitorWebWorld(WebWorld):
         )
     ]
 
-    # Option presets here...
     option_groups = option_groups
 
 
@@ -154,6 +153,8 @@ class ZorkGrandInquisitorWorld(World):
     starting_location: ZorkGrandInquisitorStartingLocations
     trap_percentage: int
     trap_weights: Tuple[int, ...]
+
+    ut_can_gen_without_yaml: bool = True
 
     # Needed for item link
     def __init__(self, multiworld: "MultiWorld", player: int):

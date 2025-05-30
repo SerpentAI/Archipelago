@@ -369,8 +369,6 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     client_seed_information: ClientSeedInformation
 
 
-# Option presets here...
-
 option_groups: List[OptionGroup] = [
     OptionGroup(
         "Goal Options",
