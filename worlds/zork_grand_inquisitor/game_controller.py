@@ -1,11 +1,8 @@
-# TODO: Tracker items seem to be delayed by 1 item received? UI update firing before game_controller sets updated?
-
 import collections
 import datetime
 import functools
 import logging
 import random
-import traceback  # TODO: Only in dev
 import time
 
 from typing import Dict, List, Optional, Set, Tuple, Union
@@ -372,69 +369,6 @@ class GameController:
             if self.goal_item_count >= self.option_deaths_required:
                 self.log("All needed Deaths have been experienced! Go beyond the gates of hell to win")
 
-    def list_received_brog_items(self) -> None:
-        self.log("Received Brog Items:")
-
-        self._process_received_items()
-        received_brog_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.brog_items
-
-        if not len(received_brog_items):
-            self.log("    Nothing")
-            return
-
-        for item in sorted(i.value for i in received_brog_items):
-            self.log(f"    {item}")
-
-    def list_received_griff_items(self) -> None:
-        self.log("Received Griff Items:")
-
-        self._process_received_items()
-        received_griff_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.griff_items
-
-        if not len(received_griff_items):
-            self.log("    Nothing")
-            return
-
-        for item in sorted(i.value for i in received_griff_items):
-            self.log(f"    {item}")
-
-    def list_received_lucy_items(self) -> None:
-        self.log("Received Lucy Items:")
-
-        self._process_received_items()
-        received_lucy_items: Set[ZorkGrandInquisitorItems] = self.received_items & self.lucy_items
-
-        if not len(received_lucy_items):
-            self.log("    Nothing")
-            return
-
-        for item in sorted(i.value for i in received_lucy_items):
-            self.log(f"    {item}")
-
-    def list_received_hotspots(self) -> None:
-        if self.option_hotspots == ZorkGrandInquisitorHotspots.ENABLED:
-            self.log("Hotspots are enabled for this seed and don't require items")
-            return
-
-        self.log("Received Hotspots:")
-
-        self._process_received_items()
-
-        hotspot_items: Set[ZorkGrandInquisitorItems] = set()
-        if self.option_hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION:
-            hotspot_items = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT_REGIONAL)
-        elif self.option_hotspots == ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT:
-            hotspot_items = items_with_tag(ZorkGrandInquisitorTags.HOTSPOT)
-
-        received_hotspots: Set[ZorkGrandInquisitorItems] = self.received_items & hotspot_items
-
-        if not len(received_hotspots):
-            self.log("    Nothing")
-            return
-
-        for item in sorted(i.value for i in received_hotspots):
-            self.log(f"    {item}")
-
     def update(self) -> None:
         if self.game_state_manager.is_process_still_running():
             try:
@@ -484,7 +418,6 @@ class GameController:
                 self._check_for_victory()
             except Exception as e:
                 self.log_debug(e)
-                traceback.print_exc()
 
     def reset(self) -> None:
         self.received_items = set()

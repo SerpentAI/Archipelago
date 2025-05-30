@@ -6,7 +6,7 @@
 - A copy of Zork Grand Inquisitor. Only the GOG version is supported. The Steam version can work with some tinkering but
   is not officially supported.
 - ScummVM 2.7.1 64-bit (Important: Will not work with any other version. [Direct Download](https://downloads.scummvm.org/frs/scummvm/2.7.1/scummvm-2.7.1-win32-x86_64.zip))
-- Archipelago 0.4.4+
+- Archipelago 0.6.0+
 
 ## Game Setup Instructions
 

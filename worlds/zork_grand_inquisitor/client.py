@@ -55,22 +55,6 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
         else:
             self.output("Failed to attach to Zork Grand Inquisitor process.")
 
-    def _cmd_brog(self) -> None:
-        """List received Brog items."""
-        self.ctx.game_controller.list_received_brog_items()
-
-    def _cmd_griff(self) -> None:
-        """List received Griff items."""
-        self.ctx.game_controller.list_received_griff_items()
-
-    def _cmd_lucy(self) -> None:
-        """List received Lucy items."""
-        self.ctx.game_controller.list_received_lucy_items()
-
-    def _cmd_hotspots(self) -> None:
-        """List received Hotspots."""
-        self.ctx.game_controller.list_received_hotspots()
-
     def _cmd_deathlink(self) -> None:
         """Toggle deathlink status."""
         if not self.ctx.game_controller.option_death_link:
