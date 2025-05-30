@@ -432,7 +432,7 @@ game_location_to_region: Dict[
     "te30": ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
     "te40": ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
     "te50": ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
-    "th10": ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
+    "th20": ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
     "th30": ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
     "tp10": ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
     "tp20": ZorkGrandInquisitorRegions.SPELL_LAB,

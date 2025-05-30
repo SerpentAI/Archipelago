@@ -1,5 +1,7 @@
 from typing import Dict, List, Set, Tuple
 
+import NetUtils
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -10,7 +12,8 @@ from kivy.uix.widget import Widget
 from ..client import ZorkGrandInquisitorContext
 from ..data.entrance_randomizer_data import randomizable_entrances, randomizable_entrances_subway
 from ..data.location_data import ZorkGrandInquisitorLocationData, location_data
-from ..data.mapping_data import entrance_names, entrance_names_reverse
+from ..data.mapping_data import entrance_names, entrance_names_reverse, hotspots_for_regional_hotspot
+from ..data_funcs import is_location_in_logic
 
 from ..enums import (
     ZorkGrandInquisitorDeathsanity,
@@ -64,8 +67,6 @@ class TrackerLocationLabel(Label):
     region: ZorkGrandInquisitorRegions
     location: ZorkGrandInquisitorLocations
 
-    # requirements: bool
-
     in_logic: bool
     checked: bool
 
@@ -74,7 +75,6 @@ class TrackerLocationLabel(Label):
         ctx: ZorkGrandInquisitorContext,
         region: ZorkGrandInquisitorRegions,
         location: ZorkGrandInquisitorLocations,
-        # requirements: bool,
     ) -> None:
         super().__init__(
             text=f"[b][color=00FF7F]{region.value}:[/color][/b]  {location.value}",
@@ -91,23 +91,25 @@ class TrackerLocationLabel(Label):
         self.region = region
         self.location = location
 
-        # self.requirements = requirements
-
         self.in_logic = False
         self.checked = False
 
         self.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-    def update(self) -> None:
+    def update(
+        self,
+        discovered_regions: Set[ZorkGrandInquisitorRegions],
+        received_items: Set[ZorkGrandInquisitorItems],
+    ) -> None:
         self.checked = self.location in self.ctx.locations_checked
+        self.in_logic = is_location_in_logic(self.location, discovered_regions, received_items)
 
         if self.checked:
             self.opacity = 0.1
-        # elif self.in_logic:
-        #     self.opacity = 1.0
-        else:
-            # self.opacity = 0.25
+        elif self.in_logic:
             self.opacity = 1.0
+        else:
+            self.opacity = 0.3
 
 
 class TrackerLocationsLayout(ScrollView):
@@ -141,6 +143,20 @@ class TrackerLocationsLayout(ScrollView):
         self.title_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
         self.layout.add_widget(self.title_label)
+
+        note_label: Label = Label(
+            text="This location tracker does not spoil region access.\nYou will need to gain access to each region in-game to discover which of its locations are in logic for the rest of the seed.\n\nIf you prefer more traditional tracker behavior, the Zork APWorld is fully compatible with Universal Tracker.",
+            font_size="12dp",
+            size_hint_y=None,
+            height="72 dp",
+            halign="left",
+            valign="top",
+            opacity=0.5,
+        )
+
+        note_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        self.layout.add_widget(note_label)
 
         locations_core: List[ZorkGrandInquisitorLocations] = [
             ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE,
@@ -323,10 +339,7 @@ class TrackerLocationsLayout(ScrollView):
                 self.ctx,
                 data.region,
                 location,
-                # data.requirements,
             )
-
-            location_label.update()
 
             self.location_labels[location] = location_label
             row_layout.add_widget(location_label)
@@ -398,10 +411,7 @@ class TrackerLocationsLayout(ScrollView):
                     self.ctx,
                     data.region,
                     location,
-                    # data.requirements,
                 )
-
-                location_label.update()
 
                 self.location_labels[location] = location_label
                 row_layout.add_widget(location_label)
@@ -471,10 +481,7 @@ class TrackerLocationsLayout(ScrollView):
                     self.ctx,
                     data.region,
                     location,
-                    # data.requirements,
                 )
-
-                location_label.update()
 
                 self.location_labels[location] = location_label
                 row_layout.add_widget(location_label)
@@ -485,14 +492,35 @@ class TrackerLocationsLayout(ScrollView):
 
         self.add_widget(self.layout)
 
+        self.update()
+
     def update(self) -> None:
-        self.title_label.text = (
-            f"[b]Locations  ({len(self.ctx.checked_locations)} / {len(self.ctx.server_locations)})[/b]"
-        )
+        discovered_regions: Set[ZorkGrandInquisitorRegions] = set()
+
+        if self.ctx.data_storage_key is not None and self.ctx.data_storage_key in self.ctx.stored_data:
+            region_name: str
+            for region_name in self.ctx.stored_data[self.ctx.data_storage_key].get("discovered_regions", list()):
+                discovered_regions.add(ZorkGrandInquisitorRegions(region_name))
+
+        received_items: Set[ZorkGrandInquisitorItems] = set()
+
+        network_item: NetUtils.NetworkItem
+        for network_item in self.ctx.items_received:
+            if network_item.item in self.ctx.id_to_items:
+                received_items.add(self.ctx.id_to_items[network_item.item])
+
+        in_logic_count: int = 0
 
         location_label: TrackerLocationLabel
         for location_label in self.location_labels.values():
-            location_label.update()
+            location_label.update(discovered_regions, received_items)
+
+            if location_label.in_logic and not location_label.checked:
+                in_logic_count += 1
+
+        self.title_label.text = (
+            f"[b]Locations  ({len(self.ctx.checked_locations)} / {len(self.ctx.server_locations)}, {in_logic_count} in Logic, {len(discovered_regions) - 1} Region(s) Discovered)[/b]"
+        )
 
 
 class TrackerItemLabel(Label):
@@ -528,15 +556,12 @@ class TrackerItemLabel(Label):
             ZorkGrandInquisitorItems.LANDMARK,
         )
 
-    def update(self) -> None:
+    def update(self, received_items: Dict[ZorkGrandInquisitorItems, int]) -> None:
         if self.is_goal_item:
-            self.count = self.ctx.game_controller.goal_item_count
+            self.count = received_items.get(self.item, 0)
             self.received = self.count > 0
         else:
-            is_item_in_received: bool = self.item in self.ctx.game_controller.received_items
-            is_item_in_queue: bool = self.item in self.ctx.game_controller.received_items_queue
-
-            self.received = is_item_in_received or is_item_in_queue
+            self.received = self.item in received_items
 
         if self.received:
             self.opacity = 1.0
@@ -599,7 +624,6 @@ class TrackerItemsLayout(ScrollView):
             item: ZorkGrandInquisitorItems
             for item in items_goal:
                 item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-                item_label.update()
 
                 self.item_labels[item] = item_label
                 self.layout.add_widget(item_label)
@@ -636,7 +660,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_inventory:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -660,7 +683,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_spells:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -676,7 +698,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_totems:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -692,7 +713,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_brog:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -709,7 +729,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_griff:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -726,7 +745,6 @@ class TrackerItemsLayout(ScrollView):
         item: ZorkGrandInquisitorItems
         for item in items_lucy:
             item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
-            item_label.update()
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -735,10 +753,21 @@ class TrackerItemsLayout(ScrollView):
 
         self.add_widget(self.layout)
 
+        self.update()
+
     def update(self) -> None:
+        received_items: Dict[ZorkGrandInquisitorItems, int] = dict()
+
+        network_item: NetUtils.NetworkItem
+        for network_item in self.ctx.items_received:
+            if network_item.item in self.ctx.id_to_items:
+                item: ZorkGrandInquisitorItems = self.ctx.id_to_items[network_item.item]
+
+                received_items[item] = received_items.get(item, 0) + 1
+
         item_label: TrackerItemLabel
         for item_label in self.item_labels.values():
-            item_label.update()
+            item_label.update(received_items)
 
 
 class TrackerDestinationsHotspotsLabel(Label):
@@ -764,11 +793,8 @@ class TrackerDestinationsHotspotsLabel(Label):
 
         self.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-    def update(self) -> None:
-        is_item_in_received: bool = self.item in self.ctx.game_controller.received_items
-        is_item_in_queue: bool = self.item in self.ctx.game_controller.received_items_queue
-
-        self.received = is_item_in_received or is_item_in_queue
+    def update(self, received_items: Dict[ZorkGrandInquisitorItems, int]) -> None:
+        self.received = self.item in received_items
 
         if self.received:
             self.opacity = 1.0
@@ -820,8 +846,6 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
                 self.ctx, item
             )
 
-            destination_hotspot_label.update()
-
             self.destination_hotspot_labels[item] = destination_hotspot_label
             self.layout.add_widget(destination_hotspot_label)
 
@@ -842,8 +866,6 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
                 self.ctx, item
             )
 
-            destination_hotspot_label.update()
-
             self.destination_hotspot_labels[item] = destination_hotspot_label
             self.layout.add_widget(destination_hotspot_label)
 
@@ -862,8 +884,6 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
             destination_hotspot_label: TrackerDestinationsHotspotsLabel = TrackerDestinationsHotspotsLabel(
                 self.ctx, item
             )
-
-            destination_hotspot_label.update()
 
             self.destination_hotspot_labels[item] = destination_hotspot_label
             self.layout.add_widget(destination_hotspot_label)
@@ -936,8 +956,6 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
                 self.ctx, item
             )
 
-            destination_hotspot_label.update()
-
             self.destination_hotspot_labels[item] = destination_hotspot_label
             self.layout.add_widget(destination_hotspot_label)
 
@@ -945,10 +963,28 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
         self.add_widget(self.layout)
 
+        self.update()
+
     def update(self) -> None:
+        received_items: Dict[ZorkGrandInquisitorItems, int] = dict()
+
+        network_item: NetUtils.NetworkItem
+        for network_item in self.ctx.items_received:
+            if network_item.item in self.ctx.id_to_items:
+                item: ZorkGrandInquisitorItems = self.ctx.id_to_items[network_item.item]
+
+                if item in hotspots_for_regional_hotspot:
+                    hotspot: ZorkGrandInquisitorItems
+                    for hotspot in hotspots_for_regional_hotspot[item]:
+                        received_items[hotspot] = received_items.get(hotspot, 0) + 1
+
+                    continue
+
+                received_items[item] = received_items.get(item, 0) + 1
+
         destination_hotspot_label: TrackerDestinationsHotspotsLabel
         for destination_hotspot_label in self.destination_hotspot_labels.values():
-            destination_hotspot_label.update()
+            destination_hotspot_label.update(received_items)
 
 
 class TrackerTabLayout(BoxLayout):
@@ -1049,7 +1085,7 @@ class EntranceLabel(Label):
 
     def update(self) -> None:
         if self.ctx.data_storage_key is not None and self.ctx.data_storage_key in self.ctx.stored_data:
-            if self.entrance_name in self.ctx.stored_data[self.ctx.data_storage_key].get("discovered_entrances", []):
+            if self.entrance_name in self.ctx.stored_data[self.ctx.data_storage_key].get("discovered_entrances", list()):
                 destination_entrance_name: str = self.ctx.entrance_randomizer_data_by_name[self.entrance_name]
                 destination_region: ZorkGrandInquisitorRegions = entrance_names_reverse[destination_entrance_name][1]
 

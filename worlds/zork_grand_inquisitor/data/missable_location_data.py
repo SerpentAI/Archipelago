@@ -112,7 +112,7 @@ missable_location_grant_conditions_data: Dict[
     ,
     ZorkGrandInquisitorLocations.FAT_LOT_OF_GOOD_THATLL_DO_YA:
         ZorkGrandInquisitorMissableLocationGrantConditionsData(
-            game_location_condition="tp1e",
+            game_location_condition="tp10",
             location_condition=(ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS,),
             item_conditions=(ZorkGrandInquisitorItems.SPELL_IGRAM,),
         )
@@ -212,7 +212,7 @@ missable_location_grant_conditions_data: Dict[
     ,
     ZorkGrandInquisitorLocations.THATS_STILL_A_ROPE:
         ZorkGrandInquisitorMissableLocationGrantConditionsData(
-            game_location_condition="tp1e",
+            game_location_condition="tp10",
             location_condition=(ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS,),
             item_conditions=(
                 ZorkGrandInquisitorItems.WELL_ROPE,

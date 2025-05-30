@@ -450,3 +450,65 @@ def goal_access_rule_for(
         player,
         dataset=dataset,
     )
+
+
+def is_location_in_logic(
+    location: Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents],
+    discovered_regions: Set[ZorkGrandInquisitorRegions],
+    received_items: Set[ZorkGrandInquisitorItems],
+) -> bool:
+    data: ZorkGrandInquisitorLocationData = location_data[location]
+
+    if data.region not in discovered_regions:
+        return False
+
+    if data.requirements is None:
+        return True
+
+    in_logic: bool = True
+
+    requirement: Union[
+        Tuple[
+            Union[
+                ZorkGrandInquisitorEvents,
+                ZorkGrandInquisitorItems,
+            ],
+            ...,
+        ],
+        ZorkGrandInquisitorEvents,
+        ZorkGrandInquisitorItems
+    ]
+    for requirement in data.requirements:
+        if isinstance(requirement, tuple):
+            sub_requirements_in_logic: List[bool] = list()
+
+            sub_requirement: Union[ZorkGrandInquisitorEvents, ZorkGrandInquisitorItems]
+            for sub_requirement in requirement:
+                if isinstance(sub_requirement, ZorkGrandInquisitorEvents):
+                    sub_requirements_in_logic.append(
+                        is_location_in_logic(
+                            sub_requirement,
+                            discovered_regions,
+                            received_items,
+                        )
+                    )
+                elif isinstance(sub_requirement, ZorkGrandInquisitorItems):
+                    sub_requirements_in_logic.append(sub_requirement in received_items)
+
+            if not any(sub_requirements_in_logic):
+                in_logic = False
+                break
+        elif isinstance(requirement, ZorkGrandInquisitorEvents):
+            if not is_location_in_logic(
+                requirement,
+                discovered_regions,
+                received_items,
+            ):
+                in_logic = False
+                break
+        elif isinstance(requirement, ZorkGrandInquisitorItems):
+            if requirement not in received_items:
+                in_logic = False
+                break
+
+    return in_logic

@@ -415,7 +415,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.EMERGENCY_MAGICATRONIC_MESSAGE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((11784, 1),),
+        game_state_trigger=(((11784, 11786), 1),),
         archipelago_id=LOCATION_OFFSET + 33,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Activate the Belboz painting in the GUE Tech hallway",
