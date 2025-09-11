@@ -76,7 +76,21 @@ item_data_transforms: Dict[
     },
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: None,
     ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: None,
-    ZorkGrandInquisitorGoals.SPELL_HEIST: None,
+    ZorkGrandInquisitorGoals.SPELL_HEIST: {
+        ZorkGrandInquisitorItemTransforms.MAKE_DEPRIORITIZED_SKIP_BALANCING: (
+            ZorkGrandInquisitorItems.SPELL_BEBURTT,
+            ZorkGrandInquisitorItems.SPELL_GLORF,
+            ZorkGrandInquisitorItems.SPELL_GOLGATEM,
+            ZorkGrandInquisitorItems.SPELL_IGRAM,
+            ZorkGrandInquisitorItems.SPELL_KENDALL,
+            ZorkGrandInquisitorItems.SPELL_OBIDIL,
+            ZorkGrandInquisitorItems.SPELL_NARWILE,
+            ZorkGrandInquisitorItems.SPELL_REZROV,
+            ZorkGrandInquisitorItems.SPELL_SNAVIG,
+            ZorkGrandInquisitorItems.SPELL_THROCK,
+            ZorkGrandInquisitorItems.SPELL_YASTARD,
+        )
+    },
     ZorkGrandInquisitorGoals.ZORK_TOUR: None,
     ZorkGrandInquisitorGoals.GRIM_JOURNEY: None,
     ZorkGrandInquisitorDeathsanity.OFF: {

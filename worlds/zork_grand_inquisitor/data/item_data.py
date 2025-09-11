@@ -1382,7 +1382,7 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
     ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC: ZorkGrandInquisitorItemData(
         statemap_keys=None,
         archipelago_id=ITEM_OFFSET + 800 + 3,
-        classification=ItemClassification.progression,
+        classification=ItemClassification.progression_deprioritized_skip_balancing,
         tags=(ZorkGrandInquisitorTags.GOAL_ARTIFACT_OF_MAGIC_HUNT,),
     ),
     ZorkGrandInquisitorItems.LANDMARK: ZorkGrandInquisitorItemData(

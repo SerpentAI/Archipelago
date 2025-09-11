@@ -197,6 +197,7 @@ def prepare_item_data(
 
     # Apply transformations
     items_to_make_filler: Set[ZorkGrandInquisitorItems] = set()
+    items_to_make_deprioritized_skip_balancing: Set[ZorkGrandInquisitorItems] = set()
 
     for context in (starting_location, goal, deathsanity, landmarksanity):
         if item_data_transforms[context] is not None:
@@ -211,11 +212,20 @@ def prepare_item_data(
                     item: ZorkGrandInquisitorItems
                     for item in items:
                         items_to_make_filler.add(item)
+                elif transform == ZorkGrandInquisitorItemTransforms.MAKE_DEPRIORITIZED_SKIP_BALANCING:
+                    item: ZorkGrandInquisitorItems
+                    for item in items:
+                        items_to_make_deprioritized_skip_balancing.add(item)
 
     item: ZorkGrandInquisitorItems
     for item in items_to_make_filler:
         transformed_item_data[item] = transformed_item_data[item]._replace(
             classification=ItemClassification.filler
+        )
+
+    for item in items_to_make_deprioritized_skip_balancing:
+        transformed_item_data[item] = transformed_item_data[item]._replace(
+            classification=ItemClassification.progression_deprioritized_skip_balancing
         )
 
     return transformed_item_data

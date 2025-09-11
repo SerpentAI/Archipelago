@@ -275,6 +275,7 @@ class ZorkGrandInquisitorItems(enum.Enum):
 
 
 class ZorkGrandInquisitorItemTransforms(enum.Enum):
+    MAKE_DEPRIORITIZED_SKIP_BALANCING = "Make Deprioritized + Skip Balancing"
     MAKE_FILLER = "Make Filler"
 
 
