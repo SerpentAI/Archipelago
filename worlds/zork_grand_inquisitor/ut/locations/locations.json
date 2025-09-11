@@ -1,0 +1,3237 @@
+[
+    {
+        "name": "Zork Grand Inquisitor",
+        "children": [
+            {
+                "name": "Don't Go Spending it All in One Place",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 380,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Don't Go Spending it All in One Place"
+                    }
+                ]
+            },
+            {
+                "name": "Old Scratch Winner!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 190,
+                        "y": 380,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Old Scratch Winner!"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Contractually Obligated",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 250,
+                        "y": 380,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Contractually Obligated"
+                    }
+                ]
+            },
+            {
+                "name": "Me! I am the Boss of You!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 44,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Me! I am the Boss of You!"
+                    }
+                ]
+            },
+            {
+                "name": "Totemized Daily Billboard Functioning Correctly",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 74,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Totemized Daily Billboard Functioning Correctly"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Inquisition Headquarters",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 44,
+                        "y": 110,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Inquisition Headquarters"
+                    }
+                ]
+            },
+            {
+                "name": "Elsewhere",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 404,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Elsewhere"
+                    }
+                ]
+            },
+            {
+                "name": "Arrest the Vandal!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 764,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Arrest the Vandal!"
+                    }
+                ]
+            },
+            {
+                "name": "Cut That Out You Little Creep!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 794,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Cut That Out You Little Creep!"
+                    }
+                ]
+            },
+            {
+                "name": "Fire! Fire!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 824,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Fire! Fire!"
+                    }
+                ]
+            },
+            {
+                "name": "GO AWAY!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 854,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "GO AWAY!"
+                    }
+                ]
+            },
+            {
+                "name": "Help... Me. Can't... Breathe",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 884,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Help... Me. Can't... Breathe"
+                    }
+                ]
+            },
+            {
+                "name": "I'm Completely Nude",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 914,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I'm Completely Nude"
+                    }
+                ]
+            },
+            {
+                "name": "It's One of Those Adventurers Again...",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 944,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "It's One of Those Adventurers Again..."
+                    }
+                ]
+            },
+            {
+                "name": "I Don't Want No Trouble!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 974,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Don't Want No Trouble!"
+                    }
+                ]
+            },
+            {
+                "name": "Mead Light?",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1004,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mead Light?"
+                    }
+                ]
+            },
+            {
+                "name": "No Autographs",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1034,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "No Autographs"
+                    }
+                ]
+            },
+            {
+                "name": "No Bondage",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 764,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "No Bondage"
+                    }
+                ]
+            },
+            {
+                "name": "Only You Can Prevent Foozle Fires",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 794,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Only You Can Prevent Foozle Fires"
+                    }
+                ]
+            },
+            {
+                "name": "Talk to Me Grand Inquisitor",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 824,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Talk to Me Grand Inquisitor"
+                    }
+                ]
+            },
+            {
+                "name": "That's a Rope",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 854,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "That's a Rope"
+                    }
+                ]
+            },
+            {
+                "name": "That's the Spirit!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 884,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "That's the Spirit!"
+                    }
+                ]
+            },
+            {
+                "name": "What Are You, Stupid?",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 914,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "What Are You, Stupid?"
+                    }
+                ]
+            },
+            {
+                "name": "You One of Them Agitators, Ain't Ya?",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 944,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "You One of Them Agitators, Ain't Ya?"
+                    }
+                ]
+            },
+            {
+                "name": "You Want a Piece of Me, Dock Boy? or Girl",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 974,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "You Want a Piece of Me, Dock Boy? or Girl"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Interesting Philosophical Thought",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1034,
+                        "y": 110,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Interesting Philosophical Thought"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Port Foozle",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 764,
+                        "y": 110,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Port Foozle"
+                    }
+                ]
+            },
+            {
+                "name": "Planetfall",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1126,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Planetfall"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Jack's Shop",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1126,
+                        "y": 110,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Jack's Shop"
+                    }
+                ]
+            },
+            {
+                "name": "Boing, Boing, Boing",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Boing, Boing, Boing"
+                    }
+                ]
+            },
+            {
+                "name": "Bonk!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 190,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Bonk!"
+                    }
+                ]
+            },
+            {
+                "name": "Castle Watching: A Field Guide",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 220,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Castle Watching: A Field Guide"
+                    }
+                ]
+            },
+            {
+                "name": "Denied by the Lake Monster",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 250,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Denied by the Lake Monster"
+                    }
+                ]
+            },
+            {
+                "name": "Eggplants",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Eggplants"
+                    }
+                ]
+            },
+            {
+                "name": "Flying Snapdragon",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 310,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flying Snapdragon"
+                    }
+                ]
+            },
+            {
+                "name": "Frobruary 3 - Undergroundhog Day",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 340,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Frobruary 3 - Undergroundhog Day"
+                    }
+                ]
+            },
+            {
+                "name": "Hello, This is Shona from Gurth Publishing",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 370,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hello, This is Shona from Gurth Publishing"
+                    }
+                ]
+            },
+            {
+                "name": "It's Playing a Little Hard to Get",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "It's Playing a Little Hard to Get"
+                    }
+                ]
+            },
+            {
+                "name": "It Doesn't Appear to be Fooled",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 430,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "It Doesn't Appear to be Fooled"
+                    }
+                ]
+            },
+            {
+                "name": "I Don't Think You Would've Wanted That to Work Anyway",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Don't Think You Would've Wanted That to Work Anyway"
+                    }
+                ]
+            },
+            {
+                "name": "Lit Sunflowers",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 190,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lit Sunflowers"
+                    }
+                ]
+            },
+            {
+                "name": "Mushroom, Hammered",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 220,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mushroom, Hammered"
+                    }
+                ]
+            },
+            {
+                "name": "Natural and Supernatural Creatures of Quendor",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 250,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Natural and Supernatural Creatures of Quendor"
+                    }
+                ]
+            },
+            {
+                "name": "Nothin' Like a Good Stogie",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Nothin' Like a Good Stogie"
+                    }
+                ]
+            },
+            {
+                "name": "Oh, Wow! Talk About Deja Vu",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 310,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Oh, Wow! Talk About Deja Vu"
+                    }
+                ]
+            },
+            {
+                "name": "Outsmart the Quelbees",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 340,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Outsmart the Quelbees"
+                    }
+                ]
+            },
+            {
+                "name": "Prozorked",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 370,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Prozorked"
+                    }
+                ]
+            },
+            {
+                "name": "Reassemble SNAVIG",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Reassemble SNAVIG"
+                    }
+                ]
+            },
+            {
+                "name": "Right. Hello. Yes. Uh, This is Sneffle",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 430,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Right. Hello. Yes. Uh, This is Sneffle"
+                    }
+                ]
+            },
+            {
+                "name": "Right. Uh, Sorry. It's Me Again. Sneffle",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Right. Uh, Sorry. It's Me Again. Sneffle"
+                    }
+                ]
+            },
+            {
+                "name": "Taming Your Snapdragon",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 190,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Taming Your Snapdragon"
+                    }
+                ]
+            },
+            {
+                "name": "THROCKed Mushroom, Hammered",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 220,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "THROCKed Mushroom, Hammered"
+                    }
+                ]
+            },
+            {
+                "name": "Want Some Rye? Course Ya Do!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 250,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Want Some Rye? Course Ya Do!"
+                    }
+                ]
+            },
+            {
+                "name": "White House Time Tunnel",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "White House Time Tunnel"
+                    }
+                ]
+            },
+            {
+                "name": "Wow! I've Never Gone Inside Him Before!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 310,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Wow! I've Never Gone Inside Him Before!"
+                    }
+                ]
+            },
+            {
+                "name": "yaD gohdnuorgrednU - 3 yrauborF",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 340,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "yaD gohdnuorgrednU - 3 yrauborF"
+                    }
+                ]
+            },
+            {
+                "name": "Your Puny Weapons Don't Phase Me, Baby!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 370,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Your Puny Weapons Don't Phase Me, Baby!"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Antennae Nose Plugs",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 430,
+                        "y": 520,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Antennae Nose Plugs"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Just Under Half a Second",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 520,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Just Under Half a Second"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Dungeon Master's House",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 520,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Dungeon Master's House"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Mirror Room",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 190,
+                        "y": 520,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Mirror Room"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Walking Castle's Heart",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 220,
+                        "y": 520,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Walking Castle's Heart"
+                    }
+                ]
+            },
+            {
+                "name": "Beautiful, That's Plenty!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 820,
+                        "y": 550,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Beautiful, That's Plenty!"
+                    }
+                ]
+            },
+            {
+                "name": "Flood Control Dam #3: The Not Remotely Boring Tale",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 850,
+                        "y": 550,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flood Control Dam #3: The Not Remotely Boring Tale"
+                    }
+                ]
+            },
+            {
+                "name": "300 Year Old National Treasure",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 880,
+                        "y": 550,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "300 Year Old National Treasure"
+                    }
+                ]
+            },
+            {
+                "name": "Souvenir",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 910,
+                        "y": 550,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Souvenir"
+                    }
+                ]
+            },
+            {
+                "name": "Useless, But Fun",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 940,
+                        "y": 550,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Useless, But Fun"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Flood Control Dam #3",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 820,
+                        "y": 485,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Flood Control Dam #3"
+                    }
+                ]
+            },
+            {
+                "name": "A Big, Fat, SASSY 2-Headed Monster",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1050,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "A Big, Fat, SASSY 2-Headed Monster"
+                    }
+                ]
+            },
+            {
+                "name": "A Letter from the White House",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1080,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "A Letter from the White House"
+                    }
+                ]
+            },
+            {
+                "name": "Don't Even Start With Us, Sparky",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1110,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Don't Even Start With Us, Sparky"
+                    }
+                ]
+            },
+            {
+                "name": "Dragon Archipelago Time Tunnel",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1140,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Dragon Archipelago Time Tunnel"
+                    }
+                ]
+            },
+            {
+                "name": "Have a Hell of a Day!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1170,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Have a Hell of a Day!"
+                    }
+                ]
+            },
+            {
+                "name": "I Am Not Impressed",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1200,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Am Not Impressed"
+                    }
+                ]
+            },
+            {
+                "name": "Make Love, Not War",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1230,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Make Love, Not War"
+                    }
+                ]
+            },
+            {
+                "name": "Now You Look Like Us, Which is an Improvement",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1260,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Now You Look Like Us, Which is an Improvement"
+                    }
+                ]
+            },
+            {
+                "name": "NO ONE Returns from Hades",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1290,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "NO ONE Returns from Hades"
+                    }
+                ]
+            },
+            {
+                "name": "Open the Gates of Hell",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1320,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Open the Gates of Hell"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Not Charon",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1320,
+                        "y": 490,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Not Charon"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Gates of Hell",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1050,
+                        "y": 490,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Gates of Hell"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Hades Shore",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1080,
+                        "y": 490,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Hades Shore"
+                    }
+                ]
+            },
+            {
+                "name": "Artifacts, Explained",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 690,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Artifacts, Explained"
+                    }
+                ]
+            },
+            {
+                "name": "BEBURTT, Demystified",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 680,
+                        "y": 690,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "BEBURTT, Demystified"
+                    }
+                ]
+            },
+            {
+                "name": "Better Spell Manufacturing in Under 10 Minutes",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 710,
+                        "y": 690,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Better Spell Manufacturing in Under 10 Minutes"
+                    }
+                ]
+            },
+            {
+                "name": "Cave's Notes",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 690,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Cave's Notes"
+                    }
+                ]
+            },
+            {
+                "name": "Crisis Averted",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Crisis Averted"
+                    }
+                ]
+            },
+            {
+                "name": "How to Win at Double Fanucci",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 680,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "How to Win at Double Fanucci"
+                    }
+                ]
+            },
+            {
+                "name": "The Only Way to Win is Not to Play",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 710,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Only Way to Win is Not to Play"
+                    }
+                ]
+            },
+            {
+                "name": "Time Travel for Dummies",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Time Travel for Dummies"
+                    }
+                ]
+            },
+            {
+                "name": "Alarm System is Down",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 560,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Alarm System is Down"
+                    }
+                ]
+            },
+            {
+                "name": "A Smallway",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 590,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "A Smallway"
+                    }
+                ]
+            },
+            {
+                "name": "Dunce Locker",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 620,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Dunce Locker"
+                    }
+                ]
+            },
+            {
+                "name": "Emergency Magicatronic Message",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Emergency Magicatronic Message"
+                    }
+                ]
+            },
+            {
+                "name": "Getting Some Change",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 680,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Getting Some Change"
+                    }
+                ]
+            },
+            {
+                "name": "GUE Tech Entrance Exam",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 710,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "GUE Tech Entrance Exam"
+                    }
+                ]
+            },
+            {
+                "name": "Hey, Free Dirt!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hey, Free Dirt!"
+                    }
+                ]
+            },
+            {
+                "name": "It's Almost as if it Were... Infinite",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 770,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "It's Almost as if it Were... Infinite"
+                    }
+                ]
+            },
+            {
+                "name": "Look! An Ice Cream Bar",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 800,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Look! An Ice Cream Bar"
+                    }
+                ]
+            },
+            {
+                "name": "Mike's Pants",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 830,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mike's Pants"
+                    }
+                ]
+            },
+            {
+                "name": "NOOOOOOOOOOOOO!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 560,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "NOOOOOOOOOOOOO!"
+                    }
+                ]
+            },
+            {
+                "name": "Please Don't THROCK the Grass",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 590,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Please Don't THROCK the Grass"
+                    }
+                ]
+            },
+            {
+                "name": "Restocked on Gruesday",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 620,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Restocked on Gruesday"
+                    }
+                ]
+            },
+            {
+                "name": "Sucking Rocks",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Sucking Rocks"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Pretty Painless",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 830,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Pretty Painless"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Expressly Forbidden",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 800,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Expressly Forbidden"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Tiny Step for Mankind",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 770,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Tiny Step for Mankind"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Old Age",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Old Age"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: GUE Tech Fountain (Inside)",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 560,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: GUE Tech Fountain (Inside)"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Infinite Corridor",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 590,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Infinite Corridor"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: GUE Tech Fountain (Outside)",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 620,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: GUE Tech Fountain (Outside)"
+                    }
+                ]
+            },
+            {
+                "name": "Fat Lot of Good That'll Do Ya",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 960,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Fat Lot of Good That'll Do Ya"
+                    }
+                ]
+            },
+            {
+                "name": "Imbue BEBURTT",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 990,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Imbue BEBURTT"
+                    }
+                ]
+            },
+            {
+                "name": "I Like Your Style!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1020,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Like Your Style!"
+                    }
+                ]
+            },
+            {
+                "name": "I Spit on Your Filthy Coinage",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1050,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Spit on Your Filthy Coinage"
+                    }
+                ]
+            },
+            {
+                "name": "OBIDIL, Dried Up",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1080,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "OBIDIL, Dried Up"
+                    }
+                ]
+            },
+            {
+                "name": "Purple Beast Alarm System",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1110,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Purple Beast Alarm System"
+                    }
+                ]
+            },
+            {
+                "name": "SNAVIG, Repaired",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 960,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "SNAVIG, Repaired"
+                    }
+                ]
+            },
+            {
+                "name": "Spell Check Complete",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 990,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Spell Check Complete"
+                    }
+                ]
+            },
+            {
+                "name": "That's Still a Rope",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1020,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "That's Still a Rope"
+                    }
+                ]
+            },
+            {
+                "name": "You Don't Go Messing With a Man's Zipper",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1050,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "You Don't Go Messing With a Man's Zipper"
+                    }
+                ]
+            },
+            {
+                "name": "You Gained 86 Experience Points",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1080,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "You Gained 86 Experience Points"
+                    }
+                ]
+            },
+            {
+                "name": "ZIMDOR is Undamaged",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1110,
+                        "y": 750,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "ZIMDOR is Undamaged"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Chop, Slice, Puree",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1110,
+                        "y": 680,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Chop, Slice, Puree"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Spell Checker",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 960,
+                        "y": 680,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Spell Checker"
+                    }
+                ]
+            },
+            {
+                "name": "How to Hypnotize Yourself",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1235,
+                        "y": 700,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "How to Hypnotize Yourself"
+                    }
+                ]
+            },
+            {
+                "name": "Voyage of Captain Zahab",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1265,
+                        "y": 700,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Voyage of Captain Zahab"
+                    }
+                ]
+            },
+            {
+                "name": "Into the Foliage",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 135,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Into the Foliage"
+                    }
+                ]
+            },
+            {
+                "name": "Invisible Flowers",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 165,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Invisible Flowers"
+                    }
+                ]
+            },
+            {
+                "name": "In Case of Adventure, Break Glass!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 195,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "In Case of Adventure, Break Glass!"
+                    }
+                ]
+            },
+            {
+                "name": "In Magic We Trust",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 225,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "In Magic We Trust"
+                    }
+                ]
+            },
+            {
+                "name": "The Underground Underground",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 255,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Underground Underground"
+                    }
+                ]
+            },
+            {
+                "name": "Umbrella Flowers",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 285,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Umbrella Flowers"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Breaking Curfew",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 315,
+                        "y": 840,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Breaking Curfew"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Great Underground Empire Entrance",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 135,
+                        "y": 840,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Great Underground Empire Entrance"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Umbrella Tree",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 165,
+                        "y": 840,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Umbrella Tree"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Underground Underground Entrance",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 195,
+                        "y": 840,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Underground Underground Entrance"
+                    }
+                ]
+            },
+            {
+                "name": "Brave Souls Wanted",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brave Souls Wanted"
+                    }
+                ]
+            },
+            {
+                "name": "Enjoy Your Trip!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 430,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Enjoy Your Trip!"
+                    }
+                ]
+            },
+            {
+                "name": "That's it! Just Keep Hitting Those Buttons",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 460,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "That's it! Just Keep Hitting Those Buttons"
+                    }
+                ]
+            },
+            {
+                "name": "Closing the Time Tunnels",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Closing the Time Tunnels"
+                    }
+                ]
+            },
+            {
+                "name": "Hmmm. Informative. Yet Deeply Disturbing",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1030,
+                        "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hmmm. Informative. Yet Deeply Disturbing"
+                    }
+                ]
+            },
+            {
+                "name": "PermaSeal",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1060,
+                        "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "PermaSeal"
+                    }
+                ]
+            },
+            {
+                "name": "Port Foozle Time Tunnel",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1090,
+                        "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Port Foozle Time Tunnel"
+                    }
+                ]
+            },
+            {
+                "name": "Straight to Hell",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1120,
+                        "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Straight to Hell"
+                    }
+                ]
+            },
+            {
+                "name": "The Alchemical Debacle",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 1020,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Alchemical Debacle"
+                    }
+                ]
+            },
+            {
+                "name": "The Endless Fire",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1030,
+                        "y": 1020,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Endless Fire"
+                    }
+                ]
+            },
+            {
+                "name": "The Flatheadian Fudge Fiasco",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1060,
+                        "y": 1020,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Flatheadian Fudge Fiasco"
+                    }
+                ]
+            },
+            {
+                "name": "The Perils of Magic",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1090,
+                        "y": 1020,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Perils of Magic"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Very, Very Pretty",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1270,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Very, Very Pretty"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Eternity Gazing at the Scenic Vista",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1240,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Eternity Gazing at the Scenic Vista"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Evil Spawn's Plaything",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1210,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Evil Spawn's Plaything"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Manhole Cover in New Jersey",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1180,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Manhole Cover in New Jersey"
+                    }
+                ]
+            },
+            {
+                "name": "Death: S.S. Feinstein's Tractor Beam",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1150,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: S.S. Feinstein's Tractor Beam"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Ms. Peeper's Paperweight",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1120,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Ms. Peeper's Paperweight"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Arteriosclerosis",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1090,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Arteriosclerosis"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Airless Expanse of the Cosmos",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1060,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Airless Expanse of the Cosmos"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Totemizer",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 950,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Totemizer"
+                    }
+                ]
+            },
+            {
+                "name": "An Excellent Popping Utensil",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 222,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "An Excellent Popping Utensil"
+                    }
+                ]
+            },
+            {
+                "name": "Come to Papa. You Nut",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 252,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Come to Papa. You Nut"
+                    }
+                ]
+            },
+            {
+                "name": "Inflatus the Eternal",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 282,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Inflatus the Eternal"
+                    }
+                ]
+            },
+            {
+                "name": "Oh Dear God, It's a Dragon!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 312,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Oh Dear God, It's a Dragon!"
+                    }
+                ]
+            },
+            {
+                "name": "Thar She Blows!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 342,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Thar She Blows!"
+                    }
+                ]
+            },
+            {
+                "name": "This Doesn't Look Anything Like the Brochure",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 372,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "This Doesn't Look Anything Like the Brochure"
+                    }
+                ]
+            },
+            {
+                "name": "Uh-Oh. Brog Can't Swim",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 402,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Uh-Oh. Brog Can't Swim"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Spare Loft Behind Uvula",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 492,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Spare Loft Behind Uvula"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Dragon Archipelago",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 222,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Dragon Archipelago"
+                    }
+                ]
+            },
+            {
+                "name": "Dingwhacker Deluxe",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 582,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Dingwhacker Deluxe"
+                    }
+                ]
+            },
+            {
+                "name": "Oh, Very Funny Guys",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 612,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Oh, Very Funny Guys"
+                    }
+                ]
+            },
+            {
+                "name": "Strip Grue, Fire, Water",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 642,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Strip Grue, Fire, Water"
+                    }
+                ]
+            },
+            {
+                "name": "Um. Ah. Um. Ah. Um. Ah.",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 672,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Um. Ah. Um. Ah. Um. Ah."
+                    }
+                ]
+            },
+            {
+                "name": "Want Some Rye? ... Course Ya Do!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 702,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Want Some Rye? ... Course Ya Do!"
+                    }
+                ]
+            },
+            {
+                "name": "We Don't Serve Your Kind Here",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 732,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "We Don't Serve Your Kind Here"
+                    }
+                ]
+            },
+            {
+                "name": "We Got a High Roller!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 762,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "We Got a High Roller!"
+                    }
+                ]
+            },
+            {
+                "name": "You Lose, Muffet. Ante Up",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 792,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "You Lose, Muffet. Ante Up"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Mind-Boggling Unlucky Streak",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 852,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Mind-Boggling Unlucky Streak"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Past Port Foozle",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 582,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Past Port Foozle"
+                    }
+                ]
+            },
+            {
+                "name": "Brog Do Good!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 942,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog Do Good!"
+                    }
+                ]
+            },
+            {
+                "name": "Brog Eat Rocks",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 972,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog Eat Rocks"
+                    }
+                ]
+            },
+            {
+                "name": "Brog Know Dumb. That Dumb",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1002,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog Know Dumb. That Dumb"
+                    }
+                ]
+            },
+            {
+                "name": "Brog Much Better at This Game",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1032,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog Much Better at This Game"
+                    }
+                ]
+            },
+            {
+                "name": "Doooooown",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1062,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Doooooown"
+                    }
+                ]
+            },
+            {
+                "name": "Down",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1092,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Down"
+                    }
+                ]
+            },
+            {
+                "name": "Good Puzzle. Smart Brog",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1122,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Good Puzzle. Smart Brog"
+                    }
+                ]
+            },
+            {
+                "name": "Hmmm. Big Toothpick",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1152,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hmmm. Big Toothpick"
+                    }
+                ]
+            },
+            {
+                "name": "Mailed it to Hell",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1182,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mailed it to Hell"
+                    }
+                ]
+            },
+            {
+                "name": "Up",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1212,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Up"
+                    }
+                ]
+            },
+            {
+                "name": "Uuuuup",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 942,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Uuuuup"
+                    }
+                ]
+            },
+            {
+                "name": "Whoops!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 972,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Whoops!"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Pitch Black Cave in a Zork Game",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1212,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Pitch Black Cave in a Zork Game"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: White House",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 942,
+                        "y": 1196,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: White House"
+                    }
+                ]
+            }
+        ]
+    }
+]

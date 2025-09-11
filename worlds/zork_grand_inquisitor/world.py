@@ -1,6 +1,6 @@
 import logging
 
-from typing import Any, Dict, List, Set, TextIO, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Set, TextIO, Tuple, Union
 
 from BaseClasses import Entrance, EntranceType, Item, ItemClassification, Location, Region, Tutorial
 from Options import OptionError
@@ -155,6 +155,12 @@ class ZorkGrandInquisitorWorld(World):
     trap_weights: Tuple[int, ...]
 
     ut_can_gen_without_yaml: bool = True
+
+    tracker_world: ClassVar = {
+        "map_page_folder": "ut",
+        "map_page_maps": "maps/maps.json",
+        "map_page_locations": "locations/locations.json",
+    }
 
     # Needed for item link
     def __init__(self, multiworld: "MultiWorld", player: int):
