@@ -10,7 +10,7 @@ from .mapping_data import (
     song_turbo_mode_tag_for_tromboner,
 )
 
-from ..data_funcs import notes_required_for_rank_and_tromboner
+from ..song_funcs import notes_required_for_rank_and_tromboner
 
 from ..enums import (
     TromboneChampItems,
@@ -62,8 +62,26 @@ for i, tromboner in enumerate(TromboneChampTromboners):
             )
         )
 
+    # Song Clears (Extra)
+    song_clear_offset: int = 2000
+
+    ii: int
+    song: TromboneChampSongs
+    for ii, song in enumerate(TromboneChampSongs):
+        location_data[f"{tromboner.value} - {song.value} Clear! (Extra)"] = TromboneChampLocationData(
+            archipelago_id=location_offset + tromboner_offset + song_clear_offset + ii,
+            region=region_for_tromboner[tromboner],
+            tags=(
+                TromboneChampTags.SONG_CLEARS,
+                song_clear_tag_for_tromboner[tromboner],
+            ),
+            requirements=(
+                f"SONG - {tromboner.value}: {song.value}",
+            )
+        )
+
     # Song C Ranks
-    song_c_ranks_offset: int = 2000
+    song_c_ranks_offset: int = 3000
 
     ii: int
     song: TromboneChampSongs
@@ -84,7 +102,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
         )
 
     # Song B Ranks
-    song_b_ranks_offset: int = 3000
+    song_b_ranks_offset: int = 4000
 
     ii: int
     song: TromboneChampSongs
@@ -105,7 +123,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
         )
 
     # Song A Ranks
-    song_a_ranks_offset: int = 4000
+    song_a_ranks_offset: int = 5000
 
     ii: int
     song: TromboneChampSongs
@@ -126,7 +144,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
         )
 
     # Song S Ranks
-    song_s_ranks_offset: int = 5000
+    song_s_ranks_offset: int = 6000
 
     ii: int
     song: TromboneChampSongs
@@ -147,7 +165,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
         )
 
     # Song Turbo Modes
-    song_turbo_modes_offset: int = 6000
+    song_turbo_modes_offset: int = 7000
 
     ii: int
     song: TromboneChampSongs
@@ -161,7 +179,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
             ),
             requirements=(
                 f"SONG - {tromboner.value}: {song.value}",
-                f"{TromboneChampItems.TURBO_MODE} - {tromboner.value}"
+                f"{TromboneChampItems.TURBO_MODE.value} - {tromboner.value}"
             )
         )
 

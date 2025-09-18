@@ -16,7 +16,7 @@ class Goal(Choice):
     """
     Determines the victory condition.
 
-    Golden Baboons Goal Song: Acquire enough golden baboons to unlock and clear the goal song
+    Golden Baboons Goal Song: Acquire enough golden baboons, unlock and clear the goal song
     """
     display_name: str = "Goal"
 
@@ -47,9 +47,9 @@ class GoldenBaboonsTotal(Range):
     display_name = "Golden Baboons Total"
 
     range_start = 3
-    range_end = 50
+    range_end = 30
 
-    default = 40
+    default = 30
 
 
 class GoldenBaboonsRequired(Range):
@@ -59,9 +59,9 @@ class GoldenBaboonsRequired(Range):
     display_name = "Golden Baboons Required"
 
     range_start = 3
-    range_end = 50
+    range_end = 30
 
-    default = 30
+    default = 24
 
 
 class SongCount(Range):
@@ -70,8 +70,8 @@ class SongCount(Range):
 
     This count includes the starting songs, as well as the goal song.
 
-    Example: With 20 and 3 starting songs, you will have 16 additional songs to unlock that will have location checks.
-             20 - 3 (starting) - 1 (goal) = 16
+    Example: With 30 and 3 starting songs, you will have 26 additional songs to unlock that will have location checks.
+             30 - 3 (starting) - 1 (goal) = 26
     """
     display_name = "Song Count"
 
@@ -89,24 +89,10 @@ class StartingSongCount(Range):
     """
     display_name = "Starting Song Count"
 
-    range_start = 1
+    range_start = 3
     range_end = 10
 
     default = 3
-
-
-class IncludeCRanks(Toggle):
-    """
-    If true, scoring a C Rank or better on a song will unlock a location check.
-    """
-    display_name: str = "Include C Ranks"
-
-
-class IncludeBRanks(Toggle):
-    """
-    If true, scoring a B Rank or better on a song will unlock a location check.
-    """
-    display_name: str = "Include B Ranks"
 
 
 class IncludeARanks(Toggle):
@@ -150,6 +136,11 @@ class SRankMaximumDifficulty(Range):
 class RankThresholdPercentage(Range):
     """
     Determines the percentage to apply to each song's required rank score.
+
+    Example: If an S rank normally requires 100,000 points...
+             At 80%, you will only need 80,000 points to achieve S rank.
+             At 100%, you will need the normal 100,000 points to achieve S rank.
+             At 120%, you will need 120,000 points to achieve S rank.
     """
     display_name = "Rank Threshold Percentage"
 
@@ -163,16 +154,14 @@ class ShuffleMusicNotes(Toggle):
     """
     If true, the ability to see, and therefore hit each music note will need to be unlocked with an item.
 
-    Turning this on will enable more complex logic if you have any rank location checks enabled.
+    Turning this on will enable more complex logic for rank location checks.
 
     C Rank: 50% of the song's total music notes must be playable to be in logic
     B Rank: 70% of the song's total music notes must be playable to be in logic
     A Rank: 85% of the song's total music notes must be playable to be in logic
     S Rank: 95% of the song's total music notes must be playable to be in logic
 
-    You will always be granted a set of starter music notes to ensure you can roughly C Rank each starting song.
-
-    If all rank location checks are disabled, this option will not have any logic implications and is just for fun.
+    You will always be granted a set of starter music notes to ensure you can roughly B Rank each starting song.
     """
     display_name: str = "Shuffle Music Notes"
 
@@ -181,7 +170,7 @@ class IncludeTurboMode(Toggle):
     """
     If true, clearing a song in Turbo Mode will unlock a location check.
 
-    Turbo Mode will need to be unlocked by receiving the Turbo Mode item.
+    Turbo Mode will need to be unlocked for each tromboner by receiving their Turbo Mode item.
     """
     display_name: str = "Include Turbo Mode"
 
@@ -190,8 +179,10 @@ class TrombonerCount(Range):
     """
     Determines how many different tromboners will be available to plays as.
 
-    Each song / ability (turbo mode, music notes etc.) will have to be unlocked for each tromboner separately.
-    Each song clear, rank clears (if enabled) and turbo mode clear will be counted separately for each tromboner.
+    Each song / music note / ability (turbo mode, license to toot etc.) will have to be unlocked for each tromboner
+    separately.
+
+    Each song clear, rank clear and turbo mode clear will be counted separately for each tromboner.
 
     Note: There are no gameplay differences between tromboners.
           Adding more tromboners purely acts as a location check multiplier, allowing you to scale for larger games.
@@ -204,25 +195,12 @@ class TrombonerCount(Range):
     default = 1
 
 
-class StartingTrombonerCount(Range):
-    """
-    Determines how many tromboners you will start with.
-
-    Other tromboners will need to be unlocked by receiving their respective items.
-    """
-    display_name = "Starting Tromboners Count"
-
-    range_start = 1
-    range_end = 10
-
-    default = 1
-
-
 class Cardsanity(Toggle):
     """
     If true, collecting each of the 50 tromboner cards will unlock a location check.
 
-    You will not be able to get toots from playing songs until you receive the License to Toot!!! item.
+    You will not be able to get toots from playing songs until you receive a License to Toot!!! item for at least one
+    tromboner.
     """
     display_name: str = "Cardsanity"
 
@@ -231,9 +209,11 @@ class Craftsanity(Toggle):
     """
     If true, crafting each of the 50 tromboner cards with turds will unlock a location check.
 
-    You will not be able to craft cards until you receive the Turd Crafting!!! item.
+    You will not be able to get toots from playing songs until you receive a License to Toot!!! item for at least one
+    tromboner.
 
-    Craftsanity must be on for this option to have any effect.
+    You will not be able to turd cards until you receive the Turding!!! item.
+    You will not be able to craft cards until you receive the Turd Crafting!!! item.
     """
     display_name: str = "Craftsanity"
 
@@ -242,9 +222,10 @@ class Turdsanity(Toggle):
     """
     If true, turding each of the 50 tromboner cards will unlock a location check.
 
-    You will not be able to turd cards until you receive the Turding!!! item.
+    You will not be able to get toots from playing songs until you receive a License to Toot!!! item for at least one
+    tromboner.
 
-    Craftsanity must be on for this option to have any effect.
+    You will not be able to turd cards until you receive the Turding!!! item.
     """
     display_name: str = "Turdsanity"
 
@@ -253,9 +234,10 @@ class Engoldenatesanity(Toggle):
     """
     If true, engoldenating each of the 50 tromboner cards will unlock a location check.
 
-    You will not be able to engoldenate cards until you receive the Engoldenating!!! item.
+    You will not be able to get toots from playing songs until you receive a License to Toot!!! item for at least one
+    tromboner.
 
-    Craftsanity must be on for this option to have any effect.
+    You will not be able to engoldenate cards until you receive the Engoldenating!!! item.
     """
     display_name: str = "Engoldenatesanity"
 
@@ -279,7 +261,7 @@ class CardSackCost(Range):
     """
     Determines the cost (in toots) of card sacks. Vanilla: 499
 
-    Only relevant if Cardsanity is enabled.
+    Only relevant if any of the card collection sanities are enabled.
     """
     display_name = "Card Sack Cost"
 
@@ -307,7 +289,7 @@ class TurdingAverageReward(Range):
     """
     Determines the average reward (in turds) for turding a card. Vanilla: 150 (100 to 200)
 
-    Only relevant if Cardsanity is enabled.
+    Only relevant if Turdsanity or Craftsanity is enabled.
     """
     display_name = "Turding Average Reward"
 
@@ -321,7 +303,7 @@ class EngoldenatedTurdingReward(Range):
     """
     Determines the reward (in turds) for turding an engoldenated card. Vanilla: 375
 
-    Only relevant if Cardsanity is enabled.
+    Only relevant if Engoldenatesanity is enabled.
     """
     display_name = "Engoldenated Turding Reward"
 
@@ -340,8 +322,6 @@ class TromboneChampOptions(PerGameCommonOptions):
     golden_baboons_required: GoldenBaboonsRequired
     song_count: SongCount
     starting_song_count: StartingSongCount
-    include_c_ranks: IncludeCRanks
-    include_b_ranks: IncludeBRanks
     include_a_ranks: IncludeARanks
     a_rank_maximum_difficulty: ARankMaximumDifficulty
     include_s_ranks: IncludeSRanks
@@ -350,7 +330,6 @@ class TromboneChampOptions(PerGameCommonOptions):
     shuffle_music_notes: ShuffleMusicNotes
     include_turbo_mode: IncludeTurboMode
     tromboner_count: TrombonerCount
-    starting_tromboner_count: StartingTrombonerCount
     cardsanity: Cardsanity
     craftsanity: Craftsanity
     turdsanity: Turdsanity
@@ -377,8 +356,6 @@ option_groups: List[OptionGroup] = [
         [
             SongCount,
             StartingSongCount,
-            IncludeCRanks,
-            IncludeBRanks,
             IncludeARanks,
             ARankMaximumDifficulty,
             IncludeSRanks,
@@ -392,7 +369,6 @@ option_groups: List[OptionGroup] = [
         "Tromboner Options",
         [
             TrombonerCount,
-            StartingTrombonerCount,
         ],
     ),
     OptionGroup(

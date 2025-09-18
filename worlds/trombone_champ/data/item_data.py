@@ -30,7 +30,7 @@ item_data: Dict[str, TromboneChampItemData] = {
     ),
     TromboneChampItems.GOLDEN_BABOON.value: TromboneChampItemData(
         archipelago_id=item_offset + 2,
-        classification=ItemClassification.progression,
+        classification=ItemClassification.progression_deprioritized_skip_balancing,
         tags=(TromboneChampTags.GOAL_GOLDEN_BABOONS_GOAL_SONG,),
     ),
     # Abilities
@@ -122,16 +122,6 @@ item_data: Dict[str, TromboneChampItemData] = {
     ),
 }
 
-# Tromboners
-i: int
-tromboner: TromboneChampTromboners
-for i, tromboner in enumerate(TromboneChampTromboners):
-    item_data[f"TROMBONER - {tromboner.value}"] = TromboneChampItemData(
-        archipelago_id=item_offset + 500 + i,
-        classification=ItemClassification.progression,
-        tags=(TromboneChampTags.TROMBONERS,)
-    )
-
 # Items per Tromboner
 item_offset = 1000000
 
@@ -173,7 +163,7 @@ for i, tromboner in enumerate(TromboneChampTromboners):
     # Abilities
     ability_offset: int = 30000
 
-    item_data[f"{TromboneChampItems.TURBO_MODE} - {tromboner.value}"] = TromboneChampItemData(
+    item_data[f"{TromboneChampItems.TURBO_MODE.value} - {tromboner.value}"] = TromboneChampItemData(
         archipelago_id=item_offset + tromboner_offset + ability_offset + 0,
         classification=ItemClassification.progression,
         tags=(
