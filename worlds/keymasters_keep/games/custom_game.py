@@ -31,6 +31,9 @@ class CustomGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+        if not self.objectives():
+            return []
+
         return [
             GameObjectiveTemplate(
                 label="OBJECTIVE",

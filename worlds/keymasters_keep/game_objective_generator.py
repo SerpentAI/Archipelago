@@ -191,6 +191,9 @@ class GameObjectiveGenerator:
 
             game_instance: Game = game(archipelago_options=self.archipelago_options)
 
+            if not game_instance.has_objectives:
+                continue
+
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:
                 continue
 

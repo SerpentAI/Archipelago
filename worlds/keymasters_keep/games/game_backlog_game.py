@@ -32,6 +32,8 @@ class GameBacklogGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+        if not self.games() or not self.actions():
+            return []
         return [
             GameObjectiveTemplate(
                 label="ACTION GAME",
