@@ -80,7 +80,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
     data_storage_key: Optional[str]
     death_link_status: bool = False
     entrance_randomizer_data_by_name: Optional[Dict[str, str]]
-    locations_checked: Set[ZorkGrandInquisitorLocations]
+    ui_locations_checked: Set[ZorkGrandInquisitorLocations]
 
     controller_task: Optional[asyncio.Task]
 
@@ -94,7 +94,7 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
         self.data_storage_key = None
         self.entrance_randomizer_data_by_name = None
-        self.locations_checked = set()
+        self.ui_locations_checked = set()
 
         self.controller_task = None
 
@@ -239,11 +239,11 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             # Locations Checked
             if "checked_locations" in _args:
-                locations_checked_update: Set[ZorkGrandInquisitorLocations] = set(
+                ui_locations_checked_update: Set[ZorkGrandInquisitorLocations] = set(
                     [self.id_to_locations[location_id] for location_id in _args["checked_locations"]]
                 )
 
-                self.locations_checked |= locations_checked_update
+                self.ui_locations_checked |= ui_locations_checked_update
 
             # UI Tabs
             self.ui.update_tabs()
@@ -251,11 +251,11 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.ui.update_tabs()
         elif cmd == "RoomUpdate":
             if "checked_locations" in _args:
-                locations_checked_update: Set[ZorkGrandInquisitorLocations] = set(
+                ui_locations_checked_update: Set[ZorkGrandInquisitorLocations] = set(
                     [self.id_to_locations[location_id] for location_id in _args["checked_locations"]]
                 )
 
-                self.locations_checked |= locations_checked_update
+                self.ui_locations_checked |= ui_locations_checked_update
 
                 self.ui.update_tabs()
         elif cmd == "SetReply":

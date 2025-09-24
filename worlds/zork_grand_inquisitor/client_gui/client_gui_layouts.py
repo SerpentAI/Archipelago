@@ -101,7 +101,7 @@ class TrackerLocationLabel(Label):
         discovered_regions: Set[ZorkGrandInquisitorRegions],
         received_items: Set[ZorkGrandInquisitorItems],
     ) -> None:
-        self.checked = self.location in self.ctx.locations_checked
+        self.checked = self.location in self.ctx.ui_locations_checked
         self.in_logic = is_location_in_logic(self.location, discovered_regions, received_items)
 
         if self.checked:
@@ -145,10 +145,10 @@ class TrackerLocationsLayout(ScrollView):
         self.layout.add_widget(self.title_label)
 
         note_label: Label = Label(
-            text="This location tracker does not spoil region access.\nYou will need to gain access to each region in-game to discover which of its locations are in logic for the rest of the seed.\n\nIf you prefer more traditional tracker behavior, the Zork APWorld is fully compatible with Universal Tracker.",
+            text="This location tracker does not spoil region access.\nYou will need to gain access to each region in-game to discover which of its locations are in logic for the rest of the seed.\nWild VOXAM and Teleport Traps may falsify which regions you have discovered in-game.\n\nIf you prefer more traditional tracker behavior, the Zork APWorld is fully compatible with Universal Tracker, including map tracking.",
             font_size="12dp",
             size_hint_y=None,
-            height="72 dp",
+            height="86 dp",
             halign="left",
             valign="top",
             opacity=0.5,
