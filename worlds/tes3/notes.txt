@@ -1,3 +1,42 @@
+### Character Options
+Race
+Sex
+(Randomly select face)
+(Randomly select hair)
+
+Class
+(Affect item pool for skill ups and attribute ups based on class i.e. more items for major skills and favored attributes)
+
+Birthsign
+
+
+
+
+
+### Locations
+# Levelsanity
+...
+
+# Skillsanity
+...
+
+
+# Harvestsanity
+
+# Alchemy
+
+
+
+# Items
+Progressive Skill: +10 [SKILL]  X9 (minor / major)  X4 (others)
+
+Progressive Alchemy Apparatus X 4
+
+
+
+
+
+
 Lock Raven Rock to the constructed state with full services
 
 Resume past -25, 19
