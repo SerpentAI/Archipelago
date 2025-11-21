@@ -13,7 +13,7 @@ Birthsign
 
 
 
-### Locations
+### Locations / Task Types
 # Levelsanity
 ...
 
@@ -25,7 +25,9 @@ Birthsign
 
 # Alchemy
 
-
+# Slave Freeing
+Only include slaves where the key can be found in the same area or involves purchasing them first
+Still need a proof-of-concept that we can detect freeing individual slaves
 
 # Items
 Progressive Skill: +10 [SKILL]  X9 (minor / major)  X4 (others)
@@ -36,7 +38,33 @@ Progressive Alchemy Apparatus X 4
 
 
 
+COMBAT LOGIC
+
+# Fighting Archetype
+Require 1x +25 Health per 3 levels
+Require 1x +50 Fatigue per 5 levels
+Require 1x +10 to Major Skills per 5 levels  # This might require further exploding based on rolled player class
+
+# Magic Archetype
+Require 1x +25 Health per 3 levels
+Require 1x +25 Magicka per 5 levels
+Require 1x +10 to Major Skills per 5 levels
+
+Requirements will be expressed as a string in the format: "COMBAT:<level>"
+The rule generator will need to take in context of the rolled character and explode further requirements based on that
+
+
+TRANSPORTATION
+
+Ability to talk to Boat NPCs. All useful and one-way except Khuul / Fort Frostmoth that should unlock together as Solstheim Boat Travel (Progression)
+Vivec Gondola access as a single useful item.
+Ability to talk to Silt Strider NPCs. All useful and one-way.
+Mournhold Teleportation (Progression) Allows talking to Asciene Rane in Ebonheart and Effe-Tei (and advancing the appropriate quest state appropriately) in Mournhold to teleport between the two locations
+Propylon indices as useful items.
+Not planning to add Mages Guild teleportatioon network as it involves faction standing and quest states.
+
 
 Lock Raven Rock to the constructed state with full services
+Shushishi access requires vertical
 
 Resume past -25, 19

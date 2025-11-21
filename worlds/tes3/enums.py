@@ -14,6 +14,22 @@ class TES3APItems(enum.Enum):
     ATTRIBUTE_DERIVED_FATIGUE_50 = "+50 Fatigue"
     ATTRIBUTE_DERIVED_HEALTH_25 = "+25 Health"
     ATTRIBUTE_DERIVED_MAGICKA_25 = "+25 Magicka"
+    BOAT_TRAVEL = "Boat Travel"  # All-inclusive. Has to be progression because it includes Solstheim access
+    BOAT_TRAVEL_DAGON_FEL = "Boat Travel from Dagon Fel"
+    BOAT_TRAVEL_EBONHEART = "Boat Travel from Ebonheart"  # 2 different ships
+    BOAT_TRAVEL_GNAAR_MOK = "Boat Travel from Gnaar Mok"
+    BOAT_TRAVEL_HLA_OAD = "Boat Travel from Hla Oad"
+    BOAT_TRAVEL_HOLAMAYAN = "Boat Travel from Holamayan"
+    BOAT_TRAVEL_KHUUL = "Boat Travel from Khuul"
+    BOAT_TRAVEL_MOLAG_MAR = "Boat Travel from Molag Mar"
+    BOAT_TRAVEL_RAVEN_ROCK = "Boat Travel from Raven Rock"
+    BOAT_TRAVEL_SADRITH_MORA = "Boat Travel from Sadrith Mora"
+    BOAT_TRAVEL_SOLSTHEIM = "Boat Travel from / to Solstheim"  # Progression
+    BOAT_TRAVEL_TEL_ARUHN = "Boat Travel from Tel Aruhn"
+    BOAT_TRAVEL_TEL_BRANORA = "Boat Travel from Tel Branora"
+    BOAT_TRAVEL_TEL_MORA = "Boat Travel from Tel Mora"
+    BOAT_TRAVEL_VIVEC = "Boat Travel from Vivec"
+    BOAT_TRAVEL_VOS = "Boat Travel from Vos"
     KEY_ALD_RUHN = "Ald-ruhn Key"
     KEY_ASCADIAN_ISLES = "Ascadian Isles Key"
     KEY_ASHLANDS = "Ashlands Key"
@@ -47,6 +63,27 @@ class TES3APItems(enum.Enum):
     KEY_TRIBUNAL_SOTHA_SIL = "Sotha Sil Key"
     KEY_VIVEC = "Vivec Key"
     KEY_WEST_GASH = "West Gash Key"
+    PROPYLON_INDICES = "Propylon Indices"  # All-inclusive
+    PROPYLON_INDEX_ANDASRETH = "Propylon Index to Andasreth"
+    PROPYLON_INDEX_BERANDAS = "Propylon Index to Berandas"
+    PROPYLON_INDEX_FALASMARYON = "Propylon Index to Falasmaryon"
+    PROPYLON_INDEX_FALENSARANO = "Propylon Index to Falensarano"
+    PROPYLON_INDEX_HLORMAREN = "Propylon Index to Hlormaren"
+    PROPYLON_INDEX_INDORANYON = "Propylon Index to Indoranyon"
+    PROPYLON_INDEX_MARANDUS = "Propylon Index to Marandus"
+    PROPYLON_INDEX_ROTHERAN = "Propylon Index to Rotheran"
+    PROPYLON_INDEX_TELASERO = "Propylon Index to Telasero"
+    PROPYLON_INDEX_VALENVARYON = "Propylon Index to Valenvaryon"
+    SILT_STRIDER_TRAVEL = "Silt Strider Travel"  # All-inclusive
+    SILT_STRIDER_ALD_RUHN = "Silt Strider Travel from Ald-ruhn"
+    SILT_STRIDER_TRAVEL_BALMORA = "Silt Strider Travel from Balmora"
+    SILT_STRIDER_TRAVEL_GNISIS = "Silt Strider Travel from Gnisis"
+    SILT_STRIDER_TRAVEL_KHUUL = "Silt Strider Travel from Khuul"
+    SILT_STRIDER_TRAVEL_MAAR_GAN = "Silt Strider Travel from Maar Gan"
+    SILT_STRIDER_TRAVEL_MOLAG_MAR = "Silt Strider Travel from Molag Mar"
+    SILT_STRIDER_TRAVEL_SEYDA_NEEN = "Silt Strider Travel from Seyda Neen"
+    SILT_STRIDER_TRAVEL_SURAN = "Silt Strider Travel from Suran"
+    SILT_STRIDER_TRAVEL_VIVEC = "Silt Strider Travel from Vivec"
     SKILL_ACROBATICS_10 = "+10 Acrobatics"
     SKILL_ALCHEMY_10 = "+10 Alchemy"
     SKILL_ALTERATION_10 = "+10 Alteration"
@@ -74,6 +111,8 @@ class TES3APItems(enum.Enum):
     SKILL_SPEAR_10 = "+10 Spear"
     SKILL_SPEECHCRAFT_10 = "+10 Speechcraft"
     SKILL_UNARMORED_10 = "+10 Unarmored"
+    TELEPORTATION_MOURNHOLD = "+Teleportation from / to Mournhold"  # Progression
+    VIVEC_GONDOLA_SERVICE = "Vivec Gondola Service"
 
 
 class TES3APRegions(enum.Enum):
@@ -1398,6 +1437,16 @@ class TES3APRegions(enum.Enum):
     SOTHA_SIL_OUTER_FLOODED_HALLS = "Sotha Sil - Outer Flooded Halls"
 
 
+class TES3APTags(enum.Enum):
+    TASK_FREE_SLAVE = "Task: Free Slave"
+    TASK_HARVEST_FLORA = "Task: Harvest Flora"
+
+
+class TES3APTasks(enum.Enum):
+    FREE_SLAVE = "Free Slave"
+    HARVEST_FLORA = "Harvest Flora"
+
+
 class TES3AlchemyEffects(enum.Enum):
     BLIND = "Blind"
     BURDEN = "Burden"
@@ -1477,14 +1526,6 @@ class TES3AlchemyEffects(enum.Enum):
     WEAKNESS_TO_FIRE = "Weakness to Fire"
 
 
-class TES3AlchemyEffectShuffleModes(enum.Enum):
-    RANDOMIZE = "Randomize"
-    REORDER = "Reorder"
-    SHUFFLE = "Shuffle"
-    SHUFFLE_AND_REORDER = "Shuffle and Reorder"
-    VANILLA = "Vanilla"
-
-
 class TES3Attributes(enum.Enum):
     AGILITY = "Agility"
     ENDURANCE = "Endurance"
@@ -1541,6 +1582,127 @@ class TES3Classes(enum.Enum):
     THIEF = "Thief"
     WARRIOR = "Warrior"
     WITCHHUNTER = "Witchhunter"
+
+
+class TES3FreeableSlaves(enum.Enum):
+    ADHARANJI = "Adharanji"
+    AHAHT = "Ahaht"
+    AHDNI = "Ahdni"
+    AHDRI = "Ahdri"
+    AHJARA = "Ahjara"
+    AHNARRA = "Ahnarra"
+    AHNDAHRA = "Ahndahra"
+    AHNISA = "Ahnisa"
+    AHZINI = "Ahzini"
+    AH_MEESEI = "Ah-Meesei"
+    AINA = "Aina"
+    AKISH = "Akish"
+    AM_RA = "Am-Ra"
+    ANJARI = "Anjari"
+    ARABHI = "Arabhi"
+    ARAVI = "Aravi"
+    ASHIDASHA = "Ashidasha"
+    ASUM = "Asum"
+    BAADARGO = "Baadargo"
+    BAHDAHNA = "Bahdahna"
+    BAHDRASHI = "Bahdrashi"
+    BANALZ = "Banalz"
+    BEEKATAN = "Beekatan"
+    BHUSARI = "Bhusari"
+    BUNISH = "Bunish"
+    BUN_TEEMEETA = "Bun-Teemeeta"
+    CHALUREEL = "Chalureel"
+    CHEESH_MEEUS = "Cheesh-Meeus"
+    CHIWISH = "Chiwish"
+    DAHLEENA = "Dahleena"
+    DAHNARA = "Dahnara"
+    DAN_RU = "Dan-Ru"
+    DEESH_MEEUS = "Deesh-Meeus"
+    DREADED_WATER = "Dreaded-Water"
+    DRO_QANAR = "Dro'Qanar"
+    DRO_ZAH = "Dro'Zah"
+    EKAPI = "Ekapi"
+    ELEEDAL_LEI = "Eleedal-Lei"
+    EL_LURASHA = "El-Lurasha"
+    EUTEI = "Eutei"
+    GAH_JULAN = "Gah Julan"
+    GIH_JA = "Gih-Ja"
+    GISH = "Gish"
+    GILM = "Gilm"
+    HAN_TULM = "Han-Tulm"
+    HARAN = "Haran"
+    HARASSA = "Harassa"
+    HEEDUL = "Heedul"
+    HEIR_ZISH = "Heir-Zish"
+    HIDES_HIS_FOOT = "Hides-His-Foot"
+    HUZEI = "Huzei"
+    IDHASSI = "Idhassi"
+    INERRI = "Inerri"
+    INORRA = "Inorra"
+    JEED_EI = "Jeed-Ei"
+    JEER_MAHT = "Jeer-Maht"
+    J_DATO = "J'Dato"
+    J_JARSHA = "J'Jarsha"
+    J_RAKSA = "J'Raksa"
+    J_RAM_DAR = "J'Ram-Dar"
+    J_ZAMHA = "J'Zamha"
+    KAASHA = "Kaasha"
+    KHAZURA = "Khazura"
+    KISEENA = "Kiseena"
+    KISHNI = "Kishni"
+    KISIMBA = "Kisimba"
+    KISISA = "Kisisa"
+    MA_JIDARR = "Ma'Jidarr"
+    MA_KHAR = "Ma'Khar"
+    MA_ZAHN = "Ma'Zahn"
+    MEEH_MEI = "Meeh-Mei"
+    MEEN_SA = "Meen-Sa"
+    MEER = "Meer"
+    MILAH = "Milah"
+    MIM_JEEN = "Mim-Jeen"
+    MUZ_RA = "Muz-Ra"
+    M_SHAN = "M'Shan"
+    NAKUMA = "Nakuma"
+    NAM_LA = "Nam-La"
+    NEESHA = "Neesha"
+    NEETINEI = "Neetinei"
+    NISABA = "Nisaba"
+    NURALG = "Nuralg"
+    OKAW = "Okaw"
+    OLANK_NEEUS = "Olank-Neeus"
+    OLEEN_GEI = "Oleen-Gei"
+    OLINK_NUR = "Olink-Nur"
+    ON_WAZEI = "On-Wazei"
+    PEERADEEH = "Peeradeeh"
+    RA_KARIM = "Ra'Karim"
+    RA_MHIRR = "Ra'Mhirr"
+    RA_SAVA = "Ra'Sava"
+    REEMUKEEUS = "Reemukeeus"
+    RI_DARSHA = "Ri'Darsha"
+    RI_DUMIWA = "Ri'Dumiwa"
+    RI_VASSA = "Ri'Vassa"
+    SEEN_REI = "Seen-Rei"
+    SHABA = "Shaba"
+    SHIVANI = "Shivani"
+    SHOLANI = "Sholani"
+    SMART_SNAKE = "Smart-Snake"
+    S_RAVERR = "S'Raverr"
+    S_RENJI = "S'Renji"
+    S_VANDRA = "S'Vandra"
+    TANAN = "Tanan"
+    TASHA = "Tasha"
+    TSABHI = "Tsabhi"
+    TSAJADHI = "Tsajadhi"
+    TSANI = "Tsani"
+    UBAASI = "Ubaasi"
+    UDARRA = "Udarra"
+    ULA = "Ula"
+    WEER = "Weer"
+    WIH_EIUS = "Wih-Eius"
+    WUD_NEEUS = "Wud-Neeus"
+    WULEEN_SHEI = "Wuleen-Shei"
+    WUSHA = "Wusha"
+    ZAHRAJI = "Zahraji"
 
 
 class TES3Harvestables(enum.Enum):
@@ -1665,6 +1827,72 @@ class TES3Ingredients(enum.Enum):
     WILLOW_ANTHER = "Willow Anther"
     WOLFSBANE_PETALS = "Wolfsbane Petals"
     WOLF_PELT = "Wolf Pelt"
+
+
+class TES3OptionAlchemyIngredientEffects(enum.Enum):
+    VANILLA = 0
+    REORDER = 1
+    SHUFFLE = 2
+    SHUFFLE_AND_REORDER = 3
+    RANDOMIZE = 4
+
+
+class TES3OptionCharacterBirthsign(enum.Enum):
+    THE_APPRENTICE = 0
+    THE_ATRONACH = 1
+    THE_LADY = 2
+    THE_LORD = 3
+    THE_LOVER = 4
+    THE_MAGE = 5
+    THE_RITUAL = 6
+    THE_SERPENT = 7
+    THE_SHADOW = 8
+    THE_STEED = 9
+    THE_THIEF = 10
+    THE_TOWER = 11
+    THE_WARRIOR = 12
+
+
+class TES3OptionCharacterClass(enum.Enum):
+    ACROBAT = 0
+    AGENT = 1
+    ARCHER = 2
+    ASSASSIN = 3
+    BARBARIAN = 4
+    BARD = 5
+    BATTLEMAGE = 6
+    CRUSADER = 7
+    HEALER = 8
+    KNIGHT = 9
+    MAGE = 10
+    MONK = 11
+    NIGHTBLADE = 12
+    PILGRIM = 13
+    ROGUE = 14
+    SCOUT = 15
+    SORCERER = 16
+    SPELLSWORD = 17
+    THIEF = 18
+    WARRIOR = 19
+    WITCHHUNTER = 20
+
+
+class TES3OptionCharacterRace(enum.Enum):
+    ARGONIAN = 0
+    BRETON = 1
+    DARK_ELF = 2
+    HIGH_ELF = 3
+    IMPERIAL = 4
+    KHAJIIT = 5
+    NORD = 6
+    ORC = 7
+    REDGUARD = 8
+    WOOD_ELF = 9
+
+
+class TES3OptionCharacterSex(enum.Enum):
+    FEMALE = 0
+    MALE = 1
 
 
 class TES3Races(enum.Enum):

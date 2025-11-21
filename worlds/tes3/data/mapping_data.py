@@ -3,8 +3,15 @@ from typing import *
 from ..enums import (
     TES3AlchemyEffects,
     TES3Attributes,
+    TES3Birthsigns,
     TES3Classes,
     TES3Ingredients,
+    TES3OptionCharacterBirthsign,
+    TES3OptionCharacterClass,
+    TES3OptionCharacterRace,
+    TES3OptionCharacterSex,
+    TES3Races,
+    TES3Sexes,
     TES3Skills,
 )
 
@@ -919,4 +926,66 @@ ingredient_alchemy_effects: Dict[TES3Ingredients, Tuple[TES3AlchemyEffects, ...]
         TES3AlchemyEffects.RESIST_COMMON_DISEASE,
         TES3AlchemyEffects.NIGHT_EYE,
     ),
+}
+
+
+option_to_character_birthsign: Dict[TES3OptionCharacterBirthsign, TES3Birthsigns] = {
+    TES3OptionCharacterBirthsign.THE_APPRENTICE: TES3Birthsigns.THE_APPRENTICE,
+    TES3OptionCharacterBirthsign.THE_ATRONACH: TES3Birthsigns.THE_ATRONACH,
+    TES3OptionCharacterBirthsign.THE_LADY: TES3Birthsigns.THE_LADY,
+    TES3OptionCharacterBirthsign.THE_LORD: TES3Birthsigns.THE_LORD,
+    TES3OptionCharacterBirthsign.THE_LOVER: TES3Birthsigns.THE_LOVER,
+    TES3OptionCharacterBirthsign.THE_MAGE: TES3Birthsigns.THE_MAGE,
+    TES3OptionCharacterBirthsign.THE_RITUAL: TES3Birthsigns.THE_RITUAL,
+    TES3OptionCharacterBirthsign.THE_SERPENT: TES3Birthsigns.THE_SERPENT,
+    TES3OptionCharacterBirthsign.THE_SHADOW: TES3Birthsigns.THE_SHADOW,
+    TES3OptionCharacterBirthsign.THE_STEED: TES3Birthsigns.THE_STEED,
+    TES3OptionCharacterBirthsign.THE_THIEF: TES3Birthsigns.THE_THIEF,
+    TES3OptionCharacterBirthsign.THE_TOWER: TES3Birthsigns.THE_TOWER,
+    TES3OptionCharacterBirthsign.THE_WARRIOR: TES3Birthsigns.THE_WARRIOR,
+}
+
+
+option_to_character_class: Dict[TES3OptionCharacterClass, TES3Classes] = {
+    TES3OptionCharacterClass.ACROBAT: TES3Classes.ACROBAT,
+    TES3OptionCharacterClass.AGENT: TES3Classes.AGENT,
+    TES3OptionCharacterClass.ARCHER: TES3Classes.ARCHER,
+    TES3OptionCharacterClass.ASSASSIN: TES3Classes.ASSASSIN,
+    TES3OptionCharacterClass.BARBARIAN: TES3Classes.BARBARIAN,
+    TES3OptionCharacterClass.BARD: TES3Classes.BARD,
+    TES3OptionCharacterClass.BATTLEMAGE: TES3Classes.BATTLEMAGE,
+    TES3OptionCharacterClass.CRUSADER: TES3Classes.CRUSADER,
+    TES3OptionCharacterClass.HEALER: TES3Classes.HEALER,
+    TES3OptionCharacterClass.KNIGHT: TES3Classes.KNIGHT,
+    TES3OptionCharacterClass.MAGE: TES3Classes.MAGE,
+    TES3OptionCharacterClass.MONK: TES3Classes.MONK,
+    TES3OptionCharacterClass.NIGHTBLADE: TES3Classes.NIGHTBLADE,
+    TES3OptionCharacterClass.PILGRIM: TES3Classes.PILGRIM,
+    TES3OptionCharacterClass.ROGUE: TES3Classes.ROGUE,
+    TES3OptionCharacterClass.SCOUT: TES3Classes.SCOUT,
+    TES3OptionCharacterClass.SORCERER: TES3Classes.SORCERER,
+    TES3OptionCharacterClass.SPELLSWORD: TES3Classes.SPELLSWORD,
+    TES3OptionCharacterClass.THIEF: TES3Classes.THIEF,
+    TES3OptionCharacterClass.WARRIOR: TES3Classes.WARRIOR,
+    TES3OptionCharacterClass.WITCHHUNTER: TES3Classes.WITCHHUNTER,
+}
+
+
+option_to_character_race: Dict[TES3OptionCharacterRace, TES3Races] = {
+    TES3OptionCharacterRace.ARGONIAN: TES3Races.ARGONIAN,
+    TES3OptionCharacterRace.BRETON: TES3Races.BRETON,
+    TES3OptionCharacterRace.DARK_ELF: TES3Races.DARK_ELF,
+    TES3OptionCharacterRace.HIGH_ELF: TES3Races.HIGH_ELF,
+    TES3OptionCharacterRace.IMPERIAL: TES3Races.IMPERIAL,
+    TES3OptionCharacterRace.KHAJIIT: TES3Races.KHAJIIT,
+    TES3OptionCharacterRace.NORD: TES3Races.NORD,
+    TES3OptionCharacterRace.ORC: TES3Races.ORC,
+    TES3OptionCharacterRace.REDGUARD: TES3Races.REDGUARD,
+    TES3OptionCharacterRace.WOOD_ELF: TES3Races.WOOD_ELF,
+}
+
+
+option_to_character_sex: Dict[TES3OptionCharacterSex, TES3Sexes] = {
+    TES3OptionCharacterSex.FEMALE: TES3Sexes.FEMALE,
+    TES3OptionCharacterSex.MALE: TES3Sexes.MALE,
 }

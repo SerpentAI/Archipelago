@@ -38,7 +38,7 @@ class CharacterRace(Choice):
     option_redguard: int = 8
     option_wood_elf: int = 9
 
-    default = -1
+    default = "random"
 
 
 class CharacterSex(Choice):
@@ -53,7 +53,7 @@ class CharacterSex(Choice):
     option_female: int = 0
     option_male: int = 1
 
-    default = -1
+    default = "random"
 
 
 class CharacterClass(Choice):
@@ -87,7 +87,7 @@ class CharacterClass(Choice):
     option_warrior: int = 19
     option_witchhunter: int = 20
 
-    default = -1
+    default = "random"
 
 
 class CharacterBirthsign(Choice):
@@ -113,7 +113,7 @@ class CharacterBirthsign(Choice):
     option_the_tower: int = 11
     option_the_warrior: int = 12
 
-    default = -1
+    default = "random"
 
 
 # Alchemy Options
