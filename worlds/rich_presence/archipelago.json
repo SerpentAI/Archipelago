@@ -1,0 +1,10 @@
+{
+    "authors": ["SerpentAI"],
+    "compatible_version": 7,
+    "flags": [],
+    "game": "Discord Rich Presence",
+    "idgb_id": null,
+    "minimum_ap_version": "0.6.0",
+    "version": 7,
+    "world_version": "3"
+}
