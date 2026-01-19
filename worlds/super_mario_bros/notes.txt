@@ -1,0 +1,489 @@
+Start with 3 levels
+
+8x Progressive Castle
+21x Progressive Level
+3x Progressive Wallet
+Run
+Swim
+Magic Mushroom
+Fire Flower
+Starman
+
+Second Quest Access (Start with 1 level)
+
+8x SQ Progressive Castle
+23x SQ Progressive Level
+
+(50 - Starting Lives)x Progressive Starting Life (Useful)
+
+
+Need More Item Ideas, Especially Filler
+Can't use coins because it could mess with current phase coins? Unless I edit the count directly. Not a fan.
+Can probably give out Power-Ups, Starmans, 1-Ups
+Points (lol)
++100 Timer?
+Traps can help too
+
+Will need local filler % option
+
+Experiment with Permanently Accessible Powerups? Start + Directional Pad to get one from inventory.
+Store Power-Up Inventory in Data Storage
+
+
+TODO: World Select Flag?
+TODO: Optional Second Quest - Check for new combos with hard mode only enemies
+TODO: Patch to make conditional 1-ups always be there
+
+Banned first 3 levels: 2-2 (swim), 4-3 (run), 7-2 (swim), 8-1 (run), 8-2 (run), 8-3 (mushroom)
+
+# 311 Checks in First Quest
+
+### Checks per level
+
+# 1-1
+
+1-1 - Power-Up 1  # Screen 01
+1-1 - Hidden 1-Up  # Screen 04
+1-1 - Power-Up 2  # Screen 04
+1-1 - Starman  # Screen 06
+1-1 - Power-Up 3  # Screen 06
+1-1 - 6 Enemy Combo
+1-1 - Sub-Level
+1-1 - Sub-Level - 5 Coins
+1-1 - Sub-Level - 10 Coins
+1-1 - Sub-Level - Coin Target (19)
+1-1 - 5 Coins
+1-1 - 10 Coins
+1-1 - Coin Target (20)
+1-1 - Level Clear
+1-1 - Top of the Flagpole
+
+
+# 1-2
+
+1-2 - Power-Up 1  # Screen 00
+1-2 - Starman  # Screen 02
+1-2 - Power-Up 2  # Screen 04
+1-2 - Hidden 1-Up  # Screen 05
+1-2 - Power-Up 3  # Screen 09
+1-2 - 4 Enemy Combo
+1-2 - Sub-Level
+1-2 - Sub-Level - 5 Coins
+1-2 - Sub-Level - 10 Coins
+1-2 - Sub-Level - 20 Coins
+1-2 - Sub-Level - Coin Target (27)
+1-2 - 5 Coins
+1-2 - 10 Coins
+1-2 - 20 Coins
+1-2 - Coin Target (41)
+1-2 - Warp Zone
+1-2 - Level Clear
+1-2 - Top of the Flagpole
+
+
+# 1-3
+
+1-3 - Power-Up 1  # Screen 03
+1-3 - 1 Enemy Combo
+1-3 - 5 Coins
+1-3 - 10 Coins
+1-3 - 20 Coins
+1-3 - Coin Target (23)
+1-3 - Level Clear
+1-3 - Top of the Flagpole
+
+
+# 1-4
+
+1-4 - Power-Up 1  # Screen 01
+1-4 - 5 Coins
+1-4 - Coin Target (6)
+1-4 - Defeat Bowser
+1-4 - Kill Bowser
+
+
+# 2-1
+
+2-1 - Power-Up 1  # Screen 01
+2-1 - Hidden 1-Up  # Screen 01
+2-1 - Power-Up 2  # Screen 03
+2-1 - Starman  # Screen 04
+2-1 - Power-Up 3  # Screen 07
+2-1 - Power-Up 4  # Screen 10 / 0A
+2-1 - 5 Enemy Combo
+2-1 - Sub-Level
+2-1 - Sub-Level - 5 Coins
+2-1 - Sub-Level - 10 Coins
+2-1 - Sub-Level - Coin Target (19)
+2-1 - Coin Heaven
+2-1 - Coin Heaven - 5 Coins
+2-1 - Coin Heaven - 10 Coins
+2-1 - Coin Heaven - 20 Coins
+2-1 - Coin Heaven - Coin Target (40)
+2-1 - 5 Coins
+2-1 - 10 Coins
+2-1 - 20 Coins
+2-1 - Coin Target (29)
+2-1 - Level Clear
+2-1 - Top of the Flagpole
+
+
+# 2-2
+
+2-2 - 5 Coins
+2-2 - 10 Coins
+2-2 - 20 Coins
+2-2 - Coin Target (28)
+2-2 - Level Clear
+2-2 - Top of the Flagpole
+
+
+# 2-3
+
+2-3 - Power-Up 1  # Screen 06
+2-3 - 5 Coins
+2-3 - 10 Coins
+2-3 - 20 Coins
+2-3 - Coin Target (35)
+2-3 - Level Clear
+2-3 - Top of the Flagpole
+
+
+# 2-4
+
+2-4 - Power-Up 1  # Screen 01
+2-4 - 5 Coins
+2-4 - Coin Target (6)
+2-4 - Defeat Bowser
+2-4 - Kill Bowser
+
+
+# 3-1
+
+3-1 - Power-Up 1  # Screen 01
+3-1 - Hidden 1-Up  # Screen 05
+3-1 - Starman  # Screen 05
+3-1 - Power-Up 2  # Screen 07
+3-1 - Power-Up 3  # Screen 09
+3-1 - 5 Enemy Combo
+3-1 - Sub-Level
+3-1 - Sub-Level - Power-Up
+3-1 - Sub-Level - 5 Coins
+3-1 - Sub-Level - 10 Coins
+3-1 - Sub-Level - Coin Target (12)
+3-1 - Coin Heaven
+3-1 - Coin Heaven - 5 Coins
+3-1 - Coin Heaven - 10 Coins
+3-1 - Coin Heaven - 20 Coins
+3-1 - Coin Heaven - Coin Target (51)
+3-1 - 5 Coins
+3-1 - 10 Coins
+3-1 - Coin Target (16)
+3-1 - Level Clear
+3-1 - Top of the Flagpole
+
+# 3-2
+
+3-2 - Power-Up 1  # Screen 03
+3-2 - Starman  # Screen 04
+3-2 - 8 Enemy Combo
+3-2 - 5 Coins
+3-2 - 10 Coins
+3-2 - Coin Target (17)
+3-2 - Level Clear
+3-2 - Top of the Flagpole
+
+
+# 3-3
+
+3-3 - Power-Up 1  # Screen 03
+3-3 - 1 Enemy Combo
+3-3 - 5 Coins
+3-3 - 10 Coins
+3-3 - 20 Coins
+3-3 - Coin Target (22)
+3-3 - Level Clear
+3-3 - Top of the Flagpole
+
+
+# 3-4
+
+3-4 - Power-Up 1  # Screen 02
+3-4 - Coin Target (5)
+3-4 - Defeat Bowser
+3-4 - Kill Bowser
+
+
+# 4-1
+
+4-1 - Power-Up 1  # Screen 01
+4-1 - Hidden 1-Up  # Screen 05
+4-1 - Power-Up 2  # Screen 09
+4-1 - Sub-Level
+4-1 - Sub-Level - Power-Up
+4-1 - Sub-Level - 5 Coins
+4-1 - Sub-Level - 10 Coins
+4-1 - Sub-Level - Coin Target (18)
+4-1 - 5 Coins
+4-1 - 10 Coins
+4-1 - 20 Coins
+4-1 - Coin Target (44)
+4-1 - Level Clear
+4-1 - Top of the Flagpole
+
+
+# 4-2
+
+4-2 - Power-Up 1  # Screen 01
+4-2 - Power-Up 2  # Screen 03
+4-2 - Starman  # Screen 05
+4-2 - Power-Up 3  # Screen 07
+4-2 - Power-Up 4  # Screen 10 / 0A
+4-2 - 1 Enemy Combo
+4-2 - Sub-Level
+4-2 - Sub-Level - 5 Coins
+4-2 - Sub-Level - 10 Coins
+4-2 - Sub-Level - Coin Target (20)
+4-2 - Mushroom Area - 5 Coins
+4-2 - Mushroom Area - 10 Coins
+4-2 - Mushroom Area - Coin Target (19)
+4-2 - Mushroom Area - Warp Zone
+4-2 - Warp Zone
+4-2 - 5 Coins
+4-2 - 10 Coins
+4-2 - 20 Coins
+4-2 - Coin Target (43)
+4-2 - Level Clear
+4-2 - Top of the Flagpole
+
+
+# 4-3
+
+4-3 - Power-Up 1  # Screen 02
+4-3 - 1 Enemy Combo
+4-3 - 5 Coins
+4-3 - 10 Coins
+4-3 - 20 Coins
+4-3 - Coin Target (27)
+4-3 - Level Clear
+4-3 - Top of the Flagpole
+
+
+# 4-4
+
+4-4 - Defeat Bowser
+4-4 - Kill Bowser
+
+
+# 5-1
+
+5-1 - Starman  # Screen 05
+5-1 - Hidden 1-Up  # Screen 09
+5-1 - 8 Enemy Combo
+5-1 - Sub-Level
+5-1 - Sub-Level - 5 Coins
+5-1 - Sub-Level - 10 Coins
+5-1 - Sub-Level - Coin Target (20)
+5-1 - Level Clear
+5-1 - Top of the Flagpole
+
+
+# 5-2
+
+5-2 - Power-Up 1  # Screen 02
+5-2 - Starman  # Screen 07
+5-2 - Power-Up 2  # Screen 08
+5-2 - Power-Up 3  # Screen 10 / 0A
+5-2 - 2 Enemy Combo
+5-2 - Sub-Level
+5-2 - Sub-Level - 5 Coins
+5-2 - Sub-Level - 10 Coins
+5-2 - Sub-Level - Coin Target (20)
+5-2 - Coin Heaven
+5-2 - Coin Heaven - 5 Coins
+5-2 - Coin Heaven - 10 Coins
+5-2 - Coin Heaven - 20 Coins
+5-2 - Coin Heaven - Coin Target (40)
+5-2 - 5 Coins
+5-2 - 10 Coins
+5-2 - 20 Coins
+5-2 - Coin Target (28)
+5-2 - Level Clear
+5-2 - Top of the Flagpole
+
+
+# 5-3
+
+5-3 - Power-Up 1  # Screen 03
+5-3 - 1 Enemy Combo
+5-3 - 5 Coins
+5-3 - 10 Coins
+5-3 - 20 Coins
+5-3 - Coin Target (23)
+5-3 - Level Clear
+5-3 - Top of the Flagpole
+
+
+# 5-4
+
+5-4 - Power-Up 1  # Screen 01
+5-4 - 5 Coins
+5-4 - Coin Target (6)
+5-4 - Defeat Bowser
+5-4 - Kill Bowser
+
+
+# 6-1
+
+6-1 - Power-Up 1  # Screen 02
+6-1 - Hidden 1-Up  # Screen 05
+6-1 - Power-Up 2  # Screen 08
+6-1 - 5 Coins
+6-1 - 10 Coins
+6-1 - 20 Coins
+6-1 - Coin Target (33)
+6-1 - Level Clear
+6-1 - Top of the Flagpole
+
+
+# 6-2
+
+6-2 - Power-Up 1  # Screen 03
+6-2 - Starman  # Screen 08
+6-2 - 1 Enemy Combo
+6-2 - Sub-Level 1
+6-2 - Sub-Level 1 - 5 Coins
+6-2 - Sub-Level 1 - 10 Coins
+6-2 - Sub-Level 1 - Coin Target (20)
+6-2 - Sub-Level 2
+6-2 - Sub-Level 2 - 5 Coins
+6-2 - Sub-Level 2 - 10 Coins
+6-2 - Sub-Level 2 - Coin Target (20)
+6-2 - Sub-Level 3
+6-2 - Sub-Level 3 - Power-Up
+6-2 - Sub-Level 3 - 5 Coins
+6-2 - Sub-Level 3 - 10 Coins
+6-2 - Sub-Level 3 - Coin Target (18)
+6-2 - Coin Heaven
+6-2 - Coin Heaven - 5 Coins
+6-2 - Coin Heaven - 10 Coins
+6-2 - Coin Heaven - 20 Coins
+6-2 - Coin Heaven - Coin Target (51)
+6-2 - 5 Coins
+6-2 - 10 Coins
+6-2 - Coin Target (12)
+6-2 - Level Clear
+6-2 - Top of the Flagpole
+
+
+# 6-3
+
+6-3 - Power-Up 1  # Screen 03
+6-3 - 5 Coins
+6-3 - 10 Coins
+6-3 - 20 Coins
+6-3 - Coin Target (24)
+6-3 - Level Clear
+6-3 - Top of the Flagpole
+
+# 6-4
+
+6-4 - Power-Up 1  # Screen 01
+6-4 - 5 Coins
+6-4 - Coin Target (6)
+6-4 - Defeat Bowser
+6-4 - Kill Bowser
+
+
+# 7-1
+
+7-1 - Power-Up 1  # Screen 01
+7-1 - Hidden 1-Up  # Screen 05
+7-1 - Power-Up 2  # Screen 09
+7-1 - Sub-Level
+7-1 - Sub-Level - 5 Coins
+7-1 - Sub-Level - 10 Coins
+7-1 - Sub-Level - Coin Target (19)
+7-1 - 5 Coins
+7-1 - 10 Coins
+7-1 - Coin Target (13)
+7-1 - Level Clear
+7-1 - Top of the Flagpole
+
+
+# 7-2
+
+7-2 - 5 Coins
+7-2 - 10 Coins
+7-2 - 20 Coins
+7-2 - Coin Target (28)
+7-2 - Level Clear
+7-2 - Top of the Flagpole
+
+
+# 7-3
+
+7-3 - Power-Up 1  # Screen 06
+7-3 - 5 Coins
+7-3 - 10 Coins
+7-3 - 20 Coins
+7-3 - Coin Target (35)
+7-3 - Level Clear
+7-3 - Top of the Flagpole
+
+
+# 7-4
+
+7-4 - Defeat Bowser
+7-4 - Kill Bowser
+
+
+# 8-1
+
+8-1 - Hidden 1-Up  # Screen 05
+8-1 - Starman  # Screen 11 / 0B
+8-1 - 8 Enemy Combo
+8-1 - Sub-Level
+8-1 - Sub-Level - 5 Coins
+8-1 - Sub-Level - 10 Coins
+8-1 - Sub-Level - 20 Coins
+8-1 - Sub-Level - Coin Target (27)
+8-1 - 5 Coins
+8-1 - 10 Coins
+8-1 - 20 Coins
+8-1 - Coin Target (26)
+8-1 - Level Clear
+8-1 - Top of the Flagpole
+
+
+# 8-2
+
+8-2 - Hidden 1-Up  # Screen 02
+8-2 - Power-Up 1  # Screen 06
+8-2 - 1 Enemy Combo
+8-2 - Sub-Level
+8-2 - Sub-Level - 5 Coins
+8-2 - Sub-Level - 10 Coins
+8-2 - Sub-Level - Coin Target (20)
+8-2 - 5 Coins
+8-2 - 10 Coins
+8-2 - Coin Target (12)
+8-2 - Level Clear
+8-2 - Top of the Flagpole
+
+
+# 8-3
+
+8-3 - Power-Up 1  # Screen 04
+8-3 - Power-Up 2  # Screen 07
+8-3 - 1 Enemy Combo
+8-3 - 5 Coins
+8-3 - Coin Target (10)
+8-3 - Level Clear
+8-3 - Top of the Flagpole
+
+# 8-4
+
+8-4 - Sub-Level
+8-4 - Defeat Bowser
+8-4 - Kill Bowser
