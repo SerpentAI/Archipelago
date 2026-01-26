@@ -288,7 +288,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
         table_information_items_layout.add_widget(self.item_star_requirement_discount_label)
 
         self.item_target_score_discount_label = Label(
-            text="Target Discount: [color=00FA9A]Xx[/color]",
+            text="Target Score Discount: [color=00FA9A]Xx[/color]",
             markup=True,
             size_hint_y=None,
             font_size="12dp",
@@ -382,7 +382,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
                 self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
                 self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                self.item_target_score_discount_label.text = "Target Discount: [color=00FA9A]Xx[/color]"
+                self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
 
                 self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
             else:
@@ -477,7 +477,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
                             # Useful Items
                             self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]{score_multiplier_count}x[/color]"
                             self.item_star_requirement_discount_label.text = f"Star Requirement Discount: [color=00FA9A]{star_requirement_discount_count}x[/color]"
-                            self.item_target_score_discount_label.text = f"Target Discount: [color=00FA9A]{target_score_discount_count}x[/color]"
+                            self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]{target_score_discount_count}x[/color]"
 
                             # Score
                             score: int = game_state.current_score
@@ -492,7 +492,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
                             self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
                             self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                            self.item_target_score_discount_label.text = "Target Discount: [color=00FA9A]Xx[/color]"
+                            self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
 
                             self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
                     else:
@@ -503,7 +503,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
                         self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
                         self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                        self.item_target_score_discount_label.text = "Target Discount: [color=00FA9A]Xx[/color]"
+                        self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
 
                         self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
         else:
@@ -518,7 +518,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
             self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
             self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-            self.item_target_score_discount_label.text = "Target Discount: [color=00FA9A]Xx[/color]"
+            self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
 
             self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
 
