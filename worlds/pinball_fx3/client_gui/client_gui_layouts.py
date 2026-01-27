@@ -80,7 +80,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
     def __init__(self, ctx: PinballFX3Context) -> None:
         super().__init__(orientation="vertical", size_hint_y=None, height="200dp", spacing="8dp",)
 
-        self.bind(minimum_height=self.setter('height'))
+        self.bind(minimum_height=self.setter("height"))
 
         self.ctx = ctx
 
@@ -534,7 +534,7 @@ class PinballFX3TablesLayout(BoxLayout):
     def __init__(self, ctx: PinballFX3Context) -> None:
         super().__init__(orientation="vertical", size_hint_y=None, height="40dp", spacing="8dp")
 
-        self.bind(minimum_height=self.setter('height'))
+        self.bind(minimum_height=self.setter("height"))
 
         self.ctx = ctx
 
@@ -572,7 +572,10 @@ class PinballFX3TablesLayout(BoxLayout):
             cols=6,
             spacing=8,
             padding=0,
+            size_hint_y=None,
         )
+
+        grid_layout.bind(minimum_height=grid_layout.setter("height"))
 
         table: PinballFX3Tables
         data: Dict[str, Any]
