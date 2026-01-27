@@ -569,7 +569,7 @@ class PinballFX3TablesLayout(BoxLayout):
                     self.table_data[table]["is_goal"] = True
 
         grid_layout: GridLayout = GridLayout(
-            cols=5,
+            cols=6,
             spacing=8,
             padding=0,
         )
@@ -582,7 +582,7 @@ class PinballFX3TablesLayout(BoxLayout):
 
             table_image = Image(
                 texture=image.texture,
-                size=(128, 128),
+                size=(96, 96),
                 size_hint=(None, None),
                 allow_stretch=True,
                 opacity=0.4
