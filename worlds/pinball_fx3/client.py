@@ -140,6 +140,8 @@ class PinballFX3Context(CommonClient.CommonContext):
                 "target_score_requirement_percentage"
             ]
 
+            self.game_controller.option_progressive_challenge_access = _args["slot_data"]["progressive_challenge_access"]
+
             self.game_controller.option_challenge_star_requirement_mode = id_to_requirement_modes()[
                 _args["slot_data"]["challenge_star_requirement_mode"]
             ]

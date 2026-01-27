@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Any, Dict, List, Tuple
 
 from .data.item_data import PinballFX3ItemData, item_data
 from .data.location_data import PinballFX3LocationData, location_data
@@ -110,9 +110,22 @@ def location_access_rule_for(location: str, player: int) -> str:
     lambda_string: str = "lambda state: "
 
     i: int
-    requirement: PinballFX3APItems
+    requirement: Tuple[Any]
     for i, requirement in enumerate(data.requirements):
-        lambda_string += f"state.has(\"{requirement.value}\", {player})"
+        if isinstance(requirement[0], PinballFX3APItems):
+            lambda_string += f"state.has(\"{requirement[0].value}\", {player}, {requirement[1]})"
+        elif isinstance(requirement[0], tuple):
+            lambda_string += "("
+
+            ii: int
+            sub_requirement: tuple[Any]
+            for ii, sub_requirement in enumerate(requirement):
+                lambda_string += f"state.has(\"{sub_requirement[0].value}\", {player}, {sub_requirement[1]})"
+
+                if ii < len(requirement) - 1:
+                    lambda_string += " or "
+
+            lambda_string += ")"
 
         if i < len(data.requirements) - 1:
             lambda_string += " and "

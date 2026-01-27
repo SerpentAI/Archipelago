@@ -47,6 +47,7 @@ class GameController:
     option_pinball_table_count: Optional[int]
     option_target_score_requirement_mode: Optional[PinballFX3APRequirementModes]
     option_target_score_requirement_percentage: Optional[int]
+    option_progressive_challenge_access: Optional[bool]
     option_challenge_star_requirement_mode: Optional[PinballFX3APRequirementModes]
     option_challenge_low_tier_star_requirement: Optional[int]
     option_challenge_mid_tier_star_requirement: Optional[int]
@@ -99,6 +100,7 @@ class GameController:
         self.option_pinball_table_count = None
         self.option_target_score_requirement_mode = None
         self.option_target_score_requirement_percentage = None
+        self.option_progressive_challenge_access = None
         self.option_challenge_star_requirement_mode = None
         self.option_challenge_low_tier_star_requirement = None
         self.option_challenge_mid_tier_star_requirement = None
@@ -317,6 +319,7 @@ class GameController:
         self.option_pinball_table_count = None
         self.option_target_score_requirement_mode = None
         self.option_target_score_requirement_percentage = None
+        self.option_progressive_challenge_access = None
         self.option_challenge_star_requirement_mode = None
         self.option_challenge_low_tier_star_requirement = None
         self.option_challenge_mid_tier_star_requirement = None
@@ -410,32 +413,80 @@ class GameController:
                 return
 
             possible_locations: Dict[int, str] = dict()
-            challenge_access_items: Dict[str, str] = dict()
+
+            has_low_access: bool = False
+            has_mid_access: bool = False
+            has_high_access: bool = False
 
             if self.game_state_challenge_type == PinballFX3ChallengeTypes.ONE_BALL:
                 possible_locations = self.challenge_1_ball_locations_by_table[self.game_state_table]
 
-                challenge_access_items = {
-                    "Low": PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value,
-                    "Mid": PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value,
-                    "High": PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value,
-                }
+                if PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value] >= 1:
+                    has_low_access = True
+                elif PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value] >= 1:
+                    has_low_access = True
+
+                if PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value] >= 1:
+                    has_mid_access = True
+                elif PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value] >= 2:
+                    has_mid_access = True
+
+                if PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value] >= 1:
+                    has_high_access = True
+                elif PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value] >= 3:
+                    has_high_access = True
             elif self.game_state_challenge_type == PinballFX3ChallengeTypes.FIVE_MINUTE:
                 possible_locations = self.challenge_5_minute_locations_by_table[self.game_state_table]
 
-                challenge_access_items = {
-                    "Low": PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value,
-                    "Mid": PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value,
-                    "High": PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value,
-                }
+                if PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value] >= 1:
+                    has_low_access = True
+                elif PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value] >= 1:
+                    has_low_access = True
+
+                if PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value] >= 1:
+                    has_mid_access = True
+                elif PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value] >= 2:
+                    has_mid_access = True
+
+                if PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value] >= 1:
+                    has_high_access = True
+                elif PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value] >= 3:
+                    has_high_access = True
             elif self.game_state_challenge_type == PinballFX3ChallengeTypes.SURVIVAL:
                 possible_locations = self.challenge_survival_locations_by_table[self.game_state_table]
 
-                challenge_access_items = {
-                    "Low": PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value,
-                    "Mid": PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value,
-                    "High": PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value,
-                }
+                if PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value] >= 1:
+                    has_low_access = True
+                elif PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value] >= 1:
+                    has_low_access = True
+
+                if PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value] >= 1:
+                    has_mid_access = True
+                elif PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value] >= 2:
+                    has_mid_access = True
+
+                if PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value] >= 1:
+                    has_high_access = True
+                elif PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value in self.received_items and \
+                        self.received_items[PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value] >= 3:
+                    has_high_access = True
 
             bonus_stars: int = self.useful_items[self.game_state_table][PinballFX3APUsefulItems.STAR_REQUIREMENT_DISCOUNT]
             stars_obtained: int = self.game_state_stars_obtained + bonus_stars
@@ -449,13 +500,13 @@ class GameController:
                     location: str = possible_locations[i]
 
                     if self.game_state_table != self.selected_starting_table:
-                        if i <= 5 and challenge_access_items["Low"] not in self.received_items:
+                        if i <= 5 and not has_low_access:
                             continue
 
-                        if 5 < i <= 10 and challenge_access_items["Mid"] not in self.received_items:
+                        if 5 < i <= 10 and not has_mid_access:
                             continue
 
-                        if i > 10 and challenge_access_items["High"] not in self.received_items:
+                        if i > 10 and not has_high_access:
                             continue
 
                     checked_locations.append(location)

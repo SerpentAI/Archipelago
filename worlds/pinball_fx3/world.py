@@ -93,6 +93,7 @@ class PinballFX3World(World):
     goal: PinballFX3APGoals
     pinball_table_count: int
     pinball_table_selection: List[PinballFX3Tables]
+    progressive_challenge_access: bool
     shiny_quarters_required: int
     shiny_quarters_total: int
     starsanity: bool
@@ -214,7 +215,8 @@ class PinballFX3World(World):
 
             self.target_scores[table] = adjusted_scores
 
-        # Challenge Star Requirements
+        self.progressive_challenge_access = bool(self.options.progressive_challenge_access.value)
+
         self.challenge_star_requirement_mode = id_to_requirement_modes()[
             self.options.challenge_star_requirement_mode.value
         ]
@@ -392,9 +394,15 @@ class PinballFX3World(World):
             item_pool.append(item)
 
         # Challenge Access
-        item_name: str
-        for item_name in items_with_tag(PinballFX3APTags.CHALLENGE_ACCESS_ITEM):
-            item_pool.append(self.create_item(item_name))
+        if self.progressive_challenge_access:
+            item_name: str
+            for item_name in items_with_tag(PinballFX3APTags.PROGRESSIVE_CHALLENGE_ACCESS_ITEM):
+                for _ in range(3):
+                    item_pool.append(self.create_item(item_name))
+        else:
+            item_name: str
+            for item_name in items_with_tag(PinballFX3APTags.CHALLENGE_ACCESS_ITEM):
+                item_pool.append(self.create_item(item_name))
 
         # Table Unlocks + Prepare Useful Item Pool
         useful_item_pool: List[str] = list()
@@ -470,6 +478,7 @@ class PinballFX3World(World):
             "shiny_quarters_required",
             "pinball_table_selection",
             "pinball_table_count",
+            "progressive_challenge_access",
             "target_score_requirement_mode",
             "target_score_requirement_percentage",
             "challenge_star_requirement_mode",
@@ -573,6 +582,7 @@ class PinballFX3World(World):
             self.target_score_requirement_mode = passthrough["target_score_requirement_mode"]
             self.target_score_requirement_percentage = passthrough["target_score_requirement_percentage"]
             self.target_scores = passthrough["target_scores"]
+            self.progressive_challenge_access = passthrough["progressive_challenge_access"]
             self.challenge_star_requirement_mode = passthrough["challenge_star_requirement_mode"]
             self.challenge_low_tier_star_requirement = passthrough["challenge_low_tier_star_requirement"]
             self.challenge_mid_tier_star_requirement = passthrough["challenge_mid_tier_star_requirement"]

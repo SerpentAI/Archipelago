@@ -1,14 +1,29 @@
-from typing import Dict, NamedTuple, Optional, Tuple
+from typing import Dict, NamedTuple, Optional, Tuple, Union
 
 from ..data.mapping_data import table_to_table_groups
 from ..enums import PinballFX3APItems, PinballFX3Tables, PinballFX3APTags
+
+
+PinballFX3LocationRule = Union[
+    Tuple[
+        Union[
+            Tuple[PinballFX3APItems, int],
+            Tuple[
+                Tuple[PinballFX3APItems, int],
+                ...,
+            ],
+        ],
+        ...,
+    ],
+    None,
+]
 
 
 class PinballFX3LocationData(NamedTuple):
     archipelago_id: Optional[int]
     region: PinballFX3Tables
     tags: Optional[Tuple[PinballFX3APTags, ...]] = None
-    requirements: Optional[Tuple[PinballFX3APItems, ...]] = None
+    requirements: PinballFX3LocationRule = None
 
 
 location_offset: int = 1000000
@@ -65,7 +80,10 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER,
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
+            ),
         )
     )
 
@@ -80,7 +98,10 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER,
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
+            ),
         )
     )
 
@@ -95,8 +116,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Target Star (Low)"] = PinballFX3LocationData(
@@ -110,8 +134,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Target Star (Mid)"] = PinballFX3LocationData(
@@ -125,8 +152,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Target Star (High)"] = PinballFX3LocationData(
@@ -140,8 +170,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Target Star (Low)"] = PinballFX3LocationData(
@@ -155,8 +188,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Target Star (Mid)"] = PinballFX3LocationData(
@@ -170,8 +206,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Target Star (High)"] = PinballFX3LocationData(
@@ -185,8 +224,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 1 (Low)"] = PinballFX3LocationData(
@@ -201,8 +243,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 2 (Low)"] = PinballFX3LocationData(
@@ -217,8 +262,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 3 (Low)"] = PinballFX3LocationData(
@@ -233,8 +281,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 4 (Low)"] = PinballFX3LocationData(
@@ -249,8 +300,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 1 (Mid)"] = PinballFX3LocationData(
@@ -265,8 +319,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 2 (Mid)"] = PinballFX3LocationData(
@@ -281,8 +338,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 3 (Mid)"] = PinballFX3LocationData(
@@ -297,8 +357,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 4 (Mid)"] = PinballFX3LocationData(
@@ -313,8 +376,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 1 (High)"] = PinballFX3LocationData(
@@ -329,8 +395,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 2 (High)"] = PinballFX3LocationData(
@@ -345,8 +414,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 3 (High)"] = PinballFX3LocationData(
@@ -361,8 +433,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 1 Ball Challenge - Starsanity 4 (High)"] = PinballFX3LocationData(
@@ -377,8 +452,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 1 (Low)"] = PinballFX3LocationData(
@@ -393,8 +471,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 2 (Low)"] = PinballFX3LocationData(
@@ -409,8 +490,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 3 (Low)"] = PinballFX3LocationData(
@@ -425,8 +509,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 4 (Low)"] = PinballFX3LocationData(
@@ -441,8 +528,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 1 (Mid)"] = PinballFX3LocationData(
@@ -457,8 +547,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 2 (Mid)"] = PinballFX3LocationData(
@@ -473,8 +566,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 3 (Mid)"] = PinballFX3LocationData(
@@ -489,8 +585,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 4 (Mid)"] = PinballFX3LocationData(
@@ -505,8 +604,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 1 (High)"] = PinballFX3LocationData(
@@ -521,8 +623,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 2 (High)"] = PinballFX3LocationData(
@@ -537,8 +642,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 3 (High)"] = PinballFX3LocationData(
@@ -553,8 +661,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} 5 Minute Challenge - Starsanity 4 (High)"] = PinballFX3LocationData(
@@ -569,8 +680,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 1 (Low)"] = PinballFX3LocationData(
@@ -585,8 +699,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 2 (Low)"] = PinballFX3LocationData(
@@ -601,8 +718,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 3 (Low)"] = PinballFX3LocationData(
@@ -617,8 +737,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 4 (Low)"] = PinballFX3LocationData(
@@ -633,8 +756,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 1 (Mid)"] = PinballFX3LocationData(
@@ -649,8 +775,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 2 (Mid)"] = PinballFX3LocationData(
@@ -665,8 +794,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 3 (Mid)"] = PinballFX3LocationData(
@@ -681,8 +813,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 4 (Mid)"] = PinballFX3LocationData(
@@ -697,8 +832,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 1 (High)"] = PinballFX3LocationData(
@@ -713,8 +851,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 2 (High)"] = PinballFX3LocationData(
@@ -729,8 +870,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 3 (High)"] = PinballFX3LocationData(
@@ -745,8 +889,11 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
+            ),
+        )
     )
 
     location_data[f"{location_prefix} Survival Challenge - Starsanity 4 (High)"] = PinballFX3LocationData(
@@ -761,6 +908,9 @@ for i, table in enumerate(PinballFX3Tables):
             eval(f"PinballFX3APTags.{table.name}_LOCATION"),
         ),
         requirements=(
-            PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER,
-        ),
+            (
+                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
+                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
+            ),
+        )
     )

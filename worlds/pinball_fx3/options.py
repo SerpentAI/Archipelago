@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from Options import (
     Choice,
+    DefaultOnToggle,
     OptionDict,
     OptionGroup,
     PerGameCommonOptions,
@@ -125,6 +126,19 @@ class TargetScoreRequirementPercentage(Range):
     range_end = 200
 
     default = 100
+
+
+class ProgressiveChallengeAccess(DefaultOnToggle):
+    """
+    If enabled, Challenge Access items will unlock Challenge tiers in a progressive manner, meaning you will gain
+    access to Low -> Mid -> High-Tier sequentially for each Challenge type. This should smooth the difficulty curve,
+    allowing you to collect some useful items by the time you reach High-Tier Challenges.
+
+    For a more challenging / chaotic experience, disable this option. Expect to possibly have to obtain High-Tier
+    Challenge stars very early on, before Low or Mid-Tier stars and sometimes without any useful items helping you out.
+    """
+
+    display_name = "Progressive Challenge Access"
 
 
 class ChallengeStarRequirementMode(Choice):
@@ -258,6 +272,7 @@ class PinballFX3Options(PerGameCommonOptions):
     pinball_table_count: PinballTableCount
     target_score_requirement_mode: TargetScoreRequirementMode
     target_score_requirement_percentage: TargetScoreRequirementPercentage
+    progressive_challenge_access: ProgressiveChallengeAccess
     challenge_star_requirement_mode: ChallengeStarRequirementMode
     challenge_low_tier_star_requirement: ChallengeLowTierStarRequirement
     challenge_mid_tier_star_requirement: ChallengeMidTierStarRequirement
@@ -284,15 +299,16 @@ option_groups: List[OptionGroup] = [
         ],
     ),
     OptionGroup(
-        "Target Score Requirement Options",
+        "Target Score Options",
         [
             TargetScoreRequirementMode,
             TargetScoreRequirementPercentage,
         ],
     ),
     OptionGroup(
-        "Challenge Star Requirement Options",
+        "Challenge Star Options",
         [
+            ProgressiveChallengeAccess,
             ChallengeStarRequirementMode,
             ChallengeLowTierStarRequirement,
             ChallengeMidTierStarRequirement,

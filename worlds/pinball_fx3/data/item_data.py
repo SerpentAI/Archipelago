@@ -76,6 +76,21 @@ item_data: Dict[str, PinballFX3ItemData] = {
         classification=ItemClassification.progression,
         tags=(PinballFX3APTags.CHALLENGE_ACCESS_ITEM,),
     ),
+    PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value: PinballFX3ItemData(
+        archipelago_id=item_offset + 10 + 10,
+        classification=ItemClassification.progression,
+        tags=(PinballFX3APTags.PROGRESSIVE_CHALLENGE_ACCESS_ITEM,),
+    ),
+    PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value: PinballFX3ItemData(
+        archipelago_id=item_offset + 10 + 11,
+        classification=ItemClassification.progression,
+        tags=(PinballFX3APTags.PROGRESSIVE_CHALLENGE_ACCESS_ITEM,),
+    ),
+    PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value: PinballFX3ItemData(
+        archipelago_id=item_offset + 10 + 12,
+        classification=ItemClassification.progression,
+        tags=(PinballFX3APTags.PROGRESSIVE_CHALLENGE_ACCESS_ITEM,),
+    ),
     # Filler Items
     PinballFX3APItems.CRACKED_QUARTER.value: PinballFX3ItemData(
         archipelago_id=item_offset + 100 + 1,
