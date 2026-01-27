@@ -389,7 +389,7 @@ class GameController:
                 return
 
             multiplier: float = 1.0 + (
-                self.useful_items[self.game_state_table][PinballFX3APUsefulItems.SCORE_MULTIPLIER] * 0.03
+                self.useful_items[self.game_state_table][PinballFX3APUsefulItems.SCORE_MULTIPLIER] * 0.05
             )
 
             multiplied_score: int = round(self.game_state_current_score * multiplier)
@@ -401,7 +401,7 @@ class GameController:
                     continue
 
                 discount_ratio: float = 1.0 - (
-                    self.useful_items[self.game_state_table][PinballFX3APUsefulItems.TARGET_SCORE_DISCOUNT] * 0.03
+                    self.useful_items[self.game_state_table][PinballFX3APUsefulItems.TARGET_SCORE_DISCOUNT] * 0.05
                 )
 
                 discounted_score: int = round(score * discount_ratio)

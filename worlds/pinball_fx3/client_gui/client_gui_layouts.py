@@ -413,8 +413,8 @@ class PinballFX3TableInformationLayout(BoxLayout):
                     if item_target_score_discount in received_items:
                         target_score_discount_count = received_items[item_target_score_discount]
 
-                    score_multiplier: float = 1.0 + (0.03 * score_multiplier_count)
-                    target_score_multiplier: float = 1.0 - (0.03 * target_score_discount_count)
+                    score_multiplier: float = 1.0 + (0.05 * score_multiplier_count)
+                    target_score_multiplier: float = 1.0 - (0.05 * target_score_discount_count)
 
                     is_in_seed: bool = game_state.table in self.ctx.game_controller.target_scores
                     is_goal: bool = False
