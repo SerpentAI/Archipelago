@@ -67,7 +67,7 @@ class PinballTableSelection(OptionDict):
 
     Set any table you don't own (or don't want to play) for Pinball FX3 to false.
 
-    A minimum of 10 Pinball Tables must be selected to play this implementation.
+    A minimum of 6 Pinball Tables must be selected to play this implementation.
     """
 
     display_name = "Pinball Table Selection"
