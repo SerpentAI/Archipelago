@@ -75,6 +75,8 @@ class PinballFX3Context(CommonClient.CommonContext):
     shiny_quarters_total: int = 0
     shiny_quarters_required: int = 0
 
+    target_score_ratios: Dict[PinballFX3Tables, float] = dict()
+
     def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
         super().__init__(server_address, password)
 
@@ -187,6 +189,11 @@ class PinballFX3Context(CommonClient.CommonContext):
 
             self.game_controller.challenge_stars = {
                 PinballFX3Tables(table_name): stars for table_name, stars in _args["slot_data"]["challenge_stars"].items()
+            }
+
+            # Metadata
+            self.target_score_ratios = {
+                PinballFX3Tables(table_name): ratio for table_name, ratio in _args["slot_data"]["target_score_ratios"].items()
             }
 
             # Assemble Locations + Initialize Useful Items

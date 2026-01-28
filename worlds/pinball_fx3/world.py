@@ -113,6 +113,9 @@ class PinballFX3World(World):
     selected_tables: List[PinballFX3Tables]
     target_scores: Dict[PinballFX3Tables, List[int]]
 
+    # Metadata
+    target_score_ratios: Dict[PinballFX3Tables, float]
+
     # Universal Tracker
     ut_can_gen_without_yaml: bool = True
 
@@ -194,6 +197,7 @@ class PinballFX3World(World):
         self.target_score_requirement_percentage = self.options.target_score_requirement_percentage.value
 
         self.target_scores = dict()
+        self.target_score_ratios = dict()
 
         table: PinballFX3Tables
         for table in (self.selected_tables + [self.selected_goal_table]):
@@ -203,11 +207,15 @@ class PinballFX3World(World):
             base_scores: List[int] = base_target_scores[table]
 
             if self.target_score_requirement_mode == PinballFX3APRequirementModes.SAME_FOR_ALL_TABLES:
+                self.target_score_ratios[table] = round(self.target_score_requirement_percentage / 100.0, 2)
+
                 adjusted_scores: List[int] = [
                     round(int(score * (self.target_score_requirement_percentage / 100)), -4) for score in base_scores
                 ]
             elif self.target_score_requirement_mode == PinballFX3APRequirementModes.RANDOM_PER_TABLE:
                 random_percentage: int = self.random.randint(50, self.target_score_requirement_percentage)
+
+                self.target_score_ratios[table] = round(random_percentage / 100.0, 2)
 
                 adjusted_scores: List[int] = [
                     round(int(score * (random_percentage / 100)), -4) for score in base_scores
@@ -600,6 +608,10 @@ class PinballFX3World(World):
             item.value: weight for item, weight in self.useful_item_weights.items()
         }
 
+        slot_data["target_score_ratios"] = {
+            table.value: self.target_score_ratios[table] for table in self.target_score_ratios.keys()
+        }
+
         return slot_data
 
     def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
@@ -611,7 +623,7 @@ class PinballFX3World(World):
         if self.selected_goal_table is not None:
             spoiler_handle.write(f"\n\nGoal Table: {self.selected_goal_table.value}")
 
-        spoiler_handle.write(f"\n\nTarget Scores:\n  {join_string.join([f'{t.value}: {self.target_scores[t]}' for t in self.target_scores])}")
+        spoiler_handle.write(f"\n\nTarget Scores:\n  {join_string.join([f'{t.value} ({self.target_score_ratios[t]}x): {self.target_scores[t]}' for t in self.target_scores])}")
         spoiler_handle.write(f"\n\nChallenge Stars:\n  {join_string.join([f'{t.value}: {self.challenge_stars[t]}' for t in self.challenge_stars])}")
 
     def get_filler_item_name(self) -> str:
@@ -646,6 +658,10 @@ class PinballFX3World(World):
             PinballFX3Tables(table_name): stars for table_name, stars in slot_data["challenge_stars"].items()
         }
 
+        slot_data["target_score_ratios"] = {
+            PinballFX3Tables(table_name): ratio for table_name, ratio in slot_data["target_score_ratios"].items()
+        }
+
         return slot_data
 
     def _apply_universal_tracker_passthrough(self) -> None:
@@ -673,6 +689,7 @@ class PinballFX3World(World):
             self.starsanity = passthrough["starsanity"]
             self.useful_item_percentage = passthrough["useful_item_percentage"]
             self.useful_item_weights = passthrough["useful_item_weights"]
+            self.target_score_ratios = passthrough["target_score_ratios"]
 
     def _generate_filler_useful_item_pool(self, count: int, useful_item_pool: List[str]) -> List[str]:
         useful_items_needed: int = round(self.useful_item_percentage / 100 * count)

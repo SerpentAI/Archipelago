@@ -190,6 +190,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
             size_hint_y=None,
             height="78dp",
             spacing="4dp",
+            size_hint_x=70,
         )
 
         table_information_targets_layout.bind(minimum_height=table_information_targets_layout.setter("height"))
@@ -241,6 +242,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
             size_hint_y=None,
             height="78dp",
             spacing="8dp",
+            size_hint_x=30,
         )
 
         table_information_items_layout.bind(minimum_height=table_information_items_layout.setter("height"))
@@ -462,7 +464,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
                                 target_score_mid = int((base_scores[1] or 0) * target_score_multiplier)
                                 target_score_high = int((base_scores[2] or 0) * target_score_multiplier)
 
-                                self.target_scores_label.text = f"Scores: [color=00FA9A]{target_score_low:,} / {target_score_mid:,} / {target_score_high:,}[/color]".replace(" 0", " X,XXX,XXX")
+                                self.target_scores_label.text = f"Scores: [color=00FA9A]{target_score_low:,} / {target_score_mid:,} / {target_score_high:,}[/color]  [color=888888][size=11]{round(self.ctx.target_score_ratios[game_state.table], 2)}x Base + Items[/size][/color]".replace(" 0", " X,XXX,XXX")
                             else:
                                 self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
 
