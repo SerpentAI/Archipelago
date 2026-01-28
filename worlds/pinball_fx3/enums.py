@@ -1,6 +1,12 @@
 import enum
 
 
+class PinballFX3APExcludeHighTierChallengeStars(enum.Enum):
+    EXCLUDE_ALL = 0
+    EXCLUDE_ONLY_1_BALL = 1
+    DO_NOT_EXCLUDE = 2
+
+
 class PinballFX3APGoals(enum.Enum):
     SHINY_QUARTERS_FINAL_TABLE = 0
     SHINY_QUARTERS_HUNT = 1

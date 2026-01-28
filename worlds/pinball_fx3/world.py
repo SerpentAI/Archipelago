@@ -13,6 +13,7 @@ from .data.location_data import PinballFX3LocationData, location_data
 from .data.score_data import base_target_scores
 
 from .data_funcs import (
+    id_to_exclude_high_tier_challenge_stars,
     id_to_goals,
     id_to_requirement_modes,
     item_names_to_id,
@@ -25,6 +26,7 @@ from .data_funcs import (
 )
 
 from .enums import (
+    PinballFX3APExcludeHighTierChallengeStars,
     PinballFX3APRequirementModes,
     PinballFX3APGoals,
     PinballFX3APItems,
@@ -90,6 +92,8 @@ class PinballFX3World(World):
     challenge_low_tier_star_requirement: int
     challenge_mid_tier_star_requirement: int
     challenge_star_requirement_mode: PinballFX3APRequirementModes
+    exclude_high_tier_challenge_stars: PinballFX3APExcludeHighTierChallengeStars
+    exclude_high_tier_target_scores: bool
     goal: PinballFX3APGoals
     pinball_table_count: int
     pinball_table_selection: List[PinballFX3Tables]
@@ -181,6 +185,8 @@ class PinballFX3World(World):
 
         self.selected_starter_table = self.selected_tables[0]
 
+        self.exclude_high_tier_target_scores = bool(self.options.exclude_high_tier_target_scores.value)
+
         self.target_score_requirement_mode = id_to_requirement_modes()[
             self.options.target_score_requirement_mode.value
         ]
@@ -210,12 +216,21 @@ class PinballFX3World(World):
                 adjusted_scores: List[int] = base_scores[:]
 
             if table == self.selected_goal_table:
+                if self.exclude_high_tier_target_scores:
+                    adjusted_scores[2] = adjusted_scores[1]
+
                 adjusted_scores[0] = None
                 adjusted_scores[1] = None
+            elif self.exclude_high_tier_target_scores:
+                adjusted_scores[2] = None
 
             self.target_scores[table] = adjusted_scores
 
         self.progressive_challenge_access = bool(self.options.progressive_challenge_access.value)
+
+        self.exclude_high_tier_challenge_stars = id_to_exclude_high_tier_challenge_stars()[
+            self.options.exclude_high_tier_challenge_stars.value
+        ]
 
         self.challenge_star_requirement_mode = id_to_requirement_modes()[
             self.options.challenge_star_requirement_mode.value
@@ -249,6 +264,9 @@ class PinballFX3World(World):
                 ]
 
             self.challenge_stars[table] = stars
+
+            if self.exclude_high_tier_challenge_stars == PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ALL:
+                self.challenge_stars[table][2] = None
 
         self.starsanity = bool(self.options.starsanity.value)
 
@@ -299,13 +317,36 @@ class PinballFX3World(World):
             for location_name in table_location_names:
                 data: PinballFX3LocationData = location_data[location_name]
 
-                # Only add the High Tier Target Score location for the goal table
-                if table == self.selected_goal_table:
-                    is_target_score: bool = PinballFX3APTags.TARGET_SCORE_LOCATION in data.tags
-                    is_high_tier: bool = PinballFX3APTags.HIGH_TIER_LOCATION in data.tags
+                is_target_score: bool = PinballFX3APTags.TARGET_SCORE_LOCATION in data.tags
+                is_high_tier: bool = PinballFX3APTags.HIGH_TIER_LOCATION in data.tags
 
+                # Only add the High Tier Target Score location for the goal table
+                # If High Tier Target Scores are excluded, we will provide the Mid Tier Target Score value in slot data instead
+                if table == self.selected_goal_table:
                     if not is_target_score or not is_high_tier:
                         continue
+                else:
+                    is_challenge_star: bool = PinballFX3APTags.CHALLENGE_STAR_LOCATION in data.tags
+                    is_starsanity: bool = PinballFX3APTags.STARSANITY_LOCATION in data.tags
+                    is_1_ball: bool = PinballFX3APTags.CHALLENGE_1_BALL_LOCATION in data.tags
+
+                    exclude_all: bool = self.exclude_high_tier_challenge_stars == (
+                        PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ALL
+                    )
+
+                    exclude_only_1_ball: bool = self.exclude_high_tier_challenge_stars == (
+                        PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ONLY_1_BALL
+                    )
+
+                    if self.exclude_high_tier_target_scores and is_target_score:
+                        if is_high_tier:
+                            continue
+                    elif exclude_all and (is_challenge_star or is_starsanity):
+                        if is_high_tier:
+                            continue
+                    elif exclude_only_1_ball and (is_challenge_star or is_1_ball):
+                        if is_high_tier and is_1_ball:
+                            continue
 
                 if not self.starsanity and PinballFX3APTags.STARSANITY_LOCATION in data.tags:
                     continue
@@ -394,14 +435,46 @@ class PinballFX3World(World):
             item_pool.append(item)
 
         # Challenge Access
+        exclude_all: bool = self.exclude_high_tier_challenge_stars == (
+            PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ALL
+        )
+
+        exclude_only_1_ball: bool = self.exclude_high_tier_challenge_stars == (
+            PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ONLY_1_BALL
+        )
+
         if self.progressive_challenge_access:
             item_name: str
             for item_name in items_with_tag(PinballFX3APTags.PROGRESSIVE_CHALLENGE_ACCESS_ITEM):
-                for _ in range(3):
+                is_1_ball: bool = item_name == PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value
+
+                item_copies: int = 3
+
+                if exclude_all:
+                    item_copies = 2
+                elif exclude_only_1_ball and is_1_ball:
+                    item_copies = 2
+
+                for _ in range(item_copies):
                     item_pool.append(self.create_item(item_name))
         else:
             item_name: str
             for item_name in items_with_tag(PinballFX3APTags.CHALLENGE_ACCESS_ITEM):
+                is_high_tier: bool = item_name in (
+                    PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value,
+                    PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value,
+                    PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value,
+                )
+
+                is_1_ball: bool = item_name == PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value
+
+                if exclude_all:
+                    if is_high_tier:
+                        continue
+                elif exclude_only_1_ball:
+                    if is_high_tier and is_1_ball:
+                        continue
+
                 item_pool.append(self.create_item(item_name))
 
         # Table Unlocks + Prepare Useful Item Pool
@@ -478,9 +551,11 @@ class PinballFX3World(World):
             "shiny_quarters_required",
             "pinball_table_selection",
             "pinball_table_count",
-            "progressive_challenge_access",
+            "exclude_high_tier_target_scores",
             "target_score_requirement_mode",
             "target_score_requirement_percentage",
+            "progressive_challenge_access",
+            "exclude_high_tier_challenge_stars",
             "challenge_star_requirement_mode",
             "challenge_low_tier_star_requirement",
             "challenge_mid_tier_star_requirement",
@@ -546,6 +621,11 @@ class PinballFX3World(World):
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
         slot_data["goal"] = id_to_goals()[slot_data["goal"]]
         slot_data["target_score_requirement_mode"] = id_to_requirement_modes()[slot_data["target_score_requirement_mode"]]
+
+        slot_data["exclude_high_tier_challenge_stars"] = id_to_exclude_high_tier_challenge_stars()[
+            slot_data["exclude_high_tier_challenge_stars"]
+        ]
+
         slot_data["challenge_star_requirement_mode"] = id_to_requirement_modes()[slot_data["challenge_star_requirement_mode"]]
 
         slot_data["useful_item_weights"] = {
@@ -579,10 +659,12 @@ class PinballFX3World(World):
             self.selected_starter_table = passthrough["selected_starter_table"]
             self.selected_tables = passthrough["selected_tables"]
             self.selected_goal_table = passthrough["selected_goal_table"]
+            self.exclude_high_tier_target_scores = passthrough["exclude_high_tier_target_scores"]
             self.target_score_requirement_mode = passthrough["target_score_requirement_mode"]
             self.target_score_requirement_percentage = passthrough["target_score_requirement_percentage"]
             self.target_scores = passthrough["target_scores"]
             self.progressive_challenge_access = passthrough["progressive_challenge_access"]
+            self.exclude_high_tier_challenge_stars = passthrough["exclude_high_tier_challenge_stars"]
             self.challenge_star_requirement_mode = passthrough["challenge_star_requirement_mode"]
             self.challenge_low_tier_star_requirement = passthrough["challenge_low_tier_star_requirement"]
             self.challenge_mid_tier_star_requirement = passthrough["challenge_mid_tier_star_requirement"]

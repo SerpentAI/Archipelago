@@ -92,6 +92,17 @@ class PinballTableCount(Range):
     default = 10
 
 
+class ExcludeHighTierTargetScores(DefaultOnToggle):
+    """
+    If enabled, locations for High-Tier Target Scores will not be created when generating the multiworld.
+    If your goal includes a final table, the Target Score will shift to the Mid-Tier Target Score instead.
+
+    Disabling this option will add more locations, but will also place additional player skill expectations on you.
+    """
+
+    display_name = "Exclude High-Tier Target Scores"
+
+
 class TargetScoreRequirementMode(Choice):
     """
     Determines how Target Score requirements are set.
@@ -139,6 +150,27 @@ class ProgressiveChallengeAccess(DefaultOnToggle):
     """
 
     display_name = "Progressive Challenge Access"
+
+
+class ExcludeHighTierChallengeStars(Choice):
+    """
+    Determines whether High-Tier Challenge Stars are excluded from the multiworld and under what conditions.
+
+    Exclude All: No High-Tier Challenge Star locations will be created.
+    Exclude Only 1 Ball: High-Tier Challenge Star locations for 1-Ball challenges will not be created.
+    Do Not Exclude: All High-Tier Challenge Star locations will be created.
+
+    Including High-Tier Challenge Stars will add more locations, but will also place additional player skill
+    expectations on you.
+    """
+
+    display_name = "Exclude High-Tier Challenge Stars"
+
+    option_exclude_all: int = 0
+    option_exclude_only_1_ball: int = 1
+    option_do_not_exclude: int = 2
+
+    default = 0
 
 
 class ChallengeStarRequirementMode(Choice):
@@ -270,9 +302,11 @@ class PinballFX3Options(PerGameCommonOptions):
     shiny_quarters_required: ShinyQuartersRequired
     pinball_table_selection: PinballTableSelection
     pinball_table_count: PinballTableCount
+    exclude_high_tier_target_scores: ExcludeHighTierTargetScores
     target_score_requirement_mode: TargetScoreRequirementMode
     target_score_requirement_percentage: TargetScoreRequirementPercentage
     progressive_challenge_access: ProgressiveChallengeAccess
+    exclude_high_tier_challenge_stars: ExcludeHighTierChallengeStars
     challenge_star_requirement_mode: ChallengeStarRequirementMode
     challenge_low_tier_star_requirement: ChallengeLowTierStarRequirement
     challenge_mid_tier_star_requirement: ChallengeMidTierStarRequirement
@@ -301,6 +335,7 @@ option_groups: List[OptionGroup] = [
     OptionGroup(
         "Target Score Options",
         [
+            ExcludeHighTierTargetScores,
             TargetScoreRequirementMode,
             TargetScoreRequirementPercentage,
         ],
@@ -309,6 +344,7 @@ option_groups: List[OptionGroup] = [
         "Challenge Star Options",
         [
             ProgressiveChallengeAccess,
+            ExcludeHighTierChallengeStars,
             ChallengeStarRequirementMode,
             ChallengeLowTierStarRequirement,
             ChallengeMidTierStarRequirement,

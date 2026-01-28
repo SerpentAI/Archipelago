@@ -5,6 +5,7 @@ from .data.location_data import PinballFX3LocationData, location_data
 from .data.mapping_data import dlc_to_tables
 
 from .enums import (
+    PinballFX3APExcludeHighTierChallengeStars,
     PinballFX3APGoals,
     PinballFX3APItems,
     PinballFX3APRequirementModes,
@@ -25,6 +26,10 @@ def generate_dlc_table_strings() -> List[str]:
             table_strings.append(f"[{dlc.value}] {table.value}")
 
     return table_strings
+
+
+def id_to_exclude_high_tier_challenge_stars() -> Dict[int, PinballFX3APExcludeHighTierChallengeStars]:
+    return {option.value: option for option in PinballFX3APExcludeHighTierChallengeStars}
 
 
 def id_to_goals() -> Dict[int, PinballFX3APGoals]:

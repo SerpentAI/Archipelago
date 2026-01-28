@@ -6,6 +6,7 @@ import logging
 from .data.mapping_data import table_to_table_groups
 
 from .enums import (
+    PinballFX3APExcludeHighTierChallengeStars,
     PinballFX3APGoals,
     PinballFX3APItems,
     PinballFX3APRequirementModes,
@@ -45,9 +46,11 @@ class GameController:
     option_shiny_quarters_required: Optional[int]
     option_pinball_table_selection: Optional[Dict[str, bool]]
     option_pinball_table_count: Optional[int]
+    option_exclude_high_tier_target_scores: Optional[bool]
     option_target_score_requirement_mode: Optional[PinballFX3APRequirementModes]
     option_target_score_requirement_percentage: Optional[int]
     option_progressive_challenge_access: Optional[bool]
+    option_exclude_high_tier_challenge_stars: Optional[PinballFX3APExcludeHighTierChallengeStars]
     option_challenge_star_requirement_mode: Optional[PinballFX3APRequirementModes]
     option_challenge_low_tier_star_requirement: Optional[int]
     option_challenge_mid_tier_star_requirement: Optional[int]
@@ -98,9 +101,11 @@ class GameController:
         self.option_shiny_quarters_required = None
         self.option_pinball_table_selection = None
         self.option_pinball_table_count = None
+        self.option_exclude_high_tier_target_scores = None
         self.option_target_score_requirement_mode = None
         self.option_target_score_requirement_percentage = None
         self.option_progressive_challenge_access = None
+        self.option_exclude_high_tier_target_scores = None
         self.option_challenge_star_requirement_mode = None
         self.option_challenge_low_tier_star_requirement = None
         self.option_challenge_mid_tier_star_requirement = None
@@ -155,7 +160,9 @@ class GameController:
 
             locations[table][self.target_scores[table][0]] = f"{table_prefix} Target Score (Low)"
             locations[table][self.target_scores[table][1]] = f"{table_prefix} Target Score (Mid)"
-            locations[table][self.target_scores[table][2]] = f"{table_prefix} Target Score (High)"
+
+            if not self.option_exclude_high_tier_target_scores:
+                locations[table][self.target_scores[table][2]] = f"{table_prefix} Target Score (High)"
 
         if self.selected_goal_table is not None:
             table_prefix: str = f"{self.selected_goal_table.value} [{table_to_table_groups[self.selected_goal_table].value}] -"
@@ -170,6 +177,14 @@ class GameController:
         if self.challenge_stars is None:
             return
 
+        exclude_all: bool = self.option_exclude_high_tier_challenge_stars == (
+            PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ALL
+        )
+
+        exclude_1_ball: bool = self.option_exclude_high_tier_challenge_stars == (
+            PinballFX3APExcludeHighTierChallengeStars.EXCLUDE_ONLY_1_BALL
+        )
+
         locations_1_ball: Dict[PinballFX3Tables, Dict[int, str]] = dict()
         locations_5_minute: Dict[PinballFX3Tables, Dict[int, str]] = dict()
         locations_survival: Dict[PinballFX3Tables, Dict[int, str]] = dict()
@@ -182,19 +197,25 @@ class GameController:
 
             locations_1_ball[table][self.challenge_stars[table][0]] = f"{table_prefix} 1 Ball Challenge - Target Star (Low)"
             locations_1_ball[table][self.challenge_stars[table][1]] = f"{table_prefix} 1 Ball Challenge - Target Star (Mid)"
-            locations_1_ball[table][self.challenge_stars[table][2]] = f"{table_prefix} 1 Ball Challenge - Target Star (High)"
+
+            if not exclude_all and not exclude_1_ball:
+                locations_1_ball[table][self.challenge_stars[table][2]] = f"{table_prefix} 1 Ball Challenge - Target Star (High)"
 
             locations_5_minute[table] = dict()
 
             locations_5_minute[table][self.challenge_stars[table][0]] = f"{table_prefix} 5 Minute Challenge - Target Star (Low)"
             locations_5_minute[table][self.challenge_stars[table][1]] = f"{table_prefix} 5 Minute Challenge - Target Star (Mid)"
-            locations_5_minute[table][self.challenge_stars[table][2]] = f"{table_prefix} 5 Minute Challenge - Target Star (High)"
+
+            if not exclude_all:
+                locations_5_minute[table][self.challenge_stars[table][2]] = f"{table_prefix} 5 Minute Challenge - Target Star (High)"
 
             locations_survival[table] = dict()
 
             locations_survival[table][self.challenge_stars[table][0]] = f"{table_prefix} Survival Challenge - Target Star (Low)"
             locations_survival[table][self.challenge_stars[table][1]] = f"{table_prefix} Survival Challenge - Target Star (Mid)"
-            locations_survival[table][self.challenge_stars[table][2]] = f"{table_prefix} Survival Challenge - Target Star (High)"
+
+            if not exclude_all:
+                locations_survival[table][self.challenge_stars[table][2]] = f"{table_prefix} Survival Challenge - Target Star (High)"
 
             if self.option_starsanity:
                 if self.challenge_stars[table][0] > 1:
@@ -237,25 +258,34 @@ class GameController:
                     locations_5_minute[table][9] = f"{table_prefix} 5 Minute Challenge - Starsanity 4 (Mid)"
                     locations_survival[table][9] = f"{table_prefix} Survival Challenge - Starsanity 4 (Mid)"
 
-                if self.challenge_stars[table][2] > 11:
-                    locations_1_ball[table][11] = f"{table_prefix} 1 Ball Challenge - Starsanity 1 (High)"
-                    locations_5_minute[table][11] = f"{table_prefix} 5 Minute Challenge - Starsanity 1 (High)"
-                    locations_survival[table][11] = f"{table_prefix} Survival Challenge - Starsanity 1 (High)"
+                if not exclude_all:
+                    if self.challenge_stars[table][2] > 11:
+                        if not exclude_1_ball:
+                            locations_1_ball[table][11] = f"{table_prefix} 1 Ball Challenge - Starsanity 1 (High)"
 
-                if self.challenge_stars[table][2] > 12:
-                    locations_1_ball[table][12] = f"{table_prefix} 1 Ball Challenge - Starsanity 2 (High)"
-                    locations_5_minute[table][12] = f"{table_prefix} 5 Minute Challenge - Starsanity 2 (High)"
-                    locations_survival[table][12] = f"{table_prefix} Survival Challenge - Starsanity 2 (High)"
+                        locations_5_minute[table][11] = f"{table_prefix} 5 Minute Challenge - Starsanity 1 (High)"
+                        locations_survival[table][11] = f"{table_prefix} Survival Challenge - Starsanity 1 (High)"
 
-                if self.challenge_stars[table][2] > 13:
-                    locations_1_ball[table][13] = f"{table_prefix} 1 Ball Challenge - Starsanity 3 (High)"
-                    locations_5_minute[table][13] = f"{table_prefix} 5 Minute Challenge - Starsanity 3 (High)"
-                    locations_survival[table][13] = f"{table_prefix} Survival Challenge - Starsanity 3 (High)"
+                    if self.challenge_stars[table][2] > 12:
+                        if not exclude_1_ball:
+                            locations_1_ball[table][12] = f"{table_prefix} 1 Ball Challenge - Starsanity 2 (High)"
 
-                if self.challenge_stars[table][2] > 14:
-                    locations_1_ball[table][14] = f"{table_prefix} 1 Ball Challenge - Starsanity 4 (High)"
-                    locations_5_minute[table][14] = f"{table_prefix} 5 Minute Challenge - Starsanity 4 (High)"
-                    locations_survival[table][14] = f"{table_prefix} Survival Challenge - Starsanity 4 (High)"
+                        locations_5_minute[table][12] = f"{table_prefix} 5 Minute Challenge - Starsanity 2 (High)"
+                        locations_survival[table][12] = f"{table_prefix} Survival Challenge - Starsanity 2 (High)"
+
+                    if self.challenge_stars[table][2] > 13:
+                        if not exclude_1_ball:
+                            locations_1_ball[table][13] = f"{table_prefix} 1 Ball Challenge - Starsanity 3 (High)"
+
+                        locations_5_minute[table][13] = f"{table_prefix} 5 Minute Challenge - Starsanity 3 (High)"
+                        locations_survival[table][13] = f"{table_prefix} Survival Challenge - Starsanity 3 (High)"
+
+                    if self.challenge_stars[table][2] > 14:
+                        if not exclude_1_ball:
+                            locations_1_ball[table][14] = f"{table_prefix} 1 Ball Challenge - Starsanity 4 (High)"
+
+                        locations_5_minute[table][14] = f"{table_prefix} 5 Minute Challenge - Starsanity 4 (High)"
+                        locations_survival[table][14] = f"{table_prefix} Survival Challenge - Starsanity 4 (High)"
 
         self.challenge_1_ball_locations_by_table = locations_1_ball
         self.challenge_5_minute_locations_by_table = locations_5_minute
@@ -317,9 +347,11 @@ class GameController:
         self.option_shiny_quarters_required = None
         self.option_pinball_table_selection = None
         self.option_pinball_table_count = None
+        self.option_exclude_high_tier_target_scores = None
         self.option_target_score_requirement_mode = None
         self.option_target_score_requirement_percentage = None
         self.option_progressive_challenge_access = None
+        self.option_exclude_high_tier_target_scores = None
         self.option_challenge_star_requirement_mode = None
         self.option_challenge_low_tier_star_requirement = None
         self.option_challenge_mid_tier_star_requirement = None

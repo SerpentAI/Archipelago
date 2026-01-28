@@ -462,13 +462,16 @@ class PinballFX3TableInformationLayout(BoxLayout):
                                 target_score_mid = int((base_scores[1] or 0) * target_score_multiplier)
                                 target_score_high = int((base_scores[2] or 0) * target_score_multiplier)
 
-                                self.target_scores_label.text = f"Scores: [color=00FA9A]{target_score_low:,} / {target_score_mid:,} / {target_score_high:,}[/color]"
+                                self.target_scores_label.text = f"Scores: [color=00FA9A]{target_score_low:,} / {target_score_mid:,} / {target_score_high:,}[/color]".replace(" 0", " X,XXX,XXX")
                             else:
                                 self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
 
                             # Target Stars
                             if game_state.table in self.ctx.game_controller.challenge_stars:
                                 stars_low, stars_mid, stars_high = self.ctx.game_controller.challenge_stars[game_state.table]
+
+                                if stars_high is None:
+                                    stars_high = "X"
 
                                 self.target_stars_label.text = f"Stars: [color=00FA9A]{stars_low} / {stars_mid} / {stars_high}[/color]"
                             else:

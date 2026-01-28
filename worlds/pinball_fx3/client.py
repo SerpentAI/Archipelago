@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Set
 from .data_funcs import (
     item_names_to_id,
     location_names_to_id,
+    id_to_exclude_high_tier_challenge_stars,
     id_to_goals,
     id_to_items,
     id_to_locations,
@@ -132,6 +133,8 @@ class PinballFX3Context(CommonClient.CommonContext):
             self.game_controller.option_pinball_table_selection = _args["slot_data"]["pinball_table_selection"]
             self.game_controller.option_pinball_table_count = _args["slot_data"]["pinball_table_count"]
 
+            self.game_controller.option_exclude_high_tier_target_scores = _args["slot_data"]["exclude_high_tier_target_scores"]
+
             self.game_controller.option_target_score_requirement_mode = id_to_requirement_modes()[
                 _args["slot_data"]["target_score_requirement_mode"]
             ]
@@ -141,6 +144,10 @@ class PinballFX3Context(CommonClient.CommonContext):
             ]
 
             self.game_controller.option_progressive_challenge_access = _args["slot_data"]["progressive_challenge_access"]
+
+            self.game_controller.option_exclude_high_tier_challenge_stars = id_to_exclude_high_tier_challenge_stars()[
+                _args["slot_data"]["exclude_high_tier_challenge_stars"]
+            ]
 
             self.game_controller.option_challenge_star_requirement_mode = id_to_requirement_modes()[
                 _args["slot_data"]["challenge_star_requirement_mode"]
