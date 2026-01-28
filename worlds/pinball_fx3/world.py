@@ -136,7 +136,7 @@ class PinballFX3World(World):
 
             logging.warning(
                 f"Pinball FX3: {self.player_name} has more total shiny quarters than allowable with the selected "
-                "number of pinball tables. Adjusting total shiny quarters to {self.shiny_quarters_total}..."
+                f"number of pinball tables. Adjusting total shiny quarters to {self.shiny_quarters_total}..."
             )
 
         if self.shiny_quarters_required > self.shiny_quarters_total:
@@ -162,9 +162,9 @@ class PinballFX3World(World):
 
         pinball_table_pool = list(sorted(pinball_table_pool, key=lambda t: t.value))
 
-        if len(pinball_table_pool) < 10:
+        if len(pinball_table_pool) < 6:
             raise OptionError(
-                f"Pinball FX3: {self.player_name} must have at least 10 pinball tables selected to play. "
+                f"Pinball FX3: {self.player_name} must have at least 6 pinball tables selected to play. "
                 f"They only have {len(pinball_table_pool)} selected."
             )
 

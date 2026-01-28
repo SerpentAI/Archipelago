@@ -82,11 +82,14 @@ class PinballTableCount(Range):
     Determines how many Pinball Tables will be picked from your table selection for inclusion in the multiworld.
 
     If this number is higher than the size of your Pinball Table selection, it will be set to that number instead.
+
+    Note: Setting this value below 10 could extremely rarely lead to generation failures when paired with other
+          restrictive options.
     """
 
     display_name = "Pinball Table Count"
 
-    range_start = 10
+    range_start = 6
     range_end = 100
 
     default = 10
