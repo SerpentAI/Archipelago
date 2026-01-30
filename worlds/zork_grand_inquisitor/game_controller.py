@@ -1458,6 +1458,7 @@ class GameController:
 
         if not self.option_wild_voxam and not force_wild:
             self._apply_starting_location(force=True)
+            return None
 
         voxam_roll: int = random.randint(1, 100)
 
