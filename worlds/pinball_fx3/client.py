@@ -25,29 +25,6 @@ from .game_controller import GameController
 class PinballFX3CommandProcessor(CommonClient.ClientCommandProcessor):
     ctx: "PinballFX3Context"
 
-    def _cmd_pinball(self) -> None:
-        """Attach to an open Pinball FX3 process."""
-        if not self.ctx.server or not self.ctx.slot:
-            self.output("You must be connected to an Archipelago server before using /pinball.")
-            return
-
-        result: bool = self.ctx.game_controller.open_process_handle()
-
-        if result:
-            self.ctx.process_attached_at_least_once = True
-            self.output("Successfully attached to Pinball FX3 process.")
-
-            Utils.async_start(
-                self.ctx.send_msgs([
-                    {
-                        "cmd": "StatusUpdate",
-                        "status": CommonClient.ClientStatus.CLIENT_PLAYING
-                    }
-                ])
-            )
-        else:
-            self.output("Failed to attach to Pinball FX3 process.")
-
 
 class PinballFX3Context(CommonClient.CommonContext):
     tags: Set[str] = {"AP"}
@@ -69,13 +46,13 @@ class PinballFX3Context(CommonClient.CommonContext):
 
     seen_item_indices: Set[int] = set()
 
-    process_attached_at_least_once: bool
-    can_display_process_message: bool
+    can_display_process_found_message: bool
+    can_display_process_not_found_message: bool
 
-    shiny_quarters_total: int = 0
-    shiny_quarters_required: int = 0
+    shiny_quarters_total: int
+    shiny_quarters_required: int
 
-    target_score_ratios: Dict[PinballFX3Tables, float] = dict()
+    target_score_ratios: Dict[PinballFX3Tables, float]
 
     def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
         super().__init__(server_address, password)
@@ -88,8 +65,13 @@ class PinballFX3Context(CommonClient.CommonContext):
 
         self.seen_item_indices = set()
 
-        self.process_attached_at_least_once = False
-        self.can_display_process_message = True
+        self.can_display_process_found_message = True
+        self.can_display_process_not_found_message = True
+
+        self.shiny_quarters_total = 0
+        self.shiny_quarters_required = 0
+
+        self.target_score_ratios = dict()
 
     def make_gui(self):
         from .client_gui.client_gui import PinballFX3Manager
@@ -205,6 +187,16 @@ class PinballFX3Context(CommonClient.CommonContext):
             # Data Storage
             self.data_storage_key = f"pinball_fx3_{self.team}_{self.slot}"
 
+            # Playing Status
+            Utils.async_start(
+                self.send_msgs([
+                    {
+                        "cmd": "StatusUpdate",
+                        "status": CommonClient.ClientStatus.CLIENT_PLAYING
+                    }
+                ])
+            )
+
             # UI Tabs
             self.ui.update_tabs()
 
@@ -224,30 +216,26 @@ class PinballFX3Context(CommonClient.CommonContext):
                 self.game_controller.received_items_queue.append(item)
                 self.seen_item_indices.add(i)
 
-            # Game Controller Update
-            if self.game_controller.is_process_running():
-                self.game_controller.update()
-                self.can_display_process_message = True
-            else:
-                process_message: str
-
-                if self.process_attached_at_least_once:
-                    process_message = (
-                        "Connection to the Pinball FX3 process was lost. Ensure you are connected "
-                        "to an Archipelago server and the game is running, then use the /pinball command to reconnect."
-                    )
-                else:
-                    process_message = (
-                        "To start playing, connect to an Archipelago server and use the /pinball command to "
-                        "link to an active Pinball FX3 process."
-                    )
-
-                if self.can_display_process_message:
-                    CommonClient.logger.info(process_message)
-                    self.can_display_process_message = False
-
             # Network Operations
             if self.server and self.slot:
+                # Game Controller Update
+                if not self.game_controller.is_process_running():
+                    if not self.game_controller.open_process_handle():
+                        if self.can_display_process_not_found_message:
+                            CommonClient.logger.info("Looking for Pinball FX3 process...")
+
+                            self.can_display_process_found_message = True
+                            self.can_display_process_not_found_message = False
+
+                if self.game_controller.is_process_running():
+                    if self.can_display_process_found_message:
+                        CommonClient.logger.info("Pinball FX3 process found!")
+
+                        self.can_display_process_found_message = False
+                        self.can_display_process_not_found_message = True
+
+                    self.game_controller.update()
+
                 # Send Checked Locations
                 checked_location_ids: List[int] = list()
 

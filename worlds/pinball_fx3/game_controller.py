@@ -144,7 +144,7 @@ class GameController:
         return self.game_state_manager.close_process_handle()
 
     def is_process_running(self) -> bool:
-        return self.game_state_manager.is_process_running
+        return self.game_state_manager.is_process_still_running()
 
     def assemble_single_player_locations(self) -> None:
         if self.target_scores is None:
