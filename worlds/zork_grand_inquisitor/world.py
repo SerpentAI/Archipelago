@@ -656,7 +656,7 @@ class ZorkGrandInquisitorWorld(World):
         slot_data["deathsanity"] = id_to_deathsanity()[slot_data["deathsanity"]]
         slot_data["landmarksanity"] = id_to_landmarksanity()[slot_data["landmarksanity"]]
         slot_data["entrance_randomizer"] = id_to_entrance_randomizer()[slot_data["entrance_randomizer"]]
-        slot_data["entrance_randomizer_include_subway_destinations"] = bool(slot_data["entrance_randomizer"])
+        slot_data["entrance_randomizer_include_subway_destinations"] = bool(slot_data["entrance_randomizer_include_subway_destinations"])
 
         slot_data["starter_kit"] = tuple([ZorkGrandInquisitorItems(item) for item in slot_data["starter_kit"]])
 
@@ -867,6 +867,12 @@ class ZorkGrandInquisitorWorld(World):
                 )
 
                 entrance_from.connect(self.get_region(entrance_to_region_pair[1].value))
+
+            # We also need to reconnect vanilla subway entrances when ER is on, but destinations are not randomized
+            if not self.entrance_randomizer_include_subway_destinations:
+                if entrance_from.name.startswith("Subway Ride"):
+                    region_to: ZorkGrandInquisitorRegions = entrance_names_reverse[entrance_from.name][1]
+                    entrance_from.connect(self.get_region(region_to.value))
 
     def _select_initial_totemizer_destination(self) -> ZorkGrandInquisitorItems:
         return self.random.choice((
