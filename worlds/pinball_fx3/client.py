@@ -94,8 +94,18 @@ class PinballFX3Context(CommonClient.CommonContext):
 
         self.data_storage_key = None
 
-        self.items_received = []
-        self.locations_info = {}
+        self.items_received = list()
+        self.locations_info = dict()
+
+        self.seen_item_indices = set()
+
+        self.can_display_process_found_message = True
+        self.can_display_process_not_found_message = True
+
+        self.shiny_quarters_total = 0
+        self.shiny_quarters_required = 0
+
+        self.target_score_ratios = dict()
 
         self.ui.update_tabs()
 
