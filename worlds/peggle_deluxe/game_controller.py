@@ -318,6 +318,9 @@ class GameController:
         self.game_state_has_achieved_full_clear = game_state.has_achieved_full_clear
 
     def _apply_conditional_game_state(self) -> None:
+        if not self.game_state_manager.are_quick_play_levels_unlocked():
+            self.game_state_manager.unlock_quick_play_levels()
+
         return_contexts: List[Union[PeggleDeluxeContexts, None]] = [
             PeggleDeluxeContexts.INVALID,
             None,
