@@ -464,7 +464,7 @@ class GameController:
                         checked_locations.append(location)
 
             if self.game_state_has_achieved_style_shot:
-                location: str = f"{level_prefix} Style Shot"
+                location: str = f"{level_prefix} Style Shot (25,000+)"
                 checked_locations.append(location)
 
             if self.game_state_has_achieved_3_orange_peg_combo:

@@ -127,7 +127,7 @@ for i, level in enumerate(PeggleDeluxeLevels):
         ),
     )
 
-    location_data[f"{location_prefix} Style Shot"] = PeggleDeluxeLocationData(
+    location_data[f"{location_prefix} Style Shot (25,000+)"] = PeggleDeluxeLocationData(
         archipelago_id=location_offset + level_offset + 9,
         region=level,
         tags=(
