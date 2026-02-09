@@ -216,7 +216,7 @@ class GameStateManager:
                 context=context,
                 table=table_id_to_table[self.process.read_int(self.challenge_table_id_address)],
                 current_score=score,
-                challenge_type=challenge_type_id_to_challenge_type[self.process.read_int(self.challenge_type_address)],
+                challenge_type=challenge_type_id_to_challenge_type.get(self.process.read_int(self.challenge_type_address), 1),
                 stars_obtained=self.process.read_int(self.challenge_stars_obtained_address),
                 target_score=self.process.read_longlong(self.challenge_target_score_address),
                 previous_target_score=self.process.read_longlong(self.challenge_previous_target_score_address),
