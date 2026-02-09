@@ -599,7 +599,7 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
 
                         if is_level_unlocked and is_master_unlocked:
                             # Target Scores
-                            if game_state.current_level in selected_levels:
+                            if game_state.current_level in selected_levels and game_state.current_level in self.ctx.game_controller.target_scores:
                                 base_scores: List[int] = self.ctx.game_controller.target_scores[game_state.current_level]
 
                                 target_score_low = int((base_scores[0] or 0) * target_score_multiplier)
@@ -949,7 +949,8 @@ class PeggleDeluxeContent(ScrollView):
             self.layout_masters.update()
             self.layout_levels.update()
         except Exception:
-            pass
+            import traceback
+            self.ctx.game_controller.log(traceback.format_exc())
 
 
 class PeggleDeluxeTabLayout(BoxLayout):

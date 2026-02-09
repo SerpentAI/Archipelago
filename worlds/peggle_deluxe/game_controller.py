@@ -224,8 +224,9 @@ class GameController:
                 self._process_received_items()
 
                 self._check_for_victory()
-            except Exception as e:
-                self.log_debug(e)
+            except Exception:
+                import traceback
+                self.log(traceback.format_exc())
 
     def reset(self) -> None:
         self.received_items = dict()
