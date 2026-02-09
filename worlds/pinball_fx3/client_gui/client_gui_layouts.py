@@ -675,8 +675,12 @@ class PinballFX3Content(ScrollView):
         self.timer = Clock.schedule_interval(self.update, 1.0 / 10.0)
 
     def update(self, *_) -> None:
-        self.layout_table_information.update()
-        self.layout_tables.update()
+        try:
+            self.layout_table_information.update()
+            self.layout_tables.update()
+        except Exception:
+            import traceback
+            self.ctx.game_controller.log(traceback.format_exc())
 
 
 class PinballFX3TabLayout(BoxLayout):
