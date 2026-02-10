@@ -19,12 +19,7 @@ class PeggleDeluxeItemData(NamedTuple):
 item_offset: int = 1000000
 
 item_data: Dict[str, PeggleDeluxeItemData] = {
-    # Victory and Goal Items
-    PeggleDeluxeAPItems.VICTORY.value: PeggleDeluxeItemData(
-        archipelago_id=item_offset + 1,
-        classification=ItemClassification.progression,
-        tags=(PeggleDeluxeAPTags.VICTORY_ITEM,),
-    ),
+    # Goal Items
     PeggleDeluxeAPItems.GOLD_PEG.value: PeggleDeluxeItemData(
         archipelago_id=item_offset + 2,
         classification=ItemClassification.progression_deprioritized_skip_balancing,

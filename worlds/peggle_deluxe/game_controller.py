@@ -542,7 +542,7 @@ class GameController:
 
     def _check_for_victory(self) -> None:
         if self.option_goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
-            if PeggleDeluxeAPItems.VICTORY.value in self.received_items:
+            if f"{self.selected_goal_level.value} - Level Clear" in self.completed_locations:
                 self.goal_completed = True
         elif self.option_goal == PeggleDeluxeAPGoals.GOLD_PEG_HUNT:
             if PeggleDeluxeAPItems.GOLD_PEG.value in self.received_items:

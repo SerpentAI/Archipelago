@@ -277,8 +277,45 @@ class PeggleDeluxeWorld(World):
             self._apply_universal_tracker_passthrough()
 
     def create_regions(self) -> None:
+        # Menu
         region_menu: Region = Region("Menu", self.player, self.multiworld)
         self.multiworld.regions.append(region_menu)
+
+        # Endgame
+        region_endgame: Region = Region("Endgame", self.player, self.multiworld)
+
+        victory_location: PeggleDeluxeLocation = PeggleDeluxeLocation(
+            self.player,
+            "Victory",
+            None,
+            region_endgame,
+        )
+
+        victory_location.place_locked_item(
+            PeggleDeluxeItem(
+                "Victory",
+                ItemClassification.progression,
+                None,
+                self.player,
+            )
+        )
+
+        region_endgame.locations.append(victory_location)
+
+        if self.goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
+            region_menu.connect(
+                region_endgame,
+                rule=lambda state: (
+                    state.has(PeggleDeluxeAPItems.GOLD_PEG.value, self.player, self.gold_pegs_required) and
+                    state.has(f"Level Unlock: {self.selected_goal_level.value}", self.player) and
+                    state.has(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, self.player, 4)
+                )
+            )
+        elif self.goal == PeggleDeluxeAPGoals.GOLD_PEG_HUNT:
+            region_menu.connect(
+                region_endgame,
+                rule=lambda state: state.has(PeggleDeluxeAPItems.GOLD_PEG.value, self.player, self.gold_pegs_required)
+            )
 
         # Levels
         level: PeggleDeluxeLevels
@@ -307,9 +344,6 @@ class PeggleDeluxeWorld(World):
                     data.archipelago_id,
                     region_level,
                 )
-
-                if level == self.selected_goal_level:
-                    location.place_locked_item(self.create_item(PeggleDeluxeAPItems.VICTORY.value))
 
                 location_access_rule: str = location_access_rule_for(location_name, self.player)
 
@@ -431,14 +465,7 @@ class PeggleDeluxeWorld(World):
         )
 
     def generate_basic(self) -> None:
-        if self.goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has(
-                PeggleDeluxeAPItems.VICTORY.value, self.player
-            )
-        elif self.goal == PeggleDeluxeAPGoals.GOLD_PEG_HUNT:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has(
-                PeggleDeluxeAPItems.GOLD_PEG.value, self.player, self.gold_pegs_required
-            )
+        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data: Dict[str, Any] = self.options.as_dict(
