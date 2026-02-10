@@ -535,7 +535,7 @@ class PeggleDeluxeWorld(World):
         slot_data["selected_levels"] = [PeggleDeluxeLevels(level_name) for level_name in slot_data["selected_levels"]]
         slot_data["selected_starter_level"] = PeggleDeluxeLevels(slot_data["selected_starter_level"])
 
-        if slot_data["selected_goal_level"] is not None:
+        if "selected_goal_level" in slot_data and slot_data["selected_goal_level"] is not None:
             slot_data["selected_goal_level"] = PeggleDeluxeLevels(slot_data["selected_goal_level"])
 
         slot_data["target_scores"] = {
@@ -561,7 +561,7 @@ class PeggleDeluxeWorld(World):
             self.selected_masters = passthrough["selected_masters"]
             self.selected_starter_master = passthrough["selected_starter_master"]
             self.selected_levels = passthrough["selected_levels"]
-            self.selected_goal_level = passthrough["selected_goal_level"]
+            self.selected_goal_level = passthrough.get("selected_goal_level")
             self.selected_starter_level = passthrough["selected_starter_level"]
             self.include_full_clears = passthrough["include_full_clears"]
             self.target_score_requirement_mode = passthrough["target_score_requirement_mode"]
