@@ -277,8 +277,45 @@ class PeggleNightsWorld(World):
             self._apply_universal_tracker_passthrough()
 
     def create_regions(self) -> None:
+        # Menu
         region_menu: Region = Region("Menu", self.player, self.multiworld)
         self.multiworld.regions.append(region_menu)
+
+        # Endgame
+        region_endgame: Region = Region("Endgame", self.player, self.multiworld)
+
+        victory_location: PeggleNightsLocation = PeggleNightsLocation(
+            self.player,
+            "Victory",
+            None,
+            region_endgame,
+        )
+
+        victory_location.place_locked_item(
+            PeggleNightsItem(
+                "Victory",
+                ItemClassification.progression,
+                None,
+                self.player,
+            )
+        )
+
+        region_endgame.locations.append(victory_location)
+
+        if self.goal == PeggleNightsAPGoals.SHADOW_PEGS_FINAL_LEVEL:
+            region_menu.connect(
+                region_endgame,
+                rule=lambda state: (
+                    state.has(PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required) and
+                    state.has(f"Level Unlock: {self.selected_goal_level.value}", self.player) and
+                    state.has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, self.player, 4)
+                )
+            )
+        elif self.goal == PeggleNightsAPGoals.SHADOW_PEG_HUNT:
+            region_menu.connect(
+                region_endgame,
+                rule=lambda state: state.has(PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required)
+            )
 
         # Levels
         level: PeggleNightsLevels
@@ -307,9 +344,6 @@ class PeggleNightsWorld(World):
                     data.archipelago_id,
                     region_level,
                 )
-
-                if level == self.selected_goal_level:
-                    location.place_locked_item(self.create_item(PeggleNightsAPItems.VICTORY.value))
 
                 location_access_rule: str = location_access_rule_for(location_name, self.player)
 
@@ -431,14 +465,7 @@ class PeggleNightsWorld(World):
         )
 
     def generate_basic(self) -> None:
-        if self.goal == PeggleNightsAPGoals.SHADOW_PEGS_FINAL_LEVEL:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has(
-                PeggleNightsAPItems.VICTORY.value, self.player
-            )
-        elif self.goal == PeggleNightsAPGoals.SHADOW_PEG_HUNT:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has(
-                PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required
-            )
+        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data: Dict[str, Any] = self.options.as_dict(
