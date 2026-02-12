@@ -375,6 +375,9 @@ class GameController:
 
             maximum_multiplier, minimum_orange_pegs_remaining = fever_meter_caps.get(progressive_item_count, (10, 0))
 
+            if self.game_state_manager.get_orange_pegs_remaining() == 0:
+                maximum_multiplier *= 10
+
             if (self.game_state_current_fever_meter_multiplier or 0) > maximum_multiplier:
                 self.game_state_manager.set_current_fever_meter_multiplier(maximum_multiplier)
                 self.game_state_fever_meter_multiplier = maximum_multiplier
