@@ -680,7 +680,9 @@ class PinballFX3Content(ScrollView):
             self.layout_tables.update()
         except Exception:
             import traceback
-            self.ctx.game_controller.log(traceback.format_exc())
+
+            with open("pinball_fx3_errors.log", "a") as f:
+                f.write(traceback.format_exc() + "\n\n")
 
 
 class PinballFX3TabLayout(BoxLayout):
