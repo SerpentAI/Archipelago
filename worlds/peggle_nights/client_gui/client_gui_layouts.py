@@ -954,7 +954,9 @@ class PeggleNightsContent(ScrollView):
             self.layout_levels.update()
         except Exception:
             import traceback
-            self.ctx.game_controller.log(traceback.format_exc())
+
+            with open("peggle_nights_errors.log", "a") as f:
+                f.write(traceback.format_exc() + "\n\n")
 
 
 class PeggleNightsTabLayout(BoxLayout):
