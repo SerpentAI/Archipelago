@@ -489,6 +489,8 @@ class GameStateManager:
 
         if current_fever_score is None:
             return False
+        elif self.get_orange_pegs_remaining() != 0:
+            return False
 
         return current_fever_score > 0
 
