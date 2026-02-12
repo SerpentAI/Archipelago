@@ -226,7 +226,9 @@ class GameController:
                 self._check_for_victory()
             except Exception:
                 import traceback
-                self.log(traceback.format_exc())
+
+                with open("peggle_deluxe_errors.log", "a") as f:
+                    f.write(traceback.format_exc() + "\n\n")
 
     def reset(self) -> None:
         self.received_items = dict()
