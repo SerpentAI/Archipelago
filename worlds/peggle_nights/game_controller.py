@@ -421,20 +421,22 @@ class GameController:
 
         level_prefix: str = f"{self.game_state_current_level.value} -"
 
+        progressive_fever_meter_count: int = self.received_items.get(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+
         if self.game_state_current_level != self.selected_goal_level:
             if self.game_state_has_achieved_fever_meter_multiplier_2x:
                 location: str = f"{level_prefix} Fever Meter X2"
                 checked_locations.append(location)
 
-            if self.game_state_has_achieved_fever_meter_multiplier_3x:
+            if self.game_state_has_achieved_fever_meter_multiplier_3x and progressive_fever_meter_count >= 1:
                 location: str = f"{level_prefix} Fever Meter X3"
                 checked_locations.append(location)
 
-            if self.game_state_has_achieved_fever_meter_multiplier_5x:
+            if self.game_state_has_achieved_fever_meter_multiplier_5x and progressive_fever_meter_count >= 2:
                 location: str = f"{level_prefix} Fever Meter X5"
                 checked_locations.append(location)
 
-            if self.game_state_has_achieved_fever_meter_multiplier_10x:
+            if self.game_state_has_achieved_fever_meter_multiplier_10x and progressive_fever_meter_count >= 3:
                 location: str = f"{level_prefix} Fever Meter X10"
                 checked_locations.append(location)
 
@@ -458,9 +460,7 @@ class GameController:
                     checked_locations.append(location)
 
                 if current_score >= target_score_high:
-                    progressive_item_count: int = self.received_items.get(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 0)
-
-                    if progressive_item_count >= 4:
+                    if progressive_fever_meter_count >= 4:
                         location: str = f"{level_prefix} Target Score (High)"
                         checked_locations.append(location)
 
@@ -498,9 +498,7 @@ class GameController:
                     checked_locations.append(location)
 
         if self.game_state_has_cleared_level:
-            progressive_item_count: int = self.received_items.get(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 0)
-
-            if progressive_item_count >= 4:
+            if progressive_fever_meter_count >= 4:
                 location: str = f"{level_prefix} Level Clear"
                 checked_locations.append(location)
 
