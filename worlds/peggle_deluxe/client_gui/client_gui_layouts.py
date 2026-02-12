@@ -467,10 +467,7 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
         ## Updates
 
         # Gold Pegs
-        gold_pegs_obtained: int = 0
-
-        if PeggleDeluxeAPItems.GOLD_PEG.value in received_items:
-            gold_pegs_obtained = received_items[PeggleDeluxeAPItems.GOLD_PEG.value]
+        gold_pegs_obtained: int = received_items.get(PeggleDeluxeAPItems.GOLD_PEG.value, 0)
 
         self.gold_pegs_label.text = (
             f"[b]Gold Pegs[/b]\n"
@@ -553,10 +550,13 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                     is_level_unlocked: bool = False
                     is_master_unlocked: bool = False
 
+                    progressive_fever_meter_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+
                     if level_unlock in received_items and received_items[level_unlock] > 0:
                         if is_goal:
                             if gold_pegs_obtained >= self.ctx.game_controller.option_gold_pegs_required:
-                                is_level_unlocked = True
+                                if progressive_fever_meter_obtained >= 4:
+                                    is_level_unlocked = True
                         else:
                             is_level_unlocked = True
 
@@ -901,10 +901,14 @@ class PeggleDeluxeLevelsLayout(BoxLayout):
 
             if data["unlock_item"] in received_items and received_items[data["unlock_item"]] > 0:
                 if data["is_goal"]:
-                    required: int = self.ctx.game_controller.option_gold_pegs_required
+                    gold_pegs_required: int = self.ctx.game_controller.option_gold_pegs_required
 
-                    if PeggleDeluxeAPItems.GOLD_PEG.value in received_items and received_items[PeggleDeluxeAPItems.GOLD_PEG.value] >= required:
-                        is_unlocked = True
+                    gold_pegs_obtained: int = received_items.get(PeggleDeluxeAPItems.GOLD_PEG.value, 0)
+                    progressive_fever_meter_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+
+                    if gold_pegs_obtained >= gold_pegs_required:
+                        if progressive_fever_meter_obtained >= 4:
+                            is_unlocked = True
                 else:
                     is_unlocked = True
 
