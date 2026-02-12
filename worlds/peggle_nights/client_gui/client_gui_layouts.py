@@ -467,10 +467,7 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
         ## Updates
 
         # Shadow Pegs
-        shadow_pegs_obtained: int = 0
-
-        if PeggleNightsAPItems.SHADOW_PEG.value in received_items:
-            shadow_pegs_obtained = received_items[PeggleNightsAPItems.SHADOW_PEG.value]
+        shadow_pegs_obtained: int = received_items.get(PeggleNightsAPItems.SHADOW_PEG.value, 0)
 
         self.shadow_pegs_label.text = (
             f"[b]Shadow Pegs[/b]\n"
@@ -553,10 +550,13 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
                     is_level_unlocked: bool = False
                     is_master_unlocked: bool = False
 
+                    progressive_fever_meter_obtained: int = received_items.get(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+
                     if level_unlock in received_items and received_items[level_unlock] > 0:
                         if is_goal:
                             if shadow_pegs_obtained >= self.ctx.game_controller.option_shadow_pegs_required:
-                                is_level_unlocked = True
+                                if progressive_fever_meter_obtained >= 4:
+                                    is_level_unlocked = True
                         else:
                             is_level_unlocked = True
 
@@ -901,10 +901,14 @@ class PeggleNightsLevelsLayout(BoxLayout):
 
             if data["unlock_item"] in received_items and received_items[data["unlock_item"]] > 0:
                 if data["is_goal"]:
-                    required: int = self.ctx.game_controller.option_shadow_pegs_required
+                    shadow_pegs_required: int = self.ctx.game_controller.option_shadow_pegs_required
 
-                    if PeggleNightsAPItems.SHADOW_PEG.value in received_items and received_items[PeggleNightsAPItems.SHADOW_PEG.value] >= required:
-                        is_unlocked = True
+                    shadow_pegs_obtained: int = received_items.get(PeggleNightsAPItems.SHADOW_PEG.value, 0)
+                    progressive_fever_meter_obtained: int = received_items.get(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+
+                    if shadow_pegs_obtained >= shadow_pegs_required:
+                        if progressive_fever_meter_obtained >= 4:
+                            is_unlocked = True
                 else:
                     is_unlocked = True
 
