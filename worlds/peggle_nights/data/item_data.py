@@ -88,7 +88,7 @@ item_data: Dict[str, PeggleNightsItemData] = {
         tags=(PeggleNightsAPTags.CHARACTER_UNLOCK_ITEM,),
     ),
     PeggleNightsAPItems.CHARACTER_UNLOCK_MARINA.value: PeggleNightsItemData(
-        archipelago_id=item_offset + 100 + 10,
+        archipelago_id=item_offset + 100 + 11,
         classification=ItemClassification.useful,
         tags=(PeggleNightsAPTags.CHARACTER_UNLOCK_ITEM,),
     ),
