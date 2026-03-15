@@ -465,9 +465,8 @@ class GameController:
                     checked_locations.append(location)
 
                 if current_score >= target_score_high:
-                    if progressive_fever_meter_count >= 4:
-                        location: str = f"{level_prefix} Target Score (High)"
-                        checked_locations.append(location)
+                    location: str = f"{level_prefix} Target Score (High)"
+                    checked_locations.append(location)
 
             if self.game_state_has_achieved_style_shot:
                 location: str = f"{level_prefix} Style Shot (25,000+)"
