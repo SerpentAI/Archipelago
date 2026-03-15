@@ -132,12 +132,15 @@ class TargetScoreRequirementPercentage(Range):
     When the requirement mode is set to random per table, the specified percentage will act as the maximum possible.
 
     The Pinball FX3 Archipelago client will display the expected scores for each table under the Pinball FX3 tab.
+
+    WARNING: Values over 100 are intended for players experienced with scoring high on various pinball tables.
+             More casual players may never be able to reach the resulting Target Scores. Be advised.
     """
 
     display_name = "Target Score Difficulty Percentage"
 
     range_start = 50
-    range_end = 200
+    range_end = 300
 
     default = 100
 
