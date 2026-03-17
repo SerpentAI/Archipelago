@@ -6,7 +6,56 @@ class TonyHawksProSkater12APGoals(enum.Enum):
     SECRET_TAPE_HUNT = 1
 
 
-class TonyHawksProSkater12TrapTypes(enum.Enum):
+class TonyHawksProSkater12APRequirementModes(enum.Enum):
+    SAME_FOR_ALL = 0
+    RANDOM = 1
+
+
+class TonyHawksProSkater12APTags(enum.Enum):
+    GOAL_ITEM = "Goal Item"
+    LEVEL_UNLOCK_ITEM = "Level Unlock Item"
+    SKATER_UNLOCK_ITEM = "Skater Unlock Item"
+    PROGRESSIVE_STATS_ITEM = "Progressive Stats Item"
+    FLIP_TRICKS_ITEM = "Flip Tricks Item"
+    GRAB_TRICKS_ITEM = "Grab Tricks Item"
+    PROGRESSIVE_GRIND_TRICKS_ITEM = "Progressive Grind Tricks Item"
+    PROGRESSIVE_LIP_TRICKS_ITEM = "Progressive Lip Tricks Item"
+    PROGRESSIVE_MANUAL_TRICKS_ITEM = "Progressive Manual Tricks Item"
+    PROGRESSIVE_SPECIAL_METER_ITEM = "Progressive Special Meter Item"
+    SPIN_TRICKS_ITEM = "Spin Tricks Item"
+    TRANSFERS_ITEM = "Transfers Item"
+    WALLPLANTS_ITEM = "Wallplants Item"
+    EXTRA_TRICKS_ITEM = "Extra Tricks Item"
+    STANCE_SWITCHING_ITEM = "Stance Switching Item"
+    DOUBLE_SCORE_ITEM = "Double Score Item"
+    FILLER_ITEM = "Filler Item"
+    TRAP_ITEM = "Trap Item"
+    ANDREW_REYNOLDS_ITEM = "Andrew Reynolds Item"
+    AORI_NISHIMURA_ITEM = "Aori Nishimura Item"
+    BOB_BURNQUIST_ITEM = "Bob Burnquist Item"
+    BUCKY_LASEK_ITEM = "Bucky Lasek Item"
+    CHAD_MUSKA_ITEM = "Chad Muska Item"
+    ELISSA_STEAMER_ITEM = "Elissa Steamer Item"
+    ERIC_KOSTON_ITEM = "Eric Koston Item"
+    GEOFF_ROWLEY_ITEM = "Geoff Rowley Item"
+    JAMIE_THOMAS_ITEM = "Jamie Thomas Item"
+    KAREEM_CAMPBELL_ITEM = "Kareem Campbell Item"
+    LEO_BAKER_ITEM = "Leo Baker Item"
+    LETICIA_BUFONI_ITEM = "Leticia Bufoni Item"
+    LIZZIE_ARMANTO_ITEM = "Lizzie Armanto Item"
+    NYJAH_HUSTON_ITEM = "Nyjah Huston Item"
+    OFFICER_DICK_ITEM = "Officer Dick Item"
+    RILEY_HAWK_ITEM = "Riley Hawk Item"
+    RODNEY_MULLEN_ITEM = "Rodney Mullen Item"
+    ROSWELL_ALIEN_ITEM = "Roswell Alien Item"
+    RUNE_GLIFBERG_ITEM = "Rune Glifberg Item"
+    SHANE_O_NEILL_ITEM = "Shane O'Neill Item"
+    STEVE_CABALLERO_ITEM = "Steve Caballero Item"
+    TONY_HAWK_ITEM = "Tony Hawk Item"
+    TYSHAWN_JONES_ITEM = "Tyshawn Jones Item"
+
+
+class TonyHawksProSkater12APTrapTypes(enum.Enum):
     BLACK_AND_WHITE = "Black and White Trap"
     BLOOM = "Bloom Trap"
     CHROMATIC = "Chromatic Trap"
@@ -563,6 +612,7 @@ class TonyHawksProSkater12Gaps(enum.Enum):
 
 
 class TonyHawksProSkater12Levels(enum.Enum):
+    ANYWHERE = "Anywhere"
     BURNSIDE = "Burnside"
     CHOPPER_DROP = "Chopper Drop"
     DOWNHILL_JAM = "Downhill Jam"

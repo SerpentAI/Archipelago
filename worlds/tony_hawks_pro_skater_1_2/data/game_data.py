@@ -1712,7 +1712,6 @@ level_to_level_types: Dict[TonyHawksProSkater12Levels, TonyHawksProSkater12Level
     TonyHawksProSkater12Levels.CHOPPER_DROP: TonyHawksProSkater12LevelTypes.NO_OBJECTIVES,
     TonyHawksProSkater12Levels.DOWNHILL_JAM: TonyHawksProSkater12LevelTypes.OBJECTIVES,
     TonyHawksProSkater12Levels.DOWNTOWN: TonyHawksProSkater12LevelTypes.OBJECTIVES,
-    TonyHawksProSkater12Levels.MAIN_MENU: TonyHawksProSkater12LevelTypes.OBJECTIVES,
     TonyHawksProSkater12Levels.MALL: TonyHawksProSkater12LevelTypes.OBJECTIVES,
     TonyHawksProSkater12Levels.MARSEILLE: TonyHawksProSkater12LevelTypes.NO_OBJECTIVES,
     TonyHawksProSkater12Levels.NY_CITY: TonyHawksProSkater12LevelTypes.OBJECTIVES,

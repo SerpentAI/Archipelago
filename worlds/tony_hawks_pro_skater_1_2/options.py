@@ -12,7 +12,7 @@ from Options import (
     Toggle,
 )
 
-from .enums import TonyHawksProSkater12Skaters, TonyHawksProSkater12TrapTypes
+from .enums import TonyHawksProSkater12Skaters, TonyHawksProSkater12APTrapTypes
 
 
 class Goal(Choice):
@@ -267,7 +267,7 @@ class TrapWeights(OptionDict):
 
     display_name = "Trap Weights"
 
-    default = {trap_type.value: 1 for trap_type in TonyHawksProSkater12TrapTypes}
+    default = {trap_type.value: 1 for trap_type in TonyHawksProSkater12APTrapTypes}
 
 
 @dataclass
