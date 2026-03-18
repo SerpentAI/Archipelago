@@ -33,9 +33,6 @@ item_offset: int = 100
 i: int
 level: TonyHawksProSkater12Levels
 for i, level in enumerate(TonyHawksProSkater12Levels):
-    if level in [TonyHawksProSkater12Levels.ANYWHERE, TonyHawksProSkater12Levels.MAIN_MENU]:
-        continue
-
     item_data[f"Level Unlock: {level.value}"] = TonyHawksProSkater12ItemData(
         archipelago_id=item_base_offset + item_offset + i,
         classification=ItemClassification.progression,
@@ -202,6 +199,14 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         archipelago_id=item_base_offset + item_offset + i,
         classification=ItemClassification.filler,
         tags=(TonyHawksProSkater12APTags.FILLER_ITEM,),
+    )
+
+    item_data[f"Rare {skater.value} Bobblehead"] = TonyHawksProSkater12ItemData(
+        archipelago_id=item_base_offset + item_offset + 50 + i,
+        classification=ItemClassification.filler,
+        tags=(
+            TonyHawksProSkater12APTags.RARE_FILLER_ITEM,
+        ),
     )
 
 i: int

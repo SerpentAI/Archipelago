@@ -237,7 +237,7 @@ class StartingTrickTypeWeights(OptionDict):
     display_name = "Starting Trick Type Weights"
 
     default = {
-        "Flip Tricks": 3,
+        "Flip Tricks": 1,
         "Grab Tricks": 3,
         "Grind Tricks": 3,
         "Manual Tricks": 2,
@@ -278,6 +278,8 @@ class TonyHawksProSkater12Options(PerGameCommonOptions):
     secret_tapes_required: SecretTapesRequired
     skater_selection: SkaterSelection
     skater_count: SkaterCount
+    exclude_chopper_drop: ExcludeChopperDrop
+    exclude_skate_heaven: ExcludeSkateHeaven
     include_platinum_scores: IncludePlatinumScores
     include_platinum_combo_scores: IncludePlatinumComboScores
     include_signature_specials: IncludeSignatureSpecials

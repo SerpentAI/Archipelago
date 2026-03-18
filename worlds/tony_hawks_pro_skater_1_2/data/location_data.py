@@ -58,9 +58,6 @@ location_data: Dict[str, TonyHawksProSkater12LocationData] = dict()
 i: int
 level: TonyHawksProSkater12Levels
 for i, level in enumerate(TonyHawksProSkater12Levels):
-    if level in [TonyHawksProSkater12Levels.ANYWHERE, TonyHawksProSkater12Levels.MAIN_MENU]:
-        continue
-
     level_offset: int = i * 10000
 
     ii: int

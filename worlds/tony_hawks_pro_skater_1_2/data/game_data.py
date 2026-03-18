@@ -1684,7 +1684,6 @@ level_to_internal_names: Dict[TonyHawksProSkater12Levels, str] = {
     TonyHawksProSkater12Levels.CHOPPER_DROP: "Chopper",
     TonyHawksProSkater12Levels.DOWNHILL_JAM: "Downhill",
     TonyHawksProSkater12Levels.DOWNTOWN: "Downtown",
-    TonyHawksProSkater12Levels.MAIN_MENU: "FrontEnd",
     TonyHawksProSkater12Levels.MALL: "Mall",
     TonyHawksProSkater12Levels.MARSEILLE: "Marseille",
     TonyHawksProSkater12Levels.NY_CITY: "NYC",
@@ -1727,6 +1726,52 @@ level_to_level_types: Dict[TonyHawksProSkater12Levels, TonyHawksProSkater12Level
     TonyHawksProSkater12Levels.THE_HANGAR: TonyHawksProSkater12LevelTypes.OBJECTIVES,
     TonyHawksProSkater12Levels.VENICE_BEACH: TonyHawksProSkater12LevelTypes.OBJECTIVES,
     TonyHawksProSkater12Levels.WAREHOUSE: TonyHawksProSkater12LevelTypes.OBJECTIVES,
+}
+
+
+level_to_base_scores: Dict[TonyHawksProSkater12Levels, List[int]] = {
+    TonyHawksProSkater12Levels.BURNSIDE: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.CHOPPER_DROP: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.DOWNHILL_JAM: [40000, 100000, 200000, 1000000],
+    TonyHawksProSkater12Levels.DOWNTOWN: [25000, 90000, 175000, 875000],
+    TonyHawksProSkater12Levels.MALL: [20000, 80000, 150000, 750000],
+    TonyHawksProSkater12Levels.MARSEILLE: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.NY_CITY: [20000, 90000, 150000, 750000],
+    TonyHawksProSkater12Levels.PHILADELPHIA: [50000, 125000, 250000, 1250000],
+    TonyHawksProSkater12Levels.ROSWELL: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.SCHOOL: [15000, 70000, 125000, 625000],
+    TonyHawksProSkater12Levels.SCHOOL_II: [15000, 70000, 125000, 625000],
+    TonyHawksProSkater12Levels.SKATESTREET: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.SKATE_HEAVEN: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.SKATE_PARK: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.STREETS: [50000, 125000, 250000, 1250000],
+    TonyHawksProSkater12Levels.THE_BULLRING: [7500, 15000, 30000, 150000],
+    TonyHawksProSkater12Levels.THE_HANGAR: [10000, 50000, 100000, 500000],
+    TonyHawksProSkater12Levels.VENICE_BEACH: [40000, 100000, 200000, 1000000],
+    TonyHawksProSkater12Levels.WAREHOUSE: [10000, 50000, 100000, 500000],
+}
+
+
+level_to_base_combo_scores: Dict[TonyHawksProSkater12Levels, List[int]] = {
+    TonyHawksProSkater12Levels.BURNSIDE: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.CHOPPER_DROP: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.DOWNHILL_JAM: [20000, 50000, 100000, 400000],
+    TonyHawksProSkater12Levels.DOWNTOWN: [12500, 45000, 87500, 350000],
+    TonyHawksProSkater12Levels.MALL: [10000, 40000, 75000, 300000],
+    TonyHawksProSkater12Levels.MARSEILLE: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.NY_CITY: [10000, 45000, 75000, 300000],
+    TonyHawksProSkater12Levels.PHILADELPHIA: [25000, 62500, 125000, 500000],
+    TonyHawksProSkater12Levels.ROSWELL: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.SCHOOL: [7500, 35000, 62500, 250000],
+    TonyHawksProSkater12Levels.SCHOOL_II: [7500, 35000, 62500, 250000],
+    TonyHawksProSkater12Levels.SKATESTREET: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.SKATE_HEAVEN: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.SKATE_PARK: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.STREETS: [25000, 62500, 125000, 500000],
+    TonyHawksProSkater12Levels.THE_BULLRING: [3750, 7500, 15000, 60000],
+    TonyHawksProSkater12Levels.THE_HANGAR: [5000, 25000, 50000, 200000],
+    TonyHawksProSkater12Levels.VENICE_BEACH: [20000, 50000, 100000, 400000],
+    TonyHawksProSkater12Levels.WAREHOUSE: [5000, 25000, 50000, 200000],
 }
 
 
