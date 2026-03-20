@@ -35,18 +35,12 @@ class TonyHawksProSkater12LocationData(NamedTuple):
 
 locations_requiring_stats: List[str] = [
     f"{TonyHawksProSkater12Levels.MALL.value} - SKATER - Secret Tape",
-    f"{TonyHawksProSkater12Levels.DOWNTOWN.value} - SKATER - Collectible #3",  # BP_Downtown_Goal_Collectible3
-    f"{TonyHawksProSkater12Levels.DOWNTOWN.value} - SKATER - Collectible #5",  # BP_Downtown_Goal_Collectible5
     f"{TonyHawksProSkater12Levels.DOWNTOWN.value} - SKATER - Secret Tape",
-    f"{TonyHawksProSkater12Levels.DOWNHILL_JAM.value} - SKATER - Collectible #1",  # BP_Downhill_Goal
     f"{TonyHawksProSkater12Levels.DOWNHILL_JAM.value} - SKATER - Secret Tape",
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - SKATE Letter A",  # BP_Collectible_THPS1_Skate_A
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - SKATE Letter E",  # BP_Collectible_THPS1_Skate_E
-    f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - Collectible #2",  # BP_Streets_Goal2
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - Secret Tape",
     f"{TonyHawksProSkater12Levels.SCHOOL_II.value} - SKATER - Secret Tape",
-    f"{TonyHawksProSkater12Levels.NY_CITY.value} - SKATER - Collectible #2",  # BP_NYC_Goal_Collectible2
-    f"{TonyHawksProSkater12Levels.VENICE_BEACH.value} - SKATER - Collectible #3",  # BP_Venice_Goal_Collectible3
     f"{TonyHawksProSkater12Levels.VENICE_BEACH.value} - SKATER - Secret Tape",
     f"{TonyHawksProSkater12Levels.PHILADELPHIA.value} - SKATER - SKATE Letter K",  # BP_Collectible_Skate_K
 ]
@@ -295,30 +289,6 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 region=f"{level.value} - {skater.value}",
                 tags=(
                     TonyHawksProSkater12APTags.SKATE_LETTER_LOCATION,
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
-                ),
-                requirements=logic_requirements,
-            )
-
-        # Collectibles
-        iii: int
-        digit: str
-        for iii, digit in enumerate(["1", "2", "3", "4", "5"]):
-            logic_lookup_key = f"{level.value} - SKATER - Collectible #{digit}"
-            logic_requirements: Optional[TonyHawksProSkater12LocationRule] = None
-
-            if logic_lookup_key in locations_requiring_stats:
-                logic_requirements = (
-                    (f"Progressive Stats: {skater.value}", 2),
-                )
-
-            location_data[f"{level.value} - {skater.value} - Collectible #{digit}"] = TonyHawksProSkater12LocationData(
-                archipelago_id=location_offset + level_offset + skater_offset + 50 + iii,
-                region=f"{level.value} - {skater.value}",
-                tags=(
-                    TonyHawksProSkater12APTags.COLLECTIBLE_LOCATION,
                     eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
                     eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
                     eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),

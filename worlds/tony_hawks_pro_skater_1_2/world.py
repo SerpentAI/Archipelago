@@ -28,6 +28,7 @@ from .data_funcs import (
     locations_with_tag,
     locations_with_tags,
     location_access_rule_for,
+    process_slot_data,
 )
 
 from .enums import (
@@ -120,7 +121,7 @@ class TonyHawksProSkater12World(World):
     selected_starting_skater: TonyHawksProSkater12Skaters
 
     selected_levels: List[TonyHawksProSkater12Levels]
-    selected_starting_level: TonyHawksProSkater12Levels
+    selected_starting_levels: List[TonyHawksProSkater12Levels]
     selected_goal_level: Optional[TonyHawksProSkater12Levels] = None
 
     target_scores: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[int]]]
@@ -210,7 +211,7 @@ class TonyHawksProSkater12World(World):
         else:
             self.selected_levels = level_pool[:]
 
-        self.selected_starting_level = self.selected_levels[0]
+        self.selected_starting_levels = self.selected_levels[:3]
 
         # Target Scores
         self.score_requirement_mode = id_to_requirement_modes()[self.options.score_requirement_mode.value]
@@ -559,8 +560,10 @@ class TonyHawksProSkater12World(World):
         # Starting Skater
         items_to_precollect.append(f"Skater Unlock: {self.selected_starting_skater.value}")
 
-        # Starting Level
-        items_to_precollect.append(f"Level Unlock: {self.selected_starting_level.value}")
+        # Starting Levels
+        level: TonyHawksProSkater12Levels
+        for level in self.selected_starting_levels:
+            items_to_precollect.append(f"Level Unlock: {level.value}")
 
         # Starting Trick Types
         skater: TonyHawksProSkater12Skaters
@@ -742,6 +745,131 @@ class TonyHawksProSkater12World(World):
     def generate_basic(self) -> None:
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
+    def fill_slot_data(self) -> Dict[str, Any]:
+        slot_data: Dict[str, Any] = self.options.as_dict(
+            "goal",
+            "secret_tapes_total",
+            "secret_tapes_required",
+            "skater_selection",
+            "skater_count",
+            "exclude_chopper_drop",
+            "exclude_skate_heaven",
+            "include_platinum_scores",
+            "include_platinum_combo_scores",
+            "include_signature_specials",
+            "include_gaps",
+            "gap_count_per_level",
+            "score_requirement_mode",
+            "score_requirement_percentage",
+            "combo_score_requirement_mode",
+            "combo_score_requirement_percentage",
+            "starting_trick_type_weights",
+            "trap_percentage",
+            "trap_weights",
+        )
+
+        slot_data["trap_weights"] = {
+            trap_type.value: weight for trap_type, weight in self.trap_weights.items()
+        }
+
+        slot_data["selected_skaters"] = [skater.value for skater in self.selected_skaters]
+        slot_data["selected_starting_skater"] = self.selected_starting_skater.value
+
+        slot_data["selected_levels"] = [level.value for level in self.selected_levels]
+        slot_data["selected_starting_levels"] = [level.value for level in self.selected_starting_levels]
+        slot_data["selected_goal_level"] = self.selected_goal_level.value if self.selected_goal_level is not None else None
+
+        slot_data["target_scores"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, List[int]]
+        for level, skater_data in self.target_scores.items():
+            slot_data["target_scores"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            scores: List[int]
+            for skater, scores in skater_data.items():
+                slot_data["target_scores"][level.value][skater.value] = scores
+
+        slot_data["target_combo_scores"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, List[int]]
+        for level, skater_data in self.target_combo_scores.items():
+            slot_data["target_combo_scores"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            scores: List[int]
+            for skater, scores in skater_data.items():
+                slot_data["target_combo_scores"][level.value][skater.value] = scores
+
+        slot_data["target_gaps"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, List[int]]
+        for level, skater_data in self.target_gaps.items():
+            slot_data["target_gaps"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            gaps: List[TonyHawksProSkater12Gaps]
+            for skater, gaps in skater_data.items():
+                slot_data["target_gaps"][level.value][skater.value] = [gap.value for gap in gaps]
+
+        slot_data["target_long_tricks"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, List[float]]
+        for level, skater_data in self.target_long_tricks.items():
+            slot_data["target_long_tricks"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            durations: List[float]
+            for skater, durations in skater_data.items():
+                slot_data["target_long_tricks"][level.value][skater.value] = durations
+
+        slot_data["starting_trick_types"] = dict()
+
+        for skater, trick_type_name in self.starting_trick_types.items():
+            slot_data["starting_trick_types"][skater.value] = trick_type_name
+
+        starting_trick_types: Dict[TonyHawksProSkater12Skaters, str]
+
+        slot_data["target_score_ratios"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, float]
+        for level, skater_data in self.target_score_ratios.items():
+            slot_data["target_score_ratios"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            ratio: float
+            for skater, ratio in skater_data.items():
+                slot_data["target_score_ratios"][level.value][skater.value] = ratio
+
+        slot_data["target_combo_score_ratios"] = dict()
+
+        level: TonyHawksProSkater12Levels
+        skater_data: Dict[TonyHawksProSkater12Skaters, float]
+        for level, skater_data in self.target_combo_score_ratios.items():
+            slot_data["target_combo_score_ratios"][level.value] = dict()
+
+            skater: TonyHawksProSkater12Skaters
+            ratio: float
+            for skater, ratio in skater_data.items():
+                slot_data["target_combo_score_ratios"][level.value][skater.value] = ratio
+
+        # Relay generate_early Overrides
+        if slot_data["secret_tapes_required"] != self.secret_tapes_required:
+            slot_data["secret_tapes_required"] = self.secret_tapes_required
+
+        if slot_data["skater_count"] != self.skater_count:
+            slot_data["skater_count"] = self.skater_count
+
+        if slot_data["starting_trick_type_weights"] != self.starting_trick_type_weights:
+            slot_data["starting_trick_type_weights"] = self.starting_trick_type_weights
+
+        return slot_data
+
     def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
         join_string: str = "\n  "
         nested_join_string: str = "\n    "
@@ -757,10 +885,12 @@ class TonyHawksProSkater12World(World):
             )
 
         # Levels
-        spoiler_handle.write(f"\n\nStarting Level: {self.selected_starting_level.value}")
+        spoiler_handle.write(
+            f"\n\nStarting Levels:\n  {join_string.join(sorted([l.value for l in self.selected_starting_levels]))}"
+        )
 
         spoiler_handle.write(
-            f"\n\nUnlockable Levels:\n  {join_string.join(sorted([l.value for l in self.selected_levels[1:]]))}"
+            f"\n\nUnlockable Levels:\n  {join_string.join(sorted([l.value for l in self.selected_levels[3:]]))}"
         )
 
         if self.selected_goal_level is not None:
@@ -833,11 +963,51 @@ class TonyHawksProSkater12World(World):
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
 
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        return process_slot_data(slot_data)
+
     def _apply_universal_tracker_passthrough(self) -> None:
         if "Tony Hawk's Pro Skater 1 + 2" in self.multiworld.re_gen_passthrough:
             passthrough: Dict[str, Any] = self.multiworld.re_gen_passthrough["Tony Hawk's Pro Skater 1 + 2"]
 
-            # ...
+            self.goal = passthrough["goal"]
+            self.secret_tapes_total = passthrough["secret_tapes_total"]
+            self.secret_tapes_required = passthrough["secret_tapes_required"]
+            self.skater_selection = passthrough["skater_selection"]
+            self.skater_count = passthrough["skater_count"]
+            self.exclude_chopper_drop = passthrough["exclude_chopper_drop"]
+            self.exclude_skate_heaven = passthrough["exclude_skate_heaven"]
+            self.include_platinum_scores = passthrough["include_platinum_scores"]
+            self.include_platinum_combo_scores = passthrough["include_platinum_combo_scores"]
+            self.include_signature_specials = passthrough["include_signature_specials"]
+            self.include_gaps = passthrough["include_gaps"]
+            self.gap_count_per_level = passthrough["gap_count_per_level"]
+            self.score_requirement_mode = passthrough["score_requirement_mode"]
+            self.score_requirement_percentage = passthrough["score_requirement_percentage"]
+            self.combo_score_requirement_mode = passthrough["combo_score_requirement_mode"]
+            self.combo_score_requirement_percentage = passthrough["combo_score_requirement_percentage"]
+            self.starting_trick_type_weights = passthrough["starting_trick_type_weights"]
+            self.trap_percentage = passthrough["trap_percentage"]
+            self.trap_weights = passthrough["trap_weights"]
+
+            self.selected_skaters = passthrough["selected_skaters"]
+            self.selected_starting_skater = passthrough["selected_starting_skater"]
+
+            self.selected_levels = passthrough["selected_levels"]
+            self.selected_starting_levels = passthrough["selected_starting_levels"]
+            self.selected_goal_level = passthrough["selected_goal_level"]
+
+            self.target_scores = passthrough["target_scores"]
+            self.target_combo_scores = passthrough["target_combo_scores"]
+
+            self.target_gaps = passthrough["target_gaps"]
+            self.target_long_tricks = passthrough["target_long_tricks"]
+
+            self.starting_trick_types = passthrough["starting_trick_types"]
+
+            self.target_score_ratios = passthrough["target_score_ratios"]
+            self.target_combo_score_ratios = passthrough["target_combo_score_ratios"]
 
     def _generate_filler_trap_item_pool(self, count: int) -> List[str]:
         trap_items_needed: int = round(self.trap_percentage / 100 * count)
