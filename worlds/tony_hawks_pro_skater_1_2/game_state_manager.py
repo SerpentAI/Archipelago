@@ -28,6 +28,14 @@ from .enums import (
 
 class GameState(NamedTuple):
     context: TonyHawksProSkater12Contexts
+    level: Optional[TonyHawksProSkater12Levels]
+    are_injected_sandbox_modifiers_present: Optional[bool]
+    skater: Optional[TonyHawksProSkater12Skaters]
+    score: Optional[int]
+    best_combo_score: Optional[int]
+    longest_grind: Optional[float]
+    longest_lip: Optional[float]
+    longest_manual: Optional[float]
 
 
 class GameStateManager:
@@ -222,13 +230,64 @@ class GameStateManager:
             self.gobjects_name_to_object = dict()
             self.gobjects_address_to_object = dict()
 
-            self.sandbox_modifier_state = dict()
+            self.sandbox_modifier_states = dict()
 
             self.get_game_variable_as_int_function_address = None
 
             return False
 
         return True
+
+    def determine_game_state(self) -> GameState:
+        if self.player_controller_address in (None, 0) or self.is_status_inactive():
+            return GameState(
+                context=TonyHawksProSkater12Contexts.INVALID,
+                are_injected_sandbox_modifiers_present=None,
+                level=None,
+                skater=None,
+                score=None,
+                best_combo_score=None,
+                longest_grind=None,
+                longest_lip=None,
+                longest_manual=None,
+            )
+
+        if self.is_in_main_menu():
+            return GameState(
+                context=TonyHawksProSkater12Contexts.MENU,
+                are_injected_sandbox_modifiers_present=None,
+                level=None,
+                skater=None,
+                score=None,
+                best_combo_score=None,
+                longest_grind=None,
+                longest_lip=None,
+                longest_manual=None,
+            )
+        elif self.is_status_playing():
+            return GameState(
+                context=TonyHawksProSkater12Contexts.LEVEL,
+                are_injected_sandbox_modifiers_present=self.are_injected_sandbox_modifiers_present(),
+                level=self.get_level(),
+                skater=self.get_skater(),
+                score=self.get_score(),
+                best_combo_score=self.get_best_combo_score(),
+                longest_grind=self.get_longest_grind(),
+                longest_lip=self.get_longest_lip(),
+                longest_manual=self.get_longest_manual(),
+            )
+
+        return GameState(
+            context=TonyHawksProSkater12Contexts.INVALID,
+            are_injected_sandbox_modifiers_present=None,
+            level=None,
+            skater=None,
+            score=None,
+            best_combo_score=None,
+            longest_grind=None,
+            longest_lip=None,
+            longest_manual=None,
+        )
 
     def get_score(self) -> Optional[int]:
         if not self.is_process_still_running():
