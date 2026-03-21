@@ -260,3 +260,4 @@ class PeggleDeluxeLevelStates(enum.Enum):
     BEFORE_SHOT = 1
     SHOT_ACTIVE = 2
     AFTER_SHOT = 3
+    MASTER_SELECTION = 9
