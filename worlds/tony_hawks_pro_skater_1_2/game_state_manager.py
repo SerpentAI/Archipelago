@@ -10,8 +10,11 @@ from pymem.process import close_handle
 from .data.game_data import (
     gap_to_internal_names_reverse,
     level_to_internal_names_reverse,
+    skater_to_internal_names,
     skater_to_internal_names_reverse,
     skater_to_internal_class_names_reverse,
+    skater_to_specials,
+    special_to_game_variable_name,
 )
 
 from .enums import (
@@ -19,6 +22,7 @@ from .enums import (
     TonyHawksProSkater12Gaps,
     TonyHawksProSkater12Levels,
     TonyHawksProSkater12Skaters,
+    TonyHawksProSkater12Specials,
 )
 
 
@@ -49,6 +53,8 @@ class GameStateManager:
 
     local_player_offset: int = 0x3B9B4C8
     player_profile_entry_point_offset: int = 0x38EFDB8
+
+    get_game_variable_as_int_function_address: Optional[int] = None
 
     sandbox_modifier_state: Dict[str, float]
 
@@ -173,6 +179,12 @@ class GameStateManager:
             self._generate_gnames_mapping()
 
             self.gnames_mapping_reverse = {v: k for k, v in self.gnames_mapping.items()}
+
+            self._refresh_gobjects_mapping()
+
+            self.get_game_variable_as_int_function_address = (
+                self.gobjects_name_to_object.get("GetGameVariableAsInt", [dict()])[0].get("address", 0)
+            )
         except Exception:
             return False
 
@@ -190,6 +202,8 @@ class GameStateManager:
             self.gobjects_address_to_object = dict()
 
             self.sandbox_modifier_state = self.default_sandbox_modifiers.copy()
+
+            self.get_game_variable_as_int_function_address = None
 
             return True
 
@@ -209,6 +223,8 @@ class GameStateManager:
             self.gobjects_address_to_object = dict()
 
             self.sandbox_modifier_state = self.default_sandbox_modifiers.copy()
+
+            self.get_game_variable_as_int_function_address = None
 
             return False
 
@@ -471,6 +487,59 @@ class GameStateManager:
             return None
 
         return active_target_count == 0
+
+    def get_game_variable_as_int(self, game_variable_name: str, skater_internal_name: str):
+        if not self.is_process_still_running():
+            return None
+
+        if self.get_game_variable_as_int_function_address is None:
+            return None
+
+        game_variable_id: int = self.gnames_mapping_reverse.get(game_variable_name)
+        skater_tag_id: int = self.gnames_mapping_reverse.get(skater_internal_name)
+
+        if game_variable_id is None or skater_tag_id is None:
+            return None
+
+        args_bytes: bytes = struct.pack(
+            "=IIIIQI",
+            game_variable_id,
+            0,
+            skater_tag_id,
+            0,
+            0,
+            0,
+        )
+
+        return self._call_process_event(
+            self.game_variable_system_address,
+            self.get_game_variable_as_int_function_address,
+            args_bytes,
+            0x18,
+            "int"
+        )
+
+    def get_landed_special_counts(self, skaters: List[TonyHawksProSkater12Skaters],) -> Optional[
+        Dict[TonyHawksProSkater12Skaters, Dict[TonyHawksProSkater12Specials, int]]
+    ]:
+        landed_special_counts: Dict[TonyHawksProSkater12Skaters, Dict[TonyHawksProSkater12Specials, int]] = dict()
+
+        skater: TonyHawksProSkater12Skaters
+        for skater in skaters:
+            landed_special_counts[skater] = dict()
+
+            specials: List[TonyHawksProSkater12Specials] = skater_to_specials[skater]
+
+            special: TonyHawksProSkater12Specials
+            for special in specials:
+                landed_count: int = self.get_game_variable_as_int(
+                    special_to_game_variable_name[special],
+                    skater_to_internal_names[skater],
+                )
+
+                landed_special_counts[skater][special] = landed_count
+
+        return landed_special_counts
 
     def _generate_gnames_mapping(self) -> None:
         if not self.is_process_still_running():
