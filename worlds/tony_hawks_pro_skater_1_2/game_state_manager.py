@@ -406,6 +406,71 @@ class GameStateManager:
 
         return landed_gap_counts
 
+    # Assumes a Gobjects refresh has been performed prior
+    def find_goal_level_manager_address(self) -> Optional[int]:
+        if not self.is_process_still_running():
+            return None
+
+        return self.gobjects_name_to_object.get("BP_Goal_Level_Manager_2", [dict()])[0].get("address", None)
+
+    # Goal Level Manager address needs to be found in GObjects once when loading / restarting a level first
+    def get_collected_skate_letters(self, goal_level_manager_address: int) -> Optional[Dict[str, bool]]:
+        if not self.is_process_still_running():
+            return None
+
+        # Check if the level is in Speed Run mode
+        if self.process.read_int(goal_level_manager_address + 0x438) != 10:
+            return None
+
+        goal_skate_address: int = self.process.read_longlong(goal_level_manager_address + 0x280)
+
+        goal_target_count: int = self.process.read_int(goal_skate_address + 0x170)
+        active_target_count: int = self.process.read_int(goal_skate_address + 0x180)
+
+        if goal_target_count != 5 or active_target_count < 0 or active_target_count > 5:
+            return None
+
+        goal_target_array_address: int = self.process.read_longlong(goal_skate_address + 0x168)
+
+        letter_s_pointer: int = self.process.read_longlong(goal_target_array_address + 0x0)
+        letter_k_pointer: int = self.process.read_longlong(goal_target_array_address + 0x8)
+        letter_a_pointer: int = self.process.read_longlong(goal_target_array_address + 0x10)
+        letter_t_pointer: int = self.process.read_longlong(goal_target_array_address + 0x18)
+        letter_e_pointer: int = self.process.read_longlong(goal_target_array_address + 0x20)
+
+        active_target_array_address: int = self.process.read_longlong(goal_skate_address + 0x178)
+        active_target_pointers: List[int] = list()
+
+        i: int
+        for i in range(active_target_count):
+            active_target_pointers.append(self.process.read_longlong(active_target_array_address + (i * 0x8)))
+
+        return {
+            "S": letter_s_pointer not in active_target_pointers,
+            "K": letter_k_pointer not in active_target_pointers,
+            "A": letter_a_pointer not in active_target_pointers,
+            "T": letter_t_pointer not in active_target_pointers,
+            "E": letter_e_pointer not in active_target_pointers,
+        }
+
+    # Goal Level Manager address needs to be found in GObjects once when loading / restarting a level first
+    def get_collected_secret_tape(self, goal_level_manager_address: int) -> Optional[bool]:
+        if not self.is_process_still_running():
+            return None
+
+        # Check if the level is in Speed Run mode
+        if self.process.read_int(goal_level_manager_address + 0x438) != 10:
+            return None
+
+        goal_secret_tape_address: int = self.process.read_longlong(goal_level_manager_address + 0x278)
+
+        goal_target_count: int = self.process.read_int(goal_secret_tape_address + 0x170)
+        active_target_count: int = self.process.read_int(goal_secret_tape_address + 0x180)
+
+        if goal_target_count != 1 or active_target_count not in (0, 1):
+            return None
+
+        return active_target_count == 0
 
     def _generate_gnames_mapping(self) -> None:
         if not self.is_process_still_running():
