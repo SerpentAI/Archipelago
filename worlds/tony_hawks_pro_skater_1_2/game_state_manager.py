@@ -488,7 +488,7 @@ class GameStateManager:
 
         return active_target_count == 0
 
-    def get_game_variable_as_int(self, game_variable_name: str, skater_internal_name: str):
+    def get_game_variable_as_int(self, game_variable_name: str, skater_internal_name: str) -> Optional[int]:
         if not self.is_process_still_running():
             return None
 
@@ -554,147 +554,147 @@ class GameStateManager:
 
         return True
 
-    def enable_low_gravity(self, skater: TonyHawksProSkater12Skaters):
+    def enable_low_gravity(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 0.4)
 
-    def enable_high_gravity(self, skater: TonyHawksProSkater12Skaters):
+    def enable_high_gravity(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 2.0)
 
-    def reset_gravity(self, skater: TonyHawksProSkater12Skaters):
+    def reset_gravity(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 1.0)
 
-    def enable_super_speed(self, skater: TonyHawksProSkater12Skaters):
+    def enable_super_speed(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MaxMoveSpeed", 10.0)
 
-    def disable_super_speed(self, skater: TonyHawksProSkater12Skaters):
+    def disable_super_speed(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MaxMoveSpeed", 1.0)
 
-    def enable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters):
+    def enable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectManualBalance", 1.0)
 
-    def disable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters):
+    def disable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectManualBalance", 0.0)
 
-    def enable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters):
+    def enable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectLipBalance", 1.0)
 
-    def disable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters):
+    def disable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectLipBalance", 0.0)
 
-    def enable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters):
+    def enable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectGrindBalance", 1.0)
 
-    def disable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters):
+    def disable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectGrindBalance", 0.0)
 
-    def enable_no_bails(self, skater: TonyHawksProSkater12Skaters):
+    def enable_no_bails(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.NoBails", 1.0)
 
-    def disable_no_bails(self, skater: TonyHawksProSkater12Skaters):
+    def disable_no_bails(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.NoBails", 0.0)
 
-    def enable_reverse_controls(self, skater: TonyHawksProSkater12Skaters):
+    def enable_reverse_controls(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MirrorLeftRightInputs", 1.0)
 
-    def disable_reverse_controls(self, skater: TonyHawksProSkater12Skaters):
+    def disable_reverse_controls(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MirrorLeftRightInputs", 0.0)
 
-    def enable_stance_switching(self, skater: TonyHawksProSkater12Skaters):
+    def enable_stance_switching(self, skater: TonyHawksProSkater12Skaters) -> bool:
         self.update_sandbox_modifier_value(skater, "SBXStat.DisableStanceSwitching", 0.0)
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableNollieStance", 0.0)
 
-    def disable_stance_switching(self, skater: TonyHawksProSkater12Skaters):
+    def disable_stance_switching(self, skater: TonyHawksProSkater12Skaters) -> bool:
         self.update_sandbox_modifier_value(skater, "SBXStat.DisableStanceSwitching", 1.0)
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableNollieStance", 1.0)
 
-    def enable_wallplants(self, skater: TonyHawksProSkater12Skaters):
+    def enable_wallplants(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableWallplants", 0.0)
 
-    def disable_wallplants(self, skater: TonyHawksProSkater12Skaters):
+    def disable_wallplants(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableWallplants", 1.0)
 
-    def enable_always_special(self, skater: TonyHawksProSkater12Skaters):
+    def enable_always_special(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.AlwaysSpecial", 1.0)
 
-    def disable_always_special(self, skater: TonyHawksProSkater12Skaters):
+    def disable_always_special(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.AlwaysSpecial", 0.0)
 
-    def enable_double_base_score(self, skater: TonyHawksProSkater12Skaters):
+    def enable_double_base_score(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.DoubleBaseScore", 1.0)
 
-    def disable_double_base_score(self, skater: TonyHawksProSkater12Skaters):
+    def disable_double_base_score(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.DoubleBaseScore", 0.0)
 
-    def enable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def enable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoFlipTrickPoints", 0.0)
 
-    def disable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def disable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoFlipTrickPoints", 1.0)
 
-    def enable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def enable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrabTrickPoints", 0.0)
 
-    def disable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def disable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrabTrickPoints", 1.0)
 
-    def enable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def enable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrindTrickPoints", 0.0)
 
-    def disable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def disable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrindTrickPoints", 1.0)
 
-    def enable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def enable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoLipTrickPoints", 0.0)
 
-    def disable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def disable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoLipTrickPoints", 1.0)
 
-    def enable_special_meter(self, skater: TonyHawksProSkater12Skaters):
+    def enable_special_meter(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpecialMeter", 0.0)
 
-    def disable_special_meter(self, skater: TonyHawksProSkater12Skaters):
+    def disable_special_meter(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpecialMeter", 1.0)
 
-    def enable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters):
+    def enable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpinMultiplier", 0.0)
 
-    def disable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters):
+    def disable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpinMultiplier", 1.0)
 
-    def enable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def enable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSustainTrickPoints", 0.0)
 
-    def disable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters):
+    def disable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSustainTrickPoints", 1.0)
 
-    def enable_max_stats(self, skater: TonyHawksProSkater12Skaters):
+    def enable_max_stats(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MaxHandlingStats", 1.0)
 
-    def disable_max_stats(self, skater: TonyHawksProSkater12Skaters):
+    def disable_max_stats(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MaxHandlingStats", 0.0)
 
-    def enable_min_stats(self, skater: TonyHawksProSkater12Skaters):
+    def enable_min_stats(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MinHandlingStats", 1.0)
 
-    def disable_min_stats(self, skater: TonyHawksProSkater12Skaters):
+    def disable_min_stats(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.MinHandlingStats", 0.0)
 
-    def enable_extra_tricks(self, skater: TonyHawksProSkater12Skaters):
+    def enable_extra_tricks(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableExtraTricks", 0.0)
 
-    def disable_extra_tricks(self, skater: TonyHawksProSkater12Skaters):
+    def disable_extra_tricks(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableExtraTricks", 1.0)
 
-    def enable_transfers(self, skater: TonyHawksProSkater12Skaters):
+    def enable_transfers(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableTransfers", 0.0)
 
-    def disable_transfers(self, skater: TonyHawksProSkater12Skaters):
+    def disable_transfers(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableTransfers", 1.0)
 
-    def enable_manuals(self, skater: TonyHawksProSkater12Skaters):
+    def enable_manuals(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableManuals", 0.0)
 
-    def disable_manuals(self, skater: TonyHawksProSkater12Skaters):
+    def disable_manuals(self, skater: TonyHawksProSkater12Skaters) -> bool:
         return self.update_sandbox_modifier_value(skater, "SBXStat.DisableManuals", 1.0)
 
     def prepare_sandbox_modifier_bytes(self, skater: TonyHawksProSkater12Skaters) -> bytes:
@@ -731,6 +731,416 @@ class GameStateManager:
         self.process.write_longlong(self.sandbox_stats_address + 0x0, allocation_address)
         self.process.write_int(self.sandbox_stats_address + 0x8, element_count)
         self.process.write_int(self.sandbox_stats_address + 0xC, element_count)
+
+        return True
+
+    def enable_mobile_game_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        aspect_ratio_address: int = self.camera_component_address + 0x200
+        constraint_aspect_ratio_address: int = self.camera_component_address + 0x204
+
+        self.process.write_float(aspect_ratio_address, 0.5)
+
+        bitfield_value: int = self.process.read_int(constraint_aspect_ratio_address)
+        bitfield_value |= 0x1
+
+        self.process.write_int(constraint_aspect_ratio_address, bitfield_value)
+
+        return True
+
+    def disable_mobile_game_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        aspect_ratio_address: int = self.camera_component_address + 0x200
+        constraint_aspect_ratio_address: int = self.camera_component_address + 0x204
+
+        self.process.write_float(aspect_ratio_address, 1.777)
+
+        bitfield_value: int = self.process.read_int(constraint_aspect_ratio_address)
+        bitfield_value &= ~0x1
+
+        self.process.write_int(constraint_aspect_ratio_address, bitfield_value)
+
+        return True
+
+    def enable_tunnel_vision_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_vignette_intensity_address: int = self.camera_component_address + 0x27B
+        vignette_intensity_address: int = self.camera_component_address + 0x660
+
+        bitfield_value: int = self.process.read_int(override_vignette_intensity_address)
+        bitfield_value |= 0x80
+
+        self.process.write_int(override_vignette_intensity_address, bitfield_value)
+
+        self.process.write_float(vignette_intensity_address, 7.0)
+
+        return True
+
+    def disable_tunnel_vision_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_vignette_intensity_address: int = self.camera_component_address + 0x27B
+        vignette_intensity_address: int = self.camera_component_address + 0x660
+
+        bitfield_value: int = self.process.read_int(override_vignette_intensity_address)
+        bitfield_value &= ~0x80
+
+        self.process.write_int(override_vignette_intensity_address, bitfield_value)
+
+        self.process.write_float(vignette_intensity_address, 0.4)
+
+        return True
+
+    def enable_color_inversion_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value |= 0x4
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address, -1.0)
+        self.process.write_float(color_saturation_base_address + 0x4, -1.0)
+        self.process.write_float(color_saturation_base_address + 0x8, -1.0)
+
+        return True
+
+    def disable_color_inversion_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value &= ~0x4
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address, 1.0)
+        self.process.write_float(color_saturation_base_address + 0x4, 1.0)
+        self.process.write_float(color_saturation_base_address + 0x8, 1.0)
+
+        return True
+
+    def enable_chromatic_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value |= 0x4
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 18.0)
+
+        return True
+
+    def disable_chromatic_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value &= ~0x4
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 1.0)
+
+        return True
+
+    def enable_black_and_white_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+        color_contrast_base_address: int = self.camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+
+        bitfield_value |= 0x4
+        bitfield_value |= 0x8
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 0.0)
+        self.process.write_float(color_contrast_base_address + 0xC, 20.0)
+
+        return True
+
+    def disable_black_and_white_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = self.camera_component_address + 0x270
+        color_saturation_base_address: int = self.camera_component_address + 0x2B0
+        color_contrast_base_address: int = self.camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+
+        bitfield_value &= ~0x4
+        bitfield_value &= ~0x8
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 1.0)
+        self.process.write_float(color_contrast_base_address + 0xC, 1.0)
+
+        return True
+
+    def enable_bloom_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_gain_address: int = self.camera_component_address + 0x270
+        override_bloom_intensity_address: int = self.camera_component_address + 0x276
+
+        color_gain_base_address: int = self.camera_component_address + 0x2E0
+        bloom_intensity_address: int = self.camera_component_address + 0x498
+
+        bitfield_value: int = self.process.read_int(override_color_gain_address)
+        bitfield_value |= 0x20
+
+        self.process.write_int(override_color_gain_address, bitfield_value)
+
+        bitfield_value: int = self.process.read_int(override_bloom_intensity_address)
+        bitfield_value |= 0x2
+
+        self.process.write_int(override_bloom_intensity_address, bitfield_value)
+
+        self.process.write_float(color_gain_base_address + 0xC, 10.0)
+        self.process.write_float(bloom_intensity_address, 8.0)
+
+        return True
+
+    def disable_bloom_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_color_gain_address: int = self.camera_component_address + 0x270
+        override_bloom_intensity_address: int = self.camera_component_address + 0x276
+
+        color_gain_base_address: int = self.camera_component_address + 0x2E0
+        bloom_intensity_address: int = self.camera_component_address + 0x498
+
+        bitfield_value: int = self.process.read_int(override_color_gain_address)
+        bitfield_value &= ~0x20
+
+        self.process.write_int(override_color_gain_address, bitfield_value)
+
+        bitfield_value: int = self.process.read_int(override_bloom_intensity_address)
+        bitfield_value &= ~0x2
+
+        self.process.write_int(override_bloom_intensity_address, bitfield_value)
+
+        self.process.write_float(color_gain_base_address + 0xC, 1.0)
+        self.process.write_float(bloom_intensity_address, 0.675)
+
+        return True
+
+    def enable_retro_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_screen_percentage_address: int = self.camera_component_address + 0x290
+        screen_percentage_address: int = self.camera_component_address + 0x790
+
+        bitfield_value: int = self.process.read_int(override_screen_percentage_address)
+        bitfield_value |= 0x10
+
+        self.process.write_int(override_screen_percentage_address, bitfield_value)
+
+        self.process.write_float(screen_percentage_address, 5.0)
+
+        return True
+
+    def disable_retro_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.camera_component_address in (None, 0):
+            return False
+
+        override_screen_percentage_address: int = self.camera_component_address + 0x290
+        screen_percentage_address: int = self.camera_component_address + 0x790
+
+        bitfield_value: int = self.process.read_int(override_screen_percentage_address)
+        bitfield_value &= ~0x10
+
+        self.process.write_int(override_screen_percentage_address, bitfield_value)
+
+        self.process.write_float(screen_percentage_address, 100.0)
+
+        return True
+
+    def enable_low_gravity_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.enable_low_gravity(skater)
+
+        return True
+
+    def disable_low_gravity_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.reset_gravity(skater)
+
+        return True
+
+    def enable_high_gravity_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.enable_high_gravity(skater)
+
+        return True
+
+    def disable_high_gravity_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.reset_gravity(skater)
+
+        return True
+
+    def enable_super_speed_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.enable_super_speed(skater)
+
+        return True
+
+    def disable_super_speed_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.disable_super_speed(skater)
+
+        return True
+
+    def enable_reverse_directional_controls_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.enable_reverse_controls(skater)
+
+        return True
+
+    def disable_reverse_directional_controls_trap(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        self.disable_reverse_controls(skater)
+
+        return True
+
+    def enable_tiny_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.skeletal_mesh_component_address in (None, 0):
+            return False
+
+        self.process.write_float(self.skeletal_mesh_component_address + 0x134, 0.2)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x138, 0.2)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x13C, 0.2)
+
+        return True
+
+    def enable_giant_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.skeletal_mesh_component_address in (None, 0):
+            return False
+
+        self.process.write_float(self.skeletal_mesh_component_address + 0x134, 3.0)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x138, 3.0)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x13C, 3.0)
+
+        return True
+
+    def enable_wide_trap(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.skeletal_mesh_component_address in (None, 0):
+            return False
+
+        self.process.write_float(self.skeletal_mesh_component_address + 0x134, 10.0)
+
+        return True
+
+    def disable_size_traps(self) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        if self.skeletal_mesh_component_address in (None, 0):
+            return False
+
+        self.process.write_float(self.skeletal_mesh_component_address + 0x134, 1.0)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x138, 1.0)
+        self.process.write_float(self.skeletal_mesh_component_address + 0x13C, 1.0)
 
         return True
 
