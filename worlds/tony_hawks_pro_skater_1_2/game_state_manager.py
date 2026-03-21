@@ -56,7 +56,7 @@ class GameStateManager:
 
     get_game_variable_as_int_function_address: Optional[int] = None
 
-    sandbox_modifier_state: Dict[str, float]
+    sandbox_modifier_states: Dict[TonyHawksProSkater12Skaters, Dict[str, float]]
 
     def __init__(self) -> None:
         self.process = None
@@ -68,7 +68,7 @@ class GameStateManager:
         self.gobjects_name_to_object = dict()
         self.gobjects_address_to_object = dict()
 
-        self.sandbox_modifier_state = self.default_sandbox_modifiers.copy()
+        self.sandbox_modifier_states = dict()
 
     @property
     def player_controller_address(self) -> int:
@@ -201,7 +201,7 @@ class GameStateManager:
             self.gobjects_name_to_object = dict()
             self.gobjects_address_to_object = dict()
 
-            self.sandbox_modifier_state = self.default_sandbox_modifiers.copy()
+            self.sandbox_modifier_states = dict()
 
             self.get_game_variable_as_int_function_address = None
 
@@ -222,7 +222,7 @@ class GameStateManager:
             self.gobjects_name_to_object = dict()
             self.gobjects_address_to_object = dict()
 
-            self.sandbox_modifier_state = self.default_sandbox_modifiers.copy()
+            self.sandbox_modifier_state = dict()
 
             self.get_game_variable_as_int_function_address = None
 
@@ -540,6 +540,199 @@ class GameStateManager:
                 landed_special_counts[skater][special] = landed_count
 
         return landed_special_counts
+
+    def update_sandbox_modifier_value(self, skater: TonyHawksProSkater12Skaters, modifier_key: str, value: float) -> bool:
+        if skater not in self.sandbox_modifier_states:
+            self.sandbox_modifier_states[skater] = self.default_sandbox_modifiers.copy()
+
+        if modifier_key not in self.sandbox_modifier_states[skater]:
+            return False
+        elif self.sandbox_modifier_states[skater][modifier_key] == value:
+            return False
+
+        self.sandbox_modifier_states[skater][modifier_key] = value
+
+        return True
+
+    def enable_low_gravity(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 0.4)
+
+    def enable_high_gravity(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 2.0)
+
+    def reset_gravity(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.AirGravity", 1.0)
+
+    def enable_super_speed(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MaxMoveSpeed", 10.0)
+
+    def disable_super_speed(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MaxMoveSpeed", 1.0)
+
+    def enable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectManualBalance", 1.0)
+
+    def disable_perfect_manual_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectManualBalance", 0.0)
+
+    def enable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectLipBalance", 1.0)
+
+    def disable_perfect_lip_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectLipBalance", 0.0)
+
+    def enable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectGrindBalance", 1.0)
+
+    def disable_perfect_grind_balance(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.PerfectGrindBalance", 0.0)
+
+    def enable_no_bails(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.NoBails", 1.0)
+
+    def disable_no_bails(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.NoBails", 0.0)
+
+    def enable_reverse_controls(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MirrorLeftRightInputs", 1.0)
+
+    def disable_reverse_controls(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MirrorLeftRightInputs", 0.0)
+
+    def enable_stance_switching(self, skater: TonyHawksProSkater12Skaters):
+        self.update_sandbox_modifier_value(skater, "SBXStat.DisableStanceSwitching", 0.0)
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableNollieStance", 0.0)
+
+    def disable_stance_switching(self, skater: TonyHawksProSkater12Skaters):
+        self.update_sandbox_modifier_value(skater, "SBXStat.DisableStanceSwitching", 1.0)
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableNollieStance", 1.0)
+
+    def enable_wallplants(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableWallplants", 0.0)
+
+    def disable_wallplants(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableWallplants", 1.0)
+
+    def enable_always_special(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.AlwaysSpecial", 1.0)
+
+    def disable_always_special(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.AlwaysSpecial", 0.0)
+
+    def enable_double_base_score(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.DoubleBaseScore", 1.0)
+
+    def disable_double_base_score(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.DoubleBaseScore", 0.0)
+
+    def enable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoFlipTrickPoints", 0.0)
+
+    def disable_flip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoFlipTrickPoints", 1.0)
+
+    def enable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrabTrickPoints", 0.0)
+
+    def disable_grab_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrabTrickPoints", 1.0)
+
+    def enable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrindTrickPoints", 0.0)
+
+    def disable_grind_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoGrindTrickPoints", 1.0)
+
+    def enable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoLipTrickPoints", 0.0)
+
+    def disable_lip_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoLipTrickPoints", 1.0)
+
+    def enable_special_meter(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpecialMeter", 0.0)
+
+    def disable_special_meter(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpecialMeter", 1.0)
+
+    def enable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpinMultiplier", 0.0)
+
+    def disable_spin_multiplier(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSpinMultiplier", 1.0)
+
+    def enable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSustainTrickPoints", 0.0)
+
+    def disable_sustain_trick_points(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.Score.NoSustainTrickPoints", 1.0)
+
+    def enable_max_stats(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MaxHandlingStats", 1.0)
+
+    def disable_max_stats(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MaxHandlingStats", 0.0)
+
+    def enable_min_stats(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MinHandlingStats", 1.0)
+
+    def disable_min_stats(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.MinHandlingStats", 0.0)
+
+    def enable_extra_tricks(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableExtraTricks", 0.0)
+
+    def disable_extra_tricks(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableExtraTricks", 1.0)
+
+    def enable_transfers(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableTransfers", 0.0)
+
+    def disable_transfers(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableTransfers", 1.0)
+
+    def enable_manuals(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableManuals", 0.0)
+
+    def disable_manuals(self, skater: TonyHawksProSkater12Skaters):
+        return self.update_sandbox_modifier_value(skater, "SBXStat.DisableManuals", 1.0)
+
+    def prepare_sandbox_modifier_bytes(self, skater: TonyHawksProSkater12Skaters) -> bytes:
+        sandbox_modifier_bytes: bytearray = bytearray()
+
+        tag_name: str
+        value: float
+        for tag_name, value in self.sandbox_modifier_states[skater].items():
+            tag_index: int = self.gnames_mapping_reverse.get(tag_name, 0)
+
+            if tag_index == 0:
+                continue
+
+            sandbox_modifier_bytes += struct.pack("<iif", tag_index, 0, float(value))
+
+        return bytes(sandbox_modifier_bytes)
+
+    def inject_sandbox_modifiers(self, skater: TonyHawksProSkater12Skaters) -> bool:
+        if not self.is_process_still_running():
+            return False
+
+        sandbox_modifier_bytes: bytes = self.prepare_sandbox_modifier_bytes(skater)
+
+        byte_count: int = len(sandbox_modifier_bytes)
+        element_count: int = byte_count // 12
+
+        allocation_address: int = self._call_malloc(byte_count)
+
+        if allocation_address == 0:
+            return False
+
+        self.process.write_bytes(allocation_address, sandbox_modifier_bytes, byte_count)
+
+        self.process.write_longlong(self.sandbox_stats_address + 0x0, allocation_address)
+        self.process.write_int(self.sandbox_stats_address + 0x8, element_count)
+        self.process.write_int(self.sandbox_stats_address + 0xC, element_count)
+
+        return True
 
     def _generate_gnames_mapping(self) -> None:
         if not self.is_process_still_running():
