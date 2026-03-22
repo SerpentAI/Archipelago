@@ -140,6 +140,7 @@ class TonyHawksProSkater12World(World):
     target_combo_score_ratios: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, float]]
 
     # Universal Tracker
+    location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 
     @property
@@ -199,10 +200,7 @@ class TonyHawksProSkater12World(World):
         while True:
             self.random.shuffle(level_pool)
 
-            is_valid_starting = level_to_level_types[level_pool[0]] == TonyHawksProSkater12LevelTypes.OBJECTIVES
-            is_valid_goal = level_to_level_types[level_pool[-1]] == TonyHawksProSkater12LevelTypes.OBJECTIVES
-
-            if is_valid_starting and is_valid_goal:
+            if level_to_level_types[level_pool[0]] == TonyHawksProSkater12LevelTypes.OBJECTIVES:
                 break
 
         if self.goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
@@ -346,7 +344,11 @@ class TonyHawksProSkater12World(World):
             skater: TonyHawksProSkater12Skaters
             for skater in self.selected_skaters:
                 # Order is Grind, Lip, Manual
-                self.target_long_tricks[level][skater] = [round(self.random.uniform(8.0, 20.0), 1) for _ in range(3)]
+                self.target_long_tricks[level][skater] = [
+                    round(self.random.uniform(4.0, 8.0), 1),
+                    round(self.random.uniform(3.0, 7.0), 1),
+                    round(self.random.uniform(8.0, 16.0), 1),
+                ]
 
         # Signature Specials
         self.include_signature_specials = bool(self.options.include_signature_specials.value)
@@ -409,6 +411,7 @@ class TonyHawksProSkater12World(World):
 
         # Universal Tracker Support
         if self.is_universal_tracker:
+            self.location_id_to_alias = dict()
             self._apply_universal_tracker_passthrough()
 
     def create_regions(self) -> None:
@@ -1008,6 +1011,74 @@ class TonyHawksProSkater12World(World):
 
             self.target_score_ratios = passthrough["target_score_ratios"]
             self.target_combo_score_ratios = passthrough["target_combo_score_ratios"]
+
+            # Location Aliases
+            level: TonyHawksProSkater12Levels
+            skater_data: Dict[TonyHawksProSkater12Skaters, List[int]]
+            for level, skater_data in self.target_scores.items():
+                skater: TonyHawksProSkater12Skaters
+                scores: List[int]
+                for skater, scores in skater_data.items():
+                    location_names_and_scores: List[Tuple[str, int]] = [
+                        (f"{level.value} - {skater.value} - High Score", scores[0]),
+                        (f"{level.value} - {skater.value} - Pro Score", scores[1]),
+                        (f"{level.value} - {skater.value} - Sick Score", scores[2]),
+                    ]
+
+                    if self.include_platinum_scores:
+                        location_names_and_scores.append((f"{level.value} - {skater.value} - Platinum Score", scores[3]))
+
+                    location_name: str
+                    score: int
+                    for location_name, score in location_names_and_scores:
+                        self.location_id_to_alias[self.location_name_to_id[location_name]] = f"{score:,}"
+
+            level: TonyHawksProSkater12Levels
+            skater_data: Dict[TonyHawksProSkater12Skaters, List[int]]
+            for level, skater_data in self.target_combo_scores.items():
+                skater: TonyHawksProSkater12Skaters
+                scores: List[int]
+                for skater, scores in skater_data.items():
+                    location_names_and_scores: List[Tuple[str, int]] = [
+                        (f"{level.value} - {skater.value} - High Combo", scores[0]),
+                        (f"{level.value} - {skater.value} - Pro Combo", scores[1]),
+                        (f"{level.value} - {skater.value} - Sick Combo", scores[2]),
+                    ]
+
+                    if self.include_platinum_combo_scores:
+                        location_names_and_scores.append((f"{level.value} - {skater.value} - Platinum Combo", scores[3]))
+
+                    location_name: str
+                    score: int
+                    for location_name, score in location_names_and_scores:
+                        self.location_id_to_alias[self.location_name_to_id[location_name]] = f"{score:,}"
+
+            level: TonyHawksProSkater12Levels
+            skater_data: Dict[TonyHawksProSkater12Skaters, List[TonyHawksProSkater12Gaps]]
+            for level, skater_data in self.target_long_tricks.items():
+                skater: TonyHawksProSkater12Skaters
+                durations: List[float]
+                for skater, durations in skater_data.items():
+                    location_names_and_durations: List[Tuple[str, List[float]]] = [
+                        (f"{level.value} - {skater.value} - Long Grind Trick", round(durations[0], 2)),
+                        (f"{level.value} - {skater.value} - Long Lip Trick", round(durations[1], 2)),
+                        (f"{level.value} - {skater.value} - Long Manual Trick", round(durations[2], 2)),
+                    ]
+
+                    location_name: str
+                    duration: float
+                    for location_name, duration in location_names_and_durations:
+                        self.location_id_to_alias[self.location_name_to_id[location_name]] = f"{duration} seconds"
+
+            level: TonyHawksProSkater12Levels
+            skater_data: Dict[TonyHawksProSkater12Skaters, str]
+            for level, skater_data in self.target_gaps.items():
+                skater: TonyHawksProSkater12Skaters
+                gaps: List[TonyHawksProSkater12Gaps]
+                for skater, gaps in skater_data.items():
+                    gap: TonyHawksProSkater12Gaps
+                    for i, gap in enumerate(gaps):
+                        self.location_id_to_alias[self.location_name_to_id[f"{level.value} - {skater.value} - Gap #{i + 1}"]] = gap.value.split(" (")[0]
 
     def _generate_filler_trap_item_pool(self, count: int) -> List[str]:
         trap_items_needed: int = round(self.trap_percentage / 100 * count)

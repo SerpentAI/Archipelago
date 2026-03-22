@@ -481,10 +481,11 @@ class GameStateManager:
 
         return landed_gap_counts
 
-    # Assumes a Gobjects refresh has been performed prior
     def find_goal_level_manager_address(self) -> Optional[int]:
         if not self.is_process_still_running():
             return None
+
+        self._refresh_gobjects_mapping()
 
         return self.gobjects_name_to_object.get("BP_Goal_Level_Manager_2", [dict()])[0].get("address", None)
 
@@ -498,6 +499,8 @@ class GameStateManager:
             return None
 
         goal_skate_address: int = self.process.read_longlong(goal_level_manager_address + 0x280)
+
+        letters_found_count: int = self.process.read_int(goal_skate_address + 0x1B0)
 
         goal_target_count: int = self.process.read_int(goal_skate_address + 0x170)
         active_target_count: int = self.process.read_int(goal_skate_address + 0x180)
@@ -521,11 +524,11 @@ class GameStateManager:
             active_target_pointers.append(self.process.read_longlong(active_target_array_address + (i * 0x8)))
 
         return {
-            "S": letter_s_pointer not in active_target_pointers,
-            "K": letter_k_pointer not in active_target_pointers,
-            "A": letter_a_pointer not in active_target_pointers,
-            "T": letter_t_pointer not in active_target_pointers,
-            "E": letter_e_pointer not in active_target_pointers,
+            "S": letter_s_pointer not in active_target_pointers or letters_found_count == 5,
+            "K": letter_k_pointer not in active_target_pointers or letters_found_count == 5,
+            "A": letter_a_pointer not in active_target_pointers or letters_found_count == 5,
+            "T": letter_t_pointer not in active_target_pointers or letters_found_count == 5,
+            "E": letter_e_pointer not in active_target_pointers or letters_found_count == 5,
         }
 
     # Goal Level Manager address needs to be found in GObjects once when loading / restarting a level first

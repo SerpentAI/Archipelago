@@ -19,7 +19,7 @@ class Goal(Choice):
     """
     Determines the victory condition.
 
-    Secret Tapes + Final Level: Collect enough Secret Tapes to unlock a Final Level and finish a speedrun of it.
+    Secret Tapes + Final Level: Collect enough Secret Tapes to unlock a Final Level and score 1 Million Points on it.
     Secret Tape Hunt: Collect a set number of Secret Tapes spread across the multiworld.
     """
     display_name = "Goal"
@@ -97,7 +97,7 @@ class SkaterCount(Range):
     display_name = "Skater Count"
 
     range_start = 1
-    range_end = 23
+    range_end = 10
 
     default = 1
 

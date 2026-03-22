@@ -16,11 +16,29 @@ from .data_funcs import (
     process_slot_data,
 )
 
+from .enums import TonyHawksProSkater12APGoals
+
 from .game_controller import GameController
 
 
 class TonyHawksProSkater12CommandProcessor(CommonClient.ClientCommandProcessor):
     ctx: "TonyHawksProSkater12Context"
+
+    # Temporary until the custom client tab is implemented...
+    def _cmd_goal(self) -> None:
+        """Outputs the goal of the current seed."""
+        if not self.ctx.server or not self.ctx.slot:
+            self.output("You must be connected to an Archipelago server before using /goal.")
+            return
+
+        if self.ctx.game_controller.option_goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
+            self.output(
+                f"Collect {self.ctx.game_controller.option_secret_tapes_required} Secret Tapes, then score at least 1 million points on {self.ctx.game_controller.selected_goal_level.value}"
+            )
+        elif self.ctx.game_controller.option_goal == TonyHawksProSkater12APGoals.SECRET_TAPE_HUNT:
+            self.output(
+                f"Collect {self.ctx.game_controller.option_secret_tapes_required} Secret Tapes"
+            )
 
 
 class TonyHawksProSkater12Context(CommonClient.CommonContext):
@@ -140,9 +158,13 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             self.game_controller.target_score_ratios = slot_data["target_score_ratios"]
             self.game_controller.target_combo_score_ratios = slot_data["target_combo_score_ratios"]
 
-            # Assemble Locations + Initialize Useful Items
-            # self.game_controller.assemble_target_score_locations()
-            # self.game_controller.initialize_useful_items()
+            # Assemble Locations
+            self.game_controller.assemble_target_score_locations()
+            self.game_controller.assemble_target_combo_score_locations()
+            self.game_controller.assemble_long_trick_locations()
+
+            if slot_data["include_gaps"]:
+                self.game_controller.assemble_gap_locations()
 
             # Data Storage
             self.data_storage_key = f"tony_hawks_pro_skater_1_2_{self.team}_{self.slot}"

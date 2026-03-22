@@ -339,5 +339,6 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
             ),
             requirements=(
                 (f"Progressive Special Meter: {skater.value}", 1),
+                (f"Progressive Stats: {skater.value}", 1),
             ),
         )
