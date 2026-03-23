@@ -123,6 +123,7 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             self.game_controller.option_secret_tapes_required = slot_data["secret_tapes_required"]
             self.game_controller.option_skater_selection = slot_data["skater_selection"]
             self.game_controller.option_skater_count = slot_data["skater_count"]
+            self.game_controller.option_level_count = slot_data["level_count"]
             self.game_controller.option_exclude_chopper_drop = slot_data["exclude_chopper_drop"]
             self.game_controller.option_exclude_skate_heaven = slot_data["exclude_skate_heaven"]
             self.game_controller.option_include_platinum_scores = slot_data["include_platinum_scores"]

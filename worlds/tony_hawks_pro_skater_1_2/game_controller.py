@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Set, Tuple, Union
+from typing import Dict, List, Optional, Set, Tuple
 
 import collections
 import logging
@@ -51,6 +51,7 @@ class GameController:
     option_secret_tapes_required: Optional[int]
     option_skater_selection: Optional[Dict[TonyHawksProSkater12Skaters, bool]]
     option_skater_count: Optional[int]
+    option_level_count: Optional[int]
     option_exclude_chopper_drop: Optional[bool]
     option_exclude_skate_heaven: Optional[bool]
     option_include_platinum_scores: Optional[bool]
@@ -127,6 +128,7 @@ class GameController:
         self.option_secret_tapes_required = None
         self.option_skater_selection = None
         self.option_skater_count = None
+        self.option_level_count = None
         self.option_exclude_chopper_drop = None
         self.option_exclude_skate_heaven = None
         self.option_include_platinum_scores = None
@@ -357,6 +359,7 @@ class GameController:
         self.option_secret_tapes_required = None
         self.option_skater_selection = None
         self.option_skater_count = None
+        self.option_level_count = None
         self.option_exclude_chopper_drop = None
         self.option_exclude_skate_heaven = None
         self.option_include_platinum_scores = None

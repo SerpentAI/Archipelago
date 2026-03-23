@@ -265,6 +265,7 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 requirements=(
                     (f"Progressive Stats: {skater.value}", 2),
                     (f"Progressive Manual Tricks: {skater.value}", 1),
+                    (f"Progressive Special Meter: {skater.value}", 1),
                     (f"Transfers: {skater.value}", 1),
                 ),
             )
@@ -340,5 +341,6 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
             requirements=(
                 (f"Progressive Special Meter: {skater.value}", 1),
                 (f"Progressive Stats: {skater.value}", 1),
+                (f"Progressive Manual Tricks: {skater.value}", 1),
             ),
         )

@@ -101,6 +101,7 @@ class TonyHawksProSkater12World(World):
     secret_tapes_required: int
     skater_selection: Dict[TonyHawksProSkater12Skaters, bool]
     skater_count: int
+    level_count: int
     exclude_chopper_drop: bool
     exclude_skate_heaven: bool
     include_platinum_scores: bool
@@ -197,11 +198,15 @@ class TonyHawksProSkater12World(World):
 
             level_pool.append(level)
 
+        self.level_count = min(self.options.level_count.value, len(level_pool))
+
         while True:
             self.random.shuffle(level_pool)
 
             if level_to_level_types[level_pool[0]] == TonyHawksProSkater12LevelTypes.OBJECTIVES:
                 break
+
+        level_pool = level_pool[:self.level_count]
 
         if self.goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
             self.selected_goal_level = level_pool[-1]
@@ -755,6 +760,7 @@ class TonyHawksProSkater12World(World):
             "secret_tapes_required",
             "skater_selection",
             "skater_count",
+            "level_count",
             "exclude_chopper_drop",
             "exclude_skate_heaven",
             "include_platinum_scores",
@@ -868,6 +874,9 @@ class TonyHawksProSkater12World(World):
         if slot_data["skater_count"] != self.skater_count:
             slot_data["skater_count"] = self.skater_count
 
+        if slot_data["level_count"] != self.level_count:
+            slot_data["level_count"] = self.level_count
+
         if slot_data["starting_trick_type_weights"] != self.starting_trick_type_weights:
             slot_data["starting_trick_type_weights"] = self.starting_trick_type_weights
 
@@ -979,6 +988,7 @@ class TonyHawksProSkater12World(World):
             self.secret_tapes_required = passthrough["secret_tapes_required"]
             self.skater_selection = passthrough["skater_selection"]
             self.skater_count = passthrough["skater_count"]
+            self.level_count = passthrough["level_count"]
             self.exclude_chopper_drop = passthrough["exclude_chopper_drop"]
             self.exclude_skate_heaven = passthrough["exclude_skate_heaven"]
             self.include_platinum_scores = passthrough["include_platinum_scores"]

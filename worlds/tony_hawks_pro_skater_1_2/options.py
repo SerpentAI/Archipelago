@@ -102,6 +102,21 @@ class SkaterCount(Range):
     default = 1
 
 
+class LevelCount(Range):
+    """
+    Determines how many Levels will be picked for inclusion in the multiworld.
+
+    If this number is higher than 19 - your exclusions, it will be set to that number instead.
+    """
+
+    display_name = "Level Count"
+
+    range_start = 8
+    range_end = 19
+
+    default = 8
+
+
 class ExcludeChopperDrop(Toggle):
     """
     If enabled, the Chopper Drop level will be excluded from the multiworld and no locations will be generated for it.
@@ -278,6 +293,7 @@ class TonyHawksProSkater12Options(PerGameCommonOptions):
     secret_tapes_required: SecretTapesRequired
     skater_selection: SkaterSelection
     skater_count: SkaterCount
+    level_count: LevelCount
     exclude_chopper_drop: ExcludeChopperDrop
     exclude_skate_heaven: ExcludeSkateHeaven
     include_platinum_scores: IncludePlatinumScores
@@ -311,10 +327,16 @@ option_groups: List[OptionGroup] = [
         ],
     ),
     OptionGroup(
-        "Location Options",
+        "Level Options",
         [
+            LevelCount,
             ExcludeChopperDrop,
             ExcludeSkateHeaven,
+        ],
+    ),
+    OptionGroup(
+        "Location Options",
+        [
             IncludePlatinumScores,
             IncludePlatinumComboScores,
             IncludeSignatureSpecials,
