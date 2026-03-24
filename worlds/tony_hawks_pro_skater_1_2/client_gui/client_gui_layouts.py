@@ -513,7 +513,8 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
         target_long_tricks_layout.add_widget(self.long_trick_lip_label)
         target_long_tricks_layout.add_widget(self.long_trick_manual_label)
 
-        level_information_layout.add_widget(target_long_tricks_layout)
+        if self.ctx.game_controller.option_include_long_tricks:
+            level_information_layout.add_widget(target_long_tricks_layout)
 
         self.add_widget(level_information_layout)
 
@@ -1293,15 +1294,31 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
 
             self.skater_name_label.text = "Skater Name"
 
-            self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+
             self.special_meter_label.text = "[b]Special Meter:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
             self.flip_tricks_label.text = "[b]Flip Tricks:[/b] [color=888888]-[/color]"
             self.grab_tricks_label.text = "[b]Grab Tricks:[/b] [color=888888]-[/color]"
-            self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
-            self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
-            self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color]"
+
             self.spin_tricks_label.text = "[b]Spin Tricks:[/b] [color=888888]-[/color]"
             self.transfers_label.text = "[b]Transfers:[/b] [color=888888]-[/color]"
             self.wallplants_label.text = "[b]Wallplants:[/b] [color=888888]-[/color]"
@@ -1398,13 +1415,14 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
                     target_combo_score_platinum: int = self.ctx.game_controller.target_combo_scores[game_state.level][game_state.skater][3]
                     self.target_combo_score_platinum_label.text = f"Platinum: [color=00FA9A]{target_combo_score_platinum:,}[/color]"
 
-                long_grind_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][0], 1)
-                long_lip_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][1], 1)
-                long_manual_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][2], 1)
+                if self.ctx.game_controller.option_include_long_tricks:
+                    long_grind_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][0], 1)
+                    long_lip_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][1], 1)
+                    long_manual_duration: float = round(self.ctx.game_controller.target_long_tricks[game_state.level][game_state.skater][2], 1)
 
-                self.long_trick_grind_label.text = f"Grind: [color=00FA9A]{long_grind_duration} seconds[/color]"
-                self.long_trick_lip_label.text = f"Lip: [color=00FA9A]{long_lip_duration} seconds[/color]"
-                self.long_trick_manual_label.text = f"Manual: [color=00FA9A]{long_manual_duration} seconds[/color]"
+                    self.long_trick_grind_label.text = f"Grind: [color=00FA9A]{long_grind_duration} seconds[/color]"
+                    self.long_trick_lip_label.text = f"Lip: [color=00FA9A]{long_lip_duration} seconds[/color]"
+                    self.long_trick_manual_label.text = f"Manual: [color=00FA9A]{long_manual_duration} seconds[/color]"
 
                 if self.ctx.game_controller.option_include_gaps:
                     gap_count: int = len(self.ctx.game_controller.target_gaps[game_state.level][game_state.skater])
@@ -1521,15 +1539,31 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
 
             self.skater_name_label.text = "Skater Name"
 
-            self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+
             self.special_meter_label.text = "[b]Special Meter:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
             self.flip_tricks_label.text = "[b]Flip Tricks:[/b] [color=888888]-[/color]"
             self.grab_tricks_label.text = "[b]Grab Tricks:[/b] [color=888888]-[/color]"
-            self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
-            self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
-            self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color]"
+
             self.spin_tricks_label.text = "[b]Spin Tricks:[/b] [color=888888]-[/color]"
             self.transfers_label.text = "[b]Transfers:[/b] [color=888888]-[/color]"
             self.wallplants_label.text = "[b]Wallplants:[/b] [color=888888]-[/color]"
@@ -1577,7 +1611,9 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
 
             stats_text += unlocked_string if stats_item_count > 0 else locked_string
             stats_text += unlocked_string if stats_item_count > 1 else locked_string
-            stats_text += unlocked_string if stats_item_count > 2 else locked_string
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                stats_text += unlocked_string if stats_item_count > 2 else locked_string
 
             self.stats_label.text = stats_text
 
@@ -1607,7 +1643,9 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
             grind_tricks_text: str = "[b]Grind Tricks:[/b] "
 
             grind_tricks_text += unlocked_string if grind_tricks_item_count > 0 else locked_string
-            grind_tricks_text += unlocked_string if grind_tricks_item_count > 1 else locked_string
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                grind_tricks_text += unlocked_string if grind_tricks_item_count > 1 else locked_string
 
             self.grind_tricks_label.text = grind_tricks_text
 
@@ -1617,7 +1655,9 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
             lip_tricks_text: str = "[b]Lip Tricks:[/b] "
 
             lip_tricks_text += unlocked_string if lip_tricks_item_count > 0 else locked_string
-            lip_tricks_text += unlocked_string if lip_tricks_item_count > 1 else locked_string
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                lip_tricks_text += unlocked_string if lip_tricks_item_count > 1 else locked_string
 
             self.lip_tricks_label.text = lip_tricks_text
 
@@ -1627,7 +1667,9 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
             manual_tricks_text: str = "[b]Manual Tricks:[/b] "
 
             manual_tricks_text += unlocked_string if manual_tricks_item_count > 0 else locked_string
-            manual_tricks_text += unlocked_string if manual_tricks_item_count > 1 else locked_string
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                manual_tricks_text += unlocked_string if manual_tricks_item_count > 1 else locked_string
 
             self.manual_tricks_label.text = manual_tricks_text
 
@@ -1665,15 +1707,31 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
             self.signature_special_2_label.text = f"[color=888888]{skater_to_specials[game_state.skater][1].value}[/color]"
             self.signature_special_3_label.text = f"[color=888888]{skater_to_specials[game_state.skater][2].value}[/color]"
         else:
-            self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.stats_label.text = "[b]Stats:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+
             self.special_meter_label.text = "[b]Special Meter:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
             self.flip_tricks_label.text = "[b]Flip Tricks:[/b] [color=888888]-[/color]"
             self.grab_tricks_label.text = "[b]Grab Tricks:[/b] [color=888888]-[/color]"
-            self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
-            self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
 
-            self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.grind_tricks_label.text = "[b]Grind Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.lip_tricks_label.text = "[b]Lip Tricks:[/b] [color=888888]-[/color]"
+
+            if self.ctx.game_controller.option_include_overpowered_abilities:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color] [color=888888]-[/color]"
+            else:
+                self.manual_tricks_label.text = "[b]Manual Tricks:[/b] [color=888888]-[/color]"
+
             self.spin_tricks_label.text = "[b]Spin Tricks:[/b] [color=888888]-[/color]"
             self.transfers_label.text = "[b]Transfers:[/b] [color=888888]-[/color]"
             self.wallplants_label.text = "[b]Wallplants:[/b] [color=888888]-[/color]"

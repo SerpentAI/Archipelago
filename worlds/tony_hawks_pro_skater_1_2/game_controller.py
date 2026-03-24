@@ -51,12 +51,12 @@ class GameController:
     option_secret_tapes_required: Optional[int]
     option_skater_selection: Optional[Dict[TonyHawksProSkater12Skaters, bool]]
     option_skater_count: Optional[int]
+    option_level_selection: Optional[Dict[TonyHawksProSkater12Levels, bool]]
     option_level_count: Optional[int]
-    option_exclude_chopper_drop: Optional[bool]
-    option_exclude_skate_heaven: Optional[bool]
     option_include_platinum_scores: Optional[bool]
     option_include_platinum_combo_scores: Optional[bool]
     option_include_signature_specials: Optional[bool]
+    option_include_long_tricks: Optional[bool]
     option_include_gaps: Optional[bool]
     option_gap_count_per_level: Optional[int]
     option_score_requirement_mode: Optional[TonyHawksProSkater12APRequirementModes]
@@ -64,6 +64,7 @@ class GameController:
     option_combo_score_requirement_mode: Optional[TonyHawksProSkater12APRequirementModes]
     option_combo_score_requirement_percentage: Optional[int]
     option_starting_trick_type_weights: Optional[Dict[str, int]]
+    option_include_overpowered_abilities: Optional[bool]
     option_trap_percentage: Optional[int]
     option_trap_weights: Optional[Dict[TonyHawksProSkater12APTrapTypes, int]]
 
@@ -128,12 +129,12 @@ class GameController:
         self.option_secret_tapes_required = None
         self.option_skater_selection = None
         self.option_skater_count = None
+        self.option_level_selection = None
         self.option_level_count = None
-        self.option_exclude_chopper_drop = None
-        self.option_exclude_skate_heaven = None
         self.option_include_platinum_scores = None
         self.option_include_platinum_combo_scores = None
         self.option_include_signature_specials = None
+        self.option_include_long_tricks = None
         self.option_include_gaps = None
         self.option_gap_count_per_level = None
         self.option_score_requirement_mode = None
@@ -141,6 +142,7 @@ class GameController:
         self.option_combo_score_requirement_mode = None
         self.option_combo_score_requirement_percentage = None
         self.option_starting_trick_type_weights = None
+        self.option_include_overpowered_abilities = None
         self.option_trap_percentage = None
         self.option_trap_weights = None
 
@@ -359,12 +361,12 @@ class GameController:
         self.option_secret_tapes_required = None
         self.option_skater_selection = None
         self.option_skater_count = None
+        self.option_level_selection = None
         self.option_level_count = None
-        self.option_exclude_chopper_drop = None
-        self.option_exclude_skate_heaven = None
         self.option_include_platinum_scores = None
         self.option_include_platinum_combo_scores = None
         self.option_include_signature_specials = None
+        self.option_include_long_tricks = None
         self.option_include_gaps = None
         self.option_gap_count_per_level = None
         self.option_score_requirement_mode = None
@@ -372,6 +374,7 @@ class GameController:
         self.option_combo_score_requirement_mode = None
         self.option_combo_score_requirement_percentage = None
         self.option_starting_trick_type_weights = None
+        self.option_include_overpowered_abilities = None
         self.option_trap_percentage = None
         self.option_trap_weights = None
 
@@ -527,29 +530,30 @@ class GameController:
                         checked_locations.append(location_name)
 
             # Long Tricks
-            if self.game_state_longest_grind is not None:
-                progressive_grind_tricks_name: str = f"Progressive Grind Tricks: {self.game_state_skater.value}"
-                progressive_grind_tricks_count: int = self.received_items.get(progressive_grind_tricks_name, 0)
+            if self.option_include_long_tricks:
+                if self.game_state_longest_grind is not None:
+                    progressive_grind_tricks_name: str = f"Progressive Grind Tricks: {self.game_state_skater.value}"
+                    progressive_grind_tricks_count: int = self.received_items.get(progressive_grind_tricks_name, 0)
 
-                if progressive_grind_tricks_count > 0:
-                    if int(self.game_state_longest_grind * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["grind"][0]:
-                        checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["grind"][1])
+                    if progressive_grind_tricks_count > 0:
+                        if int(self.game_state_longest_grind * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["grind"][0]:
+                            checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["grind"][1])
 
-            if self.game_state_longest_lip is not None:
-                progressive_lip_tricks_name: str = f"Progressive Lip Tricks: {self.game_state_skater.value}"
-                progressive_lip_tricks_count: int = self.received_items.get(progressive_lip_tricks_name, 0)
+                if self.game_state_longest_lip is not None:
+                    progressive_lip_tricks_name: str = f"Progressive Lip Tricks: {self.game_state_skater.value}"
+                    progressive_lip_tricks_count: int = self.received_items.get(progressive_lip_tricks_name, 0)
 
-                if progressive_lip_tricks_count > 0:
-                    if int(self.game_state_longest_lip * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["lip"][0]:
-                        checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["lip"][1])
+                    if progressive_lip_tricks_count > 0:
+                        if int(self.game_state_longest_lip * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["lip"][0]:
+                            checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["lip"][1])
 
-            if self.game_state_longest_manual is not None:
-                progressive_manual_tricks_name: str = f"Progressive Manual Tricks: {self.game_state_skater.value}"
-                progressive_manual_tricks_count: int = self.received_items.get(progressive_manual_tricks_name, 0)
+                if self.game_state_longest_manual is not None:
+                    progressive_manual_tricks_name: str = f"Progressive Manual Tricks: {self.game_state_skater.value}"
+                    progressive_manual_tricks_count: int = self.received_items.get(progressive_manual_tricks_name, 0)
 
-                if progressive_manual_tricks_count > 0:
-                    if int(self.game_state_longest_manual * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["manual"][0]:
-                        checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["manual"][1])
+                    if progressive_manual_tricks_count > 0:
+                        if int(self.game_state_longest_manual * 100) > self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["manual"][0]:
+                            checked_locations.append(self.target_long_trick_locations_by_level_skater[self.game_state_level][self.game_state_skater]["manual"][1])
 
             # Collectibles
             if level_to_level_types[self.game_state_level] == TonyHawksProSkater12LevelTypes.OBJECTIVES:

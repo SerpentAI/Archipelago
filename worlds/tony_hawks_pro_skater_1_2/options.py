@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from Options import (
     Choice,
+    DefaultOnToggle,
     OptionDict,
     OptionGroup,
     PerGameCommonOptions,
@@ -12,7 +13,7 @@ from Options import (
     Toggle,
 )
 
-from .enums import TonyHawksProSkater12Skaters, TonyHawksProSkater12APTrapTypes
+from .enums import TonyHawksProSkater12Levels, TonyHawksProSkater12Skaters, TonyHawksProSkater12APTrapTypes
 
 
 class Goal(Choice):
@@ -102,11 +103,37 @@ class SkaterCount(Range):
     default = 10
 
 
+class LevelSelection(OptionDict):
+    """
+    Determines which Levels can be considered for inclusion in the multiworld.
+
+    Set any Level you don't want to possibly play as to false.
+
+    A minimum of 8 Levels needs to be selected to play this implementation.
+    """
+
+    display_name = "Level Selection"
+
+    levels: Dict[TonyHawksProSkater12Levels, bool] = dict()
+
+    level: TonyHawksProSkater12Levels
+    for level in TonyHawksProSkater12Levels:
+        if level in [TonyHawksProSkater12Levels.CHOPPER_DROP, TonyHawksProSkater12Levels.SKATE_HEAVEN]:
+            levels[level] = False
+            continue
+
+        levels[level] = True
+
+    valid_keys = {level.value: value for level, value in levels.items()}
+
+    default = valid_keys
+
+
 class LevelCount(Range):
     """
     Determines how many Levels will be picked for inclusion in the multiworld.
 
-    If this number is higher than 19 - your exclusions, it will be set to that number instead.
+    If this number is higher than the size of your Level selection, it will be set to that number instead.
     """
 
     display_name = "Level Count"
@@ -115,22 +142,6 @@ class LevelCount(Range):
     range_end = 19
 
     default = 8
-
-
-class ExcludeChopperDrop(Toggle):
-    """
-    If enabled, the Chopper Drop level will be excluded from the multiworld and no locations will be generated for it.
-    """
-
-    display_name = "Exclude Chopper Drop"
-
-
-class ExcludeSkateHeaven(Toggle):
-    """
-    If enabled, the Skate Heaven level will be excluded from the multiworld and no locations will be generated for it.
-    """
-
-    display_name = "Exclude Skate Heaven"
 
 
 class IncludePlatinumScores(Toggle):
@@ -155,6 +166,14 @@ class IncludeSignatureSpecials(Toggle):
     """
 
     display_name = "Include Signature Specials"
+
+
+class IncludeLongTricks(Toggle):
+    """
+    If enabled, locations for landing a set of random long grinds, lips and manuals on each level will be created when generating the multiworld.
+    """
+
+    display_name = "Include Long Tricks"
 
 
 class IncludeGaps(Toggle):
@@ -260,6 +279,19 @@ class StartingTrickTypeWeights(OptionDict):
     }
 
 
+class IncludeOverpoweredAbilities(DefaultOnToggle):
+    """
+    If enabled, items for abilities that could be considered overpowered will be added to the pool.
+
+    Progressive Grind Tricks gets another tier that grants perfect balance.
+    Progressive Lip Tricks gets another tier that grants perfect balance.
+    Progressive Manual Tricks gets another tier that grants perfect balance.
+    Progressive Stats gets another tier that prevents the skater from ever bailing.
+    """
+
+    display_name = "Include Overpowered Abilities"
+
+
 class TrapPercentage(Range):
     """
       Determines what percentage of filler items will get converted to trap items.
@@ -293,12 +325,12 @@ class TonyHawksProSkater12Options(PerGameCommonOptions):
     secret_tapes_required: SecretTapesRequired
     skater_selection: SkaterSelection
     skater_count: SkaterCount
+    level_selection: LevelSelection
     level_count: LevelCount
-    exclude_chopper_drop: ExcludeChopperDrop
-    exclude_skate_heaven: ExcludeSkateHeaven
     include_platinum_scores: IncludePlatinumScores
     include_platinum_combo_scores: IncludePlatinumComboScores
     include_signature_specials: IncludeSignatureSpecials
+    include_long_tricks: IncludeLongTricks
     include_gaps: IncludeGaps
     gap_count_per_level: GapCountPerLevel
     score_requirement_mode: ScoreRequirementMode
@@ -306,6 +338,7 @@ class TonyHawksProSkater12Options(PerGameCommonOptions):
     combo_score_requirement_mode: ComboScoreRequirementMode
     combo_score_requirement_percentage: ComboScoreRequirementPercentage
     starting_trick_type_weights: StartingTrickTypeWeights
+    include_overpowered_abilities: IncludeOverpoweredAbilities
     trap_percentage: TrapPercentage
     trap_weights: TrapWeights
 
@@ -329,9 +362,8 @@ option_groups: List[OptionGroup] = [
     OptionGroup(
         "Level Options",
         [
+            LevelSelection,
             LevelCount,
-            ExcludeChopperDrop,
-            ExcludeSkateHeaven,
         ],
     ),
     OptionGroup(
@@ -340,6 +372,7 @@ option_groups: List[OptionGroup] = [
             IncludePlatinumScores,
             IncludePlatinumComboScores,
             IncludeSignatureSpecials,
+            IncludeLongTricks,
             IncludeGaps,
             GapCountPerLevel,
         ],
@@ -357,6 +390,7 @@ option_groups: List[OptionGroup] = [
         "Gameplay Options",
         [
             StartingTrickTypeWeights,
+            IncludeOverpoweredAbilities,
         ],
     ),
     OptionGroup(

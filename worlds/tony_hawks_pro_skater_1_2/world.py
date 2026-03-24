@@ -101,12 +101,12 @@ class TonyHawksProSkater12World(World):
     secret_tapes_required: int
     skater_selection: Dict[TonyHawksProSkater12Skaters, bool]
     skater_count: int
+    level_selection: Dict[TonyHawksProSkater12Levels, bool]
     level_count: int
-    exclude_chopper_drop: bool
-    exclude_skate_heaven: bool
     include_platinum_scores: bool
     include_platinum_combo_scores: bool
     include_signature_specials: bool
+    include_long_tricks: bool
     include_gaps: bool
     gap_count_per_level: int
     score_requirement_mode: TonyHawksProSkater12APRequirementModes
@@ -114,6 +114,7 @@ class TonyHawksProSkater12World(World):
     combo_score_requirement_mode: TonyHawksProSkater12APRequirementModes
     combo_score_requirement_percentage: int
     starting_trick_type_weights: Dict[str, int]
+    include_overpowered_abilities: bool
     trap_percentage: int
     trap_weights: Dict[TonyHawksProSkater12APTrapTypes, int]
 
@@ -189,14 +190,16 @@ class TonyHawksProSkater12World(World):
         # Levels
         level_pool: List[TonyHawksProSkater12Levels] = list()
 
-        level: TonyHawksProSkater12Levels
-        for level in TonyHawksProSkater12Levels:
-            if level == TonyHawksProSkater12Levels.CHOPPER_DROP and bool(self.options.exclude_chopper_drop.value):
-                continue
-            elif level == TonyHawksProSkater12Levels.SKATE_HEAVEN and bool(self.options.exclude_skate_heaven.value):
-                continue
+        level_name: str
+        is_enabled: bool
+        for level_name, is_enabled in self.options.level_selection.value.items():
+            if is_enabled:
+                level_pool.append(TonyHawksProSkater12Levels(level_name))
 
-            level_pool.append(level)
+        level_pool = list(sorted(level_pool, key=lambda s: s.value))
+
+        if len(skater_pool) < 8:
+            raise OptionError(f"Tony Hawk's Pro Skater 1 + 2: {self.player_name} must have at least 8 Levels selected to play.")
 
         self.level_count = min(self.options.level_count.value, len(level_pool))
 
@@ -337,27 +340,30 @@ class TonyHawksProSkater12World(World):
                     self.target_gaps[level][skater] = self.random.sample(level_to_gaps[level], self.gap_count_per_level)
 
         # Long Tricks
+        self.include_long_tricks = bool(self.options.include_long_tricks.value)
+
         self.target_long_tricks = dict()
 
-        level: TonyHawksProSkater12Levels
-        for level in (self.selected_levels + [self.selected_goal_level]):
-            if level is None or level == self.selected_goal_level:
-                continue
+        if self.include_long_tricks:
+            level: TonyHawksProSkater12Levels
+            for level in (self.selected_levels + [self.selected_goal_level]):
+                if level is None or level == self.selected_goal_level:
+                    continue
 
-            self.target_long_tricks[level] = dict()
+                self.target_long_tricks[level] = dict()
 
-            skater: TonyHawksProSkater12Skaters
-            for skater in self.selected_skaters:
-                # Order is Grind, Lip, Manual
-                self.target_long_tricks[level][skater] = [
-                    round(self.random.uniform(4.0, 8.0), 1),
-                    round(self.random.uniform(3.0, 7.0), 1),
-                    round(self.random.uniform(8.0, 16.0), 1),
-                ]
+                skater: TonyHawksProSkater12Skaters
+                for skater in self.selected_skaters:
+                    # Order is Grind, Lip, Manual
+                    self.target_long_tricks[level][skater] = [
+                        round(self.random.uniform(4.0, 8.0), 1),
+                        round(self.random.uniform(3.0, 7.0), 1),
+                        round(self.random.uniform(8.0, 16.0), 1),
+                    ]
 
-                # Exceptions
-                if level == TonyHawksProSkater12Levels.CHOPPER_DROP:
-                    self.target_long_tricks[level][skater][0] = round(self.random.uniform(1.0, 3.0), 1)
+                    # Exceptions
+                    if level == TonyHawksProSkater12Levels.CHOPPER_DROP:
+                        self.target_long_tricks[level][skater][0] = round(self.random.uniform(1.0, 3.0), 1)
 
         # Signature Specials
         self.include_signature_specials = bool(self.options.include_signature_specials.value)
@@ -399,6 +405,9 @@ class TonyHawksProSkater12World(World):
                 weights = [1 for _ in weights]
 
             self.starting_trick_types[skater] = self.random.choices(trick_types, weights=weights, k=1)[0]
+
+        # Overpowered Abilities
+        self.include_overpowered_abilities = bool(self.options.include_overpowered_abilities.value)
 
         # Traps
         self.trap_percentage = self.options.trap_percentage.value
@@ -487,6 +496,15 @@ class TonyHawksProSkater12World(World):
                             continue
 
                         if not self.include_platinum_combo_scores and TonyHawksProSkater12APTags.PLATINUM_COMBO_LOCATION in data.tags:
+                            continue
+
+                        if not self.include_long_tricks and TonyHawksProSkater12APTags.LONG_GRIND_TRICK_LOCATION in data.tags:
+                            continue
+
+                        if not self.include_long_tricks and TonyHawksProSkater12APTags.LONG_LIP_TRICK_LOCATION in data.tags:
+                            continue
+
+                        if not self.include_long_tricks and TonyHawksProSkater12APTags.LONG_MANUAL_TRICK_LOCATION in data.tags:
                             continue
 
                         if not self.include_gaps and TonyHawksProSkater12APTags.GAP_LOCATION in data.tags:
@@ -633,6 +651,9 @@ class TonyHawksProSkater12World(World):
                 progressive_stats_item: TonyHawksProSkater12Item = self.create_item(f"Progressive Stats: {skater.value}")
 
                 if i == 3:
+                    if not self.include_overpowered_abilities:
+                        break
+
                     progressive_stats_item.classification = ItemClassification.useful
 
                 item_pool.append(progressive_stats_item)
@@ -662,6 +683,9 @@ class TonyHawksProSkater12World(World):
                 progressive_grind_tricks_item: TonyHawksProSkater12Item = self.create_item(progressive_grind_tricks_name)
 
                 if i == count:
+                    if not self.include_overpowered_abilities:
+                        break
+
                     progressive_grind_tricks_item.classification = ItemClassification.useful
 
                 item_pool.append(progressive_grind_tricks_item)
@@ -679,6 +703,9 @@ class TonyHawksProSkater12World(World):
                 progressive_lip_tricks_item: TonyHawksProSkater12Item = self.create_item(progressive_lip_tricks_name)
 
                 if i == count:
+                    if not self.include_overpowered_abilities:
+                        break
+
                     progressive_lip_tricks_item.classification = ItemClassification.useful
 
                 item_pool.append(progressive_lip_tricks_item)
@@ -696,6 +723,9 @@ class TonyHawksProSkater12World(World):
                 progressive_manual_item: TonyHawksProSkater12Item = self.create_item(progressive_manual_tricks_name)
 
                 if i == count:
+                    if not self.include_overpowered_abilities:
+                        break
+
                     progressive_manual_item.classification = ItemClassification.useful
 
                 item_pool.append(progressive_manual_item)
@@ -764,12 +794,12 @@ class TonyHawksProSkater12World(World):
             "secret_tapes_required",
             "skater_selection",
             "skater_count",
+            "level_selection",
             "level_count",
-            "exclude_chopper_drop",
-            "exclude_skate_heaven",
             "include_platinum_scores",
             "include_platinum_combo_scores",
             "include_signature_specials",
+            "include_long_tricks",
             "include_gaps",
             "gap_count_per_level",
             "score_requirement_mode",
@@ -777,6 +807,7 @@ class TonyHawksProSkater12World(World):
             "combo_score_requirement_mode",
             "combo_score_requirement_percentage",
             "starting_trick_type_weights",
+            "include_overpowered_abilities",
             "trap_percentage",
             "trap_weights",
         )
@@ -957,17 +988,18 @@ class TonyHawksProSkater12World(World):
                     spoiler_handle.write(nested_join_string + f"{skater.value}: {', '.join([gap.value for gap in gaps])}")
 
         # Long Tricks
-        spoiler_handle.write("\n\nLong Trick Durations (Grind, Lip, Manual):")
+        if self.include_long_tricks:
+            spoiler_handle.write("\n\nLong Trick Durations (Grind, Lip, Manual):")
 
-        level: TonyHawksProSkater12Levels
-        long_trick_data: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[float]]]
-        for level, long_trick_data in self.target_long_tricks.items():
-            spoiler_handle.write(join_string + level.value + ":")
+            level: TonyHawksProSkater12Levels
+            long_trick_data: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[float]]]
+            for level, long_trick_data in self.target_long_tricks.items():
+                spoiler_handle.write(join_string + level.value + ":")
 
-            skater: TonyHawksProSkater12Skaters
-            durations: List[float]
-            for skater, durations in long_trick_data.items():
-                spoiler_handle.write(nested_join_string + f"{skater.value}: {durations}")
+                skater: TonyHawksProSkater12Skaters
+                durations: List[float]
+                for skater, durations in long_trick_data.items():
+                    spoiler_handle.write(nested_join_string + f"{skater.value}: {durations}")
 
         # Starting Trick Types
         spoiler_handle.write("\n\nStarting Trick Types:")
@@ -992,12 +1024,12 @@ class TonyHawksProSkater12World(World):
             self.secret_tapes_required = passthrough["secret_tapes_required"]
             self.skater_selection = passthrough["skater_selection"]
             self.skater_count = passthrough["skater_count"]
+            self.level_selection = passthrough["level_selection"]
             self.level_count = passthrough["level_count"]
-            self.exclude_chopper_drop = passthrough["exclude_chopper_drop"]
-            self.exclude_skate_heaven = passthrough["exclude_skate_heaven"]
             self.include_platinum_scores = passthrough["include_platinum_scores"]
             self.include_platinum_combo_scores = passthrough["include_platinum_combo_scores"]
             self.include_signature_specials = passthrough["include_signature_specials"]
+            self.include_long_tricks = passthrough["include_long_tricks"]
             self.include_gaps = passthrough["include_gaps"]
             self.gap_count_per_level = passthrough["gap_count_per_level"]
             self.score_requirement_mode = passthrough["score_requirement_mode"]
@@ -1005,6 +1037,7 @@ class TonyHawksProSkater12World(World):
             self.combo_score_requirement_mode = passthrough["combo_score_requirement_mode"]
             self.combo_score_requirement_percentage = passthrough["combo_score_requirement_percentage"]
             self.starting_trick_type_weights = passthrough["starting_trick_type_weights"]
+            self.include_overpowered_abilities= passthrough["include_overpowered_abilities"]
             self.trap_percentage = passthrough["trap_percentage"]
             self.trap_weights = passthrough["trap_weights"]
 

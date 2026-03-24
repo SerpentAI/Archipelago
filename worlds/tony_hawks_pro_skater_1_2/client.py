@@ -123,12 +123,12 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             self.game_controller.option_secret_tapes_required = slot_data["secret_tapes_required"]
             self.game_controller.option_skater_selection = slot_data["skater_selection"]
             self.game_controller.option_skater_count = slot_data["skater_count"]
+            self.game_controller.option_level_selection = slot_data["level_selection"]
             self.game_controller.option_level_count = slot_data["level_count"]
-            self.game_controller.option_exclude_chopper_drop = slot_data["exclude_chopper_drop"]
-            self.game_controller.option_exclude_skate_heaven = slot_data["exclude_skate_heaven"]
             self.game_controller.option_include_platinum_scores = slot_data["include_platinum_scores"]
             self.game_controller.option_include_platinum_combo_scores = slot_data["include_platinum_combo_scores"]
             self.game_controller.option_include_signature_specials = slot_data["include_signature_specials"]
+            self.game_controller.option_include_long_tricks = slot_data["include_long_tricks"]
             self.game_controller.option_include_gaps = slot_data["include_gaps"]
             self.game_controller.option_gap_count_per_level = slot_data["gap_count_per_level"]
             self.game_controller.option_score_requirement_mode = slot_data["score_requirement_mode"]
@@ -136,6 +136,7 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             self.game_controller.option_combo_score_requirement_mode = slot_data["combo_score_requirement_mode"]
             self.game_controller.option_combo_score_requirement_percentage = slot_data["combo_score_requirement_percentage"]
             self.game_controller.option_starting_trick_type_weights = slot_data["starting_trick_type_weights"]
+            self.game_controller.option_include_overpowered_abilities = slot_data["include_overpowered_abilities"]
             self.game_controller.option_trap_percentage = slot_data["trap_percentage"]
             self.game_controller.option_trap_weights = slot_data["trap_weights"]
 
@@ -162,7 +163,9 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             # Assemble Locations
             self.game_controller.assemble_target_score_locations()
             self.game_controller.assemble_target_combo_score_locations()
-            self.game_controller.assemble_long_trick_locations()
+
+            if slot_data["include_long_tricks"]:
+                self.game_controller.assemble_long_trick_locations()
 
             if slot_data["include_gaps"]:
                 self.game_controller.assemble_gap_locations()
