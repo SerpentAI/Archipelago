@@ -602,7 +602,7 @@ class GameController:
         if self.game_state_level is None:
             return
 
-        if self.game_state_level not in self.selected_levels + [self.selected_goal_level or list()]:
+        if self.game_state_level not in self.selected_levels + [self.selected_goal_level]:
             return
 
         if self.game_state_skater is None:

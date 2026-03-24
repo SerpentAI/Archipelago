@@ -1387,8 +1387,6 @@ class GameStateManager:
             elif result_type == "float":
                 result = self.process.read_float(args_address + result_offset)
 
-            # Add other types as needed...
-
         self.process.free(execution_address)
 
         if args_bytes is not None:

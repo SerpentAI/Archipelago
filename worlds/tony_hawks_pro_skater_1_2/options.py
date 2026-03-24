@@ -97,9 +97,9 @@ class SkaterCount(Range):
     display_name = "Skater Count"
 
     range_start = 1
-    range_end = 10
+    range_end = 14
 
-    default = 1
+    default = 10
 
 
 class LevelCount(Range):
@@ -173,7 +173,7 @@ class GapCountPerLevel(Range):
     display_name = "Gap Count Per Level"
 
     range_start = 1
-    range_end = 10
+    range_end = 5
 
     default = 3
 

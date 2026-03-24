@@ -355,6 +355,10 @@ class TonyHawksProSkater12World(World):
                     round(self.random.uniform(8.0, 16.0), 1),
                 ]
 
+                # Exceptions
+                if level == TonyHawksProSkater12Levels.CHOPPER_DROP:
+                    self.target_long_tricks[level][skater][0] = round(self.random.uniform(1.0, 3.0), 1)
+
         # Signature Specials
         self.include_signature_specials = bool(self.options.include_signature_specials.value)
 

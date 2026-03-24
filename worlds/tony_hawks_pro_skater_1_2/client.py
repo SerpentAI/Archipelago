@@ -78,9 +78,9 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
         self.can_display_process_found_message = True
         self.can_display_process_not_found_message = True
 
-    # def make_gui(self):
-    #     from .client_gui.client_gui import TonyHawksProSkater12Manager
-    #     return TonyHawksProSkater12Manager
+    def make_gui(self):
+        from .client_gui.client_gui import TonyHawksProSkater12Manager
+        return TonyHawksProSkater12Manager
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -107,7 +107,7 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
         self.can_display_process_found_message = True
         self.can_display_process_not_found_message = True
 
-        # self.ui.update_tabs()
+        self.ui.update_tabs()
 
         await super().disconnect(allow_autoreconnect)
 
@@ -181,7 +181,7 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             )
 
             # UI Tabs
-            # self.ui.update_tabs()
+            self.ui.update_tabs()
 
     async def controller(self):
         while not self.exit_event.is_set():
