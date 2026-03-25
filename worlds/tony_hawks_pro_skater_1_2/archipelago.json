@@ -1,0 +1,10 @@
+{
+    "authors": ["SerpentAI"],
+    "compatible_version": 7,
+    "flags": [],
+    "game": "Tony Hawk's Pro Skater 1 + 2",
+    "idgb_id": 133887,
+    "minimum_ap_version": "0.6.5",
+    "version": 7,
+    "world_version": "0.0.2"
+}
