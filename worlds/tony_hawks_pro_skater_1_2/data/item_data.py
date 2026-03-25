@@ -172,7 +172,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
     # Stance Switching
     item_data[f"Stance Switching: {skater.value}"] = TonyHawksProSkater12ItemData(
         archipelago_id=item_base_offset + skater_offset + 12,
-        classification=ItemClassification.progression,
+        classification=ItemClassification.useful,
         tags=(
             TonyHawksProSkater12APTags.STANCE_SWITCHING_ITEM,
             eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),

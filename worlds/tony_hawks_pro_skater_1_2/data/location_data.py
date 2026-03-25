@@ -84,10 +84,7 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 1),
-                (
-                    (f"Spin Tricks: {skater.value}", 1),
-                    (f"Extra Tricks: {skater.value}", 1),
-                ),
+                (f"Extra Tricks: {skater.value}", 1),
             ),
         )
 
@@ -156,7 +153,7 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 (f"Progressive Stats: {skater.value}", 1),
                 (f"Progressive Manual Tricks: {skater.value}", 1),
                 (f"Transfers: {skater.value}", 1),
-                (f"Stance Switching: {skater.value}", 1),
+                (f"Extra Tricks: {skater.value}", 1),
             ),
         )
 
@@ -174,9 +171,8 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 (f"Progressive Stats: {skater.value}", 2),
                 (f"Progressive Manual Tricks: {skater.value}", 1),
                 (f"Transfers: {skater.value}", 1),
-                (f"Stance Switching: {skater.value}", 1),
-                (f"Wallplants: {skater.value}", 1),
                 (f"Extra Tricks: {skater.value}", 1),
+                (f"Wallplants: {skater.value}", 1),
             ),
         )
 
@@ -195,9 +191,8 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 (f"Progressive Manual Tricks: {skater.value}", 1),
                 (f"Double Score: {skater.value}", 1),
                 (f"Transfers: {skater.value}", 1),
-                (f"Stance Switching: {skater.value}", 1),
-                (f"Wallplants: {skater.value}", 1),
                 (f"Extra Tricks: {skater.value}", 1),
+                (f"Wallplants: {skater.value}", 1),
                 (f"Spin Tricks: {skater.value}", 1),
             ),
         )

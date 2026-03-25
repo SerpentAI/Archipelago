@@ -713,7 +713,7 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
             text="?",
             width="16dp",
             size_hint_x=None,
-            popup=self.gap_4_popup,
+            popup=self.gap_5_popup,
         )
 
         gap_5_row_layout.add_widget(gap_5_button)
@@ -1454,7 +1454,7 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
                         gap_4: TonyHawksProSkater12Gaps = self.ctx.game_controller.target_gaps[game_state.level][game_state.skater][3]
                         gap_4_name: str = gap_4.value.split(" (")[0]
 
-                        self.gap_4_label.text = f"#3: [color=00FA9A]{gap_4_name}[/color]"
+                        self.gap_4_label.text = f"#4: [color=00FA9A]{gap_4_name}[/color]"
                         self.gap_4_popup.title = f"How do I land {gap_4_name}?"
                         self.gap_4_popup.content.text = gap_to_descriptions[gap_4].replace(", ", ",\n")
 
@@ -1462,7 +1462,7 @@ class TonyHawksProSkater12GameInformationLayout(BoxLayout):
                         gap_5: TonyHawksProSkater12Gaps = self.ctx.game_controller.target_gaps[game_state.level][game_state.skater][4]
                         gap_5_name: str = gap_5.value.split(" (")[0]
 
-                        self.gap_5_label.text = f"#3: [color=00FA9A]{gap_5_name}[/color]"
+                        self.gap_5_label.text = f"#5: [color=00FA9A]{gap_5_name}[/color]"
                         self.gap_5_popup.title = f"How do I land {gap_5_name}?"
                         self.gap_5_popup.content.text = gap_to_descriptions[gap_5].replace(", ", ",\n")
             else:
