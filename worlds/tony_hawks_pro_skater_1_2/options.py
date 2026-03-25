@@ -100,7 +100,7 @@ class SkaterCount(Range):
     range_start = 1
     range_end = 14
 
-    default = 10
+    default = 1
 
 
 class LevelSelection(OptionDict):
