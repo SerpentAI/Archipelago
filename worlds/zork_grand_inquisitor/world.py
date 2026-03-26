@@ -1,11 +1,13 @@
 import logging
 
-from typing import Any, ClassVar, Dict, List, Set, TextIO, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Optional, Set, TextIO, Tuple, Union
 
 from BaseClasses import Entrance, EntranceType, Item, ItemClassification, Location, Region, Tutorial
 from Options import OptionError
 
 from entrance_rando import disconnect_entrance_for_randomization, randomize_entrances
+from rule_builder.rules import Rule, And, Has
+
 from worlds.AutoWorld import WebWorld, World
 
 from .data.entrance_data import Entrance, EntranceRuleData, entrance_rule_data
@@ -48,10 +50,7 @@ from .data_funcs import (
     locations_with_tag,
     prepare_item_data,
     prepare_location_data,
-    location_access_rule_for,
     entrances_by_region_for_world,
-    entrance_access_rule_for,
-    goal_access_rule_for,
 )
 
 from .enums import (
@@ -341,10 +340,10 @@ class ZorkGrandInquisitorWorld(World):
                     )
 
                 # Access Rules
-                location_access_rule: str = location_access_rule_for(location_enum_item, self.player)
+                location_rule: Optional[Rule] = self.location_data[location_enum_item].requirements
 
-                if location_access_rule != "lambda state: True":
-                    location.access_rule = eval(location_access_rule)
+                if location_rule is not None:
+                    self.set_rule(location, location_rule)
 
                 region.locations.append(location)
 
@@ -356,33 +355,49 @@ class ZorkGrandInquisitorWorld(World):
                     region_exit,
                 )
 
-                entrance_access_rule: str = entrance_access_rule_for(
-                    region_enum_item,
-                    region_exit,
-                    self.player,
-                    dataset=self.entrance_rule_data,
-                )
-
                 entrance: Entrance
+                entrance_rule: Optional[Rule] = self.entrance_rule_data.get(connection_tuple, None)
 
-                if entrance_access_rule == "lambda state: True":
+                if entrance_rule is None:
                     entrance = region.connect(region_mapping[region_exit])
                 else:
-                    entrance = region.connect(region_mapping[region_exit], rule=eval(entrance_access_rule))
+                    entrance = region.connect(region_mapping[region_exit], rule=entrance_rule)
 
                 entrance.name = entrance_names.get(connection_tuple, entrance.name)
 
             if region_enum_item == region_connecting_endgame:
-                goal_access_rule: str = goal_access_rule_for(
-                    region_enum_item,
-                    self.goal,
-                    self.player,
-                    self.artifacts_of_magic_required,
-                    self.landmarks_required,
-                    self.deaths_required,
-                )
+                goal_access_rule: Optional[Rule] = None
 
-                region.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
+                if self.goal == ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT:
+                    goal_access_rule = (
+                        Has(ZorkGrandInquisitorItems.ARTIFACT_OF_MAGIC.value, self.artifacts_of_magic_required)
+                    )
+                elif self.goal == ZorkGrandInquisitorGoals.SPELL_HEIST:
+                    goal_access_rule = (
+                        And(
+                            Has(ZorkGrandInquisitorItems.SPELL_BEBURTT.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_GLORF.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_GOLGATEM.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_IGRAM.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_KENDALL.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_OBIDIL.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_REZROV.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_SNAVIG.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_THROCK.value),
+                            Has(ZorkGrandInquisitorItems.SPELL_YASTARD.value),
+                        )
+                    )
+                elif self.goal == ZorkGrandInquisitorGoals.ZORK_TOUR:
+                    goal_access_rule = (
+                        Has(ZorkGrandInquisitorItems.LANDMARK.value, self.landmarks_required)
+                    )
+                elif self.goal == ZorkGrandInquisitorGoals.GRIM_JOURNEY:
+                    goal_access_rule = (
+                        Has(ZorkGrandInquisitorItems.DEATH.value, self.deaths_required)
+                    )
+
+                region.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=goal_access_rule)
 
             self.multiworld.regions.append(region)
 
@@ -394,16 +409,16 @@ class ZorkGrandInquisitorWorld(World):
         region_menu.connect(region_mapping[region_starting_location])
 
         if region_connecting_endgame == ZorkGrandInquisitorRegions.MENU:
-            goal_access_rule: str = goal_access_rule_for(
-                ZorkGrandInquisitorRegions.MENU,
-                self.goal,
-                self.player,
-                self.artifacts_of_magic_required,
-                self.landmarks_required,
-                self.deaths_required,
-            )
+            if self.goal == ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
+                goal_access_rule = (
+                    And(
+                        Has(ZorkGrandInquisitorItems.COCONUT_OF_QUENDOR.value),
+                        Has(ZorkGrandInquisitorItems.CUBE_OF_FOUNDATION.value),
+                        Has(ZorkGrandInquisitorItems.SKULL_OF_YORUK.value),
+                    )
+                )
 
-            region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=eval(goal_access_rule))
+                region_menu.connect(region_mapping[ZorkGrandInquisitorRegions.ENDGAME], rule=goal_access_rule)
 
         self.multiworld.regions.append(region_menu)
 
