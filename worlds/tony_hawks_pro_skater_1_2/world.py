@@ -198,7 +198,7 @@ class TonyHawksProSkater12World(World):
 
         level_pool = list(sorted(level_pool, key=lambda s: s.value))
 
-        if len(skater_pool) < 8:
+        if len(level_pool) < 8:
             raise OptionError(f"Tony Hawk's Pro Skater 1 + 2: {self.player_name} must have at least 8 Levels selected to play.")
 
         self.level_count = min(self.options.level_count.value, len(level_pool))
