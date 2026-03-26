@@ -318,7 +318,7 @@ class PinballFX3World(World):
 
             region_table: Region = Region(f"Table: {table.value}", self.player, self.multiworld)
 
-            table_tag: PinballFX3APTags = eval(f"PinballFX3APTags.{table.name}_LOCATION")
+            table_tag: PinballFX3APTags = getattr(PinballFX3APTags, f"{table.name}_LOCATION")
             table_location_names: List[str] = locations_with_tag(table_tag)
 
             location_string: str
@@ -491,7 +491,7 @@ class PinballFX3World(World):
         i: int
         table: PinballFX3Tables
         for i, table in enumerate(self.selected_tables):
-            table_tag: PinballFX3APTags = eval(f"PinballFX3APTags.{table.name}_ITEM")
+            table_tag: PinballFX3APTags = getattr(PinballFX3APTags, f"{table.name}_ITEM")
             table_items: List[str] = items_with_tag(table_tag)
 
             item_name: str
@@ -505,7 +505,7 @@ class PinballFX3World(World):
                     useful_item_pool.append(item_name)
 
         if self.selected_goal_table is not None:
-            table_tag: PinballFX3APTags = eval(f"PinballFX3APTags.{self.selected_goal_table.name}_ITEM")
+            table_tag: PinballFX3APTags = getattr(PinballFX3APTags, f"{self.selected_goal_table.name}_ITEM")
             table_items: List[str] = items_with_tag(table_tag)
 
             item_name: str

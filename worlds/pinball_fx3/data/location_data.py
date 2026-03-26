@@ -43,7 +43,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.TARGET_SCORE_LOCATION,
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.SINGLE_PLAYER_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
     )
 
@@ -54,7 +54,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.TARGET_SCORE_LOCATION,
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.SINGLE_PLAYER_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
     )
 
@@ -65,7 +65,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.TARGET_SCORE_LOCATION,
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.SINGLE_PLAYER_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
     )
 
@@ -77,7 +77,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -95,7 +95,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -113,7 +113,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -131,7 +131,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -149,7 +149,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -167,7 +167,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -185,7 +185,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -203,7 +203,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -221,7 +221,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -240,7 +240,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -259,7 +259,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -278,7 +278,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -297,7 +297,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -316,7 +316,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -335,7 +335,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -354,7 +354,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -373,7 +373,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -392,7 +392,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -411,7 +411,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -430,7 +430,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -449,7 +449,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_1_BALL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -468,7 +468,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -487,7 +487,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -506,7 +506,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -525,7 +525,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -544,7 +544,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -563,7 +563,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -582,7 +582,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -601,7 +601,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -620,7 +620,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -639,7 +639,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -658,7 +658,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -677,7 +677,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_5_MINUTE_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -696,7 +696,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -715,7 +715,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -734,7 +734,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -753,7 +753,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.LOW_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -772,7 +772,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -791,7 +791,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -810,7 +810,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -829,7 +829,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.MID_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -848,7 +848,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -867,7 +867,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -886,7 +886,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (
@@ -905,7 +905,7 @@ for i, table in enumerate(PinballFX3Tables):
             PinballFX3APTags.HIGH_TIER_LOCATION,
             PinballFX3APTags.CHALLENGE_LOCATION,
             PinballFX3APTags.CHALLENGE_SURVIVAL_LOCATION,
-            eval(f"PinballFX3APTags.{table.name}_LOCATION"),
+            getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
             (

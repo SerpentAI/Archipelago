@@ -133,7 +133,7 @@ for i, table in enumerate(PinballFX3Tables):
         classification=ItemClassification.progression,
         tags=(
             PinballFX3APTags.TABLE_UNLOCK_ITEM,
-            eval(f"PinballFX3APTags.{table.name}_ITEM"),
+            getattr(PinballFX3APTags, f"{table.name}_ITEM"),
         ),
     )
 
@@ -143,7 +143,7 @@ for i, table in enumerate(PinballFX3Tables):
         classification=ItemClassification.useful,
         tags=(
             PinballFX3APTags.USEFUL_ITEM,
-            eval(f"PinballFX3APTags.{table.name}_ITEM"),
+            getattr(PinballFX3APTags, f"{table.name}_ITEM"),
         ),
     )
 
@@ -152,7 +152,7 @@ for i, table in enumerate(PinballFX3Tables):
         classification=ItemClassification.useful,
         tags=(
             PinballFX3APTags.USEFUL_ITEM,
-            eval(f"PinballFX3APTags.{table.name}_ITEM"),
+            getattr(PinballFX3APTags, f"{table.name}_ITEM"),
         ),
     )
 
@@ -161,6 +161,6 @@ for i, table in enumerate(PinballFX3Tables):
         classification=ItemClassification.useful,
         tags=(
             PinballFX3APTags.USEFUL_ITEM,
-            eval(f"PinballFX3APTags.{table.name}_ITEM"),
+            getattr(PinballFX3APTags, f"{table.name}_ITEM"),
         ),
     )
