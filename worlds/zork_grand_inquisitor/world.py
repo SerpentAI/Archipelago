@@ -494,8 +494,8 @@ class ZorkGrandInquisitorWorld(World):
         self.multiworld.itempool += item_pool
 
         # Precollect Items
-        for item in items_to_precollect:
-            self.multiworld.push_precollected(self.create_item(item.value))
+        for item_name in sorted([i.value for i in items_to_precollect]):
+            self.multiworld.push_precollected(self.create_item(item_name))
 
         # Define Early Items
         items_to_place_early: Set[ZorkGrandInquisitorItems] = (
