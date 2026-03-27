@@ -295,6 +295,12 @@ class IncludeOverpoweredAbilities(DefaultOnToggle):
 class TrapPercentage(Range):
     """
       Determines what percentage of filler items will get converted to trap items.
+
+      Trap Items are made up of the following types:
+      - Post-Processing Effects (Black and White, Bloom, Chromatic, Color Inversion, Mobile Game, Retro, Tunnel Vision)
+      - Skater Model Effects (Giant, Tiny, Wide)
+      - Physics Effects (High Gravity, Low Gravity, Super Speed)
+      - Control Effects (Reverse Directional Controls)
     """
 
     display_name = "Trap Percentage"
