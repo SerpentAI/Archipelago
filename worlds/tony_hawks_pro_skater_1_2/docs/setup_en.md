@@ -19,6 +19,8 @@ BLAKE2sp: cec37532d7fce27f4e51edc18504271fab07ec8f35a00701fc23ead7e9483ba2
 ## Game Setup Instructions
 No game modding is required to play Tony Hawk's Pro Skater 1 + 2 with the Archipelago. The client included with the APWorld does all the work by attaching to the game process and monitoring and manipulating the game state in real-time.
 
+**Note:** You will need to have at least 8 (and ideally every) level unlocked through vanilla play before playing the Archipelago implementation. The mod cannot unlock them on your behalf.
+
 ## Joining a Multiworld Game
 - Launch Tony Hawk's Pro Skater 1 + 2 and advance to the main menu (where you can see a preview of the selected skater)
 - Open the Archipelago Launcher. Find and click _Tony Hawk's Pro Skater 1 + 2 Client_
