@@ -1,28 +1,15 @@
-from typing import Dict, NamedTuple, Optional, Tuple, Union
+from typing import Dict, NamedTuple, Optional, Tuple
+
+from rule_builder.rules import Rule, Has
 
 from ..enums import PeggleNightsAPItems, PeggleNightsAPTags, PeggleNightsLevels
-
-
-PeggleNightsLocationRule = Union[
-    Tuple[
-        Union[
-            Tuple[PeggleNightsAPItems, int],
-            Tuple[
-                Tuple[PeggleNightsAPItems, int],
-                ...,
-            ],
-        ],
-        ...,
-    ],
-    None,
-]
 
 
 class PeggleNightsLocationData(NamedTuple):
     archipelago_id: Optional[int]
     region: PeggleNightsLevels
     tags: Optional[Tuple[PeggleNightsAPTags, ...]] = None
-    requirements: PeggleNightsLocationRule = None
+    requirements: Optional[Rule] = None
 
 
 location_offset: int = 1000000
@@ -52,7 +39,7 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 1),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 1)
         ),
     )
 
@@ -64,7 +51,7 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 2),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 2)
         ),
     )
 
@@ -76,7 +63,7 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 3),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 3)
         ),
     )
 
@@ -88,7 +75,7 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 4),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 4)
         ),
     )
 
@@ -109,9 +96,8 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 2),
-            (PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE, 999)  # Replace 999 with ((Max balls - 5) / 2)
-        ),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 2)
+        ),  # Rest of rule dynamically created in World
     )
 
     location_data[f"{location_prefix} Target Score (High)"] = PeggleNightsLocationData(
@@ -122,9 +108,8 @@ for i, level in enumerate(PeggleNightsLevels):
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 4),
-            (PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE, 999)  # Replace 999 with (Max balls - 5)
-        ),
+            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 4)
+        ),  # Rest of rule dynamically created in World
     )
 
     location_data[f"{location_prefix} Style Shot (25,000+)"] = PeggleNightsLocationData(
@@ -179,7 +164,5 @@ for i, level in enumerate(PeggleNightsLevels):
             PeggleNightsAPTags.FULL_CLEAR_LOCATION,
             getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
-        requirements=(
-            (PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE, 999),  # Replace 999 with (Max balls - 5)
-        ),
+        requirements=None  # Rest of rule dynamically created in World
     )

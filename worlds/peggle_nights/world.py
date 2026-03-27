@@ -2,6 +2,8 @@ import logging
 
 from typing import Any, Dict, List, Optional, TextIO, Tuple
 
+from rule_builder.rules import Rule, And, Has
+
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
 from Options import OptionError
@@ -21,7 +23,6 @@ from .data_funcs import (
     location_groups,
     location_names_to_id,
     locations_with_tag,
-    location_access_rule_for,
 )
 
 from .enums import (
@@ -81,7 +82,7 @@ class PeggleNightsWorld(World):
     item_name_groups = item_groups()
     location_name_groups = location_groups()
 
-    required_client_version: Tuple[int, int, int] = (0, 6, 5)
+    required_client_version: Tuple[int, int, int] = (0, 6, 7)
 
     web = PeggleNightsWebWorld()
 
@@ -305,16 +306,18 @@ class PeggleNightsWorld(World):
         if self.goal == PeggleNightsAPGoals.SHADOW_PEGS_FINAL_LEVEL:
             region_menu.connect(
                 region_endgame,
-                rule=lambda state: (
-                    state.has(PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required) and
-                    state.has(f"Level Unlock: {self.selected_goal_level.value}", self.player) and
-                    state.has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, self.player, 4)
+                rule=(
+                    And(
+                        Has(PeggleNightsAPItems.SHADOW_PEG.value, self.shadow_pegs_required),
+                        Has(f"Level Unlock: {self.selected_goal_level.value}"),
+                        Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 4)
+                    )
                 )
             )
         elif self.goal == PeggleNightsAPGoals.SHADOW_PEG_HUNT:
             region_menu.connect(
                 region_endgame,
-                rule=lambda state: state.has(PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required)
+                rule=Has(PeggleNightsAPItems.SHADOW_PEG.value, self.shadow_pegs_required)
             )
 
         # Levels
@@ -345,39 +348,51 @@ class PeggleNightsWorld(World):
                     region_level,
                 )
 
-                location_access_rule: str = location_access_rule_for(location_name, self.player)
+                location_access_rule: Optional[Rule]
 
                 if "Target Score (Mid)" in location_name:
-                    location_access_rule = location_access_rule.replace(
-                        "999",
-                        str(round((self.maximum_starting_ball_count - 5) / 2))
+                    location_access_rule = And(
+                        data.requirements,
+                        Has(
+                            PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            round((self.maximum_starting_ball_count - 5) / 2)
+                        )
                     )
                 elif "Target Score (High)" in location_name:
-                    location_access_rule = location_access_rule.replace(
-                        "999",
-                        str(self.maximum_starting_ball_count - 5)
+                    location_access_rule = And(
+                        data.requirements,
+                        Has(
+                            PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            self.maximum_starting_ball_count - 5
+                        )
                     )
                 elif "Full Clear" in location_name:
-                    location_access_rule = location_access_rule.replace(
-                        "999",
-                        str(self.maximum_starting_ball_count - 5)
+                    location_access_rule = Has(
+                        PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                        self.maximum_starting_ball_count - 5
                     )
+                else:
+                    location_access_rule = data.requirements
 
-                if location_access_rule != "lambda state: True":
-                    location.access_rule = eval(location_access_rule)
+                if location_access_rule is not None:
+                    self.set_rule(location, location_access_rule)
 
                 region_level.locations.append(location)
 
             if level == self.selected_goal_level:
                 region_menu.connect(
                     region_level,
-                    rule=lambda state, l=level: state.has(f"Level Unlock: {l.value}", self.player) and
-                    state.has(PeggleNightsAPItems.SHADOW_PEG.value, self.player, self.shadow_pegs_required)
+                    rule=(
+                        And(
+                            Has(f"Level Unlock: {level.value}"),
+                            Has(PeggleNightsAPItems.SHADOW_PEG.value, self.shadow_pegs_required)
+                        )
+                    )
                 )
             else:
                 region_menu.connect(
                     region_level,
-                    rule=lambda state, l=level: state.has(f"Level Unlock: {l.value}", self.player)
+                    rule=Has(f"Level Unlock: {level.value}")
                 )
 
             region_level.connect(region_menu)
