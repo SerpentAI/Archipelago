@@ -116,7 +116,7 @@ class ZorkGrandInquisitorWorld(World):
     item_name_groups = item_groups()
     location_name_groups = location_groups()
 
-    required_client_version: Tuple[int, int, int] = (0, 6, 3)
+    required_client_version: Tuple[int, int, int] = (0, 6, 7)
 
     web = ZorkGrandInquisitorWebWorld()
 
