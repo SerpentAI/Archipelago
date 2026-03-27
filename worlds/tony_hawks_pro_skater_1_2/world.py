@@ -2,6 +2,8 @@ import logging
 
 from typing import Any, Dict, List, Optional, TextIO, Tuple
 
+from rule_builder.rules import Rule, And, Has, Or
+
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
 from Options import OptionError
@@ -27,7 +29,6 @@ from .data_funcs import (
     location_names_to_id,
     locations_with_tag,
     locations_with_tags,
-    location_access_rule_for,
     process_slot_data,
 )
 
@@ -459,10 +460,7 @@ class TonyHawksProSkater12World(World):
         region_endgame.locations.append(victory_location)
 
         if self.goal == TonyHawksProSkater12APGoals.SECRET_TAPE_HUNT:
-            region_menu.connect(
-                region_endgame,
-                rule=lambda state: state.has("Secret Tape", self.player, self.secret_tapes_required)
-            )
+            region_menu.connect(region_endgame, rule=Has("Secret Tape", self.secret_tapes_required))
 
             self.multiworld.regions.append(region_endgame)
 
@@ -520,30 +518,21 @@ class TonyHawksProSkater12World(World):
                             region_level_skater,
                         )
 
-                        location_access_rule: str = location_access_rule_for(location_name, self.player)
+                        location_access_rule: Rule = data.requirements
 
-                        if location_access_rule != "lambda state: True":
-                            location.access_rule = eval(location_access_rule)
+                        if location_access_rule is not None:
+                            self.set_rule(location, location_access_rule)
 
                         region_level_skater.locations.append(location)
                 else:
                     if self.goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
-                        region_level_skater.connect(
-                            region_endgame,
-                            rule=lambda state: state.has("Secret Tape", self.player, self.secret_tapes_required)
-                        )
+                        region_level_skater.connect(region_endgame, rule=Has("Secret Tape", self.secret_tapes_required))
 
-                region_level.connect(
-                    region_level_skater,
-                    rule=lambda state, s=skater: state.has(f"Skater Unlock: {s.value}", self.player)
-                )
+                region_level.connect(region_level_skater, rule=Has(f"Skater Unlock: {skater.value}"))
 
                 self.multiworld.regions.append(region_level_skater)
 
-            region_menu.connect(
-                region_level,
-                rule=lambda state, l=level: state.has(f"Level Unlock: {l.value}", self.player)
-            )
+            region_menu.connect(region_level, rule=Has(f"Level Unlock: {level.value}"))
 
             if level == self.selected_goal_level and self.goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
                 self.multiworld.regions.append(region_endgame)
@@ -569,17 +558,14 @@ class TonyHawksProSkater12World(World):
                         region_skater,
                     )
 
-                    location_access_rule: str = location_access_rule_for(location_name, self.player)
+                    location_access_rule: Rule = data.requirements
 
-                    if location_access_rule != "lambda state: True":
-                        location.access_rule = eval(location_access_rule)
+                    if location_access_rule is not None:
+                        self.set_rule(location, location_access_rule)
 
                     region_skater.locations.append(location)
 
-                region_menu.connect(
-                    region_skater,
-                    rule=lambda state, s=skater: state.has(f"Skater Unlock: {s.value}", self.player)
-                )
+                region_menu.connect(region_skater, rule=Has(f"Skater Unlock: {skater.value}"))
 
                 self.multiworld.regions.append(region_skater)
 

@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from .data.item_data import TonyHawksProSkater12ItemData, item_data
 from .data.location_data import TonyHawksProSkater12LocationData, location_data
@@ -99,38 +99,6 @@ def locations_with_tags(tags: List[TonyHawksProSkater12APTags]) -> List[str]:
         for location, data in location_data.items()
         if data.tags is not None and all(tag in data.tags for tag in tags)
     ]
-
-
-def location_access_rule_for(location: str, player: int) -> str:
-    data: TonyHawksProSkater12LocationData = location_data[location]
-
-    if data.requirements is None:
-        return "lambda state: True"
-
-    lambda_string: str = "lambda state: "
-
-    i: int
-    requirement: Tuple[Any]
-    for i, requirement in enumerate(data.requirements):
-        if isinstance(requirement[0], str):
-            lambda_string += f"state.has(\"{requirement[0]}\", {player}, {requirement[1]})"
-        elif isinstance(requirement[0], tuple):
-            lambda_string += "("
-
-            ii: int
-            sub_requirement: tuple[Any]
-            for ii, sub_requirement in enumerate(requirement):
-                lambda_string += f"state.has(\"{sub_requirement[0]}\", {player}, {sub_requirement[1]})"
-
-                if ii < len(requirement) - 1:
-                    lambda_string += " or "
-
-            lambda_string += ")"
-
-        if i < len(data.requirements) - 1:
-            lambda_string += " and "
-
-    return lambda_string
 
 
 def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
