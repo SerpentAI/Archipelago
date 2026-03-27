@@ -65,9 +65,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.HIGH_SCORE_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=None,
         )
@@ -78,9 +78,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.PRO_SCORE_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 1),
@@ -94,9 +94,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.SICK_SCORE_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -111,9 +111,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.PLATINUM_SCORE_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -130,9 +130,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.HIGH_COMBO_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Manual Tricks: {skater.value}", 1),
@@ -145,9 +145,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.PRO_COMBO_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 1),
@@ -163,9 +163,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.SICK_COMBO_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -182,9 +182,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.PLATINUM_COMBO_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -203,9 +203,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.LONG_GRIND_TRICK_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -219,9 +219,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.LONG_LIP_TRICK_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -235,9 +235,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.LONG_MANUAL_TRICK_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Stats: {skater.value}", 2),
@@ -253,9 +253,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 region=f"{level.value} - {skater.value}",
                 tags=(
                     TonyHawksProSkater12APTags.GAP_LOCATION,
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
                 ),
                 requirements=(
                     (f"Progressive Stats: {skater.value}", 2),
@@ -285,9 +285,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 region=f"{level.value} - {skater.value}",
                 tags=(
                     TonyHawksProSkater12APTags.SKATE_LETTER_LOCATION,
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                    eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                    getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
                 ),
                 requirements=logic_requirements,
             )
@@ -306,9 +306,9 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
             region=f"{level.value} - {skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.SECRET_TAPE_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{level.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
-                eval(f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=logic_requirements,
         )
@@ -331,7 +331,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
             region=f"{skater.value}",
             tags=(
                 TonyHawksProSkater12APTags.SIGNATURE_SPECIAL_LOCATION,
-                eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION"),
+                getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
             ),
             requirements=(
                 (f"Progressive Special Meter: {skater.value}", 1),

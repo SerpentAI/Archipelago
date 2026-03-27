@@ -89,7 +89,7 @@ class TonyHawksProSkater12World(World):
     item_name_groups = item_groups()
     location_name_groups = location_groups()
 
-    required_client_version: Tuple[int, int, int] = (0, 6, 5)
+    required_client_version: Tuple[int, int, int] = (0, 6, 7)
 
     web = TonyHawksProSkater12WebWorld()
 
@@ -482,8 +482,8 @@ class TonyHawksProSkater12World(World):
                 region_level_skater: Region = Region(f"{level.value} - {skater.value}", self.player, self.multiworld)
 
                 if level != self.selected_goal_level:
-                    level_skater_tag: TonyHawksProSkater12APTags = eval(
-                        f"TonyHawksProSkater12APTags.{level.name}_{skater.name}_LOCATION"
+                    level_skater_tag: TonyHawksProSkater12APTags = getattr(
+                        TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"
                     )
 
                     level_skater_location_names: List[str] = locations_with_tag(level_skater_tag)
@@ -556,7 +556,7 @@ class TonyHawksProSkater12World(World):
             for skater in self.selected_skaters:
                 region_skater: Region = Region(skater.value, self.player, self.multiworld)
 
-                skater_tag: TonyHawksProSkater12APTags = eval(f"TonyHawksProSkater12APTags.{skater.name}_LOCATION")
+                skater_tag: TonyHawksProSkater12APTags = getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION")
 
                 location_name: str
                 for location_name in locations_with_tags([skater_tag, TonyHawksProSkater12APTags.SIGNATURE_SPECIAL_LOCATION]):

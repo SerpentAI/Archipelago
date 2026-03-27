@@ -65,7 +65,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.PROGRESSIVE_STATS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -75,7 +75,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.FLIP_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -85,7 +85,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.GRAB_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -95,7 +95,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.PROGRESSIVE_GRIND_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -105,7 +105,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.PROGRESSIVE_LIP_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -115,7 +115,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.PROGRESSIVE_MANUAL_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -125,7 +125,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.PROGRESSIVE_SPECIAL_METER_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -135,7 +135,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.SPIN_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -145,7 +145,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.TRANSFERS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -155,7 +155,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.WALLPLANTS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -165,7 +165,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.EXTRA_TRICKS_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -175,7 +175,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.useful,
         tags=(
             TonyHawksProSkater12APTags.STANCE_SWITCHING_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
@@ -185,7 +185,7 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
         classification=ItemClassification.progression,
         tags=(
             TonyHawksProSkater12APTags.DOUBLE_SCORE_ITEM,
-            eval(f"TonyHawksProSkater12APTags.{skater.name}_ITEM"),
+            getattr(TonyHawksProSkater12APTags, f"{skater.name}_ITEM"),
         ),
     )
 
