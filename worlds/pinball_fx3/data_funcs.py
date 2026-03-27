@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List
 
 from .data.item_data import PinballFX3ItemData, item_data
 from .data.location_data import PinballFX3LocationData, location_data
@@ -7,7 +7,6 @@ from .data.mapping_data import dlc_to_tables
 from .enums import (
     PinballFX3APExcludeHighTierChallengeStars,
     PinballFX3APGoals,
-    PinballFX3APItems,
     PinballFX3APRequirementModes,
     PinballFX3APTags,
     PinballFX3DLC,
@@ -104,35 +103,3 @@ def locations_with_tag(tag: PinballFX3APTags) -> List[str]:
     data: PinballFX3LocationData
 
     return [location for location, data in location_data.items() if data.tags is not None and tag in data.tags]
-
-
-def location_access_rule_for(location: str, player: int) -> str:
-    data: PinballFX3LocationData = location_data[location]
-
-    if data.requirements is None:
-        return "lambda state: True"
-
-    lambda_string: str = "lambda state: "
-
-    i: int
-    requirement: Tuple[Any]
-    for i, requirement in enumerate(data.requirements):
-        if isinstance(requirement[0], PinballFX3APItems):
-            lambda_string += f"state.has(\"{requirement[0].value}\", {player}, {requirement[1]})"
-        elif isinstance(requirement[0], tuple):
-            lambda_string += "("
-
-            ii: int
-            sub_requirement: tuple[Any]
-            for ii, sub_requirement in enumerate(requirement):
-                lambda_string += f"state.has(\"{sub_requirement[0].value}\", {player}, {sub_requirement[1]})"
-
-                if ii < len(requirement) - 1:
-                    lambda_string += " or "
-
-            lambda_string += ")"
-
-        if i < len(data.requirements) - 1:
-            lambda_string += " and "
-
-    return lambda_string

@@ -6,6 +6,8 @@ from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
 from Options import OptionError
 
+from rule_builder.rules import Rule, And, Has
+
 from worlds.AutoWorld import WebWorld, World
 
 from .data.item_data import PinballFX3ItemData, item_data
@@ -22,7 +24,6 @@ from .data_funcs import (
     location_groups,
     location_names_to_id,
     locations_with_tag,
-    location_access_rule_for,
 )
 
 from .enums import (
@@ -81,7 +82,7 @@ class PinballFX3World(World):
     item_name_groups = item_groups()
     location_name_groups = location_groups()
 
-    required_client_version: Tuple[int, int, int] = (0, 6, 5)
+    required_client_version: Tuple[int, int, int] = (0, 6, 7)
 
     web = PinballFX3WebWorld()
 
@@ -399,24 +400,23 @@ class PinballFX3World(World):
                     location.place_locked_item(self.create_item(PinballFX3APItems.VICTORY.value))
 
                 if table != self.selected_starter_table:
-                    location_access_rule: str = location_access_rule_for(location_name, self.player)
+                    location_access_rule: Optional[Rule] = data.requirements
 
-                    if location_access_rule != "lambda state: True":
-                        location.access_rule = eval(location_access_rule)
+                    if location_access_rule is not None:
+                        self.set_rule(location, location_access_rule)
 
                 region_table.locations.append(location)
 
             if table == self.selected_goal_table:
                 region_menu.connect(
                     region_table,
-                    rule=lambda state, t=table: state.has(f"Table Unlock: {t.value}", self.player) and
-                    state.has(PinballFX3APItems.SHINY_QUARTER.value, self.player, self.shiny_quarters_required)
+                    rule=And(
+                        Has(f"Table Unlock: {table.value}"),
+                        Has(PinballFX3APItems.SHINY_QUARTER.value, self.shiny_quarters_required),
+                    )
                 )
             else:
-                region_menu.connect(
-                    region_table,
-                    rule=lambda state, t=table: state.has(f"Table Unlock: {t.value}", self.player)
-                )
+                region_menu.connect(region_table, rule=Has(f"Table Unlock: {table.value}"))
 
             region_table.connect(region_menu)
 

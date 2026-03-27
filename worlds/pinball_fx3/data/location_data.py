@@ -1,29 +1,16 @@
-from typing import Dict, NamedTuple, Optional, Tuple, Union
+from typing import Dict, NamedTuple, Optional, Tuple
+
+from rule_builder.rules import Rule, Has, Or
 
 from ..data.mapping_data import table_to_table_groups
 from ..enums import PinballFX3APItems, PinballFX3Tables, PinballFX3APTags
-
-
-PinballFX3LocationRule = Union[
-    Tuple[
-        Union[
-            Tuple[PinballFX3APItems, int],
-            Tuple[
-                Tuple[PinballFX3APItems, int],
-                ...,
-            ],
-        ],
-        ...,
-    ],
-    None,
-]
 
 
 class PinballFX3LocationData(NamedTuple):
     archipelago_id: Optional[int]
     region: PinballFX3Tables
     tags: Optional[Tuple[PinballFX3APTags, ...]] = None
-    requirements: PinballFX3LocationRule = None
+    requirements: Optional[Rule] = None
 
 
 location_offset: int = 1000000
@@ -80,10 +67,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -98,10 +85,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -116,10 +103,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -134,10 +121,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -152,10 +139,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -170,10 +157,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -188,10 +175,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -206,10 +193,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -224,10 +211,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -243,10 +230,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -262,10 +249,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -281,10 +268,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -300,10 +287,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -319,10 +306,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -338,10 +325,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -357,10 +344,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -376,10 +363,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -395,10 +382,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -414,10 +401,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -433,10 +420,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -452,10 +439,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_1_BALL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_1_BALL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -471,10 +458,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -490,10 +477,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -509,10 +496,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -528,10 +515,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -547,10 +534,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -566,10 +553,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -585,10 +572,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -604,10 +591,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -623,10 +610,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -642,10 +629,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -661,10 +648,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -680,10 +667,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_5_MINUTE_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_5_MINUTE_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -699,10 +686,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -718,10 +705,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -737,10 +724,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -756,10 +743,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 1),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_LOW_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 1),
+            )
         )
     )
 
@@ -775,10 +762,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -794,10 +781,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -813,10 +800,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -832,10 +819,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 2),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_MID_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 2),
+            )
         )
     )
 
@@ -851,10 +838,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -870,10 +857,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -889,10 +876,10 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
 
@@ -908,9 +895,9 @@ for i, table in enumerate(PinballFX3Tables):
             getattr(PinballFX3APTags, f"{table.name}_LOCATION"),
         ),
         requirements=(
-            (
-                (PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER, 1),
-                (PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER, 3),
-            ),
+            Or(
+                Has(PinballFX3APItems.CHALLENGES_SURVIVAL_HIGH_TIER.value, 1),
+                Has(PinballFX3APItems.PROGRESSIVE_SURVIVAL_CHALLENGE_TIER.value, 3),
+            )
         )
     )
