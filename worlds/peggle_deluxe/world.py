@@ -325,7 +325,7 @@ class PeggleDeluxeWorld(World):
 
             region_level: Region = Region(f"Level: {level.value}", self.player, self.multiworld)
 
-            level_tag: PeggleDeluxeAPTags = eval(f"PeggleDeluxeAPTags.{level.name}_LOCATION")
+            level_tag: PeggleDeluxeAPTags = getattr(PeggleDeluxeAPTags, f"{level.name}_LOCATION")
             level_location_names: List[str] = locations_with_tag(level_tag)
 
             location_name: str

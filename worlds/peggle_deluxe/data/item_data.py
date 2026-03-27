@@ -129,7 +129,7 @@ for i, level in enumerate(PeggleDeluxeLevels):
         classification=ItemClassification.progression,
         tags=(
             PeggleDeluxeAPTags.LEVEL_UNLOCK_ITEM,
-            eval(f"PeggleDeluxeAPTags.{level.name}_ITEM"),
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
         ),
     )
 
@@ -139,7 +139,7 @@ for i, level in enumerate(PeggleDeluxeLevels):
         classification=ItemClassification.useful,
         tags=(
             PeggleDeluxeAPTags.USEFUL_ITEM,
-            eval(f"PeggleDeluxeAPTags.{level.name}_ITEM"),
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
         ),
     )
 
@@ -148,7 +148,7 @@ for i, level in enumerate(PeggleDeluxeLevels):
         classification=ItemClassification.useful,
         tags=(
             PeggleDeluxeAPTags.USEFUL_ITEM,
-            eval(f"PeggleDeluxeAPTags.{level.name}_ITEM"),
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
         ),
     )
 
@@ -157,7 +157,7 @@ for i, level in enumerate(PeggleDeluxeLevels):
         classification=ItemClassification.useful,
         tags=(
             PeggleDeluxeAPTags.USEFUL_ITEM,
-            eval(f"PeggleDeluxeAPTags.{level.name}_ITEM"),
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
         ),
     )
 
@@ -166,6 +166,6 @@ for i, level in enumerate(PeggleDeluxeLevels):
         classification=ItemClassification.useful,
         tags=(
             PeggleDeluxeAPTags.USEFUL_ITEM,
-            eval(f"PeggleDeluxeAPTags.{level.name}_ITEM"),
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
         ),
     )
