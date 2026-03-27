@@ -40,7 +40,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.FEVER_METER_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -49,7 +49,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.FEVER_METER_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 1),
@@ -61,7 +61,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.FEVER_METER_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 2),
@@ -73,7 +73,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.FEVER_METER_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 3),
@@ -85,7 +85,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.LEVEL_CLEAR_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 4),
@@ -97,7 +97,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.SCORE_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -106,7 +106,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.SCORE_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 2),
@@ -119,7 +119,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.SCORE_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_FEVER_METER, 4),
@@ -132,7 +132,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.STYLE_SHOT_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -141,7 +141,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.ORANGE_PEG_COMBO_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -150,7 +150,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.ORANGE_PEG_COMBO_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -159,7 +159,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.PEG_COMBO_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -168,7 +168,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.PEG_COMBO_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
     )
 
@@ -177,7 +177,7 @@ for i, level in enumerate(PeggleNightsLevels):
         region=level,
         tags=(
             PeggleNightsAPTags.FULL_CLEAR_LOCATION,
-            eval(f"PeggleNightsAPTags.{level.name}_LOCATION"),
+            getattr(PeggleNightsAPTags, f"{level.name}_LOCATION"),
         ),
         requirements=(
             (PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE, 999),  # Replace 999 with (Max balls - 5)
