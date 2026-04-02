@@ -18,7 +18,7 @@ class GameState(NamedTuple):
 
 
 class GameStateManager:
-    process_name = "Pinball FX3.exe"
+    process_name = "Pinball FX Classic.exe"
 
     process: Optional[Pymem]
     is_process_running: bool
