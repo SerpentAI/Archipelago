@@ -1,0 +1,10 @@
+{
+    "authors": ["SerpentAI"],
+    "compatible_version": 7,
+    "flags": [],
+    "game": "Mirror's Edge",
+    "idgb_id": 77348,
+    "minimum_ap_version": "0.6.7",
+    "version": 7,
+    "world_version": "1.0.0"
+}
