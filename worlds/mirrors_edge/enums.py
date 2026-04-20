@@ -101,7 +101,7 @@ class MirrorsEdgeAbilities(enum.Enum):
     WALL_CLIMB = "Wall Climb"
     WALL_CLIMB_ONE_EIGHTY_TURN_JUMP = "Wall Climb 180 Turn Jump"
     WALL_RUN = "Wall Run"
-    WALL_RUN_JUMP = "Wall Run Jump"
+    WALL_RUN_JUMP = "Wall Run Jump / Kick"
     ZIPLINE = "Zipline"
 
 

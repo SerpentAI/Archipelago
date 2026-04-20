@@ -32,7 +32,7 @@ Goals are tied to Runner Bags, acting as the "macguffin" items for this game. Th
   - Swing
   - Vault
   - Wall Climb -> Wall Climb 180 Turn Jump
-  - Wall Run -> Wall Run Jump
+  - Wall Run -> Wall Run Jump / Kick
   - Zipline
 - Level-Specific Time Bonuses
 

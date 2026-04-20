@@ -158,6 +158,7 @@ class GameStateManager:
             "TdMove_GrabJump",
             "TdMove_Melee",
             "TdMove_MeleeAir",
+            "TdMove_MeleeWallrun",
             "TdMove_WallClimb",
             "TdMove_WallClimb180TurnJump",
             "TdMove_WallRun",
@@ -581,11 +582,18 @@ class GameStateManager:
             return None
         elif not self.move_cdo_addresses or "TdMove_WallrunJump" not in self.move_cdo_addresses:
             return None
+        elif not self.move_cdo_addresses or "TdMove_MeleeWallrun" not in self.move_cdo_addresses:
+            return None
 
         wall_run_jump_cdo_address: int = self.move_cdo_addresses["TdMove_WallrunJump"]
 
         self.process.write_float(wall_run_jump_cdo_address + 0x84, 1.0)
         self.process.write_float(wall_run_jump_cdo_address + 0x8C, 999999999.0)
+
+        melee_wallrun_cdo_address: int = self.move_cdo_addresses["TdMove_MeleeWallrun"]
+
+        self.process.write_float(melee_wallrun_cdo_address + 0x84, 1.0)
+        self.process.write_float(melee_wallrun_cdo_address + 0x8C, 999999999.0)
 
         return True
 
@@ -594,11 +602,18 @@ class GameStateManager:
             return None
         elif not self.move_cdo_addresses or "TdMove_WallrunJump" not in self.move_cdo_addresses:
             return None
+        elif not self.move_cdo_addresses or "TdMove_MeleeWallrun" not in self.move_cdo_addresses:
+            return None
 
         wall_run_jump_cdo_address: int = self.move_cdo_addresses["TdMove_WallrunJump"]
 
         self.process.write_float(wall_run_jump_cdo_address + 0x84, -10.0)
         self.process.write_float(wall_run_jump_cdo_address + 0x8C, 0.0)
+
+        melee_wallrun_cdo_address: int = self.move_cdo_addresses["TdMove_MeleeWallrun"]
+
+        self.process.write_float(melee_wallrun_cdo_address + 0x84, -10.0)
+        self.process.write_float(melee_wallrun_cdo_address + 0x8C, 0.0)
 
         return True
 
