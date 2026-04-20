@@ -461,7 +461,7 @@ class MirrorsEdgeWorld(World):
 
         # Runner Bags
         i: int
-        for i in range(self.runner_bags_required):
+        for i in range(self.runner_bags_total):
             item: MirrorsEdgeItem = self.create_item("Runner Bag")
 
             # Upgrade from useful instead of the other way around to accommodate UT
