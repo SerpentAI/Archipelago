@@ -175,7 +175,7 @@ class GameStateManager:
             "SBXStat.DisableOllieOutOfLip": 0.0,
             "SBXStat.DisableTransfers": 0.0,
             "SBXStat.DisableManuals": 0.0,
-            "SBXStat.EnableSpinTaps": 0.0,
+            "SBXStat.EnableSpinTaps": 1.0,
             "SBXStat.WallPlantRequiresDown": 0.0,
         }
 
