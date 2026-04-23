@@ -25,17 +25,20 @@ ability_to_internal_class_name: Dict[MirrorsEdgeAbilities, Optional[Union[str, T
     MirrorsEdgeAbilities.WALL_CLIMB: "TdMove_WallClimb",
     MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP: "TdMove_WallClimb180TurnJump",
     MirrorsEdgeAbilities.WALL_RUN: "TdMove_WallRun",
-    MirrorsEdgeAbilities.WALL_RUN_JUMP: "TdMove_WallrunJump",
+    MirrorsEdgeAbilities.WALL_RUN_JUMP: ("TdMove_WallrunJump", "TdMove_MeleeWallrun"),
     MirrorsEdgeAbilities.ZIPLINE: "TdMove_IntoZipLine",
 }
 
 
 level_base_target_times: Dict[MirrorsEdgeLevels, Tuple[int, ...]] = {
+    MirrorsEdgeLevels.ACTINO: (100, 75, 67),
+    MirrorsEdgeLevels.ACTINO_RISE: (120, 75, 65),
     MirrorsEdgeLevels.ARLAND: (70, 55, 47),
     MirrorsEdgeLevels.ATRIUM_ONE: (120, 75, 55),
     MirrorsEdgeLevels.ATRIUM_TWO: (85, 67, 60),
     MirrorsEdgeLevels.BURFIELD: (85, 70, 62),
     MirrorsEdgeLevels.CHASE: (105, 85, 78),
+    MirrorsEdgeLevels.CHROMA: (85, 68, 62),
     MirrorsEdgeLevels.CONVOY_ONE: (80, 64, 58),
     MirrorsEdgeLevels.CONVOY_TWO: (80, 64, 58),
     MirrorsEdgeLevels.CRANES_ONE: (105, 85, 77),
@@ -43,21 +46,54 @@ level_base_target_times: Dict[MirrorsEdgeLevels, Tuple[int, ...]] = {
     MirrorsEdgeLevels.EDGE: (70, 55, 47),
     MirrorsEdgeLevels.FACTORY: (95, 80, 70),
     MirrorsEdgeLevels.FLIGHT: (80, 67, 61),
+    MirrorsEdgeLevels.FLOW: (100, 72, 65),
     MirrorsEdgeLevels.HEAT: (75, 62, 56),
+    MirrorsEdgeLevels.KINETIC: (105, 70, 60),
     MirrorsEdgeLevels.NEW_EDEN: (80, 61, 55),
     MirrorsEdgeLevels.OFFICE: (65, 32, 27),
     MirrorsEdgeLevels.PLAYGROUND_ONE: (120, 75, 65),
     MirrorsEdgeLevels.PLAYGROUND_THREE: (140, 110, 95),
     MirrorsEdgeLevels.PLAYGROUND_TWO: (130, 85, 75),
+    MirrorsEdgeLevels.RAZZMATAZZ: (90, 62, 57),
+    MirrorsEdgeLevels.REFLEX: (100, 67, 62),
+    MirrorsEdgeLevels.REFLEX_REDUX: (75, 57, 50),
     MirrorsEdgeLevels.SHARD_ONE: (120, 75, 68),
     MirrorsEdgeLevels.SHARD_TWO: (75, 67, 62),
     MirrorsEdgeLevels.STORMDRAINS_ONE: (120, 90, 82),
     MirrorsEdgeLevels.STORMDRAINS_THREE: (70, 59, 53),
     MirrorsEdgeLevels.STORMDRAINS_TWO: (80, 63, 57),
+    MirrorsEdgeLevels.SYNESTHESIA: (70, 58, 53),
+    MirrorsEdgeLevels.VELOCITY: (65, 53, 48),
 }
 
 
 level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints, ...]] = {
+    MirrorsEdgeLevels.ACTINO: (
+        MirrorsEdgeLevelCheckpoints.ACTINO_1,
+        MirrorsEdgeLevelCheckpoints.ACTINO_2,
+        MirrorsEdgeLevelCheckpoints.ACTINO_3,
+        MirrorsEdgeLevelCheckpoints.ACTINO_4,
+        MirrorsEdgeLevelCheckpoints.ACTINO_5,
+        MirrorsEdgeLevelCheckpoints.ACTINO_6,
+        MirrorsEdgeLevelCheckpoints.ACTINO_7,
+        MirrorsEdgeLevelCheckpoints.ACTINO_8,
+        MirrorsEdgeLevelCheckpoints.ACTINO_9,
+    ),
+    MirrorsEdgeLevels.ACTINO_RISE: (
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_1,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_2,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_3,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_4,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_5,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_6,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_7,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_8,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_9,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_10,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_11,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_12,
+        MirrorsEdgeLevelCheckpoints.ACTINO_RISE_13,
+    ),
     MirrorsEdgeLevels.ARLAND: (
         MirrorsEdgeLevelCheckpoints.ARLAND_1,
         MirrorsEdgeLevelCheckpoints.ARLAND_2,
@@ -114,6 +150,14 @@ level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints,
         MirrorsEdgeLevelCheckpoints.CHASE_4,
         MirrorsEdgeLevelCheckpoints.CHASE_5,
         MirrorsEdgeLevelCheckpoints.CHASE_6,
+    ),
+    MirrorsEdgeLevels.CHROMA: (
+        MirrorsEdgeLevelCheckpoints.CHROMA_1,
+        MirrorsEdgeLevelCheckpoints.CHROMA_2,
+        MirrorsEdgeLevelCheckpoints.CHROMA_3,
+        MirrorsEdgeLevelCheckpoints.CHROMA_4,
+        MirrorsEdgeLevelCheckpoints.CHROMA_5,
+        MirrorsEdgeLevelCheckpoints.CHROMA_6,
     ),
     MirrorsEdgeLevels.CONVOY_ONE: (
         MirrorsEdgeLevelCheckpoints.CONVOY_ONE_1,
@@ -200,6 +244,14 @@ level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints,
         MirrorsEdgeLevelCheckpoints.FLIGHT_7,
         MirrorsEdgeLevelCheckpoints.FLIGHT_8,
     ),
+    MirrorsEdgeLevels.FLOW: (
+        MirrorsEdgeLevelCheckpoints.FLOW_1,
+        MirrorsEdgeLevelCheckpoints.FLOW_2,
+        MirrorsEdgeLevelCheckpoints.FLOW_3,
+        MirrorsEdgeLevelCheckpoints.FLOW_4,
+        MirrorsEdgeLevelCheckpoints.FLOW_5,
+        MirrorsEdgeLevelCheckpoints.FLOW_6,
+    ),
     MirrorsEdgeLevels.HEAT: (
         MirrorsEdgeLevelCheckpoints.HEAT_1,
         MirrorsEdgeLevelCheckpoints.HEAT_2,
@@ -210,6 +262,16 @@ level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints,
         MirrorsEdgeLevelCheckpoints.HEAT_7,
         MirrorsEdgeLevelCheckpoints.HEAT_8,
         MirrorsEdgeLevelCheckpoints.HEAT_9,
+    ),
+    MirrorsEdgeLevels.KINETIC: (
+        MirrorsEdgeLevelCheckpoints.KINETIC_1,
+        MirrorsEdgeLevelCheckpoints.KINETIC_2,
+        MirrorsEdgeLevelCheckpoints.KINETIC_3,
+        MirrorsEdgeLevelCheckpoints.KINETIC_4,
+        MirrorsEdgeLevelCheckpoints.KINETIC_5,
+        MirrorsEdgeLevelCheckpoints.KINETIC_6,
+        MirrorsEdgeLevelCheckpoints.KINETIC_7,
+        MirrorsEdgeLevelCheckpoints.KINETIC_8,
     ),
     MirrorsEdgeLevels.NEW_EDEN: (
         MirrorsEdgeLevelCheckpoints.NEW_EDEN_1,
@@ -255,6 +317,33 @@ level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints,
         MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_8,
         MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_9,
         MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_10,
+    ),
+    MirrorsEdgeLevels.RAZZMATAZZ: (
+        MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_1,
+        MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_2,
+        MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_3,
+        MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_4,
+        MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_5,
+    ),
+    MirrorsEdgeLevels.REFLEX: (
+        MirrorsEdgeLevelCheckpoints.REFLEX_1,
+        MirrorsEdgeLevelCheckpoints.REFLEX_2,
+        MirrorsEdgeLevelCheckpoints.REFLEX_3,
+        MirrorsEdgeLevelCheckpoints.REFLEX_4,
+        MirrorsEdgeLevelCheckpoints.REFLEX_5,
+        MirrorsEdgeLevelCheckpoints.REFLEX_6,
+        MirrorsEdgeLevelCheckpoints.REFLEX_7,
+        MirrorsEdgeLevelCheckpoints.REFLEX_8,
+        MirrorsEdgeLevelCheckpoints.REFLEX_9,
+    ),
+    MirrorsEdgeLevels.REFLEX_REDUX: (
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_1,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_2,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_3,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_4,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_5,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_6,
+        MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_7,
     ),
     MirrorsEdgeLevels.SHARD_ONE: (
         MirrorsEdgeLevelCheckpoints.SHARD_ONE_1,
@@ -318,15 +407,34 @@ level_to_checkpoints: Dict[MirrorsEdgeLevels, Tuple[MirrorsEdgeLevelCheckpoints,
         MirrorsEdgeLevelCheckpoints.STORMDRAINS_TWO_8,
         MirrorsEdgeLevelCheckpoints.STORMDRAINS_TWO_9,
     ),
+    MirrorsEdgeLevels.SYNESTHESIA: (
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_1,
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_2,
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_3,
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_4,
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_5,
+        MirrorsEdgeLevelCheckpoints.SYNESTHESIA_6,
+    ),
+    MirrorsEdgeLevels.VELOCITY: (
+        MirrorsEdgeLevelCheckpoints.VELOCITY_1,
+        MirrorsEdgeLevelCheckpoints.VELOCITY_2,
+        MirrorsEdgeLevelCheckpoints.VELOCITY_3,
+        MirrorsEdgeLevelCheckpoints.VELOCITY_4,
+        MirrorsEdgeLevelCheckpoints.VELOCITY_5,
+        MirrorsEdgeLevelCheckpoints.VELOCITY_6,
+    ),
 }
 
 
 level_to_checkpoint_count: Dict[MirrorsEdgeLevels, int] = {
+    MirrorsEdgeLevels.ACTINO: 9,
+    MirrorsEdgeLevels.ACTINO_RISE: 13,
     MirrorsEdgeLevels.ARLAND: 6,
     MirrorsEdgeLevels.ATRIUM_ONE: 17,
     MirrorsEdgeLevels.ATRIUM_TWO: 13,
     MirrorsEdgeLevels.BURFIELD: 5,
     MirrorsEdgeLevels.CHASE: 6,
+    MirrorsEdgeLevels.CHROMA: 6,
     MirrorsEdgeLevels.CONVOY_ONE: 7,
     MirrorsEdgeLevels.CONVOY_TWO: 9,
     MirrorsEdgeLevels.CRANES_ONE: 13,
@@ -334,26 +442,36 @@ level_to_checkpoint_count: Dict[MirrorsEdgeLevels, int] = {
     MirrorsEdgeLevels.EDGE: 7,
     MirrorsEdgeLevels.FACTORY: 18,
     MirrorsEdgeLevels.FLIGHT: 8,
+    MirrorsEdgeLevels.FLOW: 6,
     MirrorsEdgeLevels.HEAT: 9,
+    MirrorsEdgeLevels.KINETIC: 8,
     MirrorsEdgeLevels.NEW_EDEN: 6,
     MirrorsEdgeLevels.OFFICE: 2,
     MirrorsEdgeLevels.PLAYGROUND_ONE: 5,
     MirrorsEdgeLevels.PLAYGROUND_THREE: 12,
     MirrorsEdgeLevels.PLAYGROUND_TWO: 10,
+    MirrorsEdgeLevels.RAZZMATAZZ: 5,
+    MirrorsEdgeLevels.REFLEX: 9,
+    MirrorsEdgeLevels.REFLEX_REDUX: 7,
     MirrorsEdgeLevels.SHARD_ONE: 10,
     MirrorsEdgeLevels.SHARD_TWO: 10,
     MirrorsEdgeLevels.STORMDRAINS_ONE: 15,
     MirrorsEdgeLevels.STORMDRAINS_THREE: 8,
     MirrorsEdgeLevels.STORMDRAINS_TWO: 9,
+    MirrorsEdgeLevels.SYNESTHESIA: 6,
+    MirrorsEdgeLevels.VELOCITY: 6,
 }
 
 
 level_to_internal_name: Dict[MirrorsEdgeLevels, str] = {
+    MirrorsEdgeLevels.ACTINO: "Actino_p",
+    MirrorsEdgeLevels.ACTINO_RISE: "Actino_redux_p",
     MirrorsEdgeLevels.ARLAND: "tt_EscapeB01_p",
     MirrorsEdgeLevels.ATRIUM_ONE: "tt_ConvoyA01_p",
     MirrorsEdgeLevels.ATRIUM_TWO: "tt_ConvoyA02_p",
     MirrorsEdgeLevels.BURFIELD: "tt_CranesC01_p",
     MirrorsEdgeLevels.CHASE: "tt_StormdrainA02_p",
+    MirrorsEdgeLevels.CHROMA: "CHROMA_p",
     MirrorsEdgeLevels.CONVOY_ONE: "tt_ConvoyB01_p",
     MirrorsEdgeLevels.CONVOY_TWO: "tt_ConvoyB02_p",
     MirrorsEdgeLevels.CRANES_ONE: "tt_CranesB02_p",
@@ -361,17 +479,24 @@ level_to_internal_name: Dict[MirrorsEdgeLevels, str] = {
     MirrorsEdgeLevels.EDGE: "tt_EdgeA01_p",
     MirrorsEdgeLevels.FACTORY: "tt_FactoryA01_p",
     MirrorsEdgeLevels.FLIGHT: "tt_EscapeA01_p",
+    MirrorsEdgeLevels.FLOW: "FLOW_p",
     MirrorsEdgeLevels.HEAT: "tt_CranesA01_p",
+    MirrorsEdgeLevels.KINETIC: "KINETIC_p",
     MirrorsEdgeLevels.NEW_EDEN: "tt_MallA01_p",
     MirrorsEdgeLevels.OFFICE: "tt_CranesD01_p",
     MirrorsEdgeLevels.PLAYGROUND_ONE: "tt_TutorialA01_p",
     MirrorsEdgeLevels.PLAYGROUND_THREE: "tt_TutorialA03_p",
     MirrorsEdgeLevels.PLAYGROUND_TWO: "tt_TutorialA02_p",
+    MirrorsEdgeLevels.RAZZMATAZZ: "RAZZMATAZZ_p",
+    MirrorsEdgeLevels.REFLEX: "REFLEX_p",
+    MirrorsEdgeLevels.REFLEX_REDUX: "REFLEX_Redux_p",
     MirrorsEdgeLevels.SHARD_ONE: "tt_ScraperA01_p",
     MirrorsEdgeLevels.SHARD_TWO: "tt_ScraperB01_p",
     MirrorsEdgeLevels.STORMDRAINS_ONE: "tt_StormdrainB01_p",
     MirrorsEdgeLevels.STORMDRAINS_THREE: "tt_StormdrainB03_p",
     MirrorsEdgeLevels.STORMDRAINS_TWO: "tt_StormdrainB02_p",
+    MirrorsEdgeLevels.SYNESTHESIA: "Synesthesia_p",
+    MirrorsEdgeLevels.VELOCITY: "VELOCITY_p",
 }
 
 level_to_internal_name_reverse: Dict[str, MirrorsEdgeLevels] = {
@@ -379,12 +504,16 @@ level_to_internal_name_reverse: Dict[str, MirrorsEdgeLevels] = {
 }
 
 
+# All DLC levels share the Playgrounds One index :(
 level_to_internal_index: Dict[MirrorsEdgeLevels, int] = {
+    MirrorsEdgeLevels.ACTINO: 15,
+    MirrorsEdgeLevels.ACTINO_RISE: 15,
     MirrorsEdgeLevels.ARLAND: 23,
     MirrorsEdgeLevels.ATRIUM_ONE: 10,
     MirrorsEdgeLevels.ATRIUM_TWO: 11,
     MirrorsEdgeLevels.BURFIELD: 20,
     MirrorsEdgeLevels.CHASE: 6,
+    MirrorsEdgeLevels.CHROMA: 15,
     MirrorsEdgeLevels.CONVOY_ONE: 12,
     MirrorsEdgeLevels.CONVOY_TWO: 13,
     MirrorsEdgeLevels.CRANES_ONE: 3,
@@ -392,18 +521,39 @@ level_to_internal_index: Dict[MirrorsEdgeLevels, int] = {
     MirrorsEdgeLevels.EDGE: 4,
     MirrorsEdgeLevels.FACTORY: 17,
     MirrorsEdgeLevels.FLIGHT: 22,
+    MirrorsEdgeLevels.FLOW: 15,
     MirrorsEdgeLevels.HEAT: 1,
+    MirrorsEdgeLevels.KINETIC: 15,
     MirrorsEdgeLevels.NEW_EDEN: 14,
     MirrorsEdgeLevels.OFFICE: 24,
     MirrorsEdgeLevels.PLAYGROUND_ONE: 15,
     MirrorsEdgeLevels.PLAYGROUND_THREE: 21,
     MirrorsEdgeLevels.PLAYGROUND_TWO: 16,
+    MirrorsEdgeLevels.RAZZMATAZZ: 15,
+    MirrorsEdgeLevels.REFLEX: 15,
+    MirrorsEdgeLevels.REFLEX_REDUX: 15,
     MirrorsEdgeLevels.SHARD_ONE: 18,
     MirrorsEdgeLevels.SHARD_TWO: 19,
     MirrorsEdgeLevels.STORMDRAINS_ONE: 7,
     MirrorsEdgeLevels.STORMDRAINS_THREE: 9,
     MirrorsEdgeLevels.STORMDRAINS_TWO: 8,
+    MirrorsEdgeLevels.SYNESTHESIA: 15,
+    MirrorsEdgeLevels.VELOCITY: 15,
 }
+
+
+levels_dlc: Tuple[MirrorsEdgeLevels, ...] = (
+    MirrorsEdgeLevels.ACTINO,
+    MirrorsEdgeLevels.ACTINO_RISE,
+    MirrorsEdgeLevels.CHROMA,
+    MirrorsEdgeLevels.FLOW,
+    MirrorsEdgeLevels.KINETIC,
+    MirrorsEdgeLevels.RAZZMATAZZ,
+    MirrorsEdgeLevels.REFLEX,
+    MirrorsEdgeLevels.REFLEX_REDUX,
+    MirrorsEdgeLevels.SYNESTHESIA,
+    MirrorsEdgeLevels.VELOCITY,
+)
 
 
 levels_with_multiple_zero_requirements: Tuple[MirrorsEdgeLevels, ...] = (
@@ -411,6 +561,8 @@ levels_with_multiple_zero_requirements: Tuple[MirrorsEdgeLevels, ...] = (
     MirrorsEdgeLevels.FACTORY,
     MirrorsEdgeLevels.FLIGHT,
 )
+
+levels_with_multiple_zero_requirements_dlc: Tuple[MirrorsEdgeLevels, ...] = tuple()
 
 levels_with_one_zero_requirements: Tuple[MirrorsEdgeLevels, ...] = (
     MirrorsEdgeLevels.ATRIUM_ONE,
@@ -420,6 +572,10 @@ levels_with_one_zero_requirements: Tuple[MirrorsEdgeLevels, ...] = (
     MirrorsEdgeLevels.OFFICE,
     MirrorsEdgeLevels.PLAYGROUND_ONE,
     MirrorsEdgeLevels.STORMDRAINS_ONE,
+)
+
+levels_with_one_zero_requirements_dlc: Tuple[MirrorsEdgeLevels, ...] = (
+    MirrorsEdgeLevels.CHROMA,
 )
 
 levels_with_requirements: Tuple[MirrorsEdgeLevels, ...] = (
@@ -436,4 +592,16 @@ levels_with_requirements: Tuple[MirrorsEdgeLevels, ...] = (
     MirrorsEdgeLevels.SHARD_TWO,
     MirrorsEdgeLevels.STORMDRAINS_THREE,
     MirrorsEdgeLevels.STORMDRAINS_TWO,
+)
+
+levels_with_requirements_dlc: Tuple[MirrorsEdgeLevels, ...] = (
+    MirrorsEdgeLevels.ACTINO,
+    MirrorsEdgeLevels.ACTINO_RISE,
+    MirrorsEdgeLevels.FLOW,
+    MirrorsEdgeLevels.KINETIC,
+    MirrorsEdgeLevels.RAZZMATAZZ,
+    MirrorsEdgeLevels.REFLEX,
+    MirrorsEdgeLevels.REFLEX_REDUX,
+    MirrorsEdgeLevels.SYNESTHESIA,
+    MirrorsEdgeLevels.VELOCITY,
 )

@@ -19,6 +19,8 @@ BLAKE2sp: ec88d566bd480acb5e290546b91e4ceaa659941228ff3df657499f889f55092c
 ## Game Setup Instructions
 No game modding is required to play Mirror's Edge with Archipelago. The client included with the APWorld does all the work by attaching to the game process and monitoring and manipulating the game state in real-time.
 
+If you want to include the Pure Time Trial DLC, you are fully responsible for setting it up yourself and testing that the levels work before playing.
+
 **Note:** DxWrapper (to enable borderless windowed mode and alt-tabbing among other things) is supported and won't interfere with the implementation. Setting it up correctly is left as an exercise to the player, and support will not be provided as it falls outside the scope of this implementation.
 
 ## Joining a Multiworld Game

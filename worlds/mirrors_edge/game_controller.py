@@ -43,6 +43,7 @@ class GameController:
     option_logic: Optional[MirrorsEdgeAPLogic]
     option_open_world: Optional[bool]
     option_starting_ability_count: Optional[int]
+    option_include_pure_time_trial_pack_dlc: Optional[bool]
     option_include_2_star_ratings: Optional[bool]
     option_include_3_star_ratings: Optional[bool]
     option_target_time_adjustment_percentage: Optional[int]
@@ -93,6 +94,7 @@ class GameController:
         self.option_logic = None
         self.option_open_world = None
         self.option_starting_ability_count = None
+        self.option_include_pure_time_trial_pack_dlc = None
         self.option_include_2_star_ratings = None
         self.option_include_3_star_ratings = None
         self.option_target_time_adjustment_percentage = None
@@ -240,6 +242,7 @@ class GameController:
         self.option_logic = None
         self.option_open_world = None
         self.option_starting_ability_count = None
+        self.option_include_pure_time_trial_pack_dlc = None
         self.option_include_2_star_ratings = None
         self.option_include_3_star_ratings = None
         self.option_target_time_adjustment_percentage = None

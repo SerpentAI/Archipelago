@@ -6,6 +6,111 @@ from ..enums import MirrorsEdgeAbilities, MirrorsEdgeLevelCheckpoints
 
 
 level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
+    MirrorsEdgeLevelCheckpoints.ACTINO_1: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.COIL.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_2: And(
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+        ),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_3: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_4: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_5: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_6: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_7: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_8: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_9: Has(
+        f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_1: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_2: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_3: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_4: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_5: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_6: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_7: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_8: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                And(
+                    Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+                    Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+                ),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_9: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_10: And(
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+        ),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_11: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_12: None,
+    MirrorsEdgeLevelCheckpoints.ACTINO_RISE_13: None,
     MirrorsEdgeLevelCheckpoints.ARLAND_1: Or(
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
@@ -148,6 +253,43 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
     MirrorsEdgeLevelCheckpoints.CHASE_6: Has(
         f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"
     ),
+    MirrorsEdgeLevelCheckpoints.CHROMA_1: None,
+    MirrorsEdgeLevelCheckpoints.CHROMA_2: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+            ),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+            Has("Advanced Logic"),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.CHROMA_3: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.COIL.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.CHROMA_4: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+                Has("Advanced Logic"),
+            )
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.CHROMA_5: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.COIL.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.CHROMA_6: None,
     MirrorsEdgeLevelCheckpoints.CONVOY_ONE_1: Or(
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
@@ -389,6 +531,35 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
             Has("Advanced Logic"),
         )
     ),
+    MirrorsEdgeLevelCheckpoints.FLOW_1: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+        ),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.FLOW_2: None,
+    MirrorsEdgeLevelCheckpoints.FLOW_3: And(
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.FLOW_4: None,
+    MirrorsEdgeLevelCheckpoints.FLOW_5: None,
+    MirrorsEdgeLevelCheckpoints.FLOW_6: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+    ),
     MirrorsEdgeLevelCheckpoints.HEAT_1: Or(
         Or(
             Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
@@ -419,6 +590,64 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
     MirrorsEdgeLevelCheckpoints.HEAT_7: None,
     MirrorsEdgeLevelCheckpoints.HEAT_8: None,
     MirrorsEdgeLevelCheckpoints.HEAT_9: None,
+    MirrorsEdgeLevelCheckpoints.KINETIC_1: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.KINETIC_2: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.KINETIC_3: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.KINETIC_4: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Or(
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+                And(
+                    Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+                    Or(
+                        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+                    )
+                )
+            )
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.KINETIC_5: None,
+    MirrorsEdgeLevelCheckpoints.KINETIC_6: None,
+    MirrorsEdgeLevelCheckpoints.KINETIC_7: None,
+    MirrorsEdgeLevelCheckpoints.KINETIC_8: Has(
+        f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"
+    ),
     MirrorsEdgeLevelCheckpoints.NEW_EDEN_1: Or(
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
@@ -563,6 +792,97 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
     MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_8: None,
     MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_9: None,
     MirrorsEdgeLevelCheckpoints.PLAYGROUND_TWO_10: None,
+    MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_1: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_2: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        Has("Advanced Logic"),
+    ),
+    MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_3: None,
+    MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_4: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.RAZZMATAZZ_5: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_1: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.COIL.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_2: And(
+        Or(
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            ),
+        ),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_3: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+        Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_4: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_5: Or(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            ),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_6: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_7: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_8: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+        Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_9: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_1: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_2: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+        Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_3: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_4: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_5: None,
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_6: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.REFLEX_REDUX_7: None,
     MirrorsEdgeLevelCheckpoints.SHARD_ONE_1: Or(
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
         Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
@@ -679,4 +999,65 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
     MirrorsEdgeLevelCheckpoints.STORMDRAINS_TWO_7: None,
     MirrorsEdgeLevelCheckpoints.STORMDRAINS_TWO_8: None,
     MirrorsEdgeLevelCheckpoints.STORMDRAINS_TWO_9: None,
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_1: And(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+        ),
+    ),
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_2: And(
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+        ),
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+        ),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+    ),
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_3: None,
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_4: None,
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_5: None,
+    MirrorsEdgeLevelCheckpoints.SYNESTHESIA_6: None,
+    MirrorsEdgeLevelCheckpoints.VELOCITY_1: And(
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+            ),
+            And(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINGBOARD.value}"),
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+            )
+        ),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.VAULT.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.VELOCITY_2: And(
+        And(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
+            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_RUN_JUMP.value}"),
+        ),
+        Or(
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+            Has(f"Ability Unlock: {MirrorsEdgeAbilities.SWING.value}"),
+        )
+    ),
+    MirrorsEdgeLevelCheckpoints.VELOCITY_3: None,
+    MirrorsEdgeLevelCheckpoints.VELOCITY_4: None,
+    MirrorsEdgeLevelCheckpoints.VELOCITY_5: None,
+    MirrorsEdgeLevelCheckpoints.VELOCITY_6: Or(
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.SPRINT.value}"),
+        Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+    ),
 }

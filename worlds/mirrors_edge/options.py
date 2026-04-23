@@ -103,6 +103,19 @@ class StartingAbilityCount(Range):
     default = 0
 
 
+class IncludePureTimeTrialPackDLC(Toggle):
+    """
+    If enabled, locations for the Pure Time Trial Pack DLC levels will be created when generating the multiworld.
+
+    Note: DLC setup and making sure the added levels work are the player's responsibility. Do NOT turn until you have tested them!
+
+    QUIRK ALERT! All 10 DLC levels share the index of Playgrounds One, making it impossible to unlock them individually.
+                 Whichever level gets unlocked first will also unlock the other 10. Be advised!
+    """
+
+    display_name = "Include Pure Time Trial Pack DLC"
+
+
 class IncludeTwoStarRatings(Toggle):
     """
     If enabled, locations for 2-Star Ratings on each level will be created when generating the multiworld.
@@ -222,7 +235,7 @@ class FOVAdjustment(Range):
     range_start = 80
     range_end = 110
 
-    default = 85
+    default = 90
 
 
 @dataclass
@@ -234,6 +247,7 @@ class MirrorsEdgeOptions(PerGameCommonOptions):
     logic: Logic
     open_world: OpenWorld
     starting_ability_count: StartingAbilityCount
+    include_pure_time_trial_pack_dlc: IncludePureTimeTrialPackDLC
     include_2_star_ratings: IncludeTwoStarRatings
     include_3_star_ratings: IncludeThreeStarRatings
     target_time_adjustment_percentage: TargetTimeAdjustmentPercentage
@@ -268,6 +282,7 @@ option_groups: List[OptionGroup] = [
     OptionGroup(
         "Location Options",
         [
+            IncludePureTimeTrialPackDLC,
             IncludeTwoStarRatings,
             IncludeThreeStarRatings,
         ],

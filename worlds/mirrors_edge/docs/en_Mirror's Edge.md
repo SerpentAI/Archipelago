@@ -44,6 +44,7 @@ Goals are tied to Runner Bags, acting as the "macguffin" items for this game. Th
   - Advanced: Requirements can require tighter execution, more creative routes, and performing moves off of unintended objects to progress.
 - Option to play in Open World mode (All time trials start unlocked)
 - Option to start with N random abilities
+- Option to include the Pure Time Trial DLC
 - Option to disable 2 and 3-star rating locations
 - Ability to globally adjust star rating target times upwards (or downwards, slightly)
 - Ability to convert a percentage of filler items to level-specific time bonuses
@@ -52,7 +53,7 @@ Goals are tied to Runner Bags, acting as the "macguffin" items for this game. Th
   - Slippery Trap: Ground friction is nullified. Any movement in a direction will keep going in that direction until countered
   - Slow Trap: Movement speed is greatly reduced
   - Wide FOV Trap: Camera field-of-value is greatly increased
-- Scales well for all types of multiworlds: Short / Long Syncs, Asyncs; ~250 checks
+- Scales well for all types of multiworlds: Short / Long Syncs, Asyncs; ~250-350 checks
 - Ultra-rare variants of schematic filler items (that do nothing) to collect and brag about
 - Ability to set a desired in-game FOV through Archipelago options
 - Custom client UI that displays important information and updates in real-time

@@ -106,6 +106,7 @@ class MirrorsEdgeContext(CommonClient.CommonContext):
             self.game_controller.option_logic = slot_data["logic"]
             self.game_controller.option_open_world = slot_data["open_world"]
             self.game_controller.option_starting_ability_count = slot_data["starting_ability_count"]
+            self.game_controller.option_include_pure_time_trial_pack_dlc = slot_data["include_pure_time_trial_pack_dlc"]
             self.game_controller.option_include_2_star_ratings = slot_data["include_2_star_ratings"]
             self.game_controller.option_include_3_star_ratings = slot_data["include_3_star_ratings"]
             self.game_controller.option_target_time_adjustment_percentage = slot_data["target_time_adjustment_percentage"]

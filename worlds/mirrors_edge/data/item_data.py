@@ -22,7 +22,7 @@ item_data: Dict[str, MirrorsEdgeItemData] = {
     # Goal Items
     "Runner Bag": MirrorsEdgeItemData(
         archipelago_id=item_base_offset + 1,
-        classification=ItemClassification.useful,  # Required count is upgraded to progression_deprioritized_skip_balancing during generation to accommodate UT
+        classification=ItemClassification.progression_deprioritized_skip_balancing,
         tags=(MirrorsEdgeAPTags.GOAL_ITEM,),
     ),
     # Logic Items

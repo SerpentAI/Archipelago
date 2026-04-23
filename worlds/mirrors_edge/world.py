@@ -11,9 +11,13 @@ from worlds.AutoWorld import WebWorld, World
 from .data.game_data import (
     level_base_target_times,
     level_to_checkpoints,
+    levels_dlc,
     levels_with_multiple_zero_requirements,
+    levels_with_multiple_zero_requirements_dlc,
     levels_with_one_zero_requirements,
+    levels_with_one_zero_requirements_dlc,
     levels_with_requirements,
+    levels_with_requirements_dlc,
 )
 
 from .data.item_data import MirrorsEdgeItemData, item_data
@@ -100,6 +104,7 @@ class MirrorsEdgeWorld(World):
     logic: MirrorsEdgeAPLogic
     open_world: bool
     starting_ability_count: int
+    include_pure_time_trial_pack_dlc: bool
     include_2_star_ratings: bool
     include_3_star_ratings: bool
     target_time_adjustment_percentage: int
@@ -144,11 +149,16 @@ class MirrorsEdgeWorld(World):
 
         # Levels
         self.open_world = bool(self.options.open_world.value)
+        self.include_pure_time_trial_pack_dlc = bool(self.options.include_pure_time_trial_pack_dlc.value)
 
         level_pool: List[MirrorsEdgeLevels] = list()
 
         if self.open_world:
-            level_pool: List[MirrorsEdgeLevels] = [level for level in MirrorsEdgeLevels]
+            if self.include_pure_time_trial_pack_dlc:
+                level_pool: List[MirrorsEdgeLevels] = [level for level in MirrorsEdgeLevels]
+            else:
+                level_pool: List[MirrorsEdgeLevels] = [level for level in MirrorsEdgeLevels if level not in levels_dlc]
+
             self.random.shuffle(level_pool)
 
             self.starting_levels = level_pool[:]
@@ -159,6 +169,9 @@ class MirrorsEdgeWorld(World):
             with_multiple_zero_requirements: List[MirrorsEdgeLevels] = list(
                 levels_with_multiple_zero_requirements[:]
             )
+
+            if self.include_pure_time_trial_pack_dlc:
+                with_multiple_zero_requirements.extend(list(levels_with_multiple_zero_requirements_dlc[:]))
 
             self.random.shuffle(with_multiple_zero_requirements)
 
@@ -171,6 +184,9 @@ class MirrorsEdgeWorld(World):
                 levels_with_one_zero_requirements[:]
             )
 
+            if self.include_pure_time_trial_pack_dlc:
+                with_one_zero_requirements.extend(list(levels_with_one_zero_requirements_dlc[:]))
+
             self.random.shuffle(with_one_zero_requirements)
 
             level_pool.extend(with_one_zero_requirements[:3])
@@ -181,6 +197,9 @@ class MirrorsEdgeWorld(World):
             with_requirements: List[MirrorsEdgeLevels] = list(
                 levels_with_requirements[:]
             )
+
+            if self.include_pure_time_trial_pack_dlc:
+                with_requirements.extend(list(levels_with_requirements_dlc[:]))
 
             self.random.shuffle(with_requirements)
 
@@ -462,13 +481,7 @@ class MirrorsEdgeWorld(World):
         # Runner Bags
         i: int
         for i in range(self.runner_bags_total):
-            item: MirrorsEdgeItem = self.create_item("Runner Bag")
-
-            # Upgrade from useful instead of the other way around to accommodate UT
-            if i < self.runner_bags_required:
-                item.classification = ItemClassification.progression_deprioritized_skip_balancing
-
-            item_pool.append(item)
+            item_pool.append(self.create_item("Runner Bag"))
 
         # Levels
         level: MirrorsEdgeLevels
@@ -533,6 +546,7 @@ class MirrorsEdgeWorld(World):
             "logic",
             "open_world",
             "starting_ability_count",
+            "include_pure_time_trial_pack_dlc",
             "include_2_star_ratings",
             "include_3_star_ratings",
             "target_time_adjustment_percentage",
@@ -617,6 +631,7 @@ class MirrorsEdgeWorld(World):
             self.logic = passthrough["logic"]
             self.open_world = passthrough["open_world"]
             self.starting_ability_count = passthrough["starting_ability_count"]
+            self.include_pure_time_trial_pack_dlc = passthrough["include_pure_time_trial_pack_dlc"]
             self.include_2_star_ratings = passthrough["include_2_star_ratings"]
             self.include_3_star_ratings = passthrough["include_3_star_ratings"]
             self.target_time_adjustment_percentage = passthrough["target_time_adjustment_percentage"]
