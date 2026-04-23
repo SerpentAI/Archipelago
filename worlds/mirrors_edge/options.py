@@ -38,7 +38,7 @@ class RunnerBagsTotal(Range):
     display_name = "Runner Bags Total"
 
     range_start = 1
-    range_end = 50
+    range_end = 25
 
     default = 20
 
@@ -53,7 +53,7 @@ class RunnerBagsRequired(Range):
     display_name = "Runner Bags Required"
 
     range_start = 1
-    range_end = 50
+    range_end = 25
 
     default = 15
 
