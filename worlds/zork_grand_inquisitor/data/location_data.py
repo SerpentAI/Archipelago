@@ -2611,6 +2611,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_COIN_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
                 ),
+                Has(ZorkGrandInquisitorItems.ZORK_ROCKS.value),
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
