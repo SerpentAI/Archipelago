@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Union
 
 import collections
 import logging
@@ -68,6 +68,8 @@ class GameController:
     previous_context: Optional[MirrorsEdgeContexts]
     previous_level: Optional[MirrorsEdgeLevels]
 
+    menu_routine_timestamp: Optional[int]
+
     should_prepare_processed_trap_counters: bool
     processed_trap_counters: Dict[MirrorsEdgeAPTrapTypes, int]
     active_trap_timestamps: Dict[MirrorsEdgeAPTrapTypes, Optional[int]]
@@ -115,6 +117,8 @@ class GameController:
 
         self.previous_context = None
         self.previous_level = None
+
+        self.menu_routine_timestamp = None
 
         self.should_prepare_processed_trap_counters = True
 
@@ -264,6 +268,8 @@ class GameController:
         self.previous_context = None
         self.previous_level = None
 
+        self.menu_routine_timestamp = None
+
         self.should_prepare_processed_trap_counters = True
 
         self.processed_trap_counters = {
@@ -291,28 +297,47 @@ class GameController:
         self.game_state_level = game_state.level
 
     def _apply_conditional_game_state(self) -> None:
-        if self.game_state_context == MirrorsEdgeContexts.MENU and self.previous_context != MirrorsEdgeContexts.MENU:
-            self.game_state_manager.prepare_for_menu_routine()
+        now: int = int(time.time())
 
-            self.game_state_manager.lock_all_levels()
-            self.game_state_manager.lock_all_time_trials()
+        if self.game_state_context == MirrorsEdgeContexts.MENU:
+            if self.previous_context != MirrorsEdgeContexts.MENU:
+                self.menu_routine_timestamp = now + 3
+                return None
 
-            level: MirrorsEdgeLevels
-            for level in self.levels:
-                level_unlock_item_name = f"Level Unlock: {level.value}"
-                level_unlock_item_count = self.received_items.get(level_unlock_item_name, 0)
+            if self.menu_routine_timestamp is not None and now >= self.menu_routine_timestamp:
+                try:
+                    self.game_state_manager.prepare_for_menu_routine()
 
-                if level_unlock_item_count > 0:
-                    self.game_state_manager.unlock_time_trial(level_to_internal_index[level])
+                    statuses: List[Union[bool, None]] = list()
 
-            if self.goal_level is not None:
-                level_unlock_item_name = f"Level Unlock: {self.goal_level.value}"
-                level_unlock_item_count = self.received_items.get(level_unlock_item_name, 0)
+                    statuses.append(self.game_state_manager.lock_all_levels())
+                    statuses.append(self.game_state_manager.lock_all_time_trials())
 
-                runner_bag_item_count = self.received_items.get("Runner Bag", 0)
+                    level: MirrorsEdgeLevels
+                    for level in self.levels:
+                        level_unlock_item_name = f"Level Unlock: {level.value}"
+                        level_unlock_item_count = self.received_items.get(level_unlock_item_name, 0)
 
-                if level_unlock_item_count > 0 and runner_bag_item_count >= self.option_runner_bags_required:
-                    self.game_state_manager.unlock_time_trial(level_to_internal_index[self.goal_level])
+                        if level_unlock_item_count > 0:
+                            statuses.append(self.game_state_manager.unlock_time_trial(level_to_internal_index[level]))
+
+                    if self.goal_level is not None:
+                        level_unlock_item_name = f"Level Unlock: {self.goal_level.value}"
+                        level_unlock_item_count = self.received_items.get(level_unlock_item_name, 0)
+
+                        runner_bag_item_count = self.received_items.get("Runner Bag", 0)
+
+                        if level_unlock_item_count > 0 and runner_bag_item_count >= self.option_runner_bags_required:
+                            statuses.append(self.game_state_manager.unlock_time_trial(level_to_internal_index[self.goal_level]))
+
+                    if not all(statuses):
+                        self.game_state_context = MirrorsEdgeContexts.INVALID
+                        return None
+                except Exception:
+                    self.game_state_context = MirrorsEdgeContexts.INVALID
+                    return None
+
+                self.menu_routine_timestamp = None
 
         if self.game_state_context == MirrorsEdgeContexts.LEVEL and self.previous_context != MirrorsEdgeContexts.LEVEL:
             self.game_state_manager.prepare_for_level_routine()
@@ -440,6 +465,8 @@ class GameController:
 
         if ability_zipline_item_count > 0:
             self.game_state_manager.enable_zipline()
+
+        return None
 
     def _check_for_completed_locations(self) -> None:
         checked_locations: List[str] = list()
