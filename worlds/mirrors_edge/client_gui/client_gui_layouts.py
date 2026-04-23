@@ -1238,7 +1238,7 @@ class MirrorsEdgeLevelsLayout(BoxLayout):
             if data["unlock_item"] in received_items and received_items[data["unlock_item"]] > 0:
                 if data["is_goal"]:
                     runner_bags_required: int = self.ctx.game_controller.option_runner_bags_required
-                    runner_bags_obtained: int = received_items.get("Secret Tape", 0)
+                    runner_bags_obtained: int = received_items.get("Runner Bag", 0)
 
                     if runner_bags_obtained >= runner_bags_required:
                         is_unlocked = True
