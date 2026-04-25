@@ -6,7 +6,7 @@
   - A Linux environment can also be used if configured properly. See the Linux instructions below.
 - A copy of Zork Grand Inquisitor. GOG version preferred. Steam version will need to be manually configured to work with ScummVM
 - ScummVM 2.7.1 64-bit (Important: Will not work with any other version. Direct Download)
-- Archipelago 0.6.3+
+- Archipelago 0.6.7+
 
 
 ## Game Setup Instructions
