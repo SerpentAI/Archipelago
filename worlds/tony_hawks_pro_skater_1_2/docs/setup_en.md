@@ -3,7 +3,7 @@
 ## Requirements
 - Windows OS (Hard required. Client is using memory reading / writing / allocation and running remote threads through Windows APIs)
 - Tony Hawk's Pro Skater 1 + 2 installed through Steam. EGS version is not currently supported
-- Archipelago 0.6.5+
+- Archipelago 0.6.7+
 
 **Hashes of expected THPS12.exe**
 ```
