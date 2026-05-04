@@ -9,7 +9,7 @@
 }
 
 #games h1, #games details{
-    margin-bottom: 16px;
+    margin-bottom: 0;
     color: #13261C;
     font-family: PlusJakartaSans-Medium, sans-serif;
 }
@@ -26,6 +26,7 @@
     color: #13261C;
     margin-bottom: 10px;
     text-transform: none;
+    font-size: 26px;
 }
 
 #games .link-spacer{
