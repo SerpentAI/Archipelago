@@ -35,6 +35,8 @@ class MeritousWorld(World):
         structure on the moon are tearing at the very fabric of reality...
     """
 
+    hidden = True
+
     game: str = "Meritous"
     topology_present: False
 

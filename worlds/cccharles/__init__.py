@@ -48,6 +48,8 @@ class CCCharlesWorld(World):
     Upgrading the train requires leaving the train to gather resources with the threat of encountering the monster.
     """
 
+    hidden = True
+
     game = "Choo-Choo Charles"
 
     web = CCCharlesWeb()

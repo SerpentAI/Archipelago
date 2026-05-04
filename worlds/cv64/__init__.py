@@ -54,6 +54,9 @@ class CV64World(World):
     descendant Reinhardt Schneider or powerful sorceress Carrie Fernandez, brave many terrifying traps and foes as you
     make your way to Dracula's chamber and stop his rule of terror!
     """
+
+    hidden = True
+
     game = "Castlevania 64"
     item_name_groups = {
         "Bomb": {iname.magical_nitro, iname.mandragora},

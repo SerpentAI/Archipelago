@@ -71,6 +71,9 @@ class ZillionWorld(World):
 
     It's based on the anime Zillion (赤い光弾ジリオン, Akai Koudan Zillion).
     """
+
+    hidden = True
+
     game = "Zillion"
     web = ZillionWebWorld()
 

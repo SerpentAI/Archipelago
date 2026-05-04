@@ -34,6 +34,9 @@ class FaxanaduWorld(World):
     """
     Faxanadu is an action role-playing platform video game developed by Hudson Soft for the Nintendo Entertainment System
     """
+
+    hidden = True
+
     options_dataclass = FaxanaduOptions
     options: FaxanaduOptions
     game = "Faxanadu"

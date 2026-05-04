@@ -96,6 +96,9 @@ class AdventureWorld(World):
     reach items, or defeat the three dragons.  Beware the bat
     who likes to steal your equipment!
     """
+
+    hidden = True
+
     game: ClassVar[str] = "Adventure"
     web: ClassVar[WebWorld] = AdventureWeb()
 

@@ -32,6 +32,8 @@ class BumpStikWorld(World):
         How long can you go without getting Jammed?
     """
 
+    hidden = True
+
     game = "Bumper Stickers"
     web = BumpStikWeb()
 

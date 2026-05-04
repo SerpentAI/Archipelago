@@ -33,6 +33,8 @@ class Celeste64World(World):
     """Relive the magic of Celeste Mountain alongside Madeline in this small, heartfelt 3D platformer.
     Created in a week(ish) by the Celeste team to celebrate the game’s sixth anniversary 🍓✨"""
 
+    hidden = True
+
     # Class Data
     game = "Celeste 64"
     web = Celeste64WebWorld()

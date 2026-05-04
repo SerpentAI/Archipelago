@@ -58,6 +58,8 @@ class MLSSWorld(World):
     to stop the evil Cackletta and retrieve the Beanstar.
     """
 
+    hidden = True
+
     game = "Mario & Luigi Superstar Saga"
     web = MLSSWebWorld()
     options_dataclass = MLSSOptions

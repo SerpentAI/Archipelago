@@ -46,6 +46,8 @@ class HatInTimeWorld(World):
     Freely explore giant worlds and recover Time Pieces to travel to new heights!
     """
 
+    hidden = True
+
     game = "A Hat in Time"
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = get_location_names()

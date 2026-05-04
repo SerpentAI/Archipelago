@@ -35,6 +35,8 @@ class FF1World(World):
     Part puzzle and part speed-run, it breathes new life into one of the most influential games ever made.
     """
 
+    hidden = True
+
     options: FF1Options
     options_dataclass = FF1Options
     settings: typing.ClassVar[FF1Settings]

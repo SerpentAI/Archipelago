@@ -97,6 +97,9 @@ class SMWorld(World):
      a wide range of options to randomize Item locations, required skills and even the connections 
      between the main Areas!
     """
+
+    hidden = True
+
     game: str = "Super Metroid"
     topology_present = True
     options_dataclass = SMOptions

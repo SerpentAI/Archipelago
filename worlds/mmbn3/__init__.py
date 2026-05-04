@@ -57,6 +57,9 @@ class MMBN3World(World):
     and utilize powerful Style Changes to grow strong enough to take on the greatest
     threat the Internet has ever faced!
     """
+
+    hidden = True
+
     game = "MegaMan Battle Network 3"
     options_dataclass = MMBN3Options
     options: MMBN3Options

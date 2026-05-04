@@ -138,6 +138,9 @@ class OOTWorld(World):
     learn magical ocarina songs, and explore twelve dungeons on your quest. Use Link's many items and abilities
     to rescue the Seven Sages, and then confront Ganondorf to save Hyrule!
     """
+
+    hidden = True
+
     game: str = "Ocarina of Time"
     options_dataclass = OoTOptions
     options: OoTOptions

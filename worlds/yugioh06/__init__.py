@@ -80,6 +80,8 @@ class Yugioh06World(World):
     simulator on the GBA. Featuring over 2000 cards and over 90 Challenges.
     """
 
+    hidden = True
+
     game = "Yu-Gi-Oh! 2006"
     web = Yugioh06Web()
     options: Yugioh06Options

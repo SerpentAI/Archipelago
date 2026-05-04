@@ -41,6 +41,9 @@ class DLCqworld(World):
     """
     DLCQuest is a metroid ish game where everything is an in-game dlc.
     """
+
+    hidden = True
+
     game = "DLCQuest"
     topology_present = False
     web = DLCqwebworld()

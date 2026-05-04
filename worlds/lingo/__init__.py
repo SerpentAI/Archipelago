@@ -33,6 +33,9 @@ class LingoWorld(World):
     Lingo is a first person indie puzzle game in the vein of The Witness. You find yourself in a mazelike, non-Euclidean
     world filled with 800 word puzzles that use a variety of different mechanics.
     """
+
+    hidden = True
+
     game = "Lingo"
     web = LingoWebWorld()
 

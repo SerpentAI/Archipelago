@@ -27,6 +27,8 @@ class V6World(World):
      VVVVVV is a platform game all about exploring one simple mechanical idea - what if you reversed gravity instead of jumping?
     """ #Lifted from Store Page
 
+    hidden =
+
     game: str = "VVVVVV"
     topology_present = False
     web = V6Web()

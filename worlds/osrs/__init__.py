@@ -39,6 +39,8 @@ class OSRSWorld(World):
     the Green Dragon of Crandor and earning a spot in the fabled Champion's Guild!
     """
 
+    hidden = True
+
     game = "Old School Runescape"
     options_dataclass = OSRSOptions
     options: OSRSOptions

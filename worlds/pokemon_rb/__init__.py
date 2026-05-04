@@ -71,6 +71,9 @@ class PokemonRedBlueWorld(World):
     your Pokémon, catch more than 150 unique creatures, earn badges from the region's Gym Leaders, and challenge the
     Elite Four to become the champion!"""
     # -MuffinJets#4559
+
+    hidden = True
+
     game = "Pokemon Red and Blue"
 
     options_dataclass = PokemonRBOptions

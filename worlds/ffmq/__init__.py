@@ -52,6 +52,8 @@ class FFMQWorld(World):
     the bottom of the Focus Tower, then straight up through the top!"""
     # -Giga Otomia
 
+    hidden = True
+
     game = "Final Fantasy Mystic Quest"
 
     item_name_to_id = {name: data.id for name, data in item_table.items() if data.id is not None}

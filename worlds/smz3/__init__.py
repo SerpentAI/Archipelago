@@ -65,6 +65,9 @@ class SMZ3World(World):
      A python port of Super Metroid & A Link To The Past Crossover Item Randomizer based on v11.2 of Total's SMZ3. 
      This is allowed as long as we keep features and logic as close as possible as the original.    
     """
+
+    hidden = True
+
     game: str = "SMZ3"
     topology_present = False
     options_dataclass = SMZ3Options

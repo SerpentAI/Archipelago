@@ -64,6 +64,8 @@ class WargrooveWorld(World):
     Command an army, in this retro style turn based strategy game!
     """
 
+    hidden = True
+
     options: WargrooveOptions
     options_dataclass = WargrooveOptions
     settings: typing.ClassVar[WargrooveSettings]

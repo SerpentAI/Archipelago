@@ -30,6 +30,9 @@ class LandstalkerWorld(World):
     Roam freely on the island, get stronger to beat dungeons and gather the required key items in order to reach the
     hidden palace and claim the treasure.
     """
+
+    hidden = True
+
     game = "Landstalker - The Treasures of King Nole"
     options_dataclass = LandstalkerOptions
     options: LandstalkerOptions

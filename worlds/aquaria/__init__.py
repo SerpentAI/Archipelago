@@ -60,6 +60,8 @@ class AquariaWorld(World):
     From: https://en.wikipedia.org/wiki/Aquaria_(video_game)
     """
 
+    hidden = True
+
     game: str = "Aquaria"
     "The name of the game"
 

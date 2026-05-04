@@ -43,6 +43,8 @@ class MuseDashWorld(World):
     Play through a selection of randomly chosen songs, collecting music sheets
     until you have enough to play and complete the goal song!"""
 
+    hidden = True
+
     # FUTURE OPTIONS
     # - Album Rando.
     # - Added items for characters/elfin/portraits.

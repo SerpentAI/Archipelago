@@ -25,6 +25,8 @@ class NoitaWorld(World):
     burn, freeze, and evaporate your way through the procedurally generated world using wands you've created yourself.
     """
 
+    hidden = True
+
     game = "Noita"
     options: NoitaOptions
     options_dataclass = NoitaOptions

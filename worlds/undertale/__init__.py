@@ -45,6 +45,9 @@ class UndertaleWorld(World):
     causing genocide of the monster species. Or you can spare all the enemies, befriending them and freeing them
     from their underground prison.
     """
+
+    hidden = True
+
     game = "Undertale"
     options_dataclass = UndertaleOptions
     options: UndertaleOptions

@@ -28,6 +28,8 @@ class APQuestWorld(World):
     Good games don't need more than six checks.
     """
 
+    hidden = True
+
     # The docstring should contain a description of the game, to be displayed on the WebHost.
 
     # You must override the "game" field to say the name of the game.

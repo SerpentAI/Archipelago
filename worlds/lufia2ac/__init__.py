@@ -51,6 +51,9 @@ class L2ACWorld(World):
     random items and find new companions on the way to face the Royal
     Jelly in the end. Can you beat it?
     """
+
+    hidden = True
+
     game: ClassVar[str] = "Lufia II Ancient Cave"
     web: ClassVar[WebWorld] = L2ACWeb()
 
