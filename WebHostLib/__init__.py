@@ -62,7 +62,7 @@ app.config["PONY"] = {
 }
 app.config["MAX_ROLL"] = 256
 app.config["CACHE_TYPE"] = "SimpleCache"
-app.config["HOST_ADDRESS"] = ""
+app.config["HOST_ADDRESS"] = "apworld.serpent.ai"
 app.config["ASSET_RIGHTS"] = False
 
 cache = Cache()
