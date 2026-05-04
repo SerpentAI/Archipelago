@@ -182,7 +182,7 @@ class WebHostContext(Context):
 
 
 def get_random_port():
-    return random.randint(49152, 65535)
+    return random.randint(49900, 49999)
 
 
 @cache_argsless

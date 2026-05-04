@@ -26,7 +26,7 @@ app.jinja_env.filters['get_file_safe_name'] = get_file_safe_name
 
 # overwrites of flask default config
 app.config["DEBUG"] = False
-app.config["PORT"] = 80
+app.config["PORT"] = 38289
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 64 * 1024 * 1024  # 64 megabyte limit
 # if you want to deploy, make sure you have a non-guessable secret key
