@@ -23,33 +23,8 @@
     src: url("../../static/static/fonts/PlusJakartaSans-Light.ttf");
 }
 
-@font-face{
-    font-family: LexendDeca-Light;
-    src: url("../../static/static/fonts/LexendDeca-Light.ttf");
-}
-
-@font-face{
-    font-family: LexendDeca-Regular;
-    src: url("../../static/static/fonts/LexendDeca-Regular.ttf");
-}
-
-@font-face{
-    font-family: LexendDeca-Medium;
-    src: url("../../static/static/fonts/LexendDeca-Medium.ttf");
-}
-
-@font-face{
-    font-family: LondrinaSolid-Regular;
-    src: url("../../static/static/fonts/LondrinaSolid-Regular.ttf");
-}
-
-@font-face{
-    font-family: LondrinaSolid-Light;
-    src: url("../../static/static/fonts/LondrinaSolid-Light.ttf");
-}
-
 html{
-    font-family: LexendDeca-ExtraLight, sans-serif;
+    font-family: PlusJakartaSans-Light, sans-serif;
     font-size: 1.1rem;
     color: #000000;
 }
