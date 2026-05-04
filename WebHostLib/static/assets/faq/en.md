@@ -3,7 +3,7 @@
 ## What is a randomizer?
 
 A randomizer is a modification of a game which reorganizes the items required to progress through that game. A
-normal play-through might require you to use item A to unlock item B, then C, and so forth. In a randomized
+normal playthrough might require you to use item A to unlock item B, then C, and so forth. In a randomized
 game, you might first find item C, then A, then B.
 
 This transforms the game from a linear experience into a puzzle, presenting players with a new challenge each time they
@@ -37,10 +37,6 @@ We have a [Getting Started](/tutorial/Archipelago/setup/en) guide that will help
 software set up. You can use that guide to learn how to generate multiworlds. There are also basic instructions for
 including multiple games, and hosting multiworlds on the website for ease and convenience.
 
-If you are ready to start randomizing games, or want to start playing your favorite randomizer with others, please join
-our discord server at the [Archipelago Discord](https://discord.gg/8Z65BR2). There are always people ready to answer
-any questions you might have.
-
 ## What are some common terms I should know?
 
 As randomizers and multiworld randomizers have been around for a while now, there are quite a few common terms used
@@ -69,13 +65,10 @@ comfortable exploiting certain glitches in the game.
 ## I want to develop a game implementation for Archipelago. How do I do that?
 
 The best way to get started is to take a look at our code on GitHub:  
-[Archipelago GitHub Page](https://github.com/ArchipelagoMW/Archipelago).
+[Archipelago GitHub Page](https://github.com/SerpentAI/Archipelago).
 
 There, you will find examples of games in the `worlds` folder:  
-[/worlds Folder in Archipelago Code](https://github.com/ArchipelagoMW/Archipelago/tree/main/worlds).
+[/worlds Folder in Archipelago Code](https://github.com/SerpentAI/Archipelago/tree/main/worlds).
 
 You may also find developer documentation in the `docs` folder:  
-[/docs Folder in Archipelago Code](https://github.com/ArchipelagoMW/Archipelago/tree/main/docs).
-
-If you have more questions regarding development of a game implementation, feel free to ask in the **#ap-world-dev** 
-channel on our Discord.
+[/docs Folder in Archipelago Code](https://github.com/SerpentAI/Archipelago/tree/main/docs).

@@ -36,18 +36,18 @@ app.config["MAX_FORM_MEMORY_SIZE"] = 2 * 1024 * 1024  # 2 MB, needed for large o
 
 # custom config
 app.config["SELFHOST"] = True  # application process is in charge of running the websites
-app.config["GENERATORS"] = 8  # maximum concurrent world gens
-app.config["HOSTERS"] = 8  # maximum concurrent room hosters
+app.config["GENERATORS"] = 0  # maximum concurrent world gens
+app.config["HOSTERS"] = 2  # maximum concurrent room hosters
 app.config["SELFLAUNCH"] = True  # application process is in charge of launching Rooms.
 app.config["SELFLAUNCHCERT"] = None  # can point to a SSL Certificate to encrypt Room websocket connections
 app.config["SELFLAUNCHKEY"] = None  # can point to a SSL Certificate Key to encrypt Room websocket connections
-app.config["SELFGEN"] = True  # application process is in charge of scheduling Generations.
+app.config["SELFGEN"] = False  # application process is in charge of scheduling Generations.
 # at what amount of worlds should scheduling be used, instead of rolling in the web-thread
 app.config["JOB_THRESHOLD"] = 1
 # after what time in seconds should generation be aborted, freeing the queue slot. Can be set to None to disable.
 app.config["JOB_TIME"] = 600
 # maximum time in seconds since last activity for a room to be hosted
-app.config["MAX_ROOM_TIMEOUT"] = 259200
+app.config["MAX_ROOM_TIMEOUT"] = 604800  # 1 Week
 # memory limit for generator processes in bytes
 app.config["GENERATOR_MEMORY_LIMIT"] = 4294967296
 
@@ -60,7 +60,7 @@ app.config["PONY"] = {
     'filename': os.path.abspath('ap.db3'),
     'create_db': True
 }
-app.config["MAX_ROLL"] = 20
+app.config["MAX_ROLL"] = 256
 app.config["CACHE_TYPE"] = "SimpleCache"
 app.config["HOST_ADDRESS"] = ""
 app.config["ASSET_RIGHTS"] = False

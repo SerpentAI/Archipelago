@@ -1,0 +1,39 @@
+html{
+    background-color: #49BA8E;
+    font-family: PlusJakartaSans-Light, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 30px;
+}
+
+#base-header{
+    background-color: #13261C;
+}
+
+pre{
+    margin-top: 0;
+    padding: 0.5rem 0.25rem;
+    background-color: #13261C;
+    border: 1px solid #DDF6EA;
+    border-radius: 6px;
+    color: #DDF6EA;
+}
+
+code{
+    background-color: #13261C;
+    border-radius: 4px;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    color: #DDF6EA;
+}
+
+code.grassy {
+    background-color: #13261C;
+    border: 1px solid #DDF6EA;
+    white-space: preserve;
+    text-align: left;
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    color: #DDF6EA;
+}

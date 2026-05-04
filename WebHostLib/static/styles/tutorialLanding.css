@@ -1,29 +1,31 @@
 #tutorial-landing{}
 
-#tutorial-landing h2, #tutorial-landing h3, #tutorial-landing h4, #tutorial-landing h5, #tutorial-landing h6 {
-    text-transform: none;
-    cursor: unset;
-}
+/*#tutorial-landing h2, #tutorial-landing h3, #tutorial-landing h4, #tutorial-landing h5, #tutorial-landing h6 {*/
+/*    text-transform: none;*/
+/*    cursor: unset;*/
+/*}*/
 
-#tutorial-landing h1{
-    font-size: 60px;
-    cursor: unset;
-}
+/*#tutorial-landing h1{*/
+/*    font-size: 52px;*/
+/*    font-family: PlusJakartaSans-ExtraBold, sans-serif;*/
+/*    margin-top: 20px;*/
+/*    margin-bottom: 30px;*/
+/*}*/
 
-#tutorial-landing h2{
-    color: #fff677;
-    margin-bottom: 2px;
-    margin-top: 33px;
-    font-size: 44px;
-}
+/*#tutorial-landing h2{*/
+/*    color: #13261C;*/
+/*    margin-bottom: 2px;*/
+/*    margin-top: 33px;*/
+/*    font-size: 44px;*/
+/*}*/
 
-#tutorial-landing a{
-    font-size: 16px;
-}
+/*#tutorial-landing a{*/
+/*    font-size: 16px;*/
+/*}*/
 
 #tutorial-landing .link-spacer{
     margin: 0 6px;
-    color: #fffc95;
+    color: #13261C;
 }
 
 #tutorial-landing p{

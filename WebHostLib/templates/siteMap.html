@@ -1,4 +1,5 @@
 {% extends 'pageWrapper.html' %}
+{% set show_footer = True %}
 
 {% block head %}
     <title>Site Map</title>
@@ -6,27 +7,26 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'header/grassFlowersHeader.html' %}
+    {% include 'header/oceanIslandHeader.html' %}
     <div id="site-map" class="markdown">
         <h1>Site Map</h1>
         <h2>Base Pages</h2>
         <ul>
-            <li><a href="{{ url_for('discord') }}">Discord Link</a></li>
-            <li><a href="{{ url_for('faq', lang='en') }}">F.A.Q. Page</a></li>
+            <li><a href="{{ url_for('faq', lang='en') }}">F.A.Q.</a></li>
             <li><a href="{{ url_for('favicon') }}">Favicon</a></li>
+            <li><a href="{{ url_for('stats') }}">Game Statistics</a></li>
             <li><a href="{{ url_for('generate') }}">Generate Game Page</a></li>
+            <li><a href="{{ url_for('glossary', lang='en') }}">Glossary</a></li>
             <li><a href="{{ url_for('landing') }}">Homepage</a></li>
             <li><a href="{{ url_for('uploads') }}">Host Game Page</a></li>
             <li><a href="{{ url_for('get_datapackage') }}">Raw Data Package</a></li>
+            <li><a href="{{ url_for('show_session') }}">Session / Login</a></li>
             <li><a href="{{ url_for('check') }}">Settings Validator</a></li>
             <li><a href="{{ url_for('get_sitemap') }}">Site Map</a></li>
             <li><a href="{{ url_for('start_playing') }}">Start Playing</a></li>
             <li><a href="{{ url_for('games') }}">Supported Games Page</a></li>
             <li><a href="{{ url_for('tutorial_landing') }}">Tutorials Page</a></li>
             <li><a href="{{ url_for('user_content') }}">User Content</a></li>
-            <li><a href="{{ url_for('stats') }}">Game Statistics</a></li>
-            <li><a href="{{ url_for('glossary', lang='en') }}">Glossary</a></li>
-            <li><a href="{{ url_for('show_session') }}">Session / Login</a></li>
         </ul>
 
         <h2>Tutorials</h2>
@@ -47,16 +47,16 @@
         </ul>
 
         <h2>Game Options Pages</h2>
-        <ul>
-            {% for game in games | title_sorted %}
-                {% if game['has_settings'] %}
-                    <li>{{ game['title'] }}</li>
+        {% for game in games | title_sorted %}
+            {% if game['has_settings'] %}
+                <div style="padding-bottom: 10px;">
+                    <h4>{{ game['title'] }}</h4>
                     <ul>
                         <li><a href="{{ url_for('player_options', game=game['title']) }}">Player Options</a></li>
                         <li><a href="{{ url_for('weighted_options', game=game['title']) }}">Weighted Options</a></li>
                     </ul>
-                {% endif %}
-            {% endfor %}
-        </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

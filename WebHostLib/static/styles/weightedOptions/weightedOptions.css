@@ -1,8 +1,10 @@
 html {
-  background-image: url("../../static/backgrounds/grass.png");
-  background-repeat: repeat;
-  background-size: 650px 650px;
-  scroll-padding-top: 90px;
+    background-color: #49BA8E;
+    font-family: PlusJakartaSans-Light, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 30px;
+    scroll-padding-top: 90px;
 }
 
 #weighted-options {
@@ -12,11 +14,17 @@ html {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   padding: 1rem;
-  color: #eeffeb;
+  color: #13261C;
+  font-family: PlusJakartaSans-SemiBold, sans-serif;
 }
 #weighted-options #weighted-options-header h1 {
-  margin-bottom: 0;
-  padding-bottom: 0;
+    font-size: 52px;
+    font-weight: normal;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
 }
 #weighted-options #weighted-options-header h1:nth-child(2) {
   font-size: 1.4rem;
@@ -27,8 +35,8 @@ html {
   width: calc(100% - 1rem);
   padding: 0.5rem;
   border-radius: 4px;
-  background-color: #f3f309;
-  color: #000000;
+  background-color: #13261C;
+  color: #DDF6EA;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -102,9 +110,9 @@ html {
 #weighted-options #user-message {
   display: none;
   width: calc(100% - 8px);
-  background-color: #ffe86b;
+  background-color: #13261C;
   border-radius: 4px;
-  color: #000000;
+  color: #DDF6EA;
   padding: 4px;
   text-align: center;
 }
@@ -117,35 +125,27 @@ html {
   font-weight: normal;
   width: 100%;
   margin-bottom: 0.5rem;
-  color: #ffffff;
-  text-shadow: 1px 1px 4px #000000;
+  color: #13261C;
 }
 #weighted-options h2, #weighted-options details summary.h2 {
   font-size: 2rem;
   font-weight: normal;
-  border-bottom: 1px solid #ffffff;
   width: 100%;
-  margin-bottom: 0.5rem;
-  color: #ffe993;
+  margin-bottom: 0.7rem;
+  color: #13261C;
   text-transform: none;
-  text-shadow: 1px 1px 2px #000000;
 }
-#weighted-options h3, #weighted-options h4, #weighted-options h5, #weighted-options h6 {
-  color: #ffffff;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  text-transform: none;
-  cursor: unset;
-}
+
 #weighted-options h3.option-group-header {
   margin-top: 0.75rem;
   font-weight: bold;
 }
 #weighted-options a {
-  color: #ffef00;
+  color: #13261C;
   cursor: pointer;
 }
 #weighted-options input:not([type]) {
-  border: 1px solid #000000;
+  border: 1px solid #13261C;
   padding: 3px;
   border-radius: 3px;
   min-width: 150px;
@@ -162,10 +162,10 @@ html {
 #weighted-options .set-container, #weighted-options .dict-container, #weighted-options .list-container {
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(20, 20, 20, 0.25);
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(20, 20, 20, 0.15);
   border-radius: 3px;
-  color: #ffffff;
+  color: #13261C;
   max-height: 15rem;
   min-width: 14.5rem;
   overflow-y: auto;
@@ -176,7 +176,7 @@ html {
 #weighted-options .set-container .divider, #weighted-options .dict-container .divider, #weighted-options .list-container .divider {
   width: 100%;
   height: 2px;
-  background-color: rgba(20, 20, 20, 0.25);
+  background-color: rgba(20, 20, 20, 0.15);
   margin-top: 0.125rem;
   margin-bottom: 0.125rem;
 }
@@ -190,7 +190,7 @@ html {
   line-height: 1rem;
 }
 #weighted-options .set-container .set-entry:hover, #weighted-options .set-container .dict-entry:hover, #weighted-options .set-container .list-entry:hover, #weighted-options .dict-container .set-entry:hover, #weighted-options .dict-container .dict-entry:hover, #weighted-options .dict-container .list-entry:hover, #weighted-options .list-container .set-entry:hover, #weighted-options .list-container .dict-entry:hover, #weighted-options .list-container .list-entry:hover {
-  background-color: rgba(20, 20, 20, 0.25);
+  background-color: rgba(20, 20, 20, 0.15);
 }
 #weighted-options .set-container .set-entry input[type=checkbox], #weighted-options .set-container .dict-entry input[type=checkbox], #weighted-options .set-container .list-entry input[type=checkbox], #weighted-options .dict-container .set-entry input[type=checkbox], #weighted-options .dict-container .dict-entry input[type=checkbox], #weighted-options .dict-container .list-entry input[type=checkbox], #weighted-options .list-container .set-entry input[type=checkbox], #weighted-options .list-container .dict-entry input[type=checkbox], #weighted-options .list-container .list-entry input[type=checkbox] {
   margin-right: 0.25rem;
@@ -212,21 +212,17 @@ html {
   margin-right: 0;
   min-width: unset;
   display: unset;
+  font-size: 17px;
 }
 
 .hidden {
   display: none;
 }
-
-@media all and (max-width: 1000px), all and (orientation: portrait) {
-  #weighted-options .game-options {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-  #game-options table label {
-    display: block;
-    min-width: 200px;
-  }
+#weighted-options input[type="range"] {
+  accent-color: #13261C;
+}
+#weighted-options input[type="checkbox"] {
+  accent-color: #13261C;
 }
 
 /*# sourceMappingURL=weightedOptions.css.map */

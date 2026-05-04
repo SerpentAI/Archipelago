@@ -1,19 +1,20 @@
 #island-footer{
-    background: url('../static/backgrounds/footer/footer-0001.png') repeat-x bottom;
-    background-size: auto 90px;
+    background-color: #13261C;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: calc(100% - 0.5rem);
     padding-left: 0.5rem;
-    padding-top: 80px;
-    color: #dfedc6
+    padding-top: 10px;
+    padding-bottom: 5px;
+    color: #DDF6EA;
+    font-family: PlusJakartaSans-Medium, sans-serif;
 }
 
 #island-footer #links a{
     padding-right: 0.5rem;
     padding-left: 0.5rem;
-    color: #dfedc6;
+    color: #DDF6EA;
 }
 @media all and (max-width: 900px) {
     #island-footer{

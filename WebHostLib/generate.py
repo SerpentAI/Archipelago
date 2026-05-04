@@ -58,17 +58,7 @@ def get_meta(options_source: dict, race: bool = False) -> dict[str, list[str] | 
 @app.route('/generate/<race>', methods=['GET', 'POST'])
 def generate(race=False):
     if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-        else:
-            files = request.files.getlist('file')
-            options = get_yaml_data(files)
-            if isinstance(options, str):
-                flash(options)
-            else:
-                meta = get_meta(request.form, race)
-                return start_generation(options, meta)
+        flash('Generation is disabled on this host')
 
     return render_template("generate.html", race=race, version=__version__)
 

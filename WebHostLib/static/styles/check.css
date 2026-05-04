@@ -11,6 +11,19 @@
     text-align: center;
 }
 
+#check h1{
+    font-size: 52px;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#check p{
+    font-family: PlusJakartaSans-Medium, sans-serif;
+    color: #13261C;
+    text-align: left;
+}
+
 #check-form-wrapper{
     width: 100%;
     text-align: center;

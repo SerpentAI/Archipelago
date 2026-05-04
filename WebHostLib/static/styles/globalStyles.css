@@ -1,6 +1,26 @@
 @font-face{
-    font-family: LexendDeca-ExtraLight;
-    src: url("../../static/static/fonts/LexendDeca-ExtraLight.ttf");
+    font-family: PlusJakartaSans-ExtraBold;
+    src: url("../../static/static/fonts/PlusJakartaSans-ExtraBold.ttf");
+}
+
+@font-face{
+    font-family: PlusJakartaSans-Bold;
+    src: url("../../static/static/fonts/PlusJakartaSans-Bold.ttf");
+}
+
+@font-face{
+    font-family: PlusJakartaSans-SemiBold;
+    src: url("../../static/static/fonts/PlusJakartaSans-SemiBold.ttf");
+}
+
+@font-face{
+    font-family: PlusJakartaSans-Medium;
+    src: url("../../static/static/fonts/PlusJakartaSans-Medium.ttf");
+}
+
+@font-face{
+    font-family: PlusJakartaSans-Light;
+    src: url("../../static/static/fonts/PlusJakartaSans-Light.ttf");
 }
 
 @font-face{
@@ -34,6 +54,11 @@ html{
     color: #000000;
 }
 
+::selection {
+  background-color: #13261C;
+  color: #FFFFFF;
+}
+
 body{
     margin: 0;
     display: flex;
@@ -46,9 +71,9 @@ main {
 }
 
 a{
-    color: #ffef00;
+    color: #DDF6EA;
     text-decoration: none;
-    font-family: LexendDeca-Regular, sans-serif;
+    font-family: PlusJakartaSans-Bold, sans-serif;
 }
 
 button, input[type=submit]{
@@ -107,15 +132,16 @@ h5, h6{
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    color: #000000;
+    color: #DDF6EA;
     border-radius: 4px;
     margin-bottom: 20px;
-    background-color: #ffff00;
+    background-color: #13261C;
 }
 .user-message a{
-    color: #ff7700;
+    color: #DDF6EA;
 }
 
 .interactive{
-    color: #ffef00;
+    font-family: PlusJakartaSans-SemiBold, sans-serif;
+    color: #13261C;
 }

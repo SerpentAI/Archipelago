@@ -6,12 +6,27 @@
 }
 
 #generate-game{
-    width: 990px;
+    width: 700px;
     min-height: 360px;
     text-align: center;
 }
 
+#generate-game h1{
+    font-size: 52px;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
 #generate-game p{
+    font-family: PlusJakartaSans-Medium, sans-serif;
+    color: #13261C;
+    text-align: left;
+}
+
+#generate-game a{
+    font-family: PlusJakartaSans-Bold, sans-serif;
+    color: #13261C;
     text-align: left;
 }
 
@@ -40,11 +55,17 @@
     width: 200px;
 }
 
+.table-wrapper input[type=checkbox]{
+    accent-color: #13261C;
+}
+
 #generate-game-form-wrapper table td{
     text-align: left;
     padding-right: 0.5rem;
     vertical-align: top;
     width: 230px;
+    font-family: PlusJakartaSans-Bold, sans-serif;
+    color: #13261C;
 }
 
 #generate-form-button-row{

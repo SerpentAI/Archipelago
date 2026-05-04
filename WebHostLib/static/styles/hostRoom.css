@@ -5,8 +5,8 @@
     background-color: rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     padding: 1rem;
-    color: #eeffeb;
-    font-family: LexendDeca-Light, sans-serif;
+    color: #13261C;
+    font-family: PlusJakartaSans-Medium, sans-serif;
     line-height: 24px;
 }
 
@@ -15,11 +15,11 @@
 }
 
 #host-room a{
-    color: #ffef00;
+    color: #13261C;
 }
 
 #host-room input[type=text]{
-    border: 1px solid #000000;
+    border: 1px solid #13261C;
     padding: 3px;
     border-radius: 3px;
     width: 50%;
@@ -37,13 +37,15 @@
 #host-room table th{
     text-align: left;
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid #13261C;
     font-size: 20px;
     font-family: LexendDeca-Regular, sans-serif;
+    background-color: #13261C;
+    color: #DDF6EA;
 }
 
 #host-room table td{
-    border: 1px solid white;
+    border: 1px solid #13261C;
     text-align: left;
     padding: 10px;
 }
@@ -51,10 +53,10 @@
 #host-room #logger{
     margin-top: 0;
     padding: 0.5rem 0.25rem;
-    background-color: #b5e9a4;
-    border: 1px solid #2a6c2f;
+    background-color: #13261C;
+    border: 1px solid #13261C;
     border-radius: 6px;
-    color: #000000;
+    color: #DDF6EA;
     overflow-y: auto;
     max-height: 400px;
 }

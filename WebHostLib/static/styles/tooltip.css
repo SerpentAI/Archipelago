@@ -60,10 +60,10 @@ give it one of the following classes: tooltip-left, tooltip-right, tooltip-top, 
 	z-index: 10000;
 	padding: 8px;
     border-radius: 4px;
-	background-color: #000;
-	background-color: hsla(0, 0%, 20%, 0.9);
-	color: #fff;
+	background-color: #13261CEE;
+	color: #DDF6EA;
 	content: attr(data-tooltip);
+	font-family: PlusJakartaSans-Medium, sans-serif;
 	font-size: 14px;
 	line-height: 1.2;
 }
@@ -86,8 +86,7 @@ give it one of the following classes: tooltip-left, tooltip-right, tooltip-top, 
 [data-tooltip]:before, .tooltip-container:before {
 	margin-left: -6px;
 	margin-bottom: -12px;
-	border-top-color: #000;
-	border-top-color: hsla(0, 0%, 20%, 0.9);
+	border-top-color: #13261CEE;
 }
 
 /** Horizontally align tooltips on the top and bottom */
@@ -114,8 +113,7 @@ give it one of the following classes: tooltip-left, tooltip-right, tooltip-top, 
 	margin-right: -12px;
 	margin-bottom: 0;
 	border-top-color: transparent;
-	border-left-color: #000;
-	border-left-color: hsla(0, 0%, 20%, 0.9);
+	border-left-color: #13261CEE;
 }
 
 .tooltip-left:hover:before, [data-tooltip].tooltip-left:hover:after, .tooltip-left:hover .tooltip {
@@ -135,8 +133,7 @@ give it one of the following classes: tooltip-left, tooltip-right, tooltip-top, 
 	margin-top: -12px;
 	margin-bottom: 0;
 	border-top-color: transparent;
-	border-bottom-color: #000;
-	border-bottom-color: hsla(0, 0%, 20%, 0.9);
+	border-bottom-color: #13261CEE;
 }
 
 .tooltip-bottom:hover:before, [data-tooltip].tooltip-bottom:hover:after,
@@ -156,8 +153,7 @@ give it one of the following classes: tooltip-left, tooltip-right, tooltip-top, 
 	margin-bottom: 0;
 	margin-left: -12px;
 	border-top-color: transparent;
-	border-right-color: #000;
-	border-right-color: hsla(0, 0%, 20%, 0.9);
+	border-right-color: #13261CEE;
 }
 
 .tooltip-right:hover:before, [data-tooltip].tooltip-right:hover:after,

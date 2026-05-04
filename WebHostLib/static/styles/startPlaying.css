@@ -10,3 +10,22 @@
     min-height: 240px;
     text-align: center;
 }
+
+#start-playing h1{
+    font-size: 52px;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#start-playing p{
+    font-family: PlusJakartaSans-Medium, sans-serif;
+    color: #13261C;
+    text-align: left;
+}
+
+#start-playing a{
+    font-family: PlusJakartaSans-Bold, sans-serif;
+    color: #13261C;
+    text-align: left;
+}

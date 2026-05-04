@@ -1,5 +1,8 @@
 {% extends 'pageWrapper.html' %}
+{% set show_footer = True %}
+
 {% import "macros.html" as macros %}
+
 {% block head %}
     <title>Multiworld {{ room.id|suuid }}</title>
     {% if should_refresh %}<meta http-equiv="refresh" content="2">{% endif %}
@@ -22,16 +25,16 @@
         <span id="host-room-info">
             {% if room.owner == session["_id"] %}
                 Room created from <a href="{{ url_for("view_seed", seed=room.seed.id) }}">Seed #{{ room.seed.id|suuid }}</a>
-                <br />
+                <br /><br />
             {% endif %}
             {% if room.tracker %}
                 This room has a <a href="{{ url_for("get_multiworld_tracker", tracker=room.tracker) }}">Multiworld Tracker</a>
                 and a <a href="{{ url_for("get_multiworld_sphere_tracker", tracker=room.tracker) }}">Sphere Tracker</a> enabled.
-                <br />
+                <br /><br />
             {% endif %}
             The server for this room will be paused after {{ room.timeout//60//60 }} hours of inactivity.
             Should you wish to continue later,
-            anyone can simply refresh this page and the server will resume.<br>
+            anyone can simply refresh this page and the server will resume.<br /><br />
             {% if room.last_port == -1 %}
                 There was an error hosting this Room. Another attempt will be made on refreshing this page.
                 The most likely failure reason is that the multiworld is too old to be loaded now.

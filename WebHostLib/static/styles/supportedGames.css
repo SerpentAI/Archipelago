@@ -8,24 +8,29 @@
     cursor: unset;
 }
 
+#games h1, #games details{
+    margin-bottom: 16px;
+    color: #13261C;
+    font-family: PlusJakartaSans-Medium, sans-serif;
+}
+
 #games h1, #games details summary.h1{
-    font-size: 60px;
+    font-size: 52px;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 30px;
     cursor: unset;
 }
 
 #games h2, #games details summary.h2{
-    color: #93dcff;
-    margin-bottom: 2px;
+    color: #13261C;
+    margin-bottom: 10px;
     text-transform: none;
-}
-
-#games a{
-    font-size: 16px;
 }
 
 #games .link-spacer{
     margin: 0 6px;
-    color: #fffc95;
+    color: #13261C;
 }
 
 #games p{
@@ -41,4 +46,9 @@
 
 #games .page-controls button{
     margin-left: 0.5rem;
+}
+
+#games .js-only label{
+    color: #13261C;
+    font-family: PlusJakartaSans-Bold, sans-serif;
 }

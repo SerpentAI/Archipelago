@@ -1,9 +1,11 @@
 @import "../markdown.css";
 html {
-  background-image: url("../../static/backgrounds/grass.png");
-  background-repeat: repeat;
-  background-size: 650px 650px;
-  overflow-x: hidden;
+    background-color: #49BA8E;
+    font-family: PlusJakartaSans-Light, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 30px;
+    overflow-x: hidden;
 }
 
 #player-options {
@@ -14,12 +16,18 @@ html {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   padding: 1rem;
-  color: #eeffeb;
+  color: #13261C;
   word-break: break-word;
+  font-family: PlusJakartaSans-SemiBold, sans-serif;
 }
 #player-options #player-options-header h1 {
-  margin-bottom: 0;
-  padding-bottom: 0;
+    font-size: 52px;
+    font-weight: normal;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
 }
 #player-options #player-options-header h1:nth-child(2) {
   font-size: 1.4rem;
@@ -30,8 +38,8 @@ html {
   width: calc(100% - 1rem);
   padding: 0.5rem;
   border-radius: 4px;
-  background-color: #f3f309;
-  color: #000000;
+  background-color: #13261C;
+  color: #DDF6EA;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -55,9 +63,9 @@ html {
 #player-options #user-message {
   display: none;
   width: calc(100% - 8px);
-  background-color: #ffe86b;
+  background-color: #13261C;
   border-radius: 4px;
-  color: #000000;
+  color: #DDF6EA;
   padding: 4px;
   text-align: center;
   cursor: pointer;
@@ -67,30 +75,25 @@ html {
   font-weight: normal;
   width: 100%;
   margin-bottom: 0.5rem;
-  text-shadow: 1px 1px 4px #000000;
 }
 #player-options h2 {
   font-size: 40px;
   font-weight: normal;
   width: 100%;
   margin-bottom: 0.5rem;
-  text-transform: lowercase;
-  text-shadow: 1px 1px 2px #000000;
 }
-#player-options h3, #player-options h4, #player-options h5, #player-options h6 {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
+
 #player-options input:not([type]) {
-  border: 1px solid #000000;
+  border: 1px solid #13261C;
   padding: 3px;
   border-radius: 3px;
   min-width: 150px;
 }
 #player-options input:not([type]):focus {
-  border: 1px solid #ffffff;
+  border: 1px solid #13261C;
 }
 #player-options select {
-  border: 1px solid #000000;
+  border: 1px solid #13261C;
   padding: 3px;
   border-radius: 3px;
   min-width: 150px;
@@ -188,10 +191,10 @@ html {
 #player-options .option-container {
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(20, 20, 20, 0.25);
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(20, 20, 20, 0.15);
   border-radius: 3px;
-  color: #ffffff;
+  color: #13261C;
   max-height: 10rem;
   min-width: 14.5rem;
   overflow-y: auto;
@@ -201,7 +204,7 @@ html {
 #player-options .option-container .option-divider {
   width: 100%;
   height: 2px;
-  background-color: rgba(20, 20, 20, 0.25);
+  background-color: rgba(20, 20, 20, 0.15);
   margin-top: 0.125rem;
   margin-bottom: 0.125rem;
 }
@@ -214,7 +217,7 @@ html {
   user-select: none;
 }
 #player-options .option-container .option-entry:hover {
-  background-color: rgba(20, 20, 20, 0.25);
+  background-color: rgba(20, 20, 20, 0.15);
 }
 #player-options .option-container .option-entry input[type=checkbox] {
   margin-right: 0.25rem;
@@ -245,7 +248,7 @@ html {
   max-width: 30px;
   margin: 0 0 0 0.25rem;
   font-size: 14px;
-  border: 1px solid black;
+  border: 1px solid #13261C;
   border-radius: 3px;
   background-color: #d3d3d3;
   user-select: none;
@@ -270,10 +273,10 @@ html {
   display: none;
 }
 #player-options .randomize-button:has(input[type=checkbox]:checked) {
-  background-color: #ffef00; /* Same as .interactive in globalStyles.css */
+  background-color: #49BA8E; /* Same as .interactive in globalStyles.css */
 }
 #player-options .randomize-button:has(input[type=checkbox]:checked):hover {
-  background-color: #eedd27;
+  background-color: #49BA8E;
 }
 #player-options .randomize-button[data-tooltip]::after {
   left: unset;
@@ -284,6 +287,7 @@ html {
   margin-right: 4px;
   cursor: default;
   word-break: break-word;
+  font-size: 17px;
 }
 #player-options th, #player-options td {
   border: none;
@@ -291,20 +295,10 @@ html {
   font-size: 17px;
   vertical-align: top;
 }
-
-@media all and (max-width: 1024px) {
-  #player-options {
-    border-radius: 0;
-  }
-  #player-options #meta-options {
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 6px;
-  }
-  #player-options .game-options {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
+#player-options input[type="range"] {
+  accent-color: #13261C;
 }
-
+#player-options input[type="checkbox"] {
+  accent-color: #13261C;
+}
 /*# sourceMappingURL=playerOptions.css.map */

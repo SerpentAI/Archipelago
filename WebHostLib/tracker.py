@@ -385,10 +385,8 @@ def get_timeout_and_multiworld_tracker(room: Room, game: str)\
         -> Tuple[int, datetime.datetime, str]:
     tracker_data = TrackerData(room)
     enabled_trackers = list(get_enabled_multiworld_trackers(room).keys())
-    if game in _multiworld_trackers:
-        tracker = _multiworld_trackers[game](tracker_data, enabled_trackers)
-    else:
-        tracker = render_generic_multiworld_tracker(tracker_data, enabled_trackers)
+
+    tracker = render_generic_multiworld_tracker(tracker_data, enabled_trackers)
 
     return ((tracker_data.get_room_saving_second() - datetime.datetime.now().second)
             % TRACKER_CACHE_TIMEOUT_IN_SECONDS or TRACKER_CACHE_TIMEOUT_IN_SECONDS, room.last_activity, tracker)

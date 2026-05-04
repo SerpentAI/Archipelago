@@ -3,8 +3,18 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    color: #13261C;
+    font-family: PlusJakartaSans-Medium, sans-serif;
 }
 
 #page-not-found h1{
-    margin-bottom: 0.5rem;
+    font-size: 52px;
+    font-family: PlusJakartaSans-ExtraBold, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+#page-not-found a {
+    color: #13261C;
 }
