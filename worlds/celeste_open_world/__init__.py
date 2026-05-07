@@ -36,6 +36,8 @@ class CelesteOpenWorld(World):
     Celeste (Open World) is a randomizer for the original Celeste. In this acclaimed platformer created by ExOK Games, you control Madeline as she attempts to climb the titular mountain, meeting friends and obstacles along the way.  Progression is found in unlocking the ability to interact with various objects in the areas, such as springs, traffic blocks, feathers, and many more. Please be safe on the climb.
     """
 
+    hidden = True
+
     # Class Data
     game = "Celeste (Open World)"
     web = CelesteOpenWebWorld()
