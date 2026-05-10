@@ -196,3 +196,5 @@ _speedups.html
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
+WebHostLib/static/data
