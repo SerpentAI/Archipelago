@@ -55,6 +55,8 @@ class SMWWorld(World):
     The Princess has been kidnapped by Bowser again, but Mario has somehow
     lost all of his abilities. Can he get them back in time to save the Princess?
     """
+    hidden = True
+
     game: str = "Super Mario World"
 
     settings: typing.ClassVar[SMWSettings]
