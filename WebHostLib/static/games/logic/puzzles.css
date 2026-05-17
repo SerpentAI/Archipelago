@@ -1,0 +1,187 @@
+body {
+    height: 100vh;
+    margin: 0px;
+}
+
+.content {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.left-pane {
+    flex-basis: 20em;
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.file-selector {
+    flex-basis: 15em;
+    overflow-y: scroll;
+}
+
+.file-selector li {
+    display: flex;
+    flex-direction: row;
+}
+
+.file-selector .file {
+    flex-grow: 1;
+    border: 1px solid gray;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &.selected {
+        background-color: #ccf;
+    }
+
+    &.selected.error {
+        background-color: rgb(255, 233, 204);
+    }
+}
+
+.file-selector .spacer {
+    height: 0.5em;
+}
+
+.file-selector .file-delete {
+    background-color: rgb(255, 161, 161);
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.file-list {
+    flex-grow: 1;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+
+.puzzle-selector {
+    flex-basis: 20em;
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.puzzle-selector .puzzle {
+    display: block;
+    width: 100%;
+    padding: 0.2em;
+    border: 1px solid gray;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &.selected {
+        font-weight: bold;
+        background-color: #ccf;
+    }
+
+    &.locked {
+        cursor: unset;
+        color: #b4b4b4;
+    }
+
+    &.solved {
+        background-color: #cfc;
+    }
+
+    &.selected.solved {
+        background-color: rgb(204, 255, 235);
+    }
+
+    &.collected {
+        text-decoration: line-through;
+    }
+}
+
+.puzzle-content {
+    flex-grow: 1;
+    flex-basis: min-content;
+    overflow: auto;
+    padding: 0.5em;
+}
+
+.overscroll-spacer {
+    height: 5em;
+}
+
+.dialog-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 20%);
+    z-index: 100;
+    text-align: center;
+}
+
+.puzzle-dialog {
+    display: inline-block;
+    margin-top: 2em;
+    padding: 1em;
+    border: 2px grey;
+    background-color: white;
+    text-align: left;
+}
+
+.chatbox {
+    box-sizing: border-box;
+    position: fixed;
+    right: 2em;
+    bottom: 0px;
+    width: 500px;
+    height: 300px;
+    background: white;
+    border: 2px solid #aaa;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+}
+
+.chatbox-header {
+    margin: 0px;
+}
+
+.chatbox-divider {
+    height: 1px;
+    background-color: #aaa;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.chatbox-content {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.chat-history {
+    flex-grow: 1;
+    border: 1px solid #aaa;
+    overflow-y: scroll;
+}
+
+.chat-message {
+    flex: 0;
+
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.chat-message input {
+    flex-grow: 1;
+}

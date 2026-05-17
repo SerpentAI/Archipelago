@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="puzzleframe.js"></script>
+    <style>
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+#puzzlecanvas {
+    display: block;
+    font-family: sans-serif;
+    width: 100%;
+}
+
+#dlgform {
+    display: none;
+}
+
+#resizable {
+    position: relative;
+}
+
+#resizehandle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="resizable">
+        <canvas id="puzzlecanvas" tabindex="0"></canvas>
+        <svg id="resizehandle" aria-label="resize" width='10' height='10'>
+            <title>Drag to resize the puzzle. Right-click to restore the default size.</title>
+            <path d='M8.5,1.5l-7,7m7,-4l-4,4m4,-1l-1,1' stroke='currentColor' stroke-linecap='round'></path>
+        </svg>
+    </div>
+    <div style="display: none;">
+        <!-- Hidden form controls to appease the JS frontend  -->
+        <!-- They aren't being used and I could just get rid of them, but that might break things -->
+        <div id="puzzle"></div>
+        <form id="gamemenu">
+            <ul>
+                <li>
+                    <div tabindex="0">Game<ul>
+                            <li><button type="button" id="specific">Enter game ID...</button></li>
+                            <li><button type="button" id="random">Enter random seed...</button></li>
+                            <li><button type="button" id="save">Download save file...</button></li>
+                            <li><button type="button" id="load">Upload save file...</button></li>
+                            <li><button type="button" id="prefs">Preferences...</button></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div tabindex="0">Type<ul role="menu" id="gametype"></ul>
+                    </div>
+                </li>
+                <li role="separator"></li>
+                <li><button type="button" id="new">
+                        New<span class="verbiage"> game</span>
+                    </button></li>
+                <li><button type="button" id="restart">
+                        Restart<span class="verbiage"> game</span>
+                    </button></li>
+                <li><button type="button" id="undo">
+                        Undo<span class="verbiage"> move</span>
+                    </button></li>
+                <li><button type="button" id="redo">
+                        Redo<span class="verbiage"> move</span>
+                    </button></li>
+                <li><button type="button" id="solve">
+                        Solve<span class="verbiage"> game</span>
+                    </button></li>
+            </ul>
+        </form>
+        <div id="statusbar"></div>
+        <p>
+            Link to this puzzle:
+            <a id="permalink-desc">by game ID</a>
+            <a id="permalink-seed">by random seed</a>
+        </p>
+        </main>
+        <div id="apology">
+            <p class="apology-title">
+            </p>
+        </div>
+        <hr>
+    </div>
+</body>
+
+</html>
