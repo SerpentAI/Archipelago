@@ -11,6 +11,20 @@
     {% include "multitrackerNavigation.html" %}
 
     <div id="tracker-wrapper" data-tracker="{{ room.tracker | suuid }}" data-second="{{ saving_second }}">
+        {% if player_prefix_summary | length > 0 %}
+            <div id="player_prefix_summary">
+                <h3>Player Prefix Summary</h3>
+
+                {% for prefix, summary_data in player_prefix_summary.items() %}
+                    <strong>{{ prefix }}:</strong>
+                    {{ summary_data["locations_checked"] }} / {{ summary_data["locations_total"] }} Checks ({{ (summary_data["locations_checked"] / summary_data["locations_total"] * 100) | round(2) }}%)
+                    &nbsp;|&nbsp;
+                    {{ summary_data["slots_goaled"] }} / {{ summary_data["slots_total"] }} Goaled
+                    <br />
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <div id="tracker-header-bar">
             <input placeholder="Search" id="search" />
 

@@ -214,6 +214,36 @@ class TrackerData:
         }
 
     @_cache_results
+    def get_player_prefix_summary(self) -> Dict[str, Dict[str, Any]]:
+        prefix_summary: Dict[str, Dict[str, Any]] = dict()
+
+        for team, players in self.get_all_players().items():
+            for player in players:
+                player_name: str = self.get_player_alias(team, player) or self.get_player_name(player)
+
+                if "_" not in player_name:
+                    continue
+
+                player_prefix: str = player_name.split("_")[0]
+
+                if player_prefix not in prefix_summary:
+                    prefix_summary[player_prefix] = {
+                        "locations_checked": 0,
+                        "locations_total": 0,
+                        "slots_total": 0,
+                        "slots_goaled": 0,
+                    }
+
+                prefix_summary[player_prefix]["locations_checked"] += len(self.get_player_checked_locations(team, player))
+                prefix_summary[player_prefix]["locations_total"] += len(self.get_player_locations(player))
+                prefix_summary[player_prefix]["slots_total"] += 1
+
+                if self.get_room_client_statuses()[team, player] == ClientStatus.CLIENT_GOAL:
+                    prefix_summary[player_prefix]["slots_goaled"] += 1
+
+        return prefix_summary
+
+    @_cache_results
     def get_room_saving_second(self) -> int:
         """Retrieves the saving second value for this seed.
 
@@ -448,6 +478,7 @@ def render_generic_multiworld_tracker(tracker_data: TrackerData, enabled_tracker
         get_slot_info=tracker_data.get_slot_info,
         all_slots=tracker_data.get_all_slots(),
         room_players=tracker_data.get_all_players(),
+        player_prefix_summary=tracker_data.get_player_prefix_summary(),
         locations=tracker_data.get_room_locations(),
         locations_complete=tracker_data.get_room_locations_complete(),
         total_team_locations=tracker_data.get_team_locations_total_count(),

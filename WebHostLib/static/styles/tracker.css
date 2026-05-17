@@ -163,3 +163,14 @@ img.icon-sprite {
 .item-acquired {
 
 }
+
+#player_prefix_summary {
+    margin-bottom: 20px;
+    color: #13261C;
+    font-family: PlusJakartaSans-Medium, sans-serif;
+}
+
+#player_prefix_summary h3 {
+    font-family: PlusJakartaSans-SemiBold, sans-serif;
+    margin-bottom: 10px;
+}
