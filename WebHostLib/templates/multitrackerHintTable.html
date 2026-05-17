@@ -9,11 +9,10 @@
                 <th>Location</th>
                 <th>Game</th>
                 <th>Entrance</th>
-                <th class="center-column">Found</th>
             </tr>
             </thead>
             <tbody>
-            {%- for hint in hints -%}
+            {%- for hint in hints if not hint.found -%}
                 {%-
                     if current_tracker == "Generic" or (
                         games[(team, hint.finding_player)] == current_tracker or
@@ -39,7 +38,6 @@
                         <td>{{ location_id_to_name[games[(team, hint.finding_player)]][hint.location] }}</td>
                         <td>{{ games[(team, hint.finding_player)] }}</td>
                         <td>{% if hint.entrance %}{{ hint.entrance }}{% else %}Vanilla{% endif %}</td>
-                        <td class="center-column">{% if hint.found %}✔{% endif %}</td>
                     </tr>
                 {% endif %}
             {%- endfor -%}
