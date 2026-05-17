@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawer Idea Explanation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #181a1b;
+            --fg: #f1f1f1;
+            --accent: #3a7ca5;
+        }
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        header {
+            background: #222325;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        main {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #232526;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px #0004;
+        }
+        h2 {
+            color: var(--accent);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Drawer</h1>
+    </header>
+    <main>
+        <h2>What is the drawer?</h2>
+        <ul>
+            <li>
+                You can store pieces in your drawer and they won't show on the field.
+            </li>
+            <li>
+                This is nice if you want to avoid having to remove huge stacks of pieces.
+            </li>
+        </ul>
+        <h2>Good to know</h2>
+        <ul>
+            <li>
+                The drawer only works for pieces that have <b>never been moved manually</b>.
+            </li>
+            <li>
+                The actions of the drawer are purely local. Others cannot see them, and on refresh it resets too.
+            </li>
+        </ul>
+        <h2>How does it work?</h2>
+        <ul>
+            <li>
+                The drawer shows the number of pieces that you have withdrawn.
+            </li>
+            <li>
+                You can select how many pieces you want to withdraw or deposit.
+            </li>
+            <li>
+                <b>Move to drawer:</b> remove pieces from the board to the drawer.
+            </li>
+            <li>
+                <b>Move from drawer:</b> move pieces back to the board in the area you specified.
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

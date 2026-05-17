@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Page</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #4dabf7;
+            padding: 5px;
+        }
+        #saveButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <label>
+        <input type="checkbox" id="checkboxOption2" checked> Show piece shadow.
+    </label> -->
+
+    <!-- <fieldset>
+        <legend>Choose an option:</legend>
+        <label><input type="radio" name="radioOption" value="option1"> Option 1</label>
+        <label><input type="radio" name="radioOption" value="option2"> Option 2</label>
+        <label><input type="radio" name="radioOption" value="option3"> Option 3</label>
+    </fieldset> -->
+
+    <div>Note: border and shadow are disabled when there are more than 150 pieces!</div>
+    <label>
+        Border thickness of pieces:
+        <input type="range" id="sliderOption1" min="0" max="2" step="0.05">
+        <span id="sliderValue1">0.1</span>
+    </label>
+
+    <label>
+        Shadow thickness of pieces:
+        <input type="range" id="sliderOption2" min="0" max="2" step="0.05">
+        <span id="sliderValue2">0</span>
+    </label>
+
+    <!-- <label>
+        Fraction of screen filled with puzzle:
+        <input type="range" id="sliderOption3" min="0.5" max="0.95" step="0.05">
+        <span id="sliderValue3">0.85</span>
+    </label> -->
+
+    <!-- <label>
+        Free text:
+        <textarea id="textOption" rows="4"></textarea>
+    </label> -->
+
+    <div id="saveButton"> .</div>
+
+    <script>
+        // const checkboxOption1 = document.getElementById('checkboxOption1');
+        // const checkboxOption2 = document.getElementById('checkboxOption2');
+        // const radioOptions = document.getElementsByName('radioOption');
+        const sliderOption1 = document.getElementById('sliderOption1');
+        const sliderOption2 = document.getElementById('sliderOption2');
+        // const sliderOption3 = document.getElementById('sliderOption3');
+        const sliderValue1 = document.getElementById('sliderValue1');
+        const sliderValue2 = document.getElementById('sliderValue2');
+        // const sliderValue3 = document.getElementById('sliderValue3');
+        // const textOption = document.getElementById('textOption');
+        // const saveButton = document.getElementById('saveButton');
+
+        function loadSettings() {
+            // checkboxOption1.checked = JSON.parse(localStorage.getItem('option_bevel_2')) ?? true;
+            // checkboxOption2.checked = JSON.parse(localStorage.getItem('option_shadow_2')) ?? true;
+            // const selectedRadio = localStorage.getItem('radioOption') || 'option1';
+            // radioOptions.forEach(radio => { radio.checked = radio.value === selectedRadio; });
+            sliderOption1.value = localStorage.getItem('option_bevel_2') || 0.1;
+            sliderOption2.value = localStorage.getItem('option_shadow_2') || 0;
+            // sliderOption3.value = localStorage.getItem('option_downsize') || 0.85;
+            sliderValue1.textContent = sliderOption1.value;
+            sliderValue2.textContent = sliderOption2.value;
+            // sliderValue3.textContent = sliderOption3.value;
+            // textOption.value = localStorage.getItem('textOption') || '';
+        }
+
+        function saveSettings() {
+            // localStorage.setItem('option_shadow_2', checkboxOption2.checked);
+            // const selectedRadio = [...radioOptions].find(radio => radio.checked)?.value;
+            // localStorage.setItem('radioOption', selectedRadio);
+            localStorage.setItem('option_bevel_2', sliderOption1.value);
+            localStorage.setItem('option_shadow_2', sliderOption2.value);
+            // localStorage.setItem('option_downsize', sliderOption3.value);
+            // localStorage.setItem('textOption', textOption.value);
+        }
+
+        function markUnsaved(change_text = true) {
+            if(change_text){
+                saveButton.innerText = "Options saved! Please refresh your game.";
+            }
+            saveSettings();
+        }
+
+        // checkboxOption1.addEventListener('change', markUnsaved);
+        // checkboxOption2.addEventListener('change', markUnsaved);
+        // radioOptions.forEach(radio => radio.addEventListener('change', markUnsaved));
+        sliderOption1.addEventListener('input', () => {
+            sliderValue1.textContent = sliderOption1.value;
+            markUnsaved();
+        });
+        sliderOption2.addEventListener('input', () => {
+            sliderValue2.textContent = sliderOption2.value;
+            markUnsaved();
+        });
+        // sliderOption3.addEventListener('input', () => {
+        //     sliderValue3.textContent = sliderOption3.value;
+        //     markUnsaved();
+        // });
+        // textOption.addEventListener('input', markUnsaved);
+        // saveButton.addEventListener('click', saveSettings);
+
+        loadSettings();
+    </script>
+</body>
+</html>

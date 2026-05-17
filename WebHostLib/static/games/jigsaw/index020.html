@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Jigsaw puzzle</title>
+  <link rel="stylesheet" href="./zstyle020.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+
+<!-- Login screen -->
+<div class="login-container" id="login-container">
+  <div class="login-form">
+      <!-- Title with Yacht Dice - Login -->
+      <h2 class="login-heading">Jigsaw - Login</h2>
+      <h3 class="login-heading" style="text-align: center; color: #5f5; font-size: 1.2em;">Older backup version (0.2.0)</h3>
+
+      <br>
+      <div>
+          <label for="hostport" class="login-label">Host and Port</label>
+          <input type="text" id="hostport" name="hostport" class="login-input" value="archipelago.gg:38281" placeholder="Example: archipelago.gg:38281">
+          <label for="name" class="login-label">Player Name</label>
+          <input type="text" id="name" name="name" class="login-input"
+              value="Loading website...." placeholder="Example: Yachty">
+          <label for="name" class="login-label">Password</label>
+          <input type="password" id="password" name="password" class="login-input" value="" placeholder="Leave blank if no password">
+          <input type="submit" value="Login" id="loginbutton" class="login-submit">
+          <input type="submit" value="Solo (same seed every time)" id="solobutton" class="login-submit">
+      </div>
+
+
+  </div>
+
+</div>
+
+<audio id="newItemSound">
+  <source src="Sounds/p1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- partial:index.partial.html -->
+<div id="puzzleDIV">
+<div id=forPuzzle></div>
+  <ul id="menu">
+    <li id="m0">&#x2630;</li>
+    <li id="m1">default image</li>
+    <li id="m2">load image</li>
+    <li id="m3">shape: <select id="shape">
+        <option value="1" selected>classic</option>
+        <option value="2">triangle</option>
+        <option value="3">round</option>
+        <option value="4">diagonal</option>
+        <option value="5">straight</option>
+      </select></li>
+      
+    <li id="m4" style="background-color: green;">Start!</li>
+    <li id="m8">Start & manual load</li>
+    <li id="m5">Credits</li>
+    <li id="m6" style="background-color: #555;">AP: not connected</li>
+    <li id="m7">Manual save</li>
+     
+    <li id="m9a"></li> <!-- number of merges -->
+    <li id="m9"></li> <!-- logic1 -->
+    <li id="m10"></li> <!-- logic2 -->
+    <li id="m10b">Change background color</li>
+    <li id="m11" style="background-color: red;">Delete save for this seed?</li>
+  </ul>
+
+  <ul id="nenu">
+    <li id="n0"><img id="previm" src="portrait.jpg" alt="Image"></li>
+    <li id="n1"><div id="log"></div></li>
+  </ul>
+
+  <!-- <div id="log"></div> -->
+
+  
+</div>
+
+<!-- partial -->
+
+  <script type="module" src="./zaplogin020.js"></script>
+  <script  src="./zscript020.js"></script>
+
+</body>
+</html>

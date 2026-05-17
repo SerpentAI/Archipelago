@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GIF Puzzle</title>
+    <script src="gifler.min.js"></script>
+</head>
+<body>
+    <canvas id="puzzleCanvas" width="400" height="400"></canvas>
+
+    <script>
+        let frames = 0;
+    
+        gifler('https://media.giphy.com/media/3o7TKMt1VVNkHV2PaE/giphy.gif').frames('#puzzleCanvas', function(ctx, frame) {
+            ctx.drawImage(frame.buffer, 100, 100, 150, 100);
+        });
+    </script>
+    
+</body>
+</html>

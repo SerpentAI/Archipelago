@@ -1,0 +1,328 @@
+    body {
+      font-family: Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif;
+      background-color: #000;
+      margin: 0;
+      padding: 0;
+      border-width: 0;
+      cursor: pointer;
+     }
+
+    #menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      list-style-type: none;
+      padding-right: 5px;
+      z-index: 1000;
+      display: inline-block;
+      text-align: center;
+      padding-inline-start: 0; /* Set padding-inline-start to 0 */
+    }
+
+    #menu li {
+      margin: 2px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      background-color: #ffff80;
+      user-select: none;    
+    }
+
+    #n0 {
+      margin: 1px;
+      padding: 4px 1px;
+      border-radius: 5px;
+      background-color: #333333;
+      user-select: none;   
+      width: auto;
+      height: auto;
+    }
+    #n1 {
+      margin: 1px;
+      padding: 4px 1px;
+      border-radius: 5px;
+      background-color: #333333;
+      user-select: none;   
+      width: auto;
+      height: auto;
+    }
+
+    #m7, #m8, #m9, #m9a, #m10, #m11, #m11a, #m13, #m13b, #m13c, #o1a, #o1b {
+      display: none;
+    }
+
+    #m11, #m11a, #m13, #m13b, #m13c {
+      margin: 0;
+      padding: 0;
+    }
+
+    #puzzleDIV {
+      width: 100vw;   /* 100% of the viewport width */
+      height: 100vh;  /* 100% of the viewport height */
+      display: none;
+      overflow: hidden; /* Prevent scrolling or overflow */
+      position: relative; /* Ensures contained elements respect its boundaries */
+    }
+
+    :root {
+      --scale-factor: 4; /* Change this to 3, 4, etc., to adjust the size */
+    }
+    
+    #forPuzzle {
+      position: absolute;
+      width: calc(100% * var(--scale-factor));
+      height: calc(56.25vw * var(--scale-factor)); /* Maintain 16:9 aspect ratio */
+      max-height: calc(100% * var(--scale-factor));
+      max-width: calc(177.78vh * var(--scale-factor)); /* Maintain 16:9 aspect ratio */
+      top: 50%;
+      left: 0;
+      transform: translate(calc(-50% * (1 - 1 / var(--scale-factor))), -50%) 
+                  scale(calc(1 / var(--scale-factor)))
+
+                  translate(0%, 0%) /* for zoom */
+                  scale(1.0); /* for zoom */
+      background-color: transparent;
+      overflow: hidden;
+    }
+    
+    
+    .polypiece {
+      display: block;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    /* .moving {
+      transition-property: top, left;
+      transition-duration: 1s;
+      transition-timing-function: linear;
+    } */
+
+    .gameCanvas {
+      display: none;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-form {
+        background-color: #1f1f1f;
+        border-radius: 5px;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Center horizontally */
+    }
+    .login-heading {
+        margin-top: 0px;
+        margin-bottom: 10px;
+        color: #ffffff;
+        font-size: 30px;
+    }
+
+    .login-label {
+        display: block;
+        color: #ffffff;
+        margin-bottom: 5px;
+    }
+
+    .login-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #333333;
+        color: #ffffff;
+    }
+
+    .login-submit {
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .login-submit:hover {
+        background-color: #45a049;
+    }
+
+    .login-description {
+        margin: 1px;
+        /* Adjust the margin as needed */
+        color: #ffffff;
+    }
+
+
+    #previm {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Maintain natural aspect ratio */
+      user-select: none; /* Make it unselectable */
+      pointer-events: none; /* Ignore mouse events */
+    }
+
+    #draggable1 { 
+      display: inline-block; /* Ensure the element wraps around its content */
+      width: 300px; /* Adjust width to fit the image */
+      height: 200px; /* Adjust height to fit the image */
+      background: #444; 
+      position: absolute; 
+      top: 50px; 
+      left: 50px; 
+      border-radius: 8px; 
+      padding: 0; /* Remove extra padding */
+      cursor: grab; 
+      user-select: none; /* Prevent text selection */
+      z-index: 99;
+    }
+
+    #draggable2 { 
+      display: inline-block; /* Ensure the element wraps around its content */
+      width: 300px; /* Adjust width to fit the image */
+      height: 200px; /* Adjust height to fit the image */
+      background: #444; 
+      position: absolute; 
+      top: 50px; 
+      left: 50px; 
+      border-radius: 8px; 
+      padding: 0; /* Remove extra padding */
+      cursor: grab; 
+      user-select: none; /* Prevent text selection */
+      z-index: 99;
+    }
+    #draggable3 { 
+      display: inline-block; /* Ensure the element wraps around its content */
+      width: auto; /* Adjust width to fit the image */
+      height: auto; /* Adjust height to fit the image */
+      background: #aaa; 
+      position: absolute; 
+      top: 50px; 
+      left: 50px; 
+      border-radius: 8px; 
+      padding: 0; /* Remove extra padding */
+      cursor: grab; 
+      user-select: none; /* Prevent text selection */
+      z-index: 99;
+      padding: 10px;
+    }
+
+
+
+    #taskbar1 { 
+        width: 50px; height: 30px; background: #444; color: #fff;
+        position: absolute; bottom: 90px; right: 10px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+
+    #taskbar2 { 
+        width: 50px; height: 30px; background: #444; color: #fff;
+        position: absolute; bottom: 50px; right: 10px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    #taskbar3 { 
+        width: 50px; height: 30px; background: #444; color: #fff;
+        position: absolute; bottom: 10px; right: 10px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+    .controls { 
+        position: absolute; top: 5px; right: 5px; display: flex; gap: 5px; 
+        align-items: center; /* Vertically center buttons */
+    }
+    .control-btn { 
+        width: 24px; height: 24px; border-radius: 50%; border: none; 
+        background: #1e1e1e; color: #fff; display: flex; 
+        align-items: center; justify-content: center; cursor: pointer;
+        font-weight: bold; font-size: 16px; line-height: 0; /* Center text better */
+    }
+    
+    .resizer {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: transparent;
+    }
+    /* .resizer.right { right: 0; top: 0; height: 100%; cursor: ew-resize; }
+    .resizer.bottom { bottom: 0; left: 0; width: 100%; cursor: ns-resize; } */
+    .resizer.corner { 
+        right: 0; bottom: 0; width: 15px; height: 15px; 
+        cursor: nwse-resize; background: #888; border-radius: 3px;
+    }
+
+    #log {
+      /* background-color: rgba(32, 32, 0, 0.5); */
+      bottom: 3vh;
+      left: 3vw;
+      width: 100%;
+      height: calc(100% - 27px);    
+      font-size: max(1vw, 2vh);
+      color: rgba(255, 255, 255, 0.9);
+      /* pointer-events: none; */
+      overflow-x: hidden; /* Disable hor scrolling */
+      display: flex;
+      flex-direction: column; /* Display new messages at the bottom */
+      text-align: left;
+      /* margin: 10px; */
+    }
+
+    #sendButton {
+      height: 26px;
+      width: 35px;
+      background-color: #777;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      align-items: center; /* Vertically center text */
+      justify-content: center; /* Horizontally center text */
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    #messageInput {
+      height: 18px;
+      width: calc(90% - 50px);
+    }
+
+    @keyframes myAnim {
+        0%,
+        100% {
+            filter: drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red);
+        }
+    
+        50% {
+            filter: drop-shadow(0px 0px 5px blue) drop-shadow(0px 0px 5px blue) drop-shadow(0px 0px 5px blue) drop-shadow(0px 0px 5px blue);
+        }
+    }   
+    .hinted {
+      /* transition: 1s filter;
+      animation: myAnim 10s ease 0s infinite normal forwards; */
+      filter: drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red);
+        
+    }

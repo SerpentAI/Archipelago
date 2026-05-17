@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen Button</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        #fullscreenButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #4dabf7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="fullscreenButton">Go Fullscreen</button>
+
+    <script>
+        const button = document.getElementById('fullscreenButton');
+
+        button.addEventListener('click', async () => {
+            if (!document.fullscreenElement) {
+                if (button.requestFullscreen) {
+                    await button.requestFullscreen();
+                } else if (button.webkitRequestFullscreen) { // iOS Safari fallback
+                    await button.webkitRequestFullscreen();
+                } else if (button.msRequestFullscreen) { // IE/Edge fallback
+                    await button.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { // iOS Safari fallback
+                    await document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { // IE/Edge fallback
+                    await document.msExitFullscreen();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

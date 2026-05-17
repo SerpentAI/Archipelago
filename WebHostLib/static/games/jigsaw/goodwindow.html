@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Div</title>
+    <style>
+        body { height: 100vh; margin: 0; overflow: hidden; position: relative; }
+        .draggable { 
+            width: 200px; height: 200px; background: #4dabf7; position: absolute; 
+            bottom: 10px; right: 10px; border-radius: 8px; padding: 10px; 
+            cursor: grab; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            user-select: none; /* Prevent text selection */
+        }
+        .taskbar { 
+            width: 150px; height: 30px; background: #4dabf7; color: #fff;
+            position: absolute; bottom: 10px; right: 10px; border-radius: 8px;
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer;
+        }
+        .controls { 
+            position: absolute; top: 5px; left: 5px; display: flex; gap: 5px; 
+            align-items: center; /* Vertically center buttons */
+        }
+        .control-btn { 
+            width: 24px; height: 24px; border-radius: 50%; border: none; 
+            background: #1e1e1e; color: #fff; display: flex; 
+            align-items: center; justify-content: center; cursor: pointer;
+            font-weight: bold; font-size: 16px; line-height: 0; /* Center text better */
+        }
+        .resizer {
+            position: absolute;
+            width: 10px; height: 10px;
+            background: transparent;
+        }
+        .resizer.right { right: 0; top: 0; height: 100%; cursor: ew-resize; }
+        .resizer.bottom { bottom: 0; left: 0; width: 100%; cursor: ns-resize; }
+        .resizer.corner { 
+            right: 0; bottom: 0; width: 15px; height: 15px; 
+            cursor: nwse-resize; background: #1e1e1e; border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="draggable" id="draggable">
+        <div class="controls">
+            <button class="control-btn" onclick="minimizeDiv()">_</button>
+        </div>
+        <p>Drag me!</p>
+        <div class="resizer right" id="resizerRight"></div>
+        <div class="resizer bottom" id="resizerBottom"></div>
+        <div class="resizer corner" id="resizerCorner"></div>
+    </div>
+    <div class="taskbar" id="taskbar" onclick="restoreDiv()">Restore Window</div>
+
+    <script>
+        const draggable = document.getElementById('draggable');
+        const taskbar = document.getElementById('taskbar');
+        const resizerRight = document.getElementById('resizerRight');
+        const resizerBottom = document.getElementById('resizerBottom');
+        const resizerCorner = document.getElementById('resizerCorner');
+
+        let offsetX, offsetY, isDragging = false;
+
+        draggable.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('resizer')) return;
+            isDragging = true;
+            offsetX = e.clientX - draggable.offsetLeft;
+            offsetY = e.clientY - draggable.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                draggable.style.left = e.clientX - offsetX + 'px';
+                draggable.style.top = e.clientY - offsetY + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => { isDragging = false; resizing = false; });
+
+        function minimizeDiv() {
+            draggable.style.display = 'none';
+            taskbar.style.display = 'flex';
+        }
+
+        function restoreDiv() {
+            draggable.style.display = 'block';
+            taskbar.style.display = 'none';
+        }
+
+        function enableResizing(resizer, horizontal, vertical) {
+            let resizing = false;
+            let startX, startY, startWidth, startHeight;
+
+            resizer.addEventListener('mousedown', (e) => {
+                resizing = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startWidth = draggable.offsetWidth;
+                startHeight = draggable.offsetHeight;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!resizing) return;
+                if (horizontal) draggable.style.width = startWidth + (e.clientX - startX) + 'px';
+                if (vertical) draggable.style.height = startHeight + (e.clientY - startY) + 'px';
+            });
+
+            document.addEventListener('mouseup', () => { resizing = false; });
+        }
+
+        enableResizing(resizerRight, true, false);
+        enableResizing(resizerBottom, false, true);
+        enableResizing(resizerCorner, true, true);
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Port <-> Small Code (simple reversible "encryption")</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body { font-family: system-ui, Arial; padding: 20px; max-width: 400px; margin: auto; }
+        label, input, button { display:block; width:100%; margin-top:10px; }
+        .row { display:flex; gap:8px; }
+        .row > * { flex:1; }
+        .output { margin-top:12px; padding:10px; background:#f4f4f4; border-radius:6px; word-break:break-all; }
+        small { color:#666; }
+    </style>
+</head>
+<body>
+    <p>
+        How it works: if you don't want the port in your URL, use this page to hide it.
+        Instead of a link like <br>
+        <code>jigsaw-ap.netlify.app?hostport=archipelago.gg:38281</code> <br>
+        you can use <br>
+        <code>jigsaw-ap.netlify.app?hostport=archipelago.gg;1a68</code>
+    </p>
+
+    <p>
+        Note: this uses a semicolon (<code>;</code>) and a code instead of the port.
+        <b>This just makes it slightly harder to see the port but it's not secure encryption at all!</b>
+    </p>
+
+    <p>
+        Use the tool below to generate the code, then put the host and the generated
+        code into the <code>hostport</code> query parameter (use <code>;</code> instead of <code>:</code>).
+    </p>
+
+    <label for="port">Enter port (5 digits)</label>
+    <input id="port" inputmode="numeric" maxlength="5" placeholder="e.g. 38281" value="38281" />
+
+    <div class="row">
+        <button id="encryptBtn">Encrypt → Code</button>
+    </div>
+
+    <label for="code">Code (to decrypt or produced by encrypt)</label>
+    <input id="code" placeholder="encrypted code" readonly aria-readonly="true" />
+    <input id="codelink" placeholder="example link" readonly aria-readonly="true" />
+
+    <script>
+        // simple reversible "encryption": XOR with a numeric key, then base-36 encode
+        const KEY = 31817; // secret numeric key known to both functions
+
+        const elPort = document.getElementById('port');
+        const elCode = document.getElementById('code');
+        const elCodelink = document.getElementById('codelink');
+        const elResult = document.getElementById('result');
+        const btnEnc = document.getElementById('encryptBtn');
+
+        function isFiveDigitPort(s) {
+            return /^\d{5}$/.test(s) && +s <= 65535;
+        }
+
+        function pad5(n) {
+            return String(n).padStart(5, '0');
+        }
+
+        function encryptPort() {
+            const port = elPort.value.trim();
+            if (!isFiveDigitPort(port)) {
+                elResult.textContent = 'Invalid port: enter exactly 5 digits (0-65535).';
+                return;
+            }
+            const num = parseInt(port, 10);
+            const xored = num ^ KEY;
+            // base36 keeps the code short (0-9a-z)
+            const code = xored.toString(36);
+            elCode.value = code;
+            elCodelink.value = `jigsaw-ap.netlify.app?hostport=archipelago.gg;${code}`;
+        }
+
+        btnEnc.addEventListener('click', encryptPort);
+
+        // allow Enter key to trigger encrypt
+        elPort.addEventListener('keydown', (e) => { if (e.key === 'Enter') encryptPort(); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Jigsaw puzzle</title>
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4dabf7">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+
+</head>
+<body>
+
+
+<!-- Login screen -->
+<div class="login-container" id="login-container">
+  <div class="login-form">
+      <!-- Title with Yacht Dice - Login -->
+      <h2 class="login-heading">🧩 Jigsaw Puzzle <br> for Archipelago 🏝️</h2>
+
+      <label id="rotate-device-label" class="login-label" style="display: none;text-align: center; color: rgb(255, 196, 0); font-size: 1.2em;">Consider rotating your device to landscape!</label>
+
+      <script>
+        window.addEventListener('resize', function() {
+          var label = document.getElementById('rotate-device-label');
+            if (window.innerHeight > window.innerWidth) {
+              label.style.display = 'block';
+              // Start color toggle interval if not already started
+              if (!label._colorInterval) {
+                let colors = ['red', 'yellow'];
+                let i = 0;
+                let toggleCount = 0;
+                label._colorInterval = setInterval(() => {
+                  label.style.color = colors[i % 2];
+                  i++;
+                  console.log("Color toggled to", label.style.color);
+                  if (i >= 10) {
+                    clearInterval(label._colorInterval);
+                    label._colorInterval = null;
+                  }
+                }, 1000);
+              }
+            } else {
+              // Stop color toggle interval if running
+              if (label._colorInterval) {
+                clearInterval(label._colorInterval);
+                label._colorInterval = null;
+              }
+              label.style.display = 'none';
+              label.style.color = 'rgb(255, 196, 0)'; // reset to original
+            }
+          
+        });
+        // Initial check
+        if (window.innerHeight > window.innerWidth) {
+          var label = document.getElementById('rotate-device-label');
+          label.style.display = 'block';
+          // Start color toggle interval if not already started
+          if (!label._colorInterval) {
+            let colors = ['red', 'yellow'];
+            let i = 0;
+            let toggleCount = 0;
+            label._colorInterval = setInterval(() => {
+              label.style.color = colors[i % 2];
+              i++;
+              console.log("Color toggled to", label.style.color);
+              if (i >= 10) {
+                clearInterval(label._colorInterval);
+                label._colorInterval = null;
+              }
+            }, 1000);
+          }
+        }
+      </script>
+
+      <div>
+          <div style="margin-top: 5px; font-size: 0.9em; color: white; border: 2px solid #4dabf74d; padding: 10px; text-align: center; border-radius: 10px;">
+            <div style="color: #fff; font-weight: bold; margin-bottom: 8px;">Archipelago</div>
+            <hr style="border: 1px solid #4dabf74d; margin: 8px 0;">
+            <label for="hostport" class="login-label">Host and Port</label>
+            <input type="text" id="hostport" name="hostport" class="login-input" value="archipelago.gg:38281" placeholder="Example: archipelago.gg:38281">
+            <label for="name" class="login-label">Player Name</label>
+            <input type="text" id="name" name="name" class="login-input"
+                value="Loading website...." placeholder="Example: Yachty">
+            <label for="name" class="login-label">Password</label>
+            <input type="password" id="password" name="password" class="login-input" value="" placeholder="Leave blank if no password">
+            <input type="submit" value="Login & Connect" id="loginbutton" class="login-submit">
+            <label id="error-label" class="login-label" style="color: red;"></label>
+          </div>
+          <div style="margin-top: 5px; font-size: 0.9em; color: white; border: 2px solid #4dabf74d; padding: 10px; text-align: center; border-radius: 10px;">
+            <div style="color: #fff; font-weight: bold; margin-bottom: 8px;">Try it out solo (fixed seed, no save)</div>
+            <hr style="border: 1px solid #4dabf74d; margin: 8px 0;">
+            <div style="display: flex; gap: 10px;">
+              <input type="submit" value="Normal" id="solobutton" class="login-submit">
+              <input type="submit" value="Rotations" id="solobutton2" class="login-submit">
+              <input type="submit" value="Hex" id="solobutton3" class="login-submit">
+            </div>
+          </div>
+      </div>
+
+      <div style="margin-top: 5px; font-size: 0.9em; color: white; border: 2px solid #4dabf74d; padding: 10px; text-align: center; border-radius: 10px;">
+        The images displayed on this website are loaded directly from external sources and are not hosted or distributed by this site.
+      </div>
+        
+  </div>
+
+</div>
+
+<audio id="newItemSound">
+  <source src="Sounds/p1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- partial:index.partial.html -->
+<div id="puzzleDIV">
+<div id=forPuzzle></div>
+  <ul id="menu">
+    <li id="m0">&#x2630;</li>
+    <li id="m1">default image  | #:
+      <select id="defaultImageIndex">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <option value="32">32</option>
+        <option value="33">33</option>
+        <option value="34">34</option>
+        <option value="35">35</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47">47</option>
+        <option value="48">48</option>
+        <option value="49">49</option>
+        <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+      </select>
+    </li>
+    <li id="m2">load custom image</li>
+    <li id="m3">shape: 
+      <select id="shape">
+        <option value="1" selected>classic</option>
+        <option value="2">triangle</option>
+        <option value="3">curved</option>
+        <option value="4">diagonal</option>
+        <option value="5">straight</option>
+        <option value="6">chaos</option>
+      </select>
+    </li>
+      
+    <li id="m4" style="background-color: green;">Start!</li>
+    
+    <li id="m5">Credits</li>
+     
+    <li id="m9a"></li> <!-- number of merges -->
+    <li id="m9"></li> <!-- logic1 -->
+    <li id="m10"></li> <!-- logic2 -->
+    <li id="m13" style="background-color: #888888;" title="Marks the outline of a piece that can merge with another">Clue 💡✏️</li>
+    <li id="m13b" style="background-color: #ff0000; " title="Change color of clue">🎨</li>
+    <li id="m13c" style="background-color: #888888; " title="Remove all clues">🗑️</li>
+    
+    <li id="m10b" style="background-color: #45aabe;">BG color: #
+      <select id="bgcolorR">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+      </select>
+      <select id="bgcolorG">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+      </select>
+      <select id="bgcolorB">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+      </select>
+    </li>
+
+    <li id="o1a" style="background-color: #45aabe;">Border thickness
+      <select id="options_bt">
+        <option value="0">0</option>
+        <option value="0.1">0.1</option>
+        <option value="0.2">0.2</option>
+        <option value="0.3">0.3</option>
+        <option value="0.4">0.4</option>
+        <option value="0.5">0.5</option>
+        <option value="0.6">0.6</option>
+        <option value="0.7">0.7</option>
+        <option value="0.8">0.8</option>
+        <option value="0.9">0.9</option>
+        <option value="1">1</option>
+        <option value="1.1">1.1</option>
+        <option value="1.2">1.2</option>
+        <option value="1.3">1.3</option>
+        <option value="1.4">1.4</option>
+        <option value="1.5">1.5</option>
+        <option value="1.6">1.6</option>
+        <option value="1.7">1.7</option>
+        <option value="1.8">1.8</option>
+        <option value="1.9">1.9</option>
+        <option value="2">2</option>
+      </select>
+    </li>
+    <li id="o1b" style="background-color: #45aabe;">Shadow thickness
+      <select id="options_st">
+        <option value="0">0</option>
+        <option value="0.1">0.1</option>
+        <option value="0.2">0.2</option>
+        <option value="0.3">0.3</option>
+        <option value="0.4">0.4</option>
+        <option value="0.5">0.5</option>
+        <option value="0.6">0.6</option>
+        <option value="0.7">0.7</option>
+        <option value="0.8">0.8</option>
+        <option value="0.9">0.9</option>
+        <option value="1">1</option>
+        <option value="1.1">1.1</option>
+        <option value="1.2">1.2</option>
+        <option value="1.3">1.3</option>
+        <option value="1.4">1.4</option>
+        <option value="1.5">1.5</option>
+        <option value="1.6">1.6</option>
+        <option value="1.7">1.7</option>
+        <option value="1.8">1.8</option>
+        <option value="1.9">1.9</option>
+        <option value="2">2</option>
+      </select>
+    </li>
+
+    <br>
+    <li id="m11" style="background-color: #c58e3c;">Full screen 🖥️</li>
+    <li id="m11a" style="background-color: #c58e3c; cursor: pointer;" title="Enable/disable zooming">🔍✅</li> 
+    
+    <li id="m6" style="background-color: #555;">AP: not connected</li>
+  </ul>
+  
+</div>
+
+<div class="draggable" id="draggable1" style="display: none;">
+  <div class="controls">
+      <button class="control-btn" id="control-btn1">-</button>
+  </div>
+
+  <div id="log"></div>
+  <input type="text" id="messageInput" placeholder="Type your message here">
+  <button id="sendButton">➜</button>
+  
+  <!-- <div class="resizer right" id="resizerRight1"></div>
+  <div class="resizer bottom" id="resizerBottom1"></div> -->
+  <div class="resizer corner" id="resizerCorner1"></div>
+</div>
+<div class="taskbar" id="taskbar1" style="display: none;">📝</div>
+
+
+<div class="draggable" id="draggable2" style="display: none;">
+  <div class="controls">
+      <button class="control-btn" id="control-btn2a">-</button>
+  </div>
+  <img id="previm" src="portrait2.png" alt="Image">
+  <!-- <div class="resizer right" id="resizerRight2"></div>
+  <div class="resizer bottom" id="resizerBottom2"></div> -->
+  <div class="resizer corner" id="resizerCorner2"></div>
+</div>
+<div class="taskbar" id="taskbar2" style="display: none;">🔍</div>
+
+<div class="draggable" id="draggable3" style="display: none;">
+  <div class="controls">
+      <button class="control-btn" id="control-btn3a">-</button>
+  </div>
+  <div class="button-group">
+    --Drawer-- <button id="btnInfo" onclick="window.open('drawer_info.html', '_blank')">Info</button>
+    <br>
+    Pcs stored: <span id="pcsStored">0</span>
+    <br>
+    <br>
+    
+    <label for="numPieces"># pcs:</label>
+    <select id="numPieces">
+      <option value="1" selected>1</option>
+      <option value="10">10</option>
+      <option value="100">100</option>
+      <option value="all">All</option>
+    </select>
+    <br>
+    <button id="btnWithdraw">Move to drawer</button>
+    <button id="btnWithdrawAll">Move all to drawer</button>
+    <br>
+     
+    <button id="btnDeposit">Move from drawer</button>
+    <select id="depositPosition">
+      <option value="1">Top-left corner</option>
+      <option value="2">Top-left area</option>
+      <option value="3">Top edge</option>
+      <option value="4">Top area</option>
+      <option value="5">Left edge</option>
+      <option value="6">Left area</option>
+      <option value="7">Anywhere</option>
+    </select>
+  </div>
+</div>
+<div class="taskbar" id="taskbar3" style="display: none;">🗄️</div>
+
+
+
+
+
+<!-- partial -->
+
+  <script type="module" src="./clientandpreview.js"></script>
+  <script type="module" src="./loadimages.js"></script>
+  <script type="module" src="./aplogin.js"></script>
+  <script  src="./script.js"></script>
+  <!-- <script  src="./debug.js"></script> -->
+
+
+
+</body>
+</html>
