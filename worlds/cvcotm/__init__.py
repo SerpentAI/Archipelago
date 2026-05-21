@@ -59,6 +59,9 @@ class CVCotMWorld(World):
     Dual Set-Up System for new possibilities, you must battle your way through Camilla's castle and rescue your master
     from a demonic ritual to restore the Count's power...
     """
+
+    hidden = True
+
     game = "Castlevania - Circle of the Moon"
     item_name_groups = {
         "DSS": ACTION_CARDS.union(ATTRIBUTE_CARDS),
