@@ -65,6 +65,8 @@ class EBItem(Item):
 class EarthBoundWorld(World):
     """EarthBound is a contemporary-themed JRPG. Take four psychically-endowed children
        across the world in search of 8 Melodies to defeat Giygas, the cosmic evil."""
+
+    hidden = True
     
     game = "EarthBound"
     option_definitions = EBOptions
