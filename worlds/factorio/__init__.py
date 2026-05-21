@@ -64,6 +64,9 @@ class Factorio(World):
     Nauvis, an inhospitable world filled with dangerous creatures called biters. Build a factory,
     research new technologies, and become more efficient in your quest to build a rocket and return home.
     """
+
+    hidden = True
+
     game = "Factorio"
     special_nodes = {"automation", "logistics", "rocket-silo"}
     custom_recipes: typing.Dict[str, Recipe]
