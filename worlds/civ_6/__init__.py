@@ -83,6 +83,8 @@ class CivVIWorld(World):
     Civilization VI is a turn-based strategy video game in which one or more players compete alongside computer-controlled opponents to grow their individual civilization from a small tribe to control the entire planet across several periods of development.
     """
 
+    hidden = True
+
     game = "Civilization VI"
     topology_present = False
     options_dataclass = CivVIOptions
