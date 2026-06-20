@@ -118,6 +118,7 @@ class PeggleDeluxeWorld(World):
     target_score_ratios: Dict[PeggleDeluxeLevels, float]
 
     # Universal Tracker
+    location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 
     @property
@@ -275,6 +276,7 @@ class PeggleDeluxeWorld(World):
 
         # Universal Tracker Support
         if self.is_universal_tracker:
+            self.location_id_to_alias = dict()
             self._apply_universal_tracker_passthrough()
 
     def create_regions(self) -> None:
@@ -610,6 +612,18 @@ class PeggleDeluxeWorld(World):
             self.maximum_starting_ball_count = passthrough["maximum_starting_ball_count"]
             self.useful_item_percentage = passthrough["useful_item_percentage"]
             self.useful_item_weights = passthrough["useful_item_weights"]
+
+            # Location Aliases
+            score_labels: Tuple[str, ...] = ("Low", "Mid", "High")
+
+            level: PeggleDeluxeLevels
+            scores: List[int]
+            for level, scores in self.target_scores.items():
+                i: int
+                score: int
+                for i, score in enumerate(scores):
+                    location_name: str = f"{level.value} - Target Score ({score_labels[i]})"
+                    self.location_id_to_alias[self.location_name_to_id[location_name]] = f"{score:,}"
 
     def _generate_filler_useful_item_pool(self, count: int, useful_item_pool: List[str]) -> List[str]:
         useful_items_needed: int = round(self.useful_item_percentage / 100 * count)
