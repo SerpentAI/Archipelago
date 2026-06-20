@@ -65,6 +65,14 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
     information_label: Label
     gold_pegs_label: Label
 
+    progressive_starting_balls_all: int
+    progressive_starting_balls_half: int
+
+    level_clears_available_label: Label
+    target_scores_mid_available_label: Label
+    target_scores_high_available_label: Label
+    full_clears_available_label: Label
+
     level_information_level_image: Image
     level_information_master_image: Image
     level_information_title: Label
@@ -122,7 +130,7 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
             ),
             markup=True,
             size_hint_y=None,
-            height="60dp",
+            height="40dp",
             halign="left",
             valign="middle",
         )
@@ -130,6 +138,90 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
         self.gold_pegs_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
         self.add_widget(self.gold_pegs_label)
+
+        # Logic Thresholds
+        self.progressive_starting_balls_all = self.ctx.game_controller.option_maximum_starting_ball_count - 5
+        self.progressive_starting_balls_half = round((self.ctx.game_controller.option_maximum_starting_ball_count - 5) / 2)
+
+        logic_thresholds_layout: BoxLayout = BoxLayout(
+            orientation="horizontal",
+            size_hint_y=None,
+            height="80dp",
+            spacing="8dp",
+        )
+
+        # Target Scores (Mid) Available
+        self.target_scores_mid_available_label: Label = Label(
+            text=(
+                f"[b]Scores (Mid) Available[/b]\n"
+                f"[color=00FA9A]0[/color] / [color=00FA9A]2[/color] Prog. Fever Meters\n"
+                f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_half}[/color] Prog. Start. Balls"
+            ),
+            markup=True,
+            size_hint_y=None,
+            height="80dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.target_scores_mid_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        logic_thresholds_layout.add_widget(self.target_scores_mid_available_label)
+
+        # Target Scores (High) Available
+        self.target_scores_high_available_label: Label = Label(
+            text=(
+                f"[b]Scores (High) Available[/b]\n"
+                f"[color=00FA9A]0[/color] / [color=00FA9A]4[/color] Prog. Fever Meters\n"
+                f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
+            ),
+            markup=True,
+            size_hint_y=None,
+            height="80dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.target_scores_high_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        logic_thresholds_layout.add_widget(self.target_scores_high_available_label)
+
+        # Level Clears Available
+        self.level_clears_available_label: Label = Label(
+            text=(
+                f"[b]Level Clears Available[/b]\n"
+                f"[color=00FA9A]0[/color] / [color=00FA9A]4[/color] Prog. Fever Meters"
+            ),
+            markup=True,
+            size_hint_y=None,
+            height="60dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.level_clears_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        logic_thresholds_layout.add_widget(self.level_clears_available_label)
+
+        # Full Clears Available
+        if self.ctx.game_controller.option_include_full_clears:
+            self.full_clears_available_label: Label = Label(
+                text=(
+                    f"[b]Full Clears Available[/b]\n"
+                    f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
+                ),
+                markup=True,
+                size_hint_y=None,
+                height="60dp",
+                halign="left",
+                valign="middle",
+            )
+
+            self.full_clears_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+            logic_thresholds_layout.add_widget(self.full_clears_available_label)
+
+        self.add_widget(logic_thresholds_layout)
 
         # Level Information
         level_information_layout: BoxLayout = BoxLayout(
@@ -481,6 +573,32 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
             f"[color=00FA9A]{self.ctx.game_controller.option_gold_pegs_required}[/color] needed "
             f"([color=888888]{self.ctx.game_controller.option_gold_pegs_total} total[/color])"
         )
+
+        fever_meters_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
+        balls_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value, 0)
+
+        self.target_scores_mid_available_label.text = (
+            f"[b]Scores (Mid) Available[/b]\n"
+            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]2[/color] Prog. Fever Meters\n"
+            f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_half}[/color] Prog. Start. Balls"
+        )
+
+        self.target_scores_high_available_label.text = (
+            f"[b]Scores (High) Available[/b]\n"
+            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]4[/color] Prog. Fever Meters\n"
+            f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
+        )
+
+        self.level_clears_available_label.text = (
+            f"[b]Level Clears Available[/b]\n"
+            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]4[/color] Prog. Fever Meters"
+        )
+
+        if self.ctx.game_controller.option_include_full_clears:
+            self.full_clears_available_label.text = (
+                f"[b]Full Clears Available[/b]\n"
+                f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
+            )
 
         # Level
         if game_state is not None:
