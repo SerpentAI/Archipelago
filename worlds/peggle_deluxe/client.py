@@ -26,13 +26,15 @@ tracker_loaded: bool = False
 
 try:
     from worlds.tracker.TrackerClient import TrackerGameContext as Context
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor as CommandProcessor
 
     tracker_loaded = True
 except ModuleNotFoundError:
     from CommonClient import CommonContext as Context
+    from CommonClient import ClientCommandProcessor as CommandProcessor
 
 
-class PeggleDeluxeCommandProcessor(CommonClient.ClientCommandProcessor):
+class PeggleDeluxeCommandProcessor(CommandProcessor):
     ctx: "PeggleDeluxeContext"
 
 
