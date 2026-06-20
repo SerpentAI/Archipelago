@@ -21,12 +21,22 @@ from .data_funcs import (
 from .enums import PeggleDeluxeAPUsefulItems, PeggleDeluxeCharacters, PeggleDeluxeLevels
 from .game_controller import GameController
 
+# UT Tab Integration
+tracker_loaded: bool = False
+
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as Context
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as Context
+
 
 class PeggleDeluxeCommandProcessor(CommonClient.ClientCommandProcessor):
     ctx: "PeggleDeluxeContext"
 
 
-class PeggleDeluxeContext(CommonClient.CommonContext):
+class PeggleDeluxeContext(Context):
     tags: Set[str] = {"AP"}
     game: str = "Peggle Deluxe"
     command_processor: CommonClient.ClientCommandProcessor = PeggleDeluxeCommandProcessor
@@ -64,8 +74,8 @@ class PeggleDeluxeContext(CommonClient.CommonContext):
         self.can_display_process_not_found_message = True
 
     def make_gui(self):
-        from .client_gui.client_gui import PeggleDeluxeManager
-        return PeggleDeluxeManager
+        from .client_gui.client_gui import bootstrap_client_gui
+        return bootstrap_client_gui(super().make_gui())
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -182,6 +192,9 @@ class PeggleDeluxeContext(CommonClient.CommonContext):
             # UI Tabs
             self.ui.update_tabs()
 
+        # UT Tab Integration
+        super().on_package(cmd, _args)
+
     async def controller(self):
         while not self.exit_event.is_set():
             await asyncio.sleep(0.2)
@@ -262,6 +275,10 @@ def main(*args) -> None:
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="PeggleDeluxeController")
+
+        # UT Tab Integration
+        if tracker_loaded:
+            ctx.run_generator()
 
         if CommonClient.gui_enabled:
             ctx.run_gui()
