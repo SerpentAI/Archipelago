@@ -5,7 +5,9 @@
 - Windows OS (Hard required. Client is using memory reading / writing through Win32 API)
   - A Linux environment can also be used if configured properly. See the Linux instructions below.
 - A copy of Zork Grand Inquisitor. GOG version preferred. Steam version will need to be manually configured to work with ScummVM
-- ScummVM 2.7.1 64-bit (Important: Will not work with any other version. Direct Download)
+- ScummVM:
+  - APWorld version 2.1.x and under: 2.7.1 64-bit ([Direct Download](https://downloads.scummvm.org/frs/scummvm/2.7.1/scummvm-2.7.1-win32-x86_64.zip))
+  - APWorld version 2.2.x and above: 2026.2.0 64-bit ([Direct Download](https://downloads.scummvm.org/frs/scummvm/2026.2.0/scummvm-2026.2.0-win32-x86_64.zip))
 - Archipelago 0.6.7+
 
 
@@ -13,22 +15,26 @@
 
 No game modding is required to play Zork Grand Inquisitor with Archipelago. The client included with the APWorld does all the work by attaching to the game process and reading and manipulating the game state in real-time. The instructions assume the game is already installed.
 
+**IMPORTANT**
+
+A vanilla game script refers to a non-existent file regardless of the game version you own. That file will need to be created to avoid ScummVM crashing when operating the totemizer. Locate `me00h64p.raw` (for GOG, it's in `zassetse\eng_aud`; for Steam, it's in `ZASSETS2\MONAST2`). Make a copy and rename it to `me00h62p.raw`.
+
 **GOG Instructions**
 - Open the directory where you installed Zork Grand Inquisitor. You should see a `Launch Zork Grand Inquisitor` shortcut.
 - Open the `scummvm` directory. Delete the entire contents of that directory.
-- Still inside the `scummvm` directory, unzip the contents of the ScummVM 2.7.1 zip file you downloaded earlier.
+- Still inside the `scummvm` directory, unzip the contents of the ScummVM zip file you downloaded earlier.
 - Go back to the directory where you installed Zork Grand Inquisitor.
 - Verify that the game still launches when using the `Launch Zork Grand Inquisitor` shortcut.
 - Your game is now ready to be played with Archipelago. From now on, you can use the `Launch Zork Grand Inquisitor` shortcut to launch the game.
 
 **Steam Instructions**
-- Unzip the contents of the ScummVM 2.7.1 zip file you downloaded earlier to a directory of your choosing.
+- Unzip the contents of the ScummVM zip file you downloaded earlier to a directory of your choosing.
 - Launch ScummVM.
 - Click `Add Game` and select the directory where you installed Zork Grand Inquisitor
 - You might have to tweak a few ScummVM settings, as you won't have the curated configuration the GOG version does, but the game should be playable regardless.
 
 **Linux Instructions**
-- Before continuing, your goal should be to have the vanilla game running in ScummVM 2.7.1 through Wine. Unzipping the ScummVM 2.7.1 zip file to a directory of your choosing, running ScummVM and adding Zork Grand Inquisitor manually is the recommended method, even if you own the GOG version.
+- Before continuing, your goal should be to have the vanilla game running in ScummVM through Wine. Unzipping the ScummVM zip file to a directory of your choosing, running ScummVM and adding Zork Grand Inquisitor manually is the recommended method, even if you own the GOG version.
 - Download the latest _Windows_ release of Archipelago (.exe file).
 - Install it to a Wine prefix of your choosing.
 - Inside your ScummVM directory, create a batch file (.bat) with the following content:
