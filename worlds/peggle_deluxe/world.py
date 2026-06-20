@@ -553,7 +553,7 @@ class PeggleDeluxeWorld(World):
         if self.selected_goal_level is not None:
             spoiler_handle.write(f"\n\nGoal Level: {self.selected_goal_level.value}")
 
-        spoiler_handle.write(f"\n\nTarget Scores:\n  {join_string.join([f'{t.value} ({self.target_score_ratios[t]}x): {self.target_scores[t]}' for t in self.target_scores])}")
+        spoiler_handle.write(f"\n\nTarget Scores:\n  {join_string.join([f'{t.value} ({self.target_score_ratios[t]}x): {self.target_scores[t]}' for t in self.target_scores])}\n")
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
