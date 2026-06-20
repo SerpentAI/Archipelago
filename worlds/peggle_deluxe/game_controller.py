@@ -404,6 +404,9 @@ class GameController:
             elif self.received_items[PeggleDeluxeAPItems.GOLD_PEG.value] < self.option_gold_pegs_required:
                 return
 
+        if self.game_state_current_character is None:
+            return
+
         character_unlock_item: str = f"Master Unlock: {self.game_state_current_character.value}"
 
         if character_unlock_item not in self.received_items:
