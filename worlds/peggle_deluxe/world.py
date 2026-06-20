@@ -2,7 +2,7 @@ import logging
 
 from typing import Any, Dict, List, Optional, TextIO, Tuple
 
-from rule_builder.rules import Rule, And, Has
+from rule_builder.rules import Rule, And, Has, Or
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
@@ -118,6 +118,7 @@ class PeggleDeluxeWorld(World):
     target_score_ratios: Dict[PeggleDeluxeLevels, float]
 
     # Universal Tracker
+    glitches_item_name: str = PeggleDeluxeAPItems.OOL.value
     location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 
@@ -353,25 +354,47 @@ class PeggleDeluxeWorld(World):
                 location_access_rule: Optional[Rule]
 
                 if "Target Score (Mid)" in location_name:
-                    location_access_rule = And(
-                        data.requirements,
-                        Has(
-                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                            round((self.maximum_starting_ball_count - 5) / 2)
-                        )
+                    location_access_rule = Or(
+                        And(
+                            data.requirements,
+                            Has(
+                                PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                round((self.maximum_starting_ball_count - 5) / 2)
+                            )
+                        ),
+                        Has(PeggleDeluxeAPItems.OOL.value),
                     )
                 elif "Target Score (High)" in location_name:
-                    location_access_rule = And(
-                        data.requirements,
-                        Has(
-                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                            self.maximum_starting_ball_count - 5
+                    location_access_rule = Or(
+                        And(
+                            data.requirements,
+                            Has(
+                                PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                self.maximum_starting_ball_count - 5
+                            )
+                        ),
+                        And(
+                            Has(PeggleDeluxeAPItems.OOL.value),
+                            Has(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 2),
+                            Has(
+                                PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                            )
                         )
                     )
                 elif "Full Clear" in location_name:
-                    location_access_rule = Has(
-                        PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                        self.maximum_starting_ball_count - 5
+                    location_access_rule = Or(
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            self.maximum_starting_ball_count - 5
+                        ),
+                        And(
+                            Has(PeggleDeluxeAPItems.OOL.value),
+                            Has(
+                                PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                            ),
+                        )
                     )
                 else:
                     location_access_rule = data.requirements

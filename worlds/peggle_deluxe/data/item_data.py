@@ -25,6 +25,12 @@ item_data: Dict[str, PeggleDeluxeItemData] = {
         classification=ItemClassification.progression_deprioritized_skip_balancing,
         tags=(PeggleDeluxeAPTags.GOAL_ITEM,),
     ),
+    # OOL Items
+    PeggleDeluxeAPItems.OOL.value: PeggleDeluxeItemData(
+        archipelago_id=item_offset + 5,
+        classification=ItemClassification.progression,
+        tags=(PeggleDeluxeAPTags.OOL_ITEM,),
+    ),
     # Progressive Items
     PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value: PeggleDeluxeItemData(
         archipelago_id=item_offset + 10 + 1,
