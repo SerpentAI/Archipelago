@@ -2,7 +2,7 @@ import logging
 
 from typing import Any, Dict, List, Optional, TextIO, Tuple
 
-from rule_builder.rules import Rule, And, Has
+from rule_builder.rules import Rule, And, Has, Or
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
@@ -118,6 +118,7 @@ class PeggleNightsWorld(World):
     target_score_ratios: Dict[PeggleNightsLevels, float]
 
     # Universal Tracker
+    glitches_item_name: str = PeggleNightsAPItems.OOL.value
     location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 
@@ -353,25 +354,47 @@ class PeggleNightsWorld(World):
                 location_access_rule: Optional[Rule]
 
                 if "Target Score (Mid)" in location_name:
-                    location_access_rule = And(
-                        data.requirements,
-                        Has(
-                            PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                            round((self.maximum_starting_ball_count - 5) / 2)
-                        )
+                    location_access_rule = Or(
+                        And(
+                            data.requirements,
+                            Has(
+                                PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                round((self.maximum_starting_ball_count - 5) / 2)
+                            )
+                        ),
+                        Has(PeggleNightsAPItems.OOL.value),
                     )
                 elif "Target Score (High)" in location_name:
-                    location_access_rule = And(
-                        data.requirements,
-                        Has(
-                            PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                            self.maximum_starting_ball_count - 5
+                    location_access_rule = Or(
+                        And(
+                            data.requirements,
+                            Has(
+                                PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                self.maximum_starting_ball_count - 5
+                            )
+                        ),
+                        And(
+                            Has(PeggleNightsAPItems.OOL.value),
+                            Has(PeggleNightsAPItems.PROGRESSIVE_FEVER_METER.value, 2),
+                            Has(
+                                PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                            )
                         )
                     )
                 elif "Full Clear" in location_name:
-                    location_access_rule = Has(
-                        PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                        self.maximum_starting_ball_count - 5
+                    location_access_rule = Or(
+                        Has(
+                            PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            self.maximum_starting_ball_count - 5
+                        ),
+                        And(
+                            Has(PeggleNightsAPItems.OOL.value),
+                            Has(
+                                PeggleNightsAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                            ),
+                        )
                     )
                 else:
                     location_access_rule = data.requirements
