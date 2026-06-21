@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import io
 import pkgutil
@@ -84,6 +84,9 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
     orange_peg_combo_label: Label
     peg_combo_label: Label
     pegs_cleared: Label
+
+    last_seen_level: Optional[PeggleNightsLevels]
+    last_seen_master: Optional[PeggleNightsCharacters]
 
     def __init__(self, ctx: PeggleNightsContext) -> None:
         super().__init__(orientation="vertical", size_hint_y=None, height="200dp", spacing="8dp",)
@@ -433,6 +436,9 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
 
         self.add_widget(self.pegs_cleared)
 
+        self.last_seen_level = None
+        self.last_seen_master = None
+
     def update(self) -> None:
         ## Received Items
         received_items: Dict[str, int] = dict()
@@ -502,6 +508,9 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
                 self.orange_peg_combo_label.text = "[b]Orange Peg Combo:[/b] 0"
                 self.peg_combo_label.text = "[b]Peg Combo:[/b] 0"
                 self.pegs_cleared.text = "[b]Pegs Cleared:[/b] 0"
+
+                self.last_seen_level = None
+                self.last_seen_master = None
             else:
                 if game_state.current_level is not None and game_state.current_character is not None:
                     level_unlock: str = f"Level Unlock: {game_state.current_level.value}"
@@ -564,25 +573,31 @@ class PeggleNightsLevelInformationLayout(BoxLayout):
                         is_master_unlocked = True
 
                     # Level Image
-                    stage, stage_level = level_to_stage_levels[game_state.current_level]
-                    level_string = f"{stage + 1}-{stage_level + 1}"
+                    if self.last_seen_level != game_state.current_level:
+                        stage, stage_level = level_to_stage_levels[game_state.current_level]
+                        level_string = f"{stage + 1}-{stage_level + 1}"
 
-                    image_path: str = f"assets/{level_string}.png"
-                    image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
+                        image_path: str = f"assets/{level_string}.png"
+                        image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
 
-                    image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
+                        image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
 
-                    self.level_information_level_image.texture = image.texture
-                    self.level_information_level_image.opacity = 1.0
+                        self.level_information_level_image.texture = image.texture
+                        self.level_information_level_image.opacity = 1.0
+
+                        self.last_seen_level = game_state.current_level
 
                     # Master Image
-                    image_path: str = f"assets/{character_to_ids[game_state.current_character]}.png"
-                    image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
+                    if self.last_seen_master != game_state.current_character:
+                        image_path: str = f"assets/{character_to_ids[game_state.current_character]}.png"
+                        image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
 
-                    image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
+                        image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
 
-                    self.level_information_master_image.texture = image.texture
-                    self.level_information_master_image.opacity = 1.0
+                        self.level_information_master_image.texture = image.texture
+                        self.level_information_master_image.opacity = 1.0
+
+                        self.last_seen_master = game_state.current_character
 
                     # Level Title
                     self.level_information_title.text = f"[b]{game_state.current_level.value}[/b]"
