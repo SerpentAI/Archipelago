@@ -1139,6 +1139,11 @@ class TonyHawksProSkater12LevelTypes(enum.Enum):
     NO_OBJECTIVES = "Without Objectives"
 
 
+class TonyHawksProSkater12Platforms(enum.Enum):
+    STEAM = 0
+    EPIC = 1
+
+
 class TonyHawksProSkater12Skaters(enum.Enum):
     ANDREW_REYNOLDS = "Andrew Reynolds"
     AORI_NISHIMURA = "Aori Nishimura"

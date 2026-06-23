@@ -4,9 +4,16 @@ from ..enums import (
     TonyHawksProSkater12Gaps,
     TonyHawksProSkater12Levels,
     TonyHawksProSkater12LevelTypes,
+    TonyHawksProSkater12Platforms,
     TonyHawksProSkater12Skaters,
     TonyHawksProSkater12Specials,
 )
+
+
+executable_size_to_platforms: Dict[int, TonyHawksProSkater12Platforms] = {
+    69459968: TonyHawksProSkater12Platforms.STEAM,
+    441241600: TonyHawksProSkater12Platforms.EPIC,
+}
 
 
 gap_to_descriptions: Dict[TonyHawksProSkater12Gaps, str] = {

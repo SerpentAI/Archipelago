@@ -4,10 +4,14 @@ import ctypes
 import functools
 import struct
 
+import psutil  # Appears to be vendored in frozen Archipelago 0.6.7
+import pymem.process
+import pymem.ressources.structure
+
 from pymem import Pymem
-from pymem.process import close_handle
 
 from .data.game_data import (
+    executable_size_to_platforms,
     gap_to_internal_names_reverse,
     level_to_internal_names_reverse,
     skater_to_internal_names,
@@ -21,6 +25,7 @@ from .enums import (
     TonyHawksProSkater12Contexts,
     TonyHawksProSkater12Gaps,
     TonyHawksProSkater12Levels,
+    TonyHawksProSkater12Platforms,
     TonyHawksProSkater12Skaters,
     TonyHawksProSkater12Specials,
 )
@@ -40,15 +45,16 @@ class GameState(NamedTuple):
 
 class GameStateManager:
     process_name: str = "THPS12.exe"
+    game_platform: Optional[TonyHawksProSkater12Platforms] = None
 
-    gnames_offset: int = 0x3CC9500
-    gobjects_offset: int = 0x3CE0C00
-    gworld_offset: int = 0x3DCA248
+    gnames_offset: Tuple[int, ...] = (0x3CC9500, 0x3C97840)
+    gobjects_offset: Tuple[int, ...] = (0x3CE0C00, 0x3CAF0F8)
+    gworld_offset: Tuple[int, ...] = (0x3DCA248, 0x3D98888)
 
-    process_event_offset: int = 0xC1F360
+    process_event_offset: Tuple[int, ...] = (0xC1F360, 0xBAF4A0)
     process_event_vtable_offset: int = 0x42
 
-    gmalloc_offset: int = 0x3CC38D8
+    gmalloc_offset: Tuple[int, ...] = (0x3CC38D8, 0x3C7E8E8)  # Note for the future: Found with UE4SS
 
     process: Optional[Pymem]
     is_process_running: bool
@@ -59,8 +65,8 @@ class GameStateManager:
     gobjects_name_to_object: Dict[str, List[Dict[str, Any]]]
     gobjects_address_to_object: Dict[int, Dict[str, Any]]
 
-    local_player_offset: int = 0x3B9B4C8
-    player_profile_entry_point_offset: int = 0x38EFDB8
+    local_player_offset: Tuple[int, ...] = (0x3B9B4C8, 0x3B55D58)
+    player_profile_entry_point_offset: Tuple[int, ...] = (0x38EFDB8, 0x3760BC8)
 
     get_game_variable_as_int_function_address: Optional[int] = None
 
@@ -80,55 +86,60 @@ class GameStateManager:
 
     @property
     def player_controller_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x0))
 
     @property
     def player_state_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x220, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x220, 0x0))
 
     @property
     def score_struct_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x220, 0x3A0, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x220, 0x3A0, 0x0))
 
     @property
     def sandbox_modifier_system_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x220, 0x3A8, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x220, 0x3A8, 0x0))
 
     @property
     def sandbox_stats_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x220, 0x3A8, 0x228, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x220, 0x3A8, 0x228, 0x0))
 
     @property
     def game_variable_system_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x220, 0x458, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x220, 0x458, 0x0))
 
     @property
     def level_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x20, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x20, 0x0))
 
     @property
     def world_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x20, 0x20, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x20, 0x20, 0x0))
 
     @property
     def pawn_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x248, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x248, 0x0))
 
     @property
     def skeletal_mesh_component_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x248, 0x278, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x248, 0x278, 0x0))
 
     @property
     def camera_component_address(self) -> int:
-        return self._resolve_address(self.local_player_offset, (0x30, 0x248, 0x730, 0x0))
+        return self._resolve_address(self.local_player_offset[self.game_platform.value], (0x30, 0x248, 0x730, 0x0))
 
     @property
     def player_profile_address(self) -> int:
-        return self._resolve_address(self.player_profile_entry_point_offset, (0x30, 0x0))
+        return self._resolve_address(self.player_profile_entry_point_offset[self.game_platform.value], (0x30, 0x0))
 
     @property
     def saved_game_address(self) -> int:
-        return self._resolve_address(self.player_profile_entry_point_offset, (0x30, 0x350, 0x0))
+        if self.game_platform == TonyHawksProSkater12Platforms.STEAM:
+            return self._resolve_address(self.player_profile_entry_point_offset[self.game_platform.value], (0x30, 0x350, 0x0))
+        elif self.game_platform == TonyHawksProSkater12Platforms.EPIC:
+            return self._resolve_address(self.player_profile_entry_point_offset[self.game_platform.value], (0x30, 0x330, 0x0))
+
+        return None
 
     @functools.cached_property
     def default_sandbox_modifiers(self):
@@ -181,7 +192,37 @@ class GameStateManager:
 
     def open_process_handle(self) -> bool:
         try:
-            self.process = Pymem(self.process_name)
+            # Use Resident Set Size to tell apart real executable from wrappers with the same name. Thank you EGS version!
+            process_pid: Optional[int] = None
+            process_memory_usage: int = 0
+
+            process: psutil.Process
+            for process in psutil.process_iter(["pid", "name", "memory_info"]):
+                process_data: Dict[str, Any] = process.info
+
+                if process_data["name"] != self.process_name:
+                    continue
+
+                memory_usage: int = process_data["memory_info"].rss
+
+                if memory_usage > process_memory_usage:
+                    process_pid = process_data["pid"]
+                    process_memory_usage = memory_usage
+
+            if process_pid is None:
+                return False
+
+            self.process = Pymem(process_pid)
+
+            module: pymem.ressources.structure.MODULEINFO = pymem.process.module_from_name(
+                self.process.process_handle, self.process_name
+            )
+
+            self.game_platform = executable_size_to_platforms.get(module.SizeOfImage, None)
+
+            if self.game_platform is None:
+                return False
+
             self.is_process_running = True
 
             self._generate_gnames_mapping()
@@ -199,7 +240,9 @@ class GameStateManager:
         return True
 
     def close_process_handle(self) -> bool:
-        if close_handle(self.process.process_handle):
+        if pymem.process.close_handle(self.process.process_handle):
+            self.game_platform = None
+
             self.is_process_running = False
             self.process = None
 
@@ -221,6 +264,8 @@ class GameStateManager:
         try:
             self.process.read_int(self.process.base_address)
         except Exception:
+            self.game_platform = None
+
             self.is_process_running = False
             self.process = None
 
@@ -1212,7 +1257,7 @@ class GameStateManager:
 
         mapping: Dict[int, str] = dict()
 
-        gnames_pointer: int = self.process.base_address + self.gnames_offset
+        gnames_pointer: int = self.process.base_address + self.gnames_offset[self.game_platform.value]
         blocks_base_address: int = gnames_pointer + 0x10
 
         try:
@@ -1271,7 +1316,7 @@ class GameStateManager:
         self.gobjects_name_to_object = dict()
         self.gobjects_address_to_object = dict()
 
-        gobjects_address: int = self.process.base_address + self.gobjects_offset
+        gobjects_address: int = self.process.base_address + self.gobjects_offset[self.game_platform.value]
 
         chunks_pointer_base_address: int = self.process.read_longlong(gobjects_address + 0x0)
         element_count: int = self.process.read_int(gobjects_address + 0x14)
@@ -1353,7 +1398,7 @@ class GameStateManager:
             args_address = self.process.allocate(len(args_bytes))
             self.process.write_bytes(args_address, args_bytes, len(args_bytes))
 
-        process_event_address = self.process.base_address + 0xC1F360
+        process_event_address = self.process.base_address + self.process_event_offset[self.game_platform.value]
 
         shellcode = b"\x48\x83\xEC\x38"  # sub rsp, 38h
         shellcode += b"\x48\xB9" + struct.pack("<Q", instance_address)  # mov rcx, instance_address
@@ -1397,7 +1442,7 @@ class GameStateManager:
         return result
 
     def _call_malloc(self, allocation_size: int, alignment: int = 0x10) -> int:
-        gmalloc_address: int = self.process.read_longlong(self.process.base_address + self.gmalloc_offset)
+        gmalloc_address: int = self.process.read_longlong(self.process.base_address + self.gmalloc_offset[self.game_platform.value])
         vtable_address: int = self.process.read_longlong(gmalloc_address)
         malloc_internal_address: int = self.process.read_longlong(vtable_address + 0x18)
 

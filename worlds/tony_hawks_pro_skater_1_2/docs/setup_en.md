@@ -2,10 +2,12 @@
 
 ## Requirements
 - Windows OS (Hard required. Client is using memory reading / writing / allocation and running remote threads through Windows APIs)
-- Tony Hawk's Pro Skater 1 + 2 installed through Steam. EGS version is not currently supported
+- Tony Hawk's Pro Skater 1 + 2 installed through Steam or EGS
 - Archipelago 0.6.7+
 
 **Hashes of expected THPS12.exe**
+
+_Steam_
 ```
 Name: THPS12.exe
 Size: 66312456 bytes (63 MiB)
@@ -14,6 +16,17 @@ CRC64: 9C97186D49CD1E46
 SHA256: 1334052bb57d766ae1b4659f9c12abc7afde5fc6dd80e0457fb1885b909233e9
 SHA1: 9073e99d69b2d67eb7d961a79b5b2ec95255f601
 BLAKE2sp: cec37532d7fce27f4e51edc18504271fab07ec8f35a00701fc23ead7e9483ba2
+```
+
+_EGS_
+```
+Name: THPS12.exe
+Size: 438122568 bytes (417 MiB)
+CRC32: 5CC3D3A8
+CRC64: 667BCD7A3604E2A4
+SHA256: 5e60ff7b94ec279ac182c3c74973161dd8cced6503311e18834a9b23601774a2
+SHA1: e7cf616c53b465f17345e4045b88caa2fcb38844
+BLAKE2sp: ea31ac520d0b815c7492b6a228f17e105df8e1de712a11073c32d119edcddd39
 ```
 
 ## Game Setup Instructions
