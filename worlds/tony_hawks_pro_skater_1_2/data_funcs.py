@@ -1,5 +1,7 @@
 from typing import Any, Dict, List
 
+import copy
+
 from .data.item_data import TonyHawksProSkater12ItemData, item_data
 from .data.location_data import TonyHawksProSkater12LocationData, location_data
 
@@ -102,9 +104,11 @@ def locations_with_tags(tags: List[TonyHawksProSkater12APTags]) -> List[str]:
 
 
 def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
-    slot_data["goal"] = id_to_goals()[slot_data["goal"]]
-    slot_data["score_requirement_mode"] = id_to_requirement_modes()[slot_data["score_requirement_mode"]]
-    slot_data["combo_score_requirement_mode"] = id_to_requirement_modes()[slot_data["combo_score_requirement_mode"]]
+    slot_data_processed: Dict[str, Any] = copy.deepcopy(slot_data)
+
+    slot_data_processed["goal"] = id_to_goals()[slot_data["goal"]]
+    slot_data_processed["score_requirement_mode"] = id_to_requirement_modes()[slot_data["score_requirement_mode"]]
+    slot_data_processed["combo_score_requirement_mode"] = id_to_requirement_modes()[slot_data["combo_score_requirement_mode"]]
 
     trap_weights: Dict[TonyHawksProSkater12APTrapTypes, int] = dict()
 
@@ -113,24 +117,24 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
     for trap_type_name, weight in slot_data["trap_weights"].items():
         trap_weights[TonyHawksProSkater12APTrapTypes(trap_type_name)] = weight
 
-    slot_data["trap_weights"] = trap_weights
+    slot_data_processed["trap_weights"] = trap_weights
 
-    slot_data["selected_skaters"] = [
+    slot_data_processed["selected_skaters"] = [
         TonyHawksProSkater12Skaters(skater_name) for skater_name in slot_data["selected_skaters"]
     ]
 
-    slot_data["selected_starting_skater"] = TonyHawksProSkater12Skaters(slot_data["selected_starting_skater"])
+    slot_data_processed["selected_starting_skater"] = TonyHawksProSkater12Skaters(slot_data["selected_starting_skater"])
 
-    slot_data["selected_levels"] = [
+    slot_data_processed["selected_levels"] = [
         TonyHawksProSkater12Levels(level_name) for level_name in slot_data["selected_levels"]
     ]
 
-    slot_data["selected_starting_levels"] = [
+    slot_data_processed["selected_starting_levels"] = [
         TonyHawksProSkater12Levels(level_name) for level_name in slot_data["selected_starting_levels"]
     ]
 
     if slot_data["selected_goal_level"] is not None:
-        slot_data["selected_goal_level"] = TonyHawksProSkater12Levels(slot_data["selected_goal_level"])
+        slot_data_processed["selected_goal_level"] = TonyHawksProSkater12Levels(slot_data["selected_goal_level"])
 
     target_scores: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[int]]] = dict()
 
@@ -144,7 +148,7 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
         for skater_name, scores in skater_data.items():
             target_scores[TonyHawksProSkater12Levels(level_name)][TonyHawksProSkater12Skaters(skater_name)] = scores
 
-    slot_data["target_scores"] = target_scores
+    slot_data_processed["target_scores"] = target_scores
 
     target_combo_scores: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[int]]] = dict()
 
@@ -159,7 +163,7 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
             target_combo_scores[TonyHawksProSkater12Levels(level_name)][
                 TonyHawksProSkater12Skaters(skater_name)] = scores
 
-    slot_data["target_combo_scores"] = target_combo_scores
+    slot_data_processed["target_combo_scores"] = target_combo_scores
 
     target_gaps: Dict[
         TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[TonyHawksProSkater12Gaps]]] = dict()
@@ -176,7 +180,7 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
                 TonyHawksProSkater12Gaps(gap) for gap in gaps
             ]
 
-    slot_data["target_gaps"] = target_gaps
+    slot_data_processed["target_gaps"] = target_gaps
 
     target_long_tricks: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, List[float]]] = dict()
 
@@ -191,9 +195,9 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
             target_long_tricks[TonyHawksProSkater12Levels(level_name)][
                 TonyHawksProSkater12Skaters(skater_name)] = durations
 
-    slot_data["target_long_tricks"] = target_long_tricks
+    slot_data_processed["target_long_tricks"] = target_long_tricks
 
-    slot_data["starting_trick_types"] = {
+    slot_data_processed["starting_trick_types"] = {
         TonyHawksProSkater12Skaters(skater_name): trick_type_name for skater_name, trick_type_name in
         slot_data["starting_trick_types"].items()
     }
@@ -211,7 +215,7 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
             target_score_ratios[TonyHawksProSkater12Levels(level_name)][
                 TonyHawksProSkater12Skaters(skater_name)] = ratio
 
-    slot_data["target_score_ratios"] = target_score_ratios
+    slot_data_processed["target_score_ratios"] = target_score_ratios
 
     target_combo_score_ratios: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, float]] = dict()
 
@@ -226,6 +230,6 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
             target_combo_score_ratios[TonyHawksProSkater12Levels(level_name)][
                 TonyHawksProSkater12Skaters(skater_name)] = ratio
 
-    slot_data["target_combo_score_ratios"] = target_combo_score_ratios
+    slot_data_processed["target_combo_score_ratios"] = target_combo_score_ratios
 
-    return slot_data
+    return slot_data_processed

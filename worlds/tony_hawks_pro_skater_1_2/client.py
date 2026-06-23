@@ -20,28 +20,24 @@ from .enums import TonyHawksProSkater12APGoals
 
 from .game_controller import GameController
 
+# UT Tab Integration
+tracker_loaded: bool = False
 
-class TonyHawksProSkater12CommandProcessor(CommonClient.ClientCommandProcessor):
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as Context
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor as CommandProcessor
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as Context
+    from CommonClient import ClientCommandProcessor as CommandProcessor
+
+
+class TonyHawksProSkater12CommandProcessor(CommandProcessor):
     ctx: "TonyHawksProSkater12Context"
 
-    # Temporary until the custom client tab is implemented...
-    def _cmd_goal(self) -> None:
-        """Outputs the goal of the current seed."""
-        if not self.ctx.server or not self.ctx.slot:
-            self.output("You must be connected to an Archipelago server before using /goal.")
-            return
 
-        if self.ctx.game_controller.option_goal == TonyHawksProSkater12APGoals.SECRET_TAPES_FINAL_LEVEL:
-            self.output(
-                f"Collect {self.ctx.game_controller.option_secret_tapes_required} Secret Tapes, then score at least 1 million points on {self.ctx.game_controller.selected_goal_level.value}"
-            )
-        elif self.ctx.game_controller.option_goal == TonyHawksProSkater12APGoals.SECRET_TAPE_HUNT:
-            self.output(
-                f"Collect {self.ctx.game_controller.option_secret_tapes_required} Secret Tapes"
-            )
-
-
-class TonyHawksProSkater12Context(CommonClient.CommonContext):
+class TonyHawksProSkater12Context(Context):
     tags: Set[str] = {"AP"}
     game: str = "Tony Hawk's Pro Skater 1 + 2"
     command_processor: CommonClient.ClientCommandProcessor = TonyHawksProSkater12CommandProcessor
@@ -79,8 +75,8 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
         self.can_display_process_not_found_message = True
 
     def make_gui(self):
-        from .client_gui.client_gui import TonyHawksProSkater12Manager
-        return TonyHawksProSkater12Manager
+        from .client_gui.client_gui import bootstrap_client_gui
+        return bootstrap_client_gui(super().make_gui())
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -186,6 +182,9 @@ class TonyHawksProSkater12Context(CommonClient.CommonContext):
             # UI Tabs
             self.ui.update_tabs()
 
+        # UT Tab Integration
+        super().on_package(cmd, _args)
+
     async def controller(self):
         while not self.exit_event.is_set():
             await asyncio.sleep(0.2)
@@ -266,6 +265,10 @@ def main(*args) -> None:
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="TonyHawksProSkater12Controller")
+
+        # UT Tab Integration
+        if tracker_loaded:
+            ctx.run_generator()
 
         if CommonClient.gui_enabled:
             ctx.run_gui()

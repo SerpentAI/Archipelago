@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from kvui import GameManager
 
@@ -13,25 +13,28 @@ from ..client import TonyHawksProSkater12Context
 from .client_gui_layouts import TonyHawksProSkater12TabLayout
 
 
-class TonyHawksProSkater12Manager(GameManager):
-    ctx: TonyHawksProSkater12Context
+def bootstrap_client_gui(gui: Optional[type[GameManager]]) -> type[GameManager]:
+    class TonyHawksProSkater12Manager(gui):
+        ctx: TonyHawksProSkater12Context
 
-    logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
-    base_title: str = "Archipelago Tony Hawk's Pro Skater 1 & 2 Client"
+        logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
+        base_title: str = "Archipelago Tony Hawk's Pro Skater 1 & 2 Client"
 
-    tony_hawks_pro_skater_1_2_tab_layout: TonyHawksProSkater12TabLayout
+        tony_hawks_pro_skater_1_2_tab_layout: TonyHawksProSkater12TabLayout
 
-    tony_hawks_pro_skater_1_2_tab: Widget
+        tony_hawks_pro_skater_1_2_tab: Widget
 
-    def build(self) -> Layout:
-        container: Layout = super().build()
+        def build(self) -> Layout:
+            container: Layout = super().build()
 
-        self.tony_hawks_pro_skater_1_2_tab_layout = TonyHawksProSkater12TabLayout(self.ctx)
-        self.tony_hawks_pro_skater_1_2_tab = self.add_client_tab("Tony Hawk's Pro Skater 1 & 2", self.tony_hawks_pro_skater_1_2_tab_layout)
+            self.tony_hawks_pro_skater_1_2_tab_layout = TonyHawksProSkater12TabLayout(self.ctx)
+            self.tony_hawks_pro_skater_1_2_tab = self.add_client_tab("Tony Hawk's Pro Skater 1 & 2", self.tony_hawks_pro_skater_1_2_tab_layout)
 
-        inspector.create_inspector(Window, container)
+            inspector.create_inspector(Window, container)
 
-        return container
+            return container
 
-    def update_tabs(self) -> None:
-        self.tony_hawks_pro_skater_1_2_tab_layout.update()
+        def update_tabs(self) -> None:
+            self.tony_hawks_pro_skater_1_2_tab_layout.update()
+
+    return TonyHawksProSkater12Manager
