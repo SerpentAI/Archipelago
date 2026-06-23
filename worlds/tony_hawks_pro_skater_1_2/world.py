@@ -994,6 +994,8 @@ class TonyHawksProSkater12World(World):
         for skater in self.selected_skaters:
             spoiler_handle.write(join_string + f"{skater.value}: {self.starting_trick_types[skater]}")
 
+        spoiler_handle.write("\n")
+
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
 
