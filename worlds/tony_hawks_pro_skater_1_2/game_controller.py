@@ -684,80 +684,80 @@ class GameController:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_black_and_white_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.BLOOM:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_bloom_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.CHROMATIC:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_chromatic_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.COLOR_INVERSION:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_color_inversion_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.GIANT:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_giant_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.HIGH_GRAVITY:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_high_gravity_trap(self.game_state_skater):
                                 should_reinject_sandbox_modifiers = True
 
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.LOW_GRAVITY:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_low_gravity_trap(self.game_state_skater):
                                 should_reinject_sandbox_modifiers = True
 
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.MOBILE_GAME:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_mobile_game_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.RETRO:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_retro_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.REVERSE_DIRECTIONAL_CONTROLS:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_reverse_directional_controls_trap(self.game_state_skater):
                                 should_reinject_sandbox_modifiers = True
 
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.SUPER_SPEED:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_super_speed_trap(self.game_state_skater):
                                 should_reinject_sandbox_modifiers = True
 
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.TINY:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_tiny_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.TUNNEL_VISION:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_tunnel_vision_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
                     elif trap_type == TonyHawksProSkater12APTrapTypes.WIDE:
                         if self.active_trap_timestamps[trap_type] is None:
                             if self.game_state_manager.enable_wide_trap():
                                 self.active_trap_timestamps[trap_type] = expiry_timestamp
-                                self.processed_trap_counters[trap_type] = item_count
+                                self.processed_trap_counters[trap_type] += 1
 
         if should_reinject_sandbox_modifiers:
             self.game_state_manager.inject_sandbox_modifiers(self.game_state_skater)
