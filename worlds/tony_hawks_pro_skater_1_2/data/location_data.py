@@ -27,7 +27,6 @@ locations_requiring_stats: List[str] = [
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - SKATE Letter A",  # BP_Collectible_THPS1_Skate_A
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - SKATE Letter E",  # BP_Collectible_THPS1_Skate_E
     f"{TonyHawksProSkater12Levels.STREETS.value} - SKATER - Secret Tape",
-    f"{TonyHawksProSkater12Levels.SCHOOL_II.value} - SKATER - Secret Tape",
     f"{TonyHawksProSkater12Levels.VENICE_BEACH.value} - SKATER - Secret Tape",
     f"{TonyHawksProSkater12Levels.PHILADELPHIA.value} - SKATER - SKATE Letter K",  # BP_Collectible_Skate_K
 ]
