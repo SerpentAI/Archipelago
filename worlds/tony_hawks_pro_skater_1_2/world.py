@@ -1,6 +1,6 @@
 import logging
 
-from typing import Any, Dict, List, Optional, TextIO, Tuple
+from typing import Any, Dict, List, Optional, TextIO, Tuple, Union
 
 from rule_builder.rules import Rule, And, Has, Or
 
@@ -998,6 +998,16 @@ class TonyHawksProSkater12World(World):
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
+
+    @staticmethod
+    def custom_ut_sort(region_label: str, location_label: str) -> Union[str, int]:
+        split_region_label = region_label.split(" - ")
+        split_location_label = location_label.split(" - ")
+
+        if len(split_region_label) > 1:
+            return f"{split_region_label[1]} - {split_region_label[0]} - {split_location_label[-1]}"
+
+        return location_label
 
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
