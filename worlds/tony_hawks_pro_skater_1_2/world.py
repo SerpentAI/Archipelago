@@ -143,6 +143,7 @@ class TonyHawksProSkater12World(World):
     target_combo_score_ratios: Dict[TonyHawksProSkater12Levels, Dict[TonyHawksProSkater12Skaters, float]]
 
     # Universal Tracker
+    glitches_item_name: str = "OOL"
     location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 

@@ -1,6 +1,6 @@
 from typing import Dict, List, NamedTuple, Optional, Tuple
 
-from rule_builder.rules import Rule, And, Has
+from rule_builder.rules import Rule, And, Has, Or
 
 from ..data.game_data import level_to_level_types, skater_to_specials
 
@@ -70,9 +70,12 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 1),
-                    Has(f"Extra Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    ),
+                    Has("OOL"),
                 )
             ),
         )
@@ -88,10 +91,17 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Extra Tricks: {skater.value}", 1),
-                    Has(f"Spin Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                        Has(f"Spin Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    )
                 )
             ),
         )
@@ -107,12 +117,20 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
-                    Has(f"Double Score: {skater.value}", 1),
-                    Has(f"Extra Tricks: {skater.value}", 1),
-                    Has(f"Spin Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Double Score: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                        Has(f"Spin Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    )
                 )
             ),
         )
@@ -128,7 +146,10 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                Has(f"Progressive Manual Tricks: {skater.value}", 1)
+                Or(
+                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                    Has("OOL"),
+                )
             ),
         )
 
@@ -143,11 +164,14 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 1),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
-                    Has(f"Transfers: {skater.value}", 1),
-                    Has(f"Extra Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Transfers: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    ),
+                    Has("OOL"),
                 )
             ),
         )
@@ -163,12 +187,20 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
-                    Has(f"Transfers: {skater.value}", 1),
-                    Has(f"Extra Tricks: {skater.value}", 1),
-                    Has(f"Wallplants: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Transfers: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                        Has(f"Wallplants: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    )
                 )
             ),
         )
@@ -184,14 +216,22 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
-                    Has(f"Double Score: {skater.value}", 1),
-                    Has(f"Transfers: {skater.value}", 1),
-                    Has(f"Extra Tricks: {skater.value}", 1),
-                    Has(f"Wallplants: {skater.value}", 1),
-                    Has(f"Spin Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Double Score: {skater.value}", 1),
+                        Has(f"Transfers: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                        Has(f"Wallplants: {skater.value}", 1),
+                        Has(f"Spin Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                        Has(f"Extra Tricks: {skater.value}", 1),
+                    ),
                 )
             ),
         )
@@ -207,9 +247,15 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Grind Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Grind Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Grind Tricks: {skater.value}", 1),
+                    ),
                 )
             ),
         )
@@ -225,9 +271,15 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Lip Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Lip Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Lip Tricks: {skater.value}", 1),
+                    )
                 )
             ),
         )
@@ -243,9 +295,15 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                 getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Stats: {skater.value}", 2),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Stats: {skater.value}", 2),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                    ),
                 )
             ),
         )
@@ -263,11 +321,17 @@ for i, level in enumerate(TonyHawksProSkater12Levels):
                     getattr(TonyHawksProSkater12APTags, f"{level.name}_{skater.name}_LOCATION"),
                 ),
                 requirements=(
-                    And(
-                        Has(f"Progressive Stats: {skater.value}", 2),
-                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
-                        Has(f"Progressive Special Meter: {skater.value}", 1),
-                        Has(f"Transfers: {skater.value}", 1),
+                    Or(
+                        And(
+                            Has(f"Progressive Stats: {skater.value}", 2),
+                            Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                            Has(f"Progressive Special Meter: {skater.value}", 1),
+                            Has(f"Transfers: {skater.value}", 1),
+                        ),
+                        And(
+                            Has("OOL"),
+                            Has(f"Progressive Stats: {skater.value}", 1),
+                        ),
                     )
                 ),
             )
@@ -341,10 +405,16 @@ for i, skater in enumerate(TonyHawksProSkater12Skaters):
                 getattr(TonyHawksProSkater12APTags, f"{skater.name}_LOCATION"),
             ),
             requirements=(
-                And(
-                    Has(f"Progressive Special Meter: {skater.value}", 1),
-                    Has(f"Progressive Stats: {skater.value}", 1),
-                    Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                Or(
+                    And(
+                        Has(f"Progressive Special Meter: {skater.value}", 1),
+                        Has(f"Progressive Stats: {skater.value}", 1),
+                        Has(f"Progressive Manual Tricks: {skater.value}", 1),
+                    ),
+                    And(
+                        Has("OOL"),
+                        Has(f"Progressive Special Meter: {skater.value}", 1),
+                    ),
                 )
             ),
         )

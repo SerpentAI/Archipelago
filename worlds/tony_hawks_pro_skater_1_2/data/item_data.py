@@ -25,6 +25,12 @@ item_data: Dict[str, TonyHawksProSkater12ItemData] = {
         classification=ItemClassification.progression_deprioritized_skip_balancing,
         tags=(TonyHawksProSkater12APTags.GOAL_ITEM,),
     ),
+    # OOL Items
+    "OOL": TonyHawksProSkater12ItemData(
+        archipelago_id=item_base_offset + 5,
+        classification=ItemClassification.progression,
+        tags=(TonyHawksProSkater12APTags.OOL_ITEM,),
+    ),
 }
 
 # Level Unlock Items

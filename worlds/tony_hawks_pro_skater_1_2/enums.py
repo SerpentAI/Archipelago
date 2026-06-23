@@ -223,6 +223,7 @@ class TonyHawksProSkater12APTags(enum.Enum):
     NY_CITY_TYSHAWN_JONES_LOCATION = "NY City - Tyshawn Jones Location"
     OFFICER_DICK_ITEM = "Officer Dick Item"
     OFFICER_DICK_LOCATION = "Officer Dick Location"
+    OOL_ITEM = "OOL Item"
     PHILADELPHIA_ANDREW_REYNOLDS_LOCATION = "Philadelphia - Andrew Reynolds Location"
     PHILADELPHIA_AORI_NISHIMURA_LOCATION = "Philadelphia - Aori Nishimura Location"
     PHILADELPHIA_BOB_BURNQUIST_LOCATION = "Philadelphia - Bob Burnquist Location"
