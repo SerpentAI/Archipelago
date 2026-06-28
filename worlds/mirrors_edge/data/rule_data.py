@@ -102,7 +102,10 @@ level_checkpoint_rules: Dict[MirrorsEdgeLevelCheckpoints, Optional[Rule]] = {
     MirrorsEdgeLevelCheckpoints.ACTINO_RISE_11: Or(
         And(
             Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_CLIMB.value}"),
-            Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+            Or(
+                Has(f"Ability Unlock: {MirrorsEdgeAbilities.GRAB.value}"),
+                Has(f"Ability Extension Unlock: {MirrorsEdgeAbilities.WALL_CLIMB_ONE_EIGHTY_TURN_JUMP.value}"),
+            )
         ),
         And(
             Has(f"Ability Unlock: {MirrorsEdgeAbilities.WALL_RUN.value}"),
