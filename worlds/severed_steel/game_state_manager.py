@@ -745,7 +745,7 @@ class GameStateManager:
                 level_address: int = self._resolve_address(self.gworld_offset, (0x118, 0x1418, 0x0))
 
                 level_internal_name_index: int = self.process.read_int(level_address + 0x90)
-                level_internal_name: str = self.gnames_mapping[level_internal_name_index]
+                level_internal_name: str = self.gnames_mapping[level_internal_name_index].lower()
 
                 level: SeveredSteelLevels = level_internal_name_to_level[level_internal_name]
 
