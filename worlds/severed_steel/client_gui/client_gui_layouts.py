@@ -1033,17 +1033,18 @@ class SeveredSteelGameInformationLayout(BoxLayout):
             if is_level_in_seed and is_level_unlocked:
                 are_level_conditions_valid = True
 
-                if self.ctx.game_controller.option_mutator_percentage > 0:
-                    mutator: Optional[SeveredSteelMutators] = self.ctx.game_controller.level_to_mutator[game_state.level]
+                if not is_level_goal:
+                    if self.ctx.game_controller.option_mutator_percentage > 0:
+                        mutator: Optional[SeveredSteelMutators] = self.ctx.game_controller.level_to_mutator[game_state.level]
 
-                    if mutator is not None and mutator not in game_state.mutators:
-                        are_level_conditions_valid = False
+                        if mutator is not None and mutator not in game_state.mutators:
+                            are_level_conditions_valid = False
 
-                if self.ctx.game_controller.option_mirrored_percentage > 0:
-                    is_mirrored: bool = self.ctx.game_controller.level_to_is_mirrored[game_state.level]
+                    if self.ctx.game_controller.option_mirrored_percentage > 0:
+                        is_mirrored: bool = self.ctx.game_controller.level_to_is_mirrored[game_state.level]
 
-                    if game_state.is_mirrored != is_mirrored:
-                        are_level_conditions_valid = False
+                        if game_state.is_mirrored != is_mirrored:
+                            are_level_conditions_valid = False
 
             mapping: Dict[bool, str] = {
                 False: "[color=FF4C4C]-[/color]",
