@@ -231,7 +231,7 @@ mutator_internal_index_to_mutator: Dict[int, SeveredSteelMutators] = {
 
 mutator_to_score_multiplier: Dict[SeveredSteelMutators, float] = {
     SeveredSteelMutators.BIG_HEADS: 0.5,
-    SeveredSteelMutators.TRIPLE_THREAT: 1.3,
+    SeveredSteelMutators.TRIPLE_THREAT: 3.9,
     SeveredSteelMutators.SUPER_SLIDE: 0.5,
     SeveredSteelMutators.LIMITED_SLOW_MO: 1.1,
     SeveredSteelMutators.WARRIOR_MONK: 1.5,

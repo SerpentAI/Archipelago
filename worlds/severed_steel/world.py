@@ -258,14 +258,24 @@ class SeveredSteelWorld(World):
             if self.include_stylish_action_challenges:
                 self.level_to_stylish_action_challenges[level] = list()
 
+                mutator: Optional[SeveredSteelMutators] = self.level_to_mutator[level]
+
                 stylish_action: SeveredSteelStylishActions
                 for stylish_action in self.random.sample(stylish_actions_pool, self.stylish_action_challenge_count_per_level):
                     if stylish_action_maximums[stylish_action] == 1:
-                        self.level_to_stylish_action_challenges[level].append((stylish_action, 1))
+                        if mutator == SeveredSteelMutators.TRIPLE_THREAT:
+                            self.level_to_stylish_action_challenges[level].append((stylish_action, self.random.randint(1, 3)))
+                        else:
+                            self.level_to_stylish_action_challenges[level].append((stylish_action, 1))
                     else:
-                        self.level_to_stylish_action_challenges[level].append(
-                            (stylish_action, self.random.randint(1, stylish_action_maximums[stylish_action]))
-                        )
+                        if mutator == SeveredSteelMutators.TRIPLE_THREAT:
+                            self.level_to_stylish_action_challenges[level].append(
+                                (stylish_action, self.random.randint(1, stylish_action_maximums[stylish_action] * 3))
+                            )
+                        else:
+                            self.level_to_stylish_action_challenges[level].append(
+                                (stylish_action, self.random.randint(1, stylish_action_maximums[stylish_action]))
+                            )
             else:
                 self.level_to_stylish_action_challenges[level] = None
 
