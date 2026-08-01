@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import io
 import pkgutil
@@ -16,15 +16,14 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
 
-from ..client import PinballFX3Context
+from ..client import PinballFXContext
 
-from ..data.mapping_data import table_to_table_id
+from ..data.game_data import table_to_table_internal_name
 
 from ..enums import (
-    PinballFX3APItems,
-    PinballFX3APUsefulItems,
-    PinballFX3Contexts,
-    PinballFX3Tables,
+    PinballFXAPGoals,
+    PinballFXTables,
+    PinballFXGameModes,
 )
 
 from ..game_state_manager import GameStateManager, GameState
@@ -33,9 +32,9 @@ from .. import client_gui
 
 
 class NotConnectedLayout(BoxLayout):
-    ctx: PinballFX3Context
+    ctx: PinballFXContext
 
-    def __init__(self, ctx: PinballFX3Context) -> None:
+    def __init__(self, ctx: PinballFXContext) -> None:
         super().__init__(orientation="horizontal", size_hint_y=0.12)
 
         self.ctx = ctx
@@ -56,28 +55,33 @@ class NotConnectedLayout(BoxLayout):
         self.disabled = True
 
 
-class PinballFX3TableInformationLayout(BoxLayout):
-    ctx: PinballFX3Context
+class PinballFXTableInformationLayout(BoxLayout):
+    ctx: PinballFXContext
 
     game_state_manager: GameStateManager
 
     information_label: Label
+
     shiny_quarters_label: Label
+    goal_label: Label
 
     table_information_image: Image
     table_information_title: Label
     table_information_subtitle: Label
 
-    target_scores_label: Label
-    target_stars_label: Label
+    target_score_low_label: Label
+    target_score_mid_label: Label
+    target_score_high_label: Label
+    target_score_very_high_label: Label
 
     item_score_multiplier_label: Label
-    item_star_requirement_discount_label: Label
     item_target_score_discount_label: Label
 
     score_label: Label
 
-    def __init__(self, ctx: PinballFX3Context) -> None:
+    last_seen_table: Optional[PinballFXTables]
+
+    def __init__(self, ctx: PinballFXContext) -> None:
         super().__init__(orientation="vertical", size_hint_y=None, height="200dp", spacing="8dp",)
 
         self.bind(minimum_height=self.setter("height"))
@@ -101,15 +105,25 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
         self.add_widget(self.information_label)
 
+        goal_header_layout: BoxLayout = BoxLayout(
+            orientation="horizontal",
+            size_hint_y=None,
+            height="64dp",
+            spacing="8dp",
+        )
+
+        goal_header_layout.bind(minimum_height=goal_header_layout.setter("height"))
+
         # Shiny Quarters
         self.shiny_quarters_label: Label = Label(
             text=(
                 f"[b]Shiny Quarters[/b]\n"
                 f"Retrieved [color=00FA9A]0[/color] of "
-                f"[color=00FA9A]{self.ctx.shiny_quarters_required}[/color] needed "
-                f"([color=888888]{self.ctx.shiny_quarters_total} total[/color])"
+                f"[color=00FA9A]{self.ctx.game_controller.option_shiny_quarters_required}[/color] needed "
+                f"([color=888888]{self.ctx.game_controller.option_shiny_quarters_total} total[/color])"
             ),
             markup=True,
+            size_hint_x=33,
             size_hint_y=None,
             height="60dp",
             halign="left",
@@ -118,7 +132,27 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
         self.shiny_quarters_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-        self.add_widget(self.shiny_quarters_label)
+        goal_header_layout.add_widget(self.shiny_quarters_label)
+
+        # Goal
+        self.goal_label: Label = Label(
+            text=(
+                f"[b]Goal[/b]\n"
+                f"Retrieve the Shiny Quarters!"
+            ),
+            markup=True,
+            size_hint_x=67,
+            size_hint_y=None,
+            height="60dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.goal_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        goal_header_layout.add_widget(self.goal_label)
+
+        self.add_widget(goal_header_layout)
 
         # Table Information
         table_information_layout: BoxLayout = BoxLayout(
@@ -131,7 +165,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
         table_information_layout.bind(minimum_height=table_information_layout.setter("height"))
 
         self.table_information_image = Image(
-            size=(128, 128),
+            size=(155, 155),
             size_hint=(None, None),
             allow_stretch=True,
             opacity=0.1
@@ -167,9 +201,10 @@ class PinballFX3TableInformationLayout(BoxLayout):
             markup=True,
             size_hint_y=None,
             font_size="12dp",
-            height="14dp",
+            height="24dp",
             halign="left",
             valign="middle",
+            padding=[0, 0, 0, 10]
         )
 
         self.table_information_subtitle.bind(size=lambda label, size: setattr(label, "text_size", size))
@@ -196,7 +231,7 @@ class PinballFX3TableInformationLayout(BoxLayout):
         table_information_targets_layout.bind(minimum_height=table_information_targets_layout.setter("height"))
 
         targets_label: Label = Label(
-            text="[b]Targets[/b]",
+            text="[b]Target Scores[/b]",
             markup=True,
             size_hint_y=None,
             font_size="16dp",
@@ -209,8 +244,8 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
         table_information_targets_layout.add_widget(targets_label)
 
-        self.target_scores_label = Label(
-            text="Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]",
+        self.target_score_low_label = Label(
+            text="Low: [color=00FA9A]X,XXX,XXX[/color]",
             markup=True,
             size_hint_y=None,
             font_size="14dp",
@@ -219,12 +254,12 @@ class PinballFX3TableInformationLayout(BoxLayout):
             valign="middle",
         )
 
-        self.target_scores_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.target_score_low_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-        table_information_targets_layout.add_widget(self.target_scores_label)
+        table_information_targets_layout.add_widget(self.target_score_low_label)
 
-        self.target_stars_label = Label(
-            text="Stars: [color=00FA9A]X / X / X[/color]",
+        self.target_score_mid_label = Label(
+            text="Mid: [color=00FA9A]X,XXX,XXX[/color]",
             markup=True,
             size_hint_y=None,
             font_size="14dp",
@@ -233,9 +268,38 @@ class PinballFX3TableInformationLayout(BoxLayout):
             valign="middle",
         )
 
-        self.target_stars_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.target_score_mid_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-        table_information_targets_layout.add_widget(self.target_stars_label)
+        table_information_targets_layout.add_widget(self.target_score_mid_label)
+
+        self.target_score_high_label = Label(
+            text="High: [color=00FA9A]X,XXX,XXX[/color]",
+            markup=True,
+            size_hint_y=None,
+            font_size="14dp",
+            height="16dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.target_score_high_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        table_information_targets_layout.add_widget(self.target_score_high_label)
+
+        self.target_score_very_high_label = Label(
+            text="Very High: [color=00FA9A]X,XXX,XXX[/color]",
+            markup=True,
+            size_hint_y=None,
+            font_size="14dp",
+            height="16dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.target_score_very_high_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        if self.ctx.game_controller.option_include_very_high_tier_scores:
+            table_information_targets_layout.add_widget(self.target_score_very_high_label)
 
         table_information_items_layout: BoxLayout = BoxLayout(
             orientation="vertical",
@@ -275,20 +339,6 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
         table_information_items_layout.add_widget(self.item_score_multiplier_label)
 
-        self.item_star_requirement_discount_label = Label(
-            text="Star Requirement Discount: [color=00FA9A]Xx[/color]",
-            markup=True,
-            size_hint_y=None,
-            font_size="12dp",
-            height="14dp",
-            halign="left",
-            valign="middle",
-        )
-
-        self.item_star_requirement_discount_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        table_information_items_layout.add_widget(self.item_star_requirement_discount_label)
-
         self.item_target_score_discount_label = Label(
             text="Target Score Discount: [color=00FA9A]Xx[/color]",
             markup=True,
@@ -324,6 +374,8 @@ class PinballFX3TableInformationLayout(BoxLayout):
 
         self.add_widget(self.score_label)
 
+        self.last_seen_table = None
+
     def update(self) -> None:
         ## Received Items
         received_items: Dict[str, int] = dict()
@@ -358,185 +410,159 @@ class PinballFX3TableInformationLayout(BoxLayout):
         ## Updates
 
         # Shiny Quarters
-        shiny_quarters_obtained: int = 0
-
-        if PinballFX3APItems.SHINY_QUARTER.value in received_items:
-            shiny_quarters_obtained = received_items[PinballFX3APItems.SHINY_QUARTER.value]
+        shiny_quarters_obtained: int = received_items.get("Shiny Quarter", 0)
 
         self.shiny_quarters_label.text = (
             f"[b]Shiny Quarters[/b]\n"
             f"Retrieved [color=00FA9A]{shiny_quarters_obtained}[/color] of "
-            f"[color=00FA9A]{self.ctx.shiny_quarters_required}[/color] needed "
-            f"([color=888888]{self.ctx.shiny_quarters_total} total[/color])"
+            f"[color=00FA9A]{self.ctx.game_controller.option_shiny_quarters_required}[/color] needed "
+            f"([color=888888]{self.ctx.game_controller.option_shiny_quarters_total} total[/color])"
         )
 
+        # Goal
+        if self.ctx.game_controller.option_goal == PinballFXAPGoals.SHINY_QUARTERS_FINAL_TABLE:
+            self.goal_label.text = (
+                "[b]Goal[/b]\n"
+                f"Retrieve the Shiny Quarters, then meet the High score on the goal table!"
+            )
+        elif self.ctx.game_controller.option_goal == PinballFXAPGoals.SHINY_QUARTERS_HUNT:
+            self.goal_label.text = (
+                "[b]Goal[/b]\n"
+                "Retrieve the Shiny Quarters!"
+            )
+
         # Table
-        if game_state is not None:
-            if game_state.context == PinballFX3Contexts.INVALID:
-                self.table_information_image.texture = None
-                self.table_information_image.opacity = 0.1
-
-                self.table_information_title.text = f"[b]Begin Playing a Pinball Table...[/b]"
-                self.table_information_subtitle.text = f"[b]This table is not included this seed.[/b]"
-
-                self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
-                self.target_stars_label.text = "Stars: [color=00FA9A]X / X / X[/color]"
-
-                self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
-                self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
-
-                self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
-            else:
-                if game_state.table is not None:
-                    item_unlock: str = f"Table Unlock: {game_state.table.value}"
-
-                    item_score_multiplier: str = f"{PinballFX3APUsefulItems.SCORE_MULTIPLIER.value}: {game_state.table.value}"
-                    item_star_requirement_discount: str = f"{PinballFX3APUsefulItems.STAR_REQUIREMENT_DISCOUNT.value}: {game_state.table.value}"
-                    item_target_score_discount: str = f"{PinballFX3APUsefulItems.TARGET_SCORE_DISCOUNT.value}: {game_state.table.value}"
-
-                    shiny_quarters_obtained: int = 0
-
-                    if PinballFX3APItems.SHINY_QUARTER.value in received_items:
-                        shiny_quarters_obtained = received_items[PinballFX3APItems.SHINY_QUARTER.value]
-
-                    score_multiplier_count: int = 0
-
-                    if item_score_multiplier in received_items:
-                        score_multiplier_count = received_items[item_score_multiplier]
-
-                    star_requirement_discount_count: int = 0
-
-                    if item_star_requirement_discount in received_items:
-                        star_requirement_discount_count = received_items[item_star_requirement_discount]
-
-                    target_score_discount_count: int = 0
-
-                    if item_target_score_discount in received_items:
-                        target_score_discount_count = received_items[item_target_score_discount]
-
-                    score_multiplier: float = 1.0 + (0.05 * score_multiplier_count)
-                    target_score_multiplier: float = 1.0 - (0.05 * target_score_discount_count)
-
-                    is_in_seed: bool = game_state.table in self.ctx.game_controller.target_scores
-                    is_goal: bool = False
-
-                    if self.ctx.game_controller.selected_goal_table is not None:
-                        if game_state.table == self.ctx.game_controller.selected_goal_table:
-                            is_goal = True
-
-                    is_unlocked: bool = False
-
-                    if item_unlock in received_items and received_items[item_unlock] > 0:
-                        if is_goal:
-                            if shiny_quarters_obtained >= self.ctx.shiny_quarters_required:
-                                is_unlocked = True
-                        else:
-                            is_unlocked = True
-
-                    is_being_played: bool = game_state.context in (PinballFX3Contexts.SINGLE_PLAYER, PinballFX3Contexts.CHALLENGE)
-
-                    # Table Image
-                    image_path: str = f"assets/{table_to_table_id[game_state.table]}.png"
-                    image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
-
-                    image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
-
-                    self.table_information_image.texture = image.texture
-                    self.table_information_image.opacity = 1.0
-
-                    # Table Title
-                    self.table_information_title.text = f"[b]{game_state.table.value}[/b]"
-
-                    if is_in_seed:
-                        # Table Subtitle
-                        if is_unlocked:
-                            self.table_information_subtitle.text = f"[b]This table is included this seed and is unlocked![/b]"
-                        else:
-                            self.table_information_subtitle.text = f"[b]This table is included this seed but has not been unlocked yet.[/b]"
-
-                        if is_being_played and is_unlocked:
-                            # Target Scores
-                            if game_state.table in self.ctx.game_controller.target_scores:
-                                base_scores: List[int] = self.ctx.game_controller.target_scores[game_state.table]
-
-                                target_score_low = int((base_scores[0] or 0) * target_score_multiplier)
-                                target_score_mid = int((base_scores[1] or 0) * target_score_multiplier)
-                                target_score_high = int((base_scores[2] or 0) * target_score_multiplier)
-
-                                self.target_scores_label.text = f"Scores: [color=00FA9A]{target_score_low:,} / {target_score_mid:,} / {target_score_high:,}[/color]  [color=888888][size=11]{round(self.ctx.target_score_ratios[game_state.table], 2)}x Base + Items[/size][/color]".replace(" 0", " X,XXX,XXX").replace(": [color=00FA9A]0", ": [color=00FA9A]X,XXX,XXX")
-                            else:
-                                self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
-
-                            # Target Stars
-                            if game_state.table in self.ctx.game_controller.challenge_stars:
-                                stars_low, stars_mid, stars_high = self.ctx.game_controller.challenge_stars[game_state.table]
-
-                                if stars_high is None:
-                                    stars_high = "X"
-
-                                self.target_stars_label.text = f"Stars: [color=00FA9A]{stars_low} / {stars_mid} / {stars_high}[/color]"
-                            else:
-                                self.target_stars_label.text = "Stars: [color=00FA9A]X / X / X[/color]"
-
-                            # Useful Items
-                            self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]{score_multiplier_count}x[/color]"
-                            self.item_star_requirement_discount_label.text = f"Star Requirement Discount: [color=00FA9A]{star_requirement_discount_count}x[/color]"
-                            self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]{target_score_discount_count}x[/color]"
-
-                            # Score
-                            score: int = game_state.current_score
-
-                            if game_state.context == PinballFX3Contexts.SINGLE_PLAYER:
-                                score = int(score * score_multiplier)
-
-                            self.score_label.text = f"[b]Score:[/b] {score:,}  [color=888888]{game_state.current_score:,}[/color]"
-                        else:
-                            self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
-                            self.target_stars_label.text = "Stars: [color=00FA9A]X / X / X[/color]"
-
-                            self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
-                            self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                            self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
-
-                            self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
-                    else:
-                        self.table_information_subtitle.text = f"[b]This table is not included this seed.[/b]"
-
-                        self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
-                        self.target_stars_label.text = "Stars: [color=00FA9A]X / X / X[/color]"
-
-                        self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
-                        self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-                        self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
-
-                        self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
-        else:
+        if game_state is None or not game_state.is_valid or not game_state.is_on_table:
             self.table_information_image.texture = None
             self.table_information_image.opacity = 0.1
 
             self.table_information_title.text = f"[b]Begin Playing a Pinball Table...[/b]"
             self.table_information_subtitle.text = f"[b]This table is not included this seed.[/b]"
 
-            self.target_scores_label.text = "Scores: [color=00FA9A]X,XXX,XXX / X,XXX,XXX / X,XXX,XXX[/color]"
-            self.target_stars_label.text = "Stars: [color=00FA9A]X / X / X[/color]"
+            self.target_score_low_label.text = "Low: [color=888888]X,XXX,XXX[/color]"
+            self.target_score_mid_label.text = "Mid: [color=888888]X,XXX,XXX[/color]"
+            self.target_score_high_label.text = "High: [color=888888]X,XXX,XXX[/color]"
+            self.target_score_very_high_label.text = "Very High: [color=888888]X,XXX,XXX[/color]"
 
-            self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
-            self.item_star_requirement_discount_label.text = "Star Requirement Discount: [color=00FA9A]Xx[/color]"
-            self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
+            self.item_score_multiplier_label.text = "Score Multiplier: [color=888888]Xx[/color]"
+            self.item_target_score_discount_label.text = "Target Score Discount: [color=888888]Xx[/color]"
 
             self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
 
+            self.last_seen_table = None
+        else:
+            if self.last_seen_table != game_state.table:
+                image_path: str = f"assets/{table_to_table_internal_name[game_state.table]}.png"
+                image_bytes: bytes = pkgutil.get_data(client_gui.__name__, image_path)
 
-class PinballFX3TablesLayout(BoxLayout):
-    ctx: PinballFX3Context
+                image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
+
+                self.table_information_image.texture = image.texture
+                self.table_information_image.opacity = 1.0
+
+                self.last_seen_table = game_state.table
+
+            if game_state.game_mode is None:
+                self.table_information_title.text = f"[b]{game_state.table.value}: Unsupported Game Mode[/b]"
+            else:
+                self.table_information_title.text = f"[b]{game_state.table.value}: {game_state.game_mode.value}[/b]"
+
+            is_table_in_seed: bool = False
+            is_table_goal: bool = False
+            is_table_game_mode_unlocked: bool = False
+
+            if game_state.table in (self.ctx.game_controller.selected_tables + [self.ctx.game_controller.selected_goal_table]):
+                is_table_in_seed = True
+
+            if game_state.table == self.ctx.game_controller.selected_goal_table:
+                is_table_goal = True
+
+            if game_state.game_mode is not None:
+                table_game_mode_unlock_item_name: str = f"{game_state.game_mode.value} Unlock: {game_state.table.value}"
+                table_game_mode_unlock_item_count: int = received_items.get(table_game_mode_unlock_item_name, 0)
+
+                if table_game_mode_unlock_item_count > 0:
+                    if is_table_goal:
+                        if shiny_quarters_obtained >= self.ctx.game_controller.option_shiny_quarters_required:
+                            is_table_game_mode_unlocked = True
+                    else:
+                        is_table_game_mode_unlocked = True
+
+            mapping: Dict[bool, str] = {
+                False: "[color=FF4C4C]-[/color]",
+                True: "[color=00FA9A]+[/color]"
+            }
+
+            self.table_information_subtitle.text = f"In Seed? {mapping[is_table_in_seed]}    Unlocked? {mapping[is_table_game_mode_unlocked]}"
+
+            if is_table_in_seed and is_table_game_mode_unlocked:
+                score_multiplier_item_name: str = f"{game_state.table.value} - {game_state.game_mode.value}: Score Multiplier"
+                score_multiplier_item_count: int = received_items.get(score_multiplier_item_name, 0)
+
+                target_score_discount_item_name: str = f"{game_state.table.value} - {game_state.game_mode.value}: Target Score Discount"
+                target_score_discount_item_count: int = received_items.get(target_score_discount_item_name, 0)
+
+                target_score_ratio: float = self.ctx.game_controller.target_score_ratios[game_state.table]
+
+                if is_table_goal:
+                    self.target_score_low_label.text = "Low: [color=888888]X,XXX,XXX[/color]"
+                    self.target_score_mid_label.text = "Mid: [color=888888]X,XXX,XXX[/color]"
+
+                    target_score: int = self.ctx.game_controller.target_scores[game_state.table][game_state.game_mode][2]
+                    adjusted_target_score: int = int(target_score * (1.0 - (0.05 * target_score_discount_item_count)))
+
+                    self.target_score_high_label.text = f"High: [color=00FA9A]{adjusted_target_score:,}[/color]  [color=888888][size=11]{round(target_score_ratio, 2)}x Base + Items[/size][/color]"
+
+                    self.target_score_very_high_label.text = "Very High: [color=888888]X,XXX,XXX[/color]"
+                else:
+                    target_score: int = self.ctx.game_controller.target_scores[game_state.table][game_state.game_mode][0]
+                    adjusted_target_score: int = int(target_score * (1.0 - (0.05 * target_score_discount_item_count)))
+
+                    self.target_score_low_label.text = f"Low: [color=00FA9A]{adjusted_target_score:,}[/color]  [color=888888][size=11]{round(target_score_ratio, 2)}x Base + Items[/size][/color]"
+
+                    target_score: int = self.ctx.game_controller.target_scores[game_state.table][game_state.game_mode][1]
+                    adjusted_target_score: int = int(target_score * (1.0 - (0.05 * target_score_discount_item_count)))
+
+                    self.target_score_mid_label.text = f"Mid: [color=00FA9A]{adjusted_target_score:,}[/color]  [color=888888][size=11]{round(target_score_ratio, 2)}x Base + Items[/size][/color]"
+
+                    target_score: int = self.ctx.game_controller.target_scores[game_state.table][game_state.game_mode][2]
+                    adjusted_target_score: int = int(target_score * (1.0 - (0.05 * target_score_discount_item_count)))
+
+                    self.target_score_high_label.text = f"High: [color=00FA9A]{adjusted_target_score:,}[/color]  [color=888888][size=11]{round(target_score_ratio, 2)}x Base + Items[/size][/color]"
+
+                    target_score: int = self.ctx.game_controller.target_scores[game_state.table][game_state.game_mode][3]
+                    adjusted_target_score: int = int(target_score * (1.0 - (0.05 * target_score_discount_item_count)))
+
+                    self.target_score_very_high_label.text = f"Very High: [color=00FA9A]{adjusted_target_score:,}[/color]  [color=888888][size=11]{round(target_score_ratio, 2)}x Base + Items[/size][/color]"
+
+                self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]{score_multiplier_item_count}x[/color]"
+                self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]{target_score_discount_item_count}x[/color]"
+
+                adjusted_score: int = int(game_state.score * (1.0 + (0.05 * score_multiplier_item_count)))
+
+                self.score_label.text = f"[b]Score:[/b] {adjusted_score:,}  [color=888888]{game_state.score:,}[/color]"
+            else:
+                self.target_score_low_label.text = "Low: [color=888888]X,XXX,XXX[/color]"
+                self.target_score_mid_label.text = "Mid: [color=888888]X,XXX,XXX[/color]"
+                self.target_score_high_label.text = "High: [color=888888]X,XXX,XXX[/color]"
+                self.target_score_very_high_label.text = "Very High: [color=888888]X,XXX,XXX[/color]"
+
+                self.item_score_multiplier_label.text = "Score Multiplier: [color=888888]Xx[/color]"
+                self.item_target_score_discount_label.text = "Target Score Discount: [color=888888]Xx[/color]"
+
+                self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
+
+
+class PinballFXTablesLayout(BoxLayout):
+    ctx: PinballFXContext
 
     table_label: Label
     table_images: List[Image]
+    table_game_mode_labels: Dict[PinballFXTables, List[Label]]
 
-    table_data: Dict[PinballFX3Tables, Dict[str, Any]]
+    table_data: Dict[PinballFXTables, Dict[str, Any]]
 
-    def __init__(self, ctx: PinballFX3Context) -> None:
+    def __init__(self, ctx: PinballFXContext) -> None:
         super().__init__(orientation="vertical", size_hint_y=None, height="40dp", spacing="8dp")
 
         self.bind(minimum_height=self.setter("height"))
@@ -558,14 +584,17 @@ class PinballFX3TablesLayout(BoxLayout):
         self.add_widget(self.table_label)
 
         self.table_images = list()
+        self.table_game_mode_labels = dict()
 
         self.table_data = dict()
 
-        table: PinballFX3Tables
-        for table in self.ctx.game_controller.target_scores.keys():
+        table: PinballFXTables
+        for table in self.ctx.game_controller.selected_tables + [self.ctx.game_controller.selected_goal_table]:
+            if table is None:
+                continue
+
             self.table_data[table] = {
-                "image_path": f"assets/{table_to_table_id[table]}.png",
-                "unlock_item": f"Table Unlock: {table.value}",
+                "image_path": f"assets/{table_to_table_internal_name[table]}.png",
                 "is_goal": False,
             }
 
@@ -574,17 +603,20 @@ class PinballFX3TablesLayout(BoxLayout):
                     self.table_data[table]["is_goal"] = True
 
         grid_layout: GridLayout = GridLayout(
-            cols=6,
-            spacing=8,
+            cols=3,
+            spacing=16,
             padding=0,
             size_hint_y=None,
         )
 
         grid_layout.bind(minimum_height=grid_layout.setter("height"))
 
-        table: PinballFX3Tables
+        table: PinballFXTables
         data: Dict[str, Any]
         for table, data in self.table_data.items():
+            table_layout: BoxLayout = BoxLayout(orientation="horizontal", size_hint_y=None, height="96dp", spacing="8dp")
+            table_layout.bind(minimum_height=table_layout.setter("height"))
+
             image_bytes: bytes = pkgutil.get_data(client_gui.__name__, data["image_path"])
             image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
 
@@ -593,7 +625,7 @@ class PinballFX3TablesLayout(BoxLayout):
                 size=(96, 96),
                 size_hint=(None, None),
                 allow_stretch=True,
-                opacity=0.4
+                opacity=0.3
             )
 
             if data["is_goal"]:
@@ -612,7 +644,37 @@ class PinballFX3TablesLayout(BoxLayout):
                 table_image.bind(pos=_update_goal_decoration, size=_update_goal_decoration)
 
             self.table_images.append(table_image)
-            grid_layout.add_widget(table_image)
+
+            table_layout.add_widget(table_image)
+
+            table_game_mode_labels_layout: BoxLayout = BoxLayout(orientation="vertical", size_hint_y=None, height="96dp", spacing="4dp")
+
+            self.table_game_mode_labels[table] = list()
+
+            game_mode: PinballFXGameModes
+            for game_mode in PinballFXGameModes:
+                if data["is_goal"] and game_mode != PinballFXGameModes.CLASSIC:
+                    continue
+
+                game_mode_label: Label = Label(
+                    text=f"{game_mode.value}",
+                    font_size="14dp",
+                    size_hint_y=None,
+                    height="16dp",
+                    halign="left",
+                    valign="bottom",
+                    opacity=0.05,
+                )
+
+                game_mode_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+                self.table_game_mode_labels[table].append(game_mode_label)
+
+                table_game_mode_labels_layout.add_widget(game_mode_label)
+
+            table_layout.add_widget(table_game_mode_labels_layout)
+
+            grid_layout.add_widget(table_layout)
 
         self.add_widget(grid_layout)
 
@@ -629,34 +691,97 @@ class PinballFX3TablesLayout(BoxLayout):
 
                 received_items[item_name] += 1
 
-        table: PinballFX3Tables
+        table: PinballFXTables
         data: Dict[str, Any]
         for i, (table, data) in enumerate(self.table_data.items()):
-            is_unlocked: bool = False
+            classic_unlock_item_name: str = f"Classic Mode Unlock: {table.value}"
+            classic_unlock_item_count: int = received_items.get(classic_unlock_item_name, 0)
 
-            if data["unlock_item"] in received_items and received_items[data["unlock_item"]] > 0:
-                if data["is_goal"]:
-                    required: int = self.ctx.game_controller.option_shiny_quarters_required
+            one_ball_unlock_item_name: str = f"1 Ball Challenge Unlock: {table.value}"
+            one_ball_unlock_item_count: int = received_items.get(one_ball_unlock_item_name, 0)
 
-                    if PinballFX3APItems.SHINY_QUARTER.value in received_items and received_items[PinballFX3APItems.SHINY_QUARTER.value] >= required:
-                        is_unlocked = True
+            flips_unlock_item_name: str = f"Flips Challenge Unlock: {table.value}"
+            flips_unlock_item_count: int = received_items.get(flips_unlock_item_name, 0)
+
+            time_unlock_item_name: str = f"Time Challenge Unlock: {table.value}"
+            time_unlock_item_count: int = received_items.get(time_unlock_item_name, 0)
+
+            distance_unlock_item_name: str = f"Distance Challenge Unlock: {table.value}"
+            distance_unlock_item_count: int = received_items.get(distance_unlock_item_name, 0)
+
+            has_at_least_one_game_mode: bool = sum([
+                classic_unlock_item_count,
+                one_ball_unlock_item_count,
+                flips_unlock_item_count,
+                time_unlock_item_count,
+                distance_unlock_item_count,
+            ]) > 0
+
+            if data["is_goal"]:
+                if classic_unlock_item_count > 0:
+                    self.table_game_mode_labels[table][0].opacity = 1.0
+
+                    shiny_quarter_item_count: int = received_items.get("Shiny Quarter", 0)
+
+                    if shiny_quarter_item_count >= self.ctx.game_controller.option_shiny_quarters_required:
+                        self.table_images[i].opacity = 1.0
+                    else:
+                        self.table_images[i].opacity = 0.3
                 else:
-                    is_unlocked = True
+                    self.table_images[i].opacity = 0.3
+                    self.table_game_mode_labels[table][0].opacity = 0.05
+            else:
+                if has_at_least_one_game_mode:
+                    self.table_images[i].opacity = 1.0
 
-            self.table_images[i].opacity = 1.0 if is_unlocked else 0.4
+                    self.table_game_mode_labels[table][0].opacity = 1.0 if classic_unlock_item_count > 0 else 0.3
+
+                    if one_ball_unlock_item_count > 0:
+                        self.table_game_mode_labels[table][1].opacity = 1.0
+                    else:
+                        if self.ctx.game_controller.option_include_one_ball_challenges:
+                            self.table_game_mode_labels[table][1].opacity = 0.3
+                        else:
+                            self.table_game_mode_labels[table][1].opacity = 0.05
+
+                    if flips_unlock_item_count > 0:
+                        self.table_game_mode_labels[table][2].opacity = 1.0
+                    else:
+                        if self.ctx.game_controller.option_include_flips_challenges:
+                            self.table_game_mode_labels[table][2].opacity = 0.3
+                        else:
+                            self.table_game_mode_labels[table][2].opacity = 0.05
+
+                    self.table_game_mode_labels[table][3].opacity = 1.0 if time_unlock_item_count > 0 else 0.3
+
+                    if distance_unlock_item_count > 0:
+                        self.table_game_mode_labels[table][4].opacity = 1.0
+                    else:
+                        if self.ctx.game_controller.option_include_distance_challenges:
+                            self.table_game_mode_labels[table][4].opacity = 0.3
+                        else:
+                            self.table_game_mode_labels[table][4].opacity = 0.05
+                else:
+                    self.table_images[i].opacity = 0.3
+
+                    self.table_game_mode_labels[table][0].opacity = 0.05
+                    self.table_game_mode_labels[table][1].opacity = 0.05
+                    self.table_game_mode_labels[table][2].opacity = 0.05
+                    self.table_game_mode_labels[table][3].opacity = 0.05
+                    self.table_game_mode_labels[table][4].opacity = 0.05
 
 
-class PinballFX3Content(ScrollView):
-    ctx: PinballFX3Context
+class PinballFXContent(ScrollView):
+    ctx: PinballFXContext
 
     layout: BoxLayout
 
-    layout_table_information: PinballFX3TableInformationLayout
-    layout_tables: PinballFX3TablesLayout
+    layout_table_information: PinballFXTableInformationLayout
+    layout_tables: PinballFXTablesLayout
 
     timer: Clock
 
-    def __init__(self, ctx: PinballFX3Context) -> None:
+    def __init__(self, ctx: PinballFXContext) -> None:
         super().__init__()
 
         self.ctx = ctx
@@ -664,10 +789,10 @@ class PinballFX3Content(ScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
-        self.layout_table_information = PinballFX3TableInformationLayout(ctx=self.ctx)
+        self.layout_table_information = PinballFXTableInformationLayout(ctx=self.ctx)
         self.layout.add_widget(self.layout_table_information)
 
-        self.layout_tables = PinballFX3TablesLayout(ctx=self.ctx)
+        self.layout_tables = PinballFXTablesLayout(ctx=self.ctx)
         self.layout.add_widget(self.layout_tables)
 
         self.add_widget(self.layout)
@@ -681,19 +806,19 @@ class PinballFX3Content(ScrollView):
         except Exception:
             import traceback
 
-            with open("pinball_fx3_errors.log", "a") as f:
+            with open("pinball_fx_errors.log", "a") as f:
                 f.write(traceback.format_exc() + "\n\n")
 
 
-class PinballFX3TabLayout(BoxLayout):
-    ctx: PinballFX3Context
+class PinballFXTabLayout(BoxLayout):
+    ctx: PinballFXContext
 
     layout_content: BoxLayout
-    layout_content_pinball_fx3: PinballFX3Content
+    layout_content_pinball_fx: PinballFXContent
 
     layout_not_connected: NotConnectedLayout
 
-    def __init__(self, ctx: PinballFX3Context) -> None:
+    def __init__(self, ctx: PinballFXContext) -> None:
         super().__init__(orientation="vertical", padding="8dp")
 
         self.bind(minimum_height=self.setter('height'))
@@ -712,8 +837,8 @@ class PinballFX3TabLayout(BoxLayout):
         if self.ctx.game_controller.target_scores is None:
             self.layout_not_connected.show()
 
-            if hasattr(self, "layout_content_pinball_fx3"):
-                self.layout_content_pinball_fx3.timer.cancel()
+            if hasattr(self, "layout_content_pinball_fx"):
+                self.layout_content_pinball_fx.timer.cancel()
 
             self.layout_content.clear_widgets()
 
@@ -722,5 +847,5 @@ class PinballFX3TabLayout(BoxLayout):
         self.layout_not_connected.hide()
 
         if not len(self.layout_content.children):
-            self.layout_content_pinball_fx3 = PinballFX3Content(ctx=self.ctx)
-            self.layout_content.add_widget(self.layout_content_pinball_fx3)
+            self.layout_content_pinball_fx = PinballFXContent(ctx=self.ctx)
+            self.layout_content.add_widget(self.layout_content_pinball_fx)

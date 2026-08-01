@@ -11,25 +11,34 @@ from typing import Any, Dict, List, Optional, Set
 from .data_funcs import (
     item_names_to_id,
     location_names_to_id,
-    id_to_exclude_high_tier_challenge_stars,
-    id_to_goals,
     id_to_items,
     id_to_locations,
-    id_to_requirement_modes,
+    process_slot_data,
 )
 
-from .enums import PinballFX3APUsefulItems, PinballFX3Tables
 from .game_controller import GameController
 
+# UT Tab Integration
+tracker_loaded: bool = False
 
-class PinballFX3CommandProcessor(CommonClient.ClientCommandProcessor):
-    ctx: "PinballFX3Context"
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as Context
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor as CommandProcessor
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as Context
+    from CommonClient import ClientCommandProcessor as CommandProcessor
 
 
-class PinballFX3Context(CommonClient.CommonContext):
+class PinballFXCommandProcessor(CommonClient.ClientCommandProcessor):
+    ctx: "PinballFXContext"
+
+
+class PinballFXContext(Context):
     tags: Set[str] = {"AP"}
-    game: str = "Pinball FX3"
-    command_processor: CommonClient.ClientCommandProcessor = PinballFX3CommandProcessor
+    game: str = "Pinball FX"
+    command_processor: CommonClient.ClientCommandProcessor = PinballFXCommandProcessor
     items_handling: int = 0b111
     want_slot_data: bool = True
 
@@ -49,11 +58,6 @@ class PinballFX3Context(CommonClient.CommonContext):
     can_display_process_found_message: bool
     can_display_process_not_found_message: bool
 
-    shiny_quarters_total: int
-    shiny_quarters_required: int
-
-    target_score_ratios: Dict[PinballFX3Tables, float]
-
     def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
         super().__init__(server_address, password)
 
@@ -68,14 +72,9 @@ class PinballFX3Context(CommonClient.CommonContext):
         self.can_display_process_found_message = True
         self.can_display_process_not_found_message = True
 
-        self.shiny_quarters_total = 0
-        self.shiny_quarters_required = 0
-
-        self.target_score_ratios = dict()
-
     def make_gui(self):
-        from .client_gui.client_gui import PinballFX3Manager
-        return PinballFX3Manager
+        from .client_gui.client_gui import bootstrap_client_gui
+        return bootstrap_client_gui(super().make_gui())
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -102,11 +101,6 @@ class PinballFX3Context(CommonClient.CommonContext):
         self.can_display_process_found_message = True
         self.can_display_process_not_found_message = True
 
-        self.shiny_quarters_total = 0
-        self.shiny_quarters_required = 0
-
-        self.target_score_ratios = dict()
-
         self.ui.update_tabs()
 
         await super().disconnect(allow_autoreconnect)
@@ -115,87 +109,34 @@ class PinballFX3Context(CommonClient.CommonContext):
         if cmd == "Connected":
             self.game = self.slot_info[self.slot].game
 
+            slot_data: Dict[str, Any] = process_slot_data(_args["slot_data"])
+
             # Options
-            self.game_controller.option_goal = id_to_goals()[_args["slot_data"]["goal"]]
+            self.game_controller.option_goal = slot_data["goal"]
+            self.game_controller.option_shiny_quarters_total = slot_data["shiny_quarters_total"]
+            self.game_controller.option_shiny_quarters_required = slot_data["shiny_quarters_required"]
+            self.game_controller.option_pinball_table_selection = slot_data["pinball_table_selection"]
+            self.game_controller.option_pinball_table_count = slot_data["pinball_table_count"]
+            self.game_controller.option_include_very_high_tier_scores = slot_data["include_very_high_tier_scores"]
+            self.game_controller.option_include_one_ball_challenges = slot_data["include_one_ball_challenges"]
+            self.game_controller.option_include_flips_challenges = slot_data["include_flips_challenges"]
+            self.game_controller.option_include_distance_challenges = slot_data["include_distance_challenges"]
+            self.game_controller.option_target_score_requirement_mode = slot_data["target_score_requirement_mode"]
+            self.game_controller.option_target_score_requirement_percentage = slot_data["target_score_requirement_percentage"]
+            self.game_controller.option_useful_item_percentage = slot_data["useful_item_percentage"]
+            self.game_controller.option_trap_percentage = slot_data["trap_percentage"]
+            self.game_controller.option_trap_weights = slot_data["trap_weights"]
+            self.game_controller.option_trap_duration = slot_data["trap_duration"]
 
-            self.game_controller.option_shiny_quarters_total = _args["slot_data"]["shiny_quarters_total"]
-            self.game_controller.option_shiny_quarters_required = _args["slot_data"]["shiny_quarters_required"]
-
-            self.shiny_quarters_total = _args["slot_data"]["shiny_quarters_total"]
-            self.shiny_quarters_required = _args["slot_data"]["shiny_quarters_required"]
-
-            self.game_controller.option_pinball_table_selection = _args["slot_data"]["pinball_table_selection"]
-            self.game_controller.option_pinball_table_count = _args["slot_data"]["pinball_table_count"]
-
-            self.game_controller.option_exclude_high_tier_target_scores = _args["slot_data"]["exclude_high_tier_target_scores"]
-
-            self.game_controller.option_target_score_requirement_mode = id_to_requirement_modes()[
-                _args["slot_data"]["target_score_requirement_mode"]
-            ]
-
-            self.game_controller.option_target_score_requirement_percentage = _args["slot_data"][
-                "target_score_requirement_percentage"
-            ]
-
-            self.game_controller.option_progressive_challenge_access = _args["slot_data"]["progressive_challenge_access"]
-
-            self.game_controller.option_exclude_high_tier_challenge_stars = id_to_exclude_high_tier_challenge_stars()[
-                _args["slot_data"]["exclude_high_tier_challenge_stars"]
-            ]
-
-            self.game_controller.option_challenge_star_requirement_mode = id_to_requirement_modes()[
-                _args["slot_data"]["challenge_star_requirement_mode"]
-            ]
-
-            self.game_controller.option_challenge_low_tier_star_requirement = _args["slot_data"][
-                "challenge_low_tier_star_requirement"
-            ]
-
-            self.game_controller.option_challenge_mid_tier_star_requirement = _args["slot_data"][
-                "challenge_mid_tier_star_requirement"
-            ]
-
-            self.game_controller.option_challenge_high_tier_star_requirement = _args["slot_data"][
-                "challenge_high_tier_star_requirement"
-            ]
-
-            self.game_controller.option_starsanity = _args["slot_data"]["starsanity"]
-            self.game_controller.option_useful_item_percentage = _args["slot_data"]["useful_item_percentage"]
-
-            self.game_controller.option_useful_item_weights = _args["slot_data"]["useful_item_weights"] = {
-                PinballFX3APUsefulItems(item_name): weight for item_name, weight in _args["slot_data"]["useful_item_weights"].items()
-            }
-
-            self.game_controller.selected_starting_table = PinballFX3Tables(_args["slot_data"]["selected_starter_table"])
-
-            self.game_controller.selected_tables = [
-                PinballFX3Tables(table_name) for table_name in _args["slot_data"]["selected_tables"]
-            ]
-
-            if _args["slot_data"].get("selected_goal_table") is not None:
-                self.game_controller.selected_goal_table = PinballFX3Tables(_args["slot_data"]["selected_goal_table"])
-
-            self.game_controller.target_scores = {
-                PinballFX3Tables(table_name): scores for table_name, scores in _args["slot_data"]["target_scores"].items()
-            }
-
-            self.game_controller.challenge_stars = {
-                PinballFX3Tables(table_name): stars for table_name, stars in _args["slot_data"]["challenge_stars"].items()
-            }
-
-            # Metadata
-            self.target_score_ratios = {
-                PinballFX3Tables(table_name): ratio for table_name, ratio in _args["slot_data"]["target_score_ratios"].items()
-            }
-
-            # Assemble Locations + Initialize Useful Items
-            self.game_controller.assemble_single_player_locations()
-            self.game_controller.assemble_challenge_locations()
-
-            self.game_controller.initialize_useful_items()
+            # Generation Data
+            self.game_controller.selected_tables = slot_data["selected_tables"]
+            self.game_controller.selected_starter_table_modes = slot_data["selected_starter_table_modes"]
+            self.game_controller.selected_goal_table = slot_data["selected_goal_table"]
+            self.game_controller.target_scores = slot_data["target_scores"]
+            self.game_controller.target_score_ratios = slot_data["target_score_ratios"]
 
             # Data Storage
-            self.data_storage_key = f"pinball_fx3_{self.team}_{self.slot}"
+            self.data_storage_key = f"pinball_fx_{self.team}_{self.slot}"
 
             # Playing Status
             Utils.async_start(
@@ -210,9 +151,12 @@ class PinballFX3Context(CommonClient.CommonContext):
             # UI Tabs
             self.ui.update_tabs()
 
+        # UT Tab Integration
+        super().on_package(cmd, _args)
+
     async def controller(self):
         while not self.exit_event.is_set():
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.1)
 
             # Enqueue Received Item Delta
             i: int
@@ -232,14 +176,14 @@ class PinballFX3Context(CommonClient.CommonContext):
                 if not self.game_controller.is_process_running():
                     if not self.game_controller.open_process_handle():
                         if self.can_display_process_not_found_message:
-                            CommonClient.logger.info("Looking for Pinball FX3 process...")
+                            CommonClient.logger.info("Looking for Pinball FX process...")
 
                             self.can_display_process_found_message = True
                             self.can_display_process_not_found_message = False
 
                 if self.game_controller.is_process_running():
                     if self.can_display_process_found_message:
-                        CommonClient.logger.info("Pinball FX3 process found!")
+                        CommonClient.logger.info("Pinball FX process found!")
 
                         self.can_display_process_found_message = False
                         self.can_display_process_not_found_message = True
@@ -268,9 +212,9 @@ class PinballFX3Context(CommonClient.CommonContext):
 
 
 def main(*args) -> None:
-    Utils.init_logging("PinballFX3Client", exception_logger="Client")
+    Utils.init_logging("PinballFXClient", exception_logger="Client")
 
-    parser = CommonClient.get_base_parser(description="Pinball FX3 Client")
+    parser = CommonClient.get_base_parser(description="Pinball FX Client")
 
     parser.add_argument("url", nargs="?", help="Archipelago Connection URL")
     parser.add_argument('--name', default=None, help="Archipelago Slot Name")
@@ -286,10 +230,14 @@ def main(*args) -> None:
             args.password = urllib.parse.unquote(url.password)
 
     async def _main(_args):
-        ctx: PinballFX3Context = PinballFX3Context(args.connect, args.password)
+        ctx: PinballFXContext = PinballFXContext(args.connect, args.password)
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
-        ctx.controller_task = asyncio.create_task(ctx.controller(), name="PinballFX3Controller")
+        ctx.controller_task = asyncio.create_task(ctx.controller(), name="PinballFXController")
+
+        # UT Tab Integration
+        if tracker_loaded:
+            ctx.run_generator()
 
         if CommonClient.gui_enabled:
             ctx.run_gui()

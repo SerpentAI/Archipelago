@@ -1,130 +1,97 @@
-from typing import NamedTuple, Optional, Tuple
+from typing import Any, Dict, NamedTuple, Optional, Tuple
+
+import struct
+
+import pymem.process
+import pymem.ressources.structure
 
 from pymem import Pymem
-from pymem.process import close_handle
 
-from .data.mapping_data import challenge_type_id_to_challenge_type, table_id_to_table
-from .enums import PinballFX3ChallengeTypes, PinballFX3Contexts, PinballFX3Tables
+from .data.game_data import game_mode_internal_id_to_game_mode, table_internal_name_to_table
+
+from .enums import PinballFXGameModes, PinballFXTables
 
 
 class GameState(NamedTuple):
-    context: PinballFX3Contexts = PinballFX3Contexts.INVALID
-    table: Optional[PinballFX3Tables] = None
-    current_score: Optional[int] = None
-    challenge_type: Optional[PinballFX3ChallengeTypes] = None
-    stars_obtained: Optional[int] = None
-    target_score: Optional[int] = None
-    previous_target_score: Optional[int] = None
+    is_valid: bool
+
+    is_in_menu: Optional[bool] = None
+    is_on_table: Optional[bool] = None
+
+    table: Optional[PinballFXTables] = None
+    game_mode: Optional[PinballFXGameModes] = None
+    score: Optional[int] = None
 
 
 class GameStateManager:
-    process_name = "Pinball FX Classic.exe"
+    process_name: str = "PinballFX-Win64-Shipping.exe"
+
+    gnames_offset: int = 0x5F23600
+    gobjects_offset: int = 0x5F7BA40
+    gworld_offset: int = 0x60C6720
+
+    process_event_offset: int = 0x1A6EF40
+    process_event_vtable_offset: int = 0x44
 
     process: Optional[Pymem]
     is_process_running: bool
 
-    competition_handler_address: Optional[int]
-    challenge_handler_address: Optional[int]
+    gnames_mapping: Dict[int, str]
+    gnames_mapping_reverse: Dict[str, int]
 
-    last_seen_context: PinballFX3Contexts
-    last_seen_score: int
+    gobjects_name_to_object: Dict[str, Dict[str, Any]]
+    gobjects_address_to_object: Dict[int, Dict[str, Any]]
+
+    last_seen_is_in_menu: Optional[bool]
+    last_seen_is_on_table: Optional[bool]
+
+    game_state: Optional[GameState]
 
     def __init__(self) -> None:
         self.process = None
         self.is_process_running = False
 
-        self.competition_handler_address = None
-        self.challenge_handler_address = None
+        self.gnames_mapping = dict()
+        self.gnames_mapping_reverse = dict()
 
-        self.last_seen_context = PinballFX3Contexts.INVALID
-        self.last_seen_score = -1
+        self.gobjects_name_to_object = dict()
+        self.gobjects_address_to_object = dict()
 
-    @property
-    def competition_handler_struct_address(self) -> Optional[int]:
-        return self._resolve_address(0xE2DAA4, (0x38, 0x8, 0x4, 0x8, 0x0))
+        self.last_seen_is_in_menu = False
+        self.last_seen_is_on_table = False
 
-    @property
-    def competition_table_id_address(self) -> Optional[int]:
-        if self.competition_handler_address is None:
-            return None
-
-        return self.competition_handler_address + 0x80
-
-    @property
-    def competition_current_score_address(self) -> Optional[int]:
-        if self.competition_handler_address is None:
-            return None
-
-        return self.competition_handler_address + 0x50  # 8 bytes
-
-    @property
-    def challenge_handler_struct_address(self) -> Optional[int]:
-        return self._resolve_address(0xAC5E9C, (0x160, 0x4, 0x30))
-
-    @property
-    def challenge_table_id_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x140
-
-    @property
-    def challenge_type_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x38
-
-    @property
-    def challenge_stars_obtained_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x60
-
-    @property
-    def challenge_target_score_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x68  # 8 bytes
-
-    @property
-    def challenge_previous_target_score_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x70  # 8 bytes
-
-    @property
-    def challenge_current_score_address(self) -> Optional[int]:
-        if self.challenge_handler_address is None:
-            return None
-
-        return self.challenge_handler_address + 0x78  # 8 bytes
+        self.game_state = GameState(is_valid=False)
 
     def open_process_handle(self) -> bool:
         try:
             self.process = Pymem(self.process_name)
             self.is_process_running = True
 
-            self.competition_handler_address = self.competition_handler_struct_address
-            self.challenge_handler_address = self.challenge_handler_struct_address
+            self._generate_gnames_mapping()
+
+            self.gnames_mapping_reverse = {v: k for k, v in self.gnames_mapping.items()}
+
+            self._refresh_gobjects_mapping()
         except Exception:
             return False
 
         return True
 
     def close_process_handle(self) -> bool:
-        if close_handle(self.process.process_handle):
+        if pymem.process.close_handle(self.process.process_handle):
             self.is_process_running = False
             self.process = None
 
-            self.competition_handler_address = None
-            self.challenge_handler_address = None
+            self.gnames_mapping = dict()
+            self.gnames_mapping_reverse = dict()
 
-            self.last_seen_context = PinballFX3Contexts.INVALID
-            self.last_seen_score = -1
+            self.gobjects_name_to_object = dict()
+            self.gobjects_address_to_object = dict()
+
+            self.last_seen_is_in_menu = False
+            self.last_seen_is_on_table = False
+
+            self.game_state = GameState(is_valid=False)
 
             return True
 
@@ -137,98 +104,527 @@ class GameStateManager:
             self.is_process_running = False
             self.process = None
 
-            self.competition_handler_address = None
-            self.challenge_handler_address = None
+            self.gnames_mapping = dict()
+            self.gnames_mapping_reverse = dict()
 
-            self.last_seen_context = PinballFX3Contexts.INVALID
-            self.last_seen_score = -1
+            self.gobjects_name_to_object = dict()
+            self.gobjects_address_to_object = dict()
+
+            self.last_seen_is_in_menu = False
+            self.last_seen_is_on_table = False
+
+            self.game_state = GameState(is_valid=False)
 
             return False
 
         return True
 
     def determine_game_state(self) -> GameState:
-        # The methodology here will need some context.
+        self.game_state = self._determine_game_state()
+        return self.game_state
 
-        # When playing in Single-Player mode, only CompetitiveHandler matters and gets set
-        # When playing in Challenge mode, ChallengeHandler is the one that matters, but CompetitionHandler also gets set
+    def enable_black_and_white_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
 
-        # Haven't found a way to know where we are in-game (Menu, Single-Player, Challenge etc.)
-        # So we need a heuristic to determine the current context
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
 
-        # Once either Handler's pointers are set, they seem to never be zeroed out again
-        # That said, the Table ID in ChallengeHandler seems to be set to 0 when leaving Challenge mode
-        # This isn't the case for CompetitionHandler; the Table ID persists until overwritten with another one
-        # This allows us to at least know for sure when we are NOT in Challenge mode
+        if camera_component_address in (None, 0):
+            return False
 
-        # It also presents a problem, as we can't know which mode the CompetitiveHandler's struct data came from
-        # For example, if we score 12345 points in Challenge mode and exit to menu, the only Handler with a valid Table
-        # ID will be CompetitionHandler, and the score will be 12345 as well and still set. This could leave us wrongly
-        # interpreting game state and thinking the player also just scored 12345 points in Single-Player mode
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+        color_contrast_base_address: int = camera_component_address + 0x2D0
 
-        # The current idea on how to determine context is to track the last seen context and score
-        # If the context change but the score is identical, we can assume we just exited Challenge mode and report an
-        # invalid context in our response instead. Once the score changes again, we can resume returning game state
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
 
-        self.competition_handler_address = self.competition_handler_struct_address
-        self.challenge_handler_address = self.challenge_handler_struct_address
+        bitfield_value |= (1 << 3)
+        bitfield_value |= (1 << 4)
 
-        competition_table_id: int = 0
-        challenge_table_id: int = 0
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 0.0)
+        self.process.write_float(color_contrast_base_address + 0xC, 20.0)
+
+        return True
+
+    def disable_black_and_white_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+        color_contrast_base_address: int = camera_component_address + 0x2D0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+
+        bitfield_value &= ~(1 << 3)
+        bitfield_value &= ~(1 << 4)
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 1.0)
+        self.process.write_float(color_contrast_base_address + 0xC, 1.0)
+
+        return True
+
+    def enable_bloom_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_gain_address: int = camera_component_address + 0x290
+        override_bloom_intensity_address: int = camera_component_address + 0x296
+
+        color_gain_base_address: int = camera_component_address + 0x2F0
+        bloom_intensity_address: int = camera_component_address + 0x4AC
+
+        bitfield_value: int = self.process.read_int(override_color_gain_address)
+        bitfield_value |= (1 << 6)
+
+        self.process.write_int(override_color_gain_address, bitfield_value)
+
+        bitfield_value: int = self.process.read_int(override_bloom_intensity_address)
+        bitfield_value |= (1 << 3)
+
+        self.process.write_int(override_bloom_intensity_address, bitfield_value)
+
+        self.process.write_float(color_gain_base_address + 0xC, 10.0)
+        self.process.write_float(bloom_intensity_address, 24.0)
+
+        return True
+
+    def disable_bloom_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_gain_address: int = camera_component_address + 0x290
+        override_bloom_intensity_address: int = camera_component_address + 0x296
+
+        color_gain_base_address: int = camera_component_address + 0x2F0
+        bloom_intensity_address: int = camera_component_address + 0x4AC
+
+        bitfield_value: int = self.process.read_int(override_color_gain_address)
+        bitfield_value &= ~(1 << 6)
+
+        self.process.write_int(override_color_gain_address, bitfield_value)
+
+        bitfield_value: int = self.process.read_int(override_bloom_intensity_address)
+        bitfield_value &= ~(1 << 3)
+
+        self.process.write_int(override_bloom_intensity_address, bitfield_value)
+
+        self.process.write_float(color_gain_base_address + 0xC, 1.0)
+        self.process.write_float(bloom_intensity_address, 0.675)
+
+        return True
+
+    def enable_chromatic_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value |= (1 << 3)
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 18.0)
+
+        return True
+
+    def disable_chromatic_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value &= ~(1 << 3)
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address + 0xC, 1.0)
+
+        return True
+
+    def enable_color_inversion_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value |= (1 << 3)
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address, -1.0)
+        self.process.write_float(color_saturation_base_address + 0x4, -1.0)
+        self.process.write_float(color_saturation_base_address + 0x8, -1.0)
+
+        return True
+
+    def disable_color_inversion_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_color_saturation_address: int = camera_component_address + 0x290
+        color_saturation_base_address: int = camera_component_address + 0x2C0
+
+        bitfield_value: int = self.process.read_int(override_color_saturation_address)
+        bitfield_value &= ~(1 << 3)
+
+        self.process.write_int(override_color_saturation_address, bitfield_value)
+
+        self.process.write_float(color_saturation_base_address, 1.0)
+        self.process.write_float(color_saturation_base_address + 0x4, 1.0)
+        self.process.write_float(color_saturation_base_address + 0x8, 1.0)
+
+        return True
+
+    def enable_grainy_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_grain_jitter_address: int = camera_component_address + 0x29C
+        grain_jitter_base_address: int = camera_component_address + 0x694
+
+        bitfield_value: int = self.process.read_int(override_grain_jitter_address)
+        bitfield_value |= (1 << 5)
+
+        self.process.write_int(override_grain_jitter_address, bitfield_value)
+
+        self.process.write_float(grain_jitter_base_address, 100.0)
+
+        return True
+
+    def disable_grainy_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_grain_jitter_address: int = camera_component_address + 0x29C
+        grain_jitter_base_address: int = camera_component_address + 0x694
+
+        bitfield_value: int = self.process.read_int(override_grain_jitter_address)
+        bitfield_value &= ~(1 << 5)
+
+        self.process.write_int(override_grain_jitter_address, bitfield_value)
+
+        self.process.write_float(grain_jitter_base_address, 0.0)
+
+        return True
+
+    def enable_tunnel_vision_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_vignette_intensity_address: int = camera_component_address + 0x29C
+        vignette_intensity_address: int = camera_component_address + 0x690
+
+        bitfield_value: int = self.process.read_int(override_vignette_intensity_address)
+        bitfield_value |= (1 << 3)
+
+        self.process.write_int(override_vignette_intensity_address, bitfield_value)
+
+        self.process.write_float(vignette_intensity_address, 7.0)
+
+        return True
+
+    def disable_tunnel_vision_trap(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        camera_component_address: int = self._resolve_address(self.gworld_offset, (0x128, 0x258, 0x0, 0x2A8, 0x4D8, 0x0))
+
+        if camera_component_address in (None, 0):
+            return False
+
+        override_vignette_intensity_address: int = camera_component_address + 0x29C
+        vignette_intensity_address: int = camera_component_address + 0x690
+
+        bitfield_value: int = self.process.read_int(override_vignette_intensity_address)
+        bitfield_value &= ~(1 << 3)
+
+        self.process.write_int(override_vignette_intensity_address, bitfield_value)
+
+        self.process.write_float(vignette_intensity_address, 0.4)
+
+        return True
+
+    def _determine_game_state(self) -> GameState:
+        if not self.is_process_running:
+            return GameState(is_valid=False)
+
+        gworld_address: int = self._resolve_address(self.gworld_offset, (0x0,))
+
+        if gworld_address in [0, None]:
+            return GameState(is_valid=False)
+
+        level_name: Optional[str] = None
 
         try:
-            competition_table_id = self.process.read_int(self.competition_table_id_address)
+            level_name_index: int = self.process.read_int(gworld_address + 0x18)
+            level_name = self.gnames_mapping[level_name_index].lower()
         except Exception:
-            pass
+            GameState(is_valid=False)
 
-        try:
-            challenge_table_id = self.process.read_int(self.challenge_table_id_address)
-        except Exception:
-            pass
+        if level_name not in table_internal_name_to_table and level_name != "playroom":
+            return GameState(is_valid=False)
 
-        if competition_table_id not in table_id_to_table and challenge_table_id not in table_id_to_table:
-            return GameState(context=PinballFX3Contexts.INVALID)
+        if level_name == "playroom":
+            is_in_menu: bool = True
+            is_on_table: bool = False
 
-        context: PinballFX3Contexts
-        score: int
+            if is_in_menu != self.last_seen_is_in_menu:
+                self._refresh_gobjects_mapping()
 
-        if challenge_table_id in table_id_to_table:
-            context = PinballFX3Contexts.CHALLENGE
-            score = self.process.read_longlong(self.challenge_current_score_address)
+                self.last_seen_is_in_menu = is_in_menu
+                self.last_seen_is_on_table = is_on_table
+
+            return GameState(
+                is_valid=True,
+                is_in_menu=is_in_menu,
+                is_on_table=is_on_table,
+            )
         else:
-            context = PinballFX3Contexts.SINGLE_PLAYER
-            score = self.process.read_longlong(self.competition_current_score_address)
+            is_in_menu: bool = False
+            is_on_table: bool = True
 
-        if context != self.last_seen_context and score == self.last_seen_score:
-            return GameState(context=PinballFX3Contexts.INVALID)
+            if is_on_table != self.last_seen_is_on_table:
+                self._refresh_gobjects_mapping()
 
-        self.last_seen_context = context
-        self.last_seen_score = score
+                self.last_seen_is_in_menu = is_in_menu
+                self.last_seen_is_on_table = is_on_table
 
-        if context == PinballFX3Contexts.SINGLE_PLAYER:
+            is_valid: bool = True
+
+            try:
+                table: PinballFXTables = table_internal_name_to_table[level_name]
+
+                game_mode: Optional[PinballFXGameModes] = None
+                game_mode_address: int = self._resolve_address(self.gworld_offset, (0x188, 0xF8, 0x0))
+
+                if game_mode_address not in [0, None]:
+                    game_mode = game_mode_internal_id_to_game_mode.get(self.process.read_int(game_mode_address + 0x6C0 + 0x198))
+
+                score: int = 0
+                score_address = self._resolve_address(self.gworld_offset, (0x188, 0x438, 0x2B0, 0x20, 0x0))
+
+                if score_address not in [0, None]:
+                    score = self.process.read_longlong(score_address + 0x80)
+
+            except Exception:
+                is_valid = False
+
+            if not is_valid:
+                return GameState(is_valid=False)
+
             return GameState(
-                context=context,
-                table=table_id_to_table[self.process.read_int(self.competition_table_id_address)],
-                current_score=score,
-            )
-        elif context == PinballFX3Contexts.CHALLENGE:
-            return GameState(
-                context=context,
-                table=table_id_to_table[self.process.read_int(self.challenge_table_id_address)],
-                current_score=score,
-                challenge_type=challenge_type_id_to_challenge_type.get(self.process.read_int(self.challenge_type_address), 1),
-                stars_obtained=self.process.read_int(self.challenge_stars_obtained_address),
-                target_score=self.process.read_longlong(self.challenge_target_score_address),
-                previous_target_score=self.process.read_longlong(self.challenge_previous_target_score_address),
+                is_valid=True,
+                is_in_menu=is_in_menu,
+                is_on_table=is_on_table,
+                table=table,
+                game_mode=game_mode,
+                score=score,
             )
 
-    # Use readuint for 32-bit processes, readlonglong for 64-bit processes
+    def _generate_gnames_mapping(self):
+        if not self.is_process_still_running():
+            return
+
+        mapping: Dict[int, str] = dict()
+
+        gnames_pointer: int = self.process.base_address + self.gnames_offset
+        blocks_base_address: int = gnames_pointer + 0x10
+
+        try:
+            table_data: bytes = self.process.read_bytes(blocks_base_address, 8192 * 8)
+            block_pointers: Tuple[int, ...] = struct.unpack("<8192Q", table_data)
+        except:
+            return
+
+        block_index: int
+        block_pointer: int
+        for block_index, block_pointer in enumerate(block_pointers):
+            if not block_pointer:
+                continue
+
+            try:
+                chunk_data: bytes = self.process.read_bytes(block_pointer, 0x40000)
+            except:
+                continue
+
+            offset: int = 0
+            while offset < 0x40000 - 6:
+                header: int = int.from_bytes(chunk_data[offset + 4: offset + 6], "little")
+
+                if header == 0:
+                    break
+
+                is_wide: bool = header & 0x1
+                length: int = header >> 1
+
+                if length <= 0:
+                    break
+
+                name_index: int = (block_index << 16) | (offset // 4)
+
+                start: int = offset + 6
+
+                entry_size: int
+                name: str
+
+                if is_wide:
+                    end: int = start + (length * 2)
+                    name = chunk_data[start:end].decode("utf-16", errors="ignore")
+                    entry_size = 6 + (length * 2)
+                else:
+                    end: int = start + length
+                    name = chunk_data[start:end].decode("utf-8", errors="ignore")
+                    entry_size = 6 + length
+
+                mapping[name_index] = name
+
+                offset += (entry_size + 3) & ~3
+
+        self.gnames_mapping = mapping
+
+    def _refresh_gobjects_mapping(self):
+        if not self.is_process_still_running():
+            return
+
+        self.gobjects_name_to_object = dict()
+        self.gobjects_address_to_object = dict()
+
+        gobjects_address: int = self.process.base_address + self.gobjects_offset
+
+        chunks_pointer_base_address: int = self.process.read_longlong(gobjects_address + 0x0)
+        element_count: int = self.process.read_int(gobjects_address + 0x14)
+
+        chunk_index: int
+        for chunk_index in range((element_count // 65536) + 1):
+            chunk_address: int = self.process.read_longlong(chunks_pointer_base_address + (chunk_index * 8))
+
+            if not chunk_address:
+                continue
+
+            bytes_to_read: int = min(65536, element_count - (chunk_index * 65536))
+
+            chunk_bytes: bytes = self.process.read_bytes(chunk_address, bytes_to_read * 24)
+
+            i: int
+            for i in range(bytes_to_read):
+                object_pointer: int
+                internal_flags: int
+
+                object_pointer, internal_flags = struct.unpack("<QI", chunk_bytes[(i * 24):(i * 24 + 12)])
+
+                internal_flags_exclude_mask: int = 0x30200000  # Unreachable | PendingKill | Garbage
+
+                if internal_flags & internal_flags_exclude_mask:
+                    continue
+
+                if object_pointer > 0x100000:
+                    try:
+                        header_bytes: bytes = self.process.read_bytes(object_pointer + 0x8, 40)
+
+                        object_flags: int
+                        class_pointer: int
+                        name_index: int
+                        name_number: int
+                        outer_pointer: int
+
+                        object_flags, _, class_pointer, _, name_index, name_number, _, outer_pointer = struct.unpack("<IIQIIIIQ", header_bytes)
+
+                        object_flags_exclude_mask: int = 0x60018000  # RF_Garbage | RF_PendingKill | RF_BeginDestroyed | RF_FinishDestroyed
+
+                        if object_flags & object_flags_exclude_mask:
+                            continue
+
+                        display_name: str = self.gnames_mapping.get(name_index, "Unknown Object")
+
+                        if name_number > 0:
+                            display_name = f"{display_name}_{name_number - 1}"
+
+                        if display_name not in self.gobjects_name_to_object:
+                            self.gobjects_name_to_object[display_name] = list()
+
+                        self.gobjects_name_to_object[display_name].append({
+                            "name": display_name,
+                            "address": object_pointer,
+                            "outer": outer_pointer,
+                            "class": class_pointer,
+                        })
+
+                        self.gobjects_address_to_object[object_pointer] = {
+                            "name": display_name,
+                            "address": object_pointer,
+                            "outer": outer_pointer,
+                            "class": class_pointer,
+                        }
+                    except:
+                        continue
+
     def _resolve_address(self, base_offset: int, offsets: Tuple[int, ...]) -> Optional[int]:
-        address: int = self.process.read_uint(self.process.base_address + base_offset)
+        address: int = self.process.read_longlong(self.process.base_address + base_offset)
 
         for offset in offsets[:-1]:
             try:
-                address = self.process.read_uint(address + offset)
+                address = self.process.read_longlong(address + offset)
             except Exception:
                 return None
 
