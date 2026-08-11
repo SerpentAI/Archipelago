@@ -86,6 +86,8 @@ class LevelCount(Range):
     Determines how many Levels will be picked for inclusion in the multiworld.
 
     If this number is higher than the size of your Level selection, it will be set to that number instead.
+
+    Note: Setting this to a value under 20 will prevent the activation of the include_overpowered_items option.
     """
 
     display_name = "Level Count"
@@ -275,6 +277,8 @@ class IncludeOverpoweredItems(DefaultOnToggle):
     - Unlimited Ammo
     - Unlimited Cannon Ammo
     - Invincibility
+
+    This option will get force-disabled if the level count is under 20 as generation may fail to place all of them.
     """
 
     display_name = "Include Overpowered Abilities"

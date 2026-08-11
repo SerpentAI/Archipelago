@@ -361,6 +361,14 @@ class SeveredSteelWorld(World):
         # Item Options
         self.include_overpowered_items = bool(self.options.include_overpowered_items.value)
 
+        if self.level_count < 20:
+            self.include_overpowered_items = False
+
+            logging.warning(
+                f"Severed Steel: {self.player_name} wants to include overpowered items and had less than 20 levels. "
+                "Disabling the inclusion of overpowered items..."
+            )
+
         # Gameplay Options
         self.invincible_mode = bool(self.options.invincible_mode.value)
 
@@ -674,6 +682,9 @@ class SeveredSteelWorld(World):
 
         if slot_data["level_count"] != self.level_count:
             slot_data["level_count"] = self.level_count
+
+        if slot_data["include_overpowered_items"] != self.include_overpowered_items:
+            slot_data["include_overpowered_items"] = self.include_overpowered_items
 
         return slot_data
 
