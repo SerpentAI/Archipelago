@@ -124,6 +124,7 @@ class MirrorsEdgeWorld(World):
     target_times: Dict[MirrorsEdgeLevels, List[int]]
 
     # Universal Tracker
+    glitches_item_name: str = "Advanced Logic"
     location_id_to_alias: Dict[int, str]
     ut_can_gen_without_yaml: bool = True
 
