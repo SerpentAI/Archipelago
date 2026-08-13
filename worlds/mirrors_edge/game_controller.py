@@ -301,7 +301,7 @@ class GameController:
 
         if self.game_state_context == MirrorsEdgeContexts.MENU:
             if self.previous_context != MirrorsEdgeContexts.MENU:
-                self.menu_routine_timestamp = now + 3
+                self.menu_routine_timestamp = now + 1
                 return None
 
             if self.menu_routine_timestamp is not None and now >= self.menu_routine_timestamp:
@@ -320,6 +320,7 @@ class GameController:
 
                         if level_unlock_item_count > 0:
                             statuses.append(self.game_state_manager.unlock_time_trial(level_to_internal_index[level]))
+                            time.sleep(0.05)
 
                     if self.goal_level is not None:
                         level_unlock_item_name = f"Level Unlock: {self.goal_level.value}"
@@ -329,6 +330,7 @@ class GameController:
 
                         if level_unlock_item_count > 0 and runner_bag_item_count >= self.option_runner_bags_required:
                             statuses.append(self.game_state_manager.unlock_time_trial(level_to_internal_index[self.goal_level]))
+                            time.sleep(0.05)
 
                     if not all(statuses):
                         self.game_state_context = MirrorsEdgeContexts.INVALID

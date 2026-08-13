@@ -174,7 +174,7 @@ class GameStateManager:
             instance_name: str
             instance_data: List[Dict[str, Any]]
             for instance_name, instance_data in self._find_instances_of_class(move_class_name).items():
-                if instance_name.startswith("Default__"):
+                if instance_name.startswith("Default__".lower()):
                     move_cdo_addresses[move_class_name] = instance_data[0]["address"]
 
         self.move_cdo_addresses = move_cdo_addresses
@@ -835,7 +835,7 @@ class GameStateManager:
         instance_name: str
         instance_data: Dict[str, Any]
         for instance_name, instance_data in self._find_instances_of_class("TdSPTimeTrialGame").items():
-            if instance_name.startswith("TdSPTimeTrialGame"):
+            if instance_name.startswith("TdSPTimeTrialGame".lower()):
                 self.sp_time_trial_game_address = instance_data[0]["address"]
 
         return None
@@ -869,11 +869,11 @@ class GameStateManager:
             return None
 
         function_object_address: int = 0
-        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("LockAllLevels", list())
+        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("LockAllLevels".lower(), list())
 
         function_object_address_candidate: Dict[str, Any]
         for function_object_address_candidate in function_object_address_candidates:
-            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings":
+            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings".lower():
                 function_object_address = function_object_address_candidate["address"]
                 break
 
@@ -885,7 +885,7 @@ class GameStateManager:
 
         instance_data: Dict[str, Any]
         for instance_data in profile_settings_address_candidates.values():
-            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient":
+            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient".lower():
                 profile_settings_address = instance_data[0]["address"]
                 break
 
@@ -906,11 +906,11 @@ class GameStateManager:
             return None
 
         function_object_address: int = 0
-        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("LockAllTTStretches", list())
+        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("LockAllTTStretches".lower(), list())
 
         function_object_address_candidate: Dict[str, Any]
         for function_object_address_candidate in function_object_address_candidates:
-            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings":
+            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings".lower():
                 function_object_address = function_object_address_candidate["address"]
                 break
 
@@ -922,7 +922,7 @@ class GameStateManager:
 
         instance_data: Dict[str, Any]
         for instance_data in profile_settings_address_candidates.values():
-            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient":
+            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient".lower():
                 profile_settings_address = instance_data[0]["address"]
                 break
 
@@ -941,11 +941,11 @@ class GameStateManager:
             return None
 
         function_object_address: int = 0
-        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("UnlockTTStretch", list())
+        function_object_address_candidates: List[Dict[str, Any]] = self.gobjects_name_to_object.get("UnlockTTStretch".lower(), list())
 
         function_object_address_candidate: Dict[str, Any]
         for function_object_address_candidate in function_object_address_candidates:
-            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings":
+            if self.gobjects_address_to_object[function_object_address_candidate["outer"]]["name"] == "TdProfileSettings".lower():
                 function_object_address = function_object_address_candidate["address"]
                 break
 
@@ -957,7 +957,7 @@ class GameStateManager:
 
         instance_data: Dict[str, Any]
         for instance_data in profile_settings_address_candidates.values():
-            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient":
+            if self.gobjects_address_to_object[instance_data[0]["outer"]]["name"] == "Transient".lower():
                 profile_settings_address = instance_data[0]["address"]
                 break
 
@@ -977,6 +977,8 @@ class GameStateManager:
     def _find_instances_of_class(self, class_name: str) -> Optional[Dict[str, Any]]:
         if not self.is_process_still_running():
             return None
+
+        class_name = class_name.lower()
 
         if class_name not in self.gobjects_name_to_object:
             return None
@@ -1032,7 +1034,7 @@ class GameStateManager:
                 clean_name: str = decoded_name.split("\x00")[0]
 
                 if clean_name:
-                    mapping[name_index] = clean_name
+                    mapping[name_index] = clean_name.lower()
 
             except:
                 continue
@@ -1066,7 +1068,7 @@ class GameStateManager:
                 header_bytes: bytes = self.process.read_bytes(object_pointer + 0x28, 16)
                 outer_ptr, name_index, name_number, class_ptr = struct.unpack("<IIII", header_bytes)
 
-                base_name: str = self.gnames_mapping.get(name_index, "Unknown")
+                base_name: str = self.gnames_mapping.get(name_index, "Unknown".lower())
 
                 display_name = f"{base_name}_{name_number}" if name_number > 0 else base_name
 
