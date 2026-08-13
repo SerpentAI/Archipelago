@@ -614,6 +614,8 @@ class MirrorsEdgeWorld(World):
         for level, level_target_times in self.target_times.items():
             spoiler_handle.write(join_string + f"{level.value}: {level_target_times}")
 
+        spoiler_handle.write("\n")
+
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
 
