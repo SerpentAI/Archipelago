@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from kvui import GameManager
 
@@ -13,24 +13,27 @@ from ..client import MirrorsEdgeContext
 from .client_gui_layouts import MirrorsEdgeTabLayout
 
 
-class MirrorsEdgeManager(GameManager):
-    ctx: MirrorsEdgeContext
+def bootstrap_client_gui(gui: Optional[type[GameManager]]) -> type[GameManager]:
+    class MirrorsEdgeManager(gui):
+        ctx: MirrorsEdgeContext
 
-    logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
-    base_title: str = "Archipelago Mirror's Edge Client"
+        logging_pairs: List[Tuple[str, str]] = [("Client", "Archipelago")]
+        base_title: str = "Archipelago Mirror's Edge Client"
 
-    mirrors_edge_tab_layout: MirrorsEdgeTabLayout
-    mirrors_edge_tab: Widget
+        mirrors_edge_tab_layout: MirrorsEdgeTabLayout
+        mirrors_edge_tab: Widget
 
-    def build(self) -> Layout:
-        container: Layout = super().build()
+        def build(self) -> Layout:
+            container: Layout = super().build()
 
-        self.mirrors_edge_tab_layout = MirrorsEdgeTabLayout(self.ctx)
-        self.mirrors_edge_tab = self.add_client_tab("Mirror's Edge", self.mirrors_edge_tab_layout)
+            self.mirrors_edge_tab_layout = MirrorsEdgeTabLayout(self.ctx)
+            self.mirrors_edge_tab = self.add_client_tab("Mirror's Edge", self.mirrors_edge_tab_layout)
 
-        inspector.create_inspector(Window, container)
+            inspector.create_inspector(Window, container)
 
-        return container
+            return container
 
-    def update_tabs(self) -> None:
-        self.mirrors_edge_tab_layout.update()
+        def update_tabs(self) -> None:
+            self.mirrors_edge_tab_layout.update()
+
+    return MirrorsEdgeManager

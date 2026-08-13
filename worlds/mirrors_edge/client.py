@@ -18,12 +18,24 @@ from .data_funcs import (
 
 from .game_controller import GameController
 
+# UT Tab Integration
+tracker_loaded: bool = False
 
-class MirrorsEdgeCommandProcessor(CommonClient.ClientCommandProcessor):
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as Context
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor as CommandProcessor
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as Context
+    from CommonClient import ClientCommandProcessor as CommandProcessor
+
+
+class MirrorsEdgeCommandProcessor(CommandProcessor):
     ctx: "MirrorsEdgeContext"
 
 
-class MirrorsEdgeContext(CommonClient.CommonContext):
+class MirrorsEdgeContext(Context):
     tags: Set[str] = {"AP"}
     game: str = "Mirror's Edge"
     command_processor: CommonClient.ClientCommandProcessor = MirrorsEdgeCommandProcessor
@@ -61,8 +73,8 @@ class MirrorsEdgeContext(CommonClient.CommonContext):
         self.can_display_process_not_found_message = True
 
     def make_gui(self):
-        from .client_gui.client_gui import MirrorsEdgeManager
-        return MirrorsEdgeManager
+        from .client_gui.client_gui import bootstrap_client_gui
+        return bootstrap_client_gui(super().make_gui())
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -145,6 +157,9 @@ class MirrorsEdgeContext(CommonClient.CommonContext):
             # UI Tabs
             self.ui.update_tabs()
 
+        # UT Tab Integration
+        super().on_package(cmd, _args)
+
     async def controller(self):
         while not self.exit_event.is_set():
             await asyncio.sleep(0.2)
@@ -225,6 +240,10 @@ def main(*args) -> None:
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="MirrorsEdgeController")
+
+        # UT Tab Integration
+        if tracker_loaded:
+            ctx.run_generator()
 
         if CommonClient.gui_enabled:
             ctx.run_gui()

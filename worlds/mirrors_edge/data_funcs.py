@@ -1,5 +1,7 @@
 from typing import Any, Dict, List
 
+import copy
+
 from .data.item_data import MirrorsEdgeItemData, item_data
 from .data.location_data import MirrorsEdgeLocationData, location_data
 
@@ -99,8 +101,10 @@ def locations_with_tags(tags: List[MirrorsEdgeAPTags]) -> List[str]:
 
 
 def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
-    slot_data["goal"] = id_to_goals()[slot_data["goal"]]
-    slot_data["logic"] = id_to_logic()[slot_data["logic"]]
+    slot_data_processed: Dict[str, Any] = copy.deepcopy(slot_data)
+
+    slot_data_processed["goal"] = id_to_goals()[slot_data["goal"]]
+    slot_data_processed["logic"] = id_to_logic()[slot_data["logic"]]
 
     trap_weights: Dict[MirrorsEdgeAPTrapTypes, int] = dict()
 
@@ -109,16 +113,16 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
     for trap_type_name, weight in slot_data["trap_weights"].items():
         trap_weights[MirrorsEdgeAPTrapTypes(trap_type_name)] = weight
 
-    slot_data["trap_weights"] = trap_weights
+    slot_data_processed["trap_weights"] = trap_weights
 
-    slot_data["starting_levels"] = [MirrorsEdgeLevels(level_name) for level_name in slot_data["starting_levels"]]
-    slot_data["levels"] = [MirrorsEdgeLevels(level_name) for level_name in slot_data["levels"]]
+    slot_data_processed["starting_levels"] = [MirrorsEdgeLevels(level_name) for level_name in slot_data["starting_levels"]]
+    slot_data_processed["levels"] = [MirrorsEdgeLevels(level_name) for level_name in slot_data["levels"]]
 
     if slot_data["goal_level"] is not None:
-        slot_data["goal_level"] = MirrorsEdgeLevels(slot_data["goal_level"])
+        slot_data_processed["goal_level"] = MirrorsEdgeLevels(slot_data["goal_level"])
 
-    slot_data["starting_abilities"] = [MirrorsEdgeAbilities(ability_name) for ability_name in slot_data["starting_abilities"]]
-    slot_data["abilities"] = [MirrorsEdgeAbilities(ability_name) for ability_name in slot_data["abilities"]]
+    slot_data_processed["starting_abilities"] = [MirrorsEdgeAbilities(ability_name) for ability_name in slot_data["starting_abilities"]]
+    slot_data_processed["abilities"] = [MirrorsEdgeAbilities(ability_name) for ability_name in slot_data["abilities"]]
 
     target_times: Dict[MirrorsEdgeLevels, List[int]] = dict()
 
@@ -127,6 +131,6 @@ def process_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
     for level_name, level_target_times in slot_data["target_times"].items():
         target_times[MirrorsEdgeLevels(level_name)] = level_target_times
 
-    slot_data["target_times"] = target_times
+    slot_data_processed["target_times"] = target_times
 
-    return slot_data
+    return slot_data_processed
