@@ -24,7 +24,8 @@ If you want to include the Pure Time Trial DLC, you are fully responsible for se
 **Note:** DxWrapper (to enable borderless windowed mode and alt-tabbing among other things) is supported and won't interfere with the implementation. Setting it up correctly is left as an exercise to the player, and support will not be provided as it falls outside the scope of this implementation.
 
 ## Joining a Multiworld Game
-- Launch Mirror's Edge and advance to the main menu
+- Launch Mirror's Edge and advance to the main menu (where you can see Story, Race, Options, Extras)
+  - The previous step is IMPORTANT to follow to the letter! Do NOT proceed while on the splash screen that precedes it, in different menus or while in a level or anywhere else
 - Open the Archipelago Launcher. Find and click _Mirror's Edge Client_
 - Using the _Mirror's Edge Client_:
   - Enter the room's hostname and port number (e.g. archipelago.gg:54321) in the top box and click Connect
