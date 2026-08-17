@@ -135,7 +135,7 @@ class IncludeDistanceChallenges(Toggle):
     Items to unlock the Distance Challenge for each table will be added to the item pool.
     """
 
-    display_name = "Include 1 Ball Challenges"
+    display_name = "Include Distance Challenges"
 
 
 class TargetScoreRequirementMode(Choice):
