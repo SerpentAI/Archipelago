@@ -263,3 +263,15 @@ class PeggleDeluxeLevelStates(enum.Enum):
     SHOT_ACTIVE = 2
     AFTER_SHOT = 3
     MASTER_SELECTION = 9
+
+
+class PeggleDeluxePegColors(enum.Enum):
+    BLUE = 1
+    ORANGE = 2
+    PURPLE = 3
+    GREEN = 4
+    BLUE_LIT = 5
+    ORANGE_LIT = 6
+    PURPLE_LIT = 7
+    GREEN_LIT = 8
+

@@ -1,6 +1,7 @@
 from typing import List, NamedTuple, Optional, Tuple
 
 import ctypes
+import random
 import struct
 
 from pymem import Pymem
@@ -16,6 +17,7 @@ from .enums import (
     PeggleDeluxeGameModes,
     PeggleDeluxeLevels,
     PeggleDeluxeLevelStates,
+    PeggleDeluxePegColors,
 )
 
 
@@ -44,6 +46,12 @@ class GameState(NamedTuple):
     has_achieved_7_peg_combo: Optional[bool] = None
     has_achieved_15_peg_combo: Optional[bool] = None
     has_achieved_full_clear: Optional[bool] = None
+
+
+class Peg(NamedTuple):
+    address: int
+    peg_info_address: int
+    color: Optional[PeggleDeluxePegColors]
 
 
 class GameStateManager:
@@ -252,6 +260,10 @@ class GameStateManager:
             return None
 
         return self.logic_manager_struct_address + 0x120
+
+    @property
+    def board_struct_address(self) -> Optional[int]:
+        return self._resolve_address(0x2873AC, (0x320, 0x88, 0x0))
 
     def get_current_game_mode(self) -> Optional[PeggleDeluxeGameModes]:
         if self.current_game_mode_address is None:
@@ -610,6 +622,74 @@ class GameStateManager:
 
         return pegs_cleared >= level_to_peg_count.get(level, 999999)
 
+    def cap_orange_pegs(self, count: int) -> bool:
+        level_pegs: Optional[List[Peg]] = self._get_level_pegs()
+
+        if level_pegs is None:
+            return False
+
+        orange_pegs: List[Peg] = [peg for peg in level_pegs if peg.color == PeggleDeluxePegColors.ORANGE]
+
+        if len(orange_pegs) <= count:
+            return True
+
+        pegs_to_downgrade: List[Peg] = random.sample(orange_pegs, len(orange_pegs) - count)
+
+        peg: Peg
+        for peg in pegs_to_downgrade:
+            self._set_peg_color(peg, PeggleDeluxePegColors.BLUE)
+
+        return True
+
+    def set_green_pegs(self, green_count: int) -> bool:
+        level_pegs: Optional[List[Peg]] = self._get_level_pegs()
+
+        if level_pegs is None:
+            return False
+
+        peg: Peg
+        for peg in level_pegs:
+            if peg.color == PeggleDeluxePegColors.GREEN:
+                self._set_peg_color(peg, PeggleDeluxePegColors.BLUE)
+
+        if green_count <= 0:
+            return True
+
+        level_pegs = self._get_level_pegs()
+
+        if level_pegs is None:
+            return False
+
+        blue_pegs: List[Peg] = [peg for peg in level_pegs if peg.color == PeggleDeluxePegColors.BLUE]
+
+        pegs_to_promote: List[Peg] = random.sample(blue_pegs, min(green_count, len(blue_pegs)))
+
+        for peg in pegs_to_promote:
+            self._set_peg_color(peg, PeggleDeluxePegColors.GREEN)
+
+        return True
+
+    def force_purple_peg_blue(self) -> bool:
+        if self.logic_manager_struct_address is None:
+            return False
+
+        try:
+            purple_peg_address: int = self.process.read_uint(self.logic_manager_struct_address + 0x170)
+
+            if purple_peg_address == 0:
+                return False
+
+            peg_info_address: int = self.process.read_uint(purple_peg_address + 0xD0)
+
+            if peg_info_address == 0:
+                return False
+
+            self.process.write_int(peg_info_address + 0x10, PeggleDeluxePegColors.BLUE.value)
+
+            return True
+        except Exception:
+            return False
+
     def open_process_handle(self) -> bool:
         # The system could have multiple PopCap games running at once, and they all share the same executable name
         # so we need to look for a signature to know which one is the right process to open a handle to.
@@ -925,6 +1005,58 @@ class GameStateManager:
 
             self.fever_trigger_patch_address = patch_address
 
+            return True
+        except Exception:
+            return False
+
+    def _get_level_pegs(self) -> Optional[List[Peg]]:
+        if self.board_struct_address is None or not self.is_playing_a_level():
+            return None
+
+        level_objects_address: int = self.board_struct_address + 0x190
+
+        try:
+            current_object_node: int = self.process.read_uint(level_objects_address + 0x4)
+            object_count: int = self.process.read_int(level_objects_address + 0x8)
+        except Exception:
+            return None
+
+        level_pegs: List[Peg] = list()
+
+        i: int
+        for i in range(min(object_count, 512)):
+            try:
+                object_address: int = self.process.read_uint(current_object_node + 0x8)
+
+                if object_address != 0:
+                    peg_info_address: int = self.process.read_uint(object_address + 0xD0)
+
+                    if peg_info_address != 0:
+                        color_value: int = self.process.read_int(peg_info_address + 0x10)
+
+                        color: Optional[PeggleDeluxePegColors]
+                        try:
+                            color = PeggleDeluxePegColors(color_value)
+                        except ValueError:
+                            color = None
+
+                        level_pegs.append(
+                            Peg(
+                                address=object_address,
+                                peg_info_address=peg_info_address,
+                                color=color,
+                            )
+                        )
+            except Exception:
+                pass
+
+            current_object_node = self.process.read_uint(current_object_node + 0x0)
+
+        return level_pegs
+
+    def _set_peg_color(self, peg: Peg, color: PeggleDeluxePegColors) -> bool:
+        try:
+            self.process.write_int(peg.peg_info_address + 0x10, color.value)
             return True
         except Exception:
             return False
