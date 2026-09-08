@@ -63,6 +63,8 @@ class GameStateManager:
     level_lock_mask_address: Optional[int]
     character_lock_mask_address: Optional[int]
 
+    starting_ball_count_address: Optional[int]
+
     fever_trigger_patch_address: Optional[int]
 
     def __init__(self) -> None:
@@ -76,6 +78,8 @@ class GameStateManager:
 
         self.level_lock_mask_address = None
         self.character_lock_mask_address = None
+
+        self.starting_ball_count_address = None
 
         self.fever_trigger_patch_address = None
 
@@ -379,6 +383,16 @@ class GameStateManager:
             instant_replay: int = self.process.read_int(self.instant_replay_address)
 
             return instant_replay == 256
+        except Exception:
+            return False
+
+    def set_starting_ball_count(self, ball_count: int) -> bool:
+        if not self.is_process_running or self.starting_ball_count_address is None:
+            return False
+
+        try:
+            self.process.write_int(self.starting_ball_count_address, ball_count)
+            return True
         except Exception:
             return False
 
@@ -842,6 +856,45 @@ class GameStateManager:
                 return False
 
             self.character_lock_mask_address = mask_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_starting_ball_count_patch(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.starting_ball_count_address is not None:
+            return True
+
+        try:
+            patch_address: int = self.process.base_address + 0x5DE5C
+
+            original_bytes: bytes = self.process.read_bytes(patch_address, 5)
+
+            if original_bytes[0] == 0xA1:
+                return False
+
+            # mov eax, 0x0A
+            if original_bytes != b"\xB8\x0A\x00\x00\x00":
+                return False
+
+            value_address: int = self.process.allocate(4)
+
+            # Default to 10 like vanilla
+            self.process.write_int(value_address, 10)
+
+            # mov eax, [value_address]
+            patch_bytes: bytes = b"\xA1" + struct.pack("<I", value_address)
+
+            if not self._write_executable_bytes(patch_address, patch_bytes):
+                return False
+
+            if self.process.read_bytes(patch_address, 5) != patch_bytes:
+                return False
+
+            self.starting_ball_count_address = value_address
 
             return True
         except Exception:
