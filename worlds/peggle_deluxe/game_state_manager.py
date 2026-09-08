@@ -1,10 +1,14 @@
 from typing import List, NamedTuple, Optional, Tuple
 
+import ctypes
+import struct
+
 from pymem import Pymem
 from pymem.process import close_handle, list_processes
+from pymem.ressources.kernel32 import VirtualProtectEx
 from pymem.ressources.structure import ProcessEntry32
 
-from .data.mapping_data import id_to_characters, level_to_peg_count, stage_level_to_levels
+from .data.mapping_data import id_to_characters, level_to_peg_count, level_to_stage_levels, stage_level_to_levels
 
 from .enums import (
     PeggleDeluxeCharacters,
@@ -56,6 +60,9 @@ class GameStateManager:
     global_edit_val_address: Optional[int]
     logic_manager_address: Optional[int]
 
+    level_lock_function_address: Optional[int]
+    level_lock_mask_address: Optional[int]
+
     def __init__(self) -> None:
         self.process = None
         self.is_process_running = False
@@ -64,6 +71,9 @@ class GameStateManager:
         self.player_info_address = None
         self.global_edit_val_address = None
         self.logic_manager_address = None
+
+        self.level_lock_function_address = None
+        self.level_lock_mask_address = None
 
     @property
     def thunderball_app_struct_address(self) -> Optional[int]:
@@ -664,6 +674,134 @@ class GameStateManager:
             has_achieved_15_peg_combo=self.has_achieved_15_peg_combo(),
             has_achieved_full_clear=self.has_achieved_full_clear(),
         )
+
+    def set_unlocked_levels(self, unlocked_levels: List[PeggleDeluxeLevels]) -> bool:
+        if not self.is_process_running or self.level_lock_mask_address is None:
+            return False
+
+        try:
+            mask: int = 0
+
+            level: PeggleDeluxeLevels
+            for level in unlocked_levels:
+                stage_level: Optional[Tuple[int, int]] = level_to_stage_levels.get(level)
+
+                if stage_level is None:
+                    continue
+
+                stage: int
+                level_index: int
+                stage, level_index = stage_level
+
+                bit_index: int = stage * 5 + level_index
+
+                if 0 <= bit_index < 64:
+                    mask |= 1 << bit_index
+
+            self.process.write_bytes(self.level_lock_mask_address, struct.pack("<Q", mask), 8)
+
+            return True
+        except Exception:
+            return False
+
+    def install_level_lock_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.level_lock_function_address is not None:
+            return True
+
+        try:
+            function_address: int = self.process.base_address + 0x93600
+
+            existing_prologue: bytes = self.process.read_bytes(function_address, 5)
+
+            if existing_prologue[0] == 0xE9:
+                return False
+
+            if existing_prologue != b"\x55\x8B\xEC\x56\x57":
+                return False
+
+            return_address: int = function_address + 0x5
+
+            mask_address: int = self.process.allocate(8)
+            cave_address: int = self.process.allocate(256)
+
+            self.process.write_bytes(mask_address, struct.pack("<Q", 0), 8)
+
+            cave_bytes: bytes = self._build_level_lock_cave_bytes(cave_address, mask_address, return_address)
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (function_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target)
+
+            if not self._write_executable_bytes(function_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(function_address, 5) != hook_bytes:
+                return False
+
+            self.level_lock_function_address = function_address
+            self.level_lock_mask_address = mask_address
+
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def _build_level_lock_cave_bytes(cave_address: int, mask_address: int, return_address: int) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x8B\x81\xA8\x00\x00\x00")  # mov eax, [ecx+0xA8]
+        instruction_bytes.append(b"\x8B\x54\x24\x04")  # mov edx, [esp+4]
+        instruction_bytes.append(b"\x8D\x04\x80")  # lea eax, [eax+eax*4]
+        instruction_bytes.append(b"\x03\xC2")  # add eax, edx
+        instruction_bytes.append(b"\x0F\xA3\x05" + struct.pack("<I", mask_address))  # bt [mask], eax
+        instruction_bytes.append(b"\x72\x05")  # jc +5
+
+        instruction_bytes.append(b"\x31\xC0")  # xor eax, eax
+        instruction_bytes.append(b"\xC2\x04\x00")  # ret 4
+
+        instruction_bytes.append(b"\x55")  # push ebp
+        instruction_bytes.append(b"\x8B\xEC")  # mov ebp, esp
+        instruction_bytes.append(b"\x56")  # push esi
+        instruction_bytes.append(b"\x57")  # push edi
+
+        bytes_before_jump: int = sum(len(chunk) for chunk in instruction_bytes)
+        jump_instruction_address: int = cave_address + bytes_before_jump
+        relative_target: int = return_address - (jump_instruction_address + 5)
+
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", relative_target))  # jmp return_address
+
+        return b"".join(instruction_bytes)
+
+    def _write_executable_bytes(self, address: int, data: bytes) -> bool:
+        previous_protection: ctypes.c_ulong = ctypes.c_ulong(0)
+
+        did_change_protection: bool = bool(
+            VirtualProtectEx(
+                self.process.process_handle,
+                ctypes.c_void_p(address),
+                len(data),
+                0x40,
+                ctypes.byref(previous_protection),
+            )
+        )
+
+        if not did_change_protection:
+            return False
+
+        self.process.write_bytes(address, data, len(data))
+
+        VirtualProtectEx(
+            self.process.process_handle,
+            ctypes.c_void_p(address),
+            len(data),
+            previous_protection.value,
+            ctypes.byref(previous_protection),
+        )
+
+        return True
 
     # Use readuint for 32-bit processes, readlonglong for 64-bit processes
     def _resolve_address(self, base_offset: int, offsets: Tuple[int, ...]) -> Optional[int]:
