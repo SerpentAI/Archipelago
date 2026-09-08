@@ -60,8 +60,10 @@ class GameStateManager:
     global_edit_val_address: Optional[int]
     logic_manager_address: Optional[int]
 
-    level_lock_function_address: Optional[int]
     level_lock_mask_address: Optional[int]
+    character_lock_mask_address: Optional[int]
+
+    fever_trigger_patch_address: Optional[int]
 
     def __init__(self) -> None:
         self.process = None
@@ -72,8 +74,10 @@ class GameStateManager:
         self.global_edit_val_address = None
         self.logic_manager_address = None
 
-        self.level_lock_function_address = None
         self.level_lock_mask_address = None
+        self.character_lock_mask_address = None
+
+        self.fever_trigger_patch_address = None
 
     @property
     def thunderball_app_struct_address(self) -> Optional[int]:
@@ -117,6 +121,13 @@ class GameStateManager:
             return None
 
         return self.player_info_struct_address + 0x2C
+
+    @property
+    def last_played_character_address(self) -> Optional[int]:
+        if self.player_info_struct_address is None:
+            return None
+
+        return self.player_info_struct_address + 0x40
 
     @property
     def challenge_mode_unlocked_address(self) -> Optional[int]:
@@ -297,6 +308,25 @@ class GameStateManager:
             self.process.write_int(self.maximum_stage_cleared_address, 10)
             self.process.write_int(self.maximum_level_cleared_address, 5)
 
+            return True
+        except Exception:
+            return False
+
+    def get_last_played_character(self) -> Optional[int]:
+        if self.last_played_character_address is None:
+            return None
+
+        try:
+            return self.process.read_int(self.last_played_character_address)
+        except Exception:
+            return None
+
+    def set_last_played_character(self, character_index: int) -> bool:
+        if self.last_played_character_address is None:
+            return False
+
+        try:
+            self.process.write_int(self.last_played_character_address, character_index)
             return True
         except Exception:
             return False
@@ -704,25 +734,45 @@ class GameStateManager:
         except Exception:
             return False
 
+    def set_unlocked_characters(self, unlocked_characters: List[PeggleDeluxeCharacters]) -> bool:
+        if not self.is_process_running or self.character_lock_mask_address is None:
+            return False
+
+        try:
+            mask: int = 0
+
+            unlocked_set: set = set(unlocked_characters)
+
+            i: int
+            character: PeggleDeluxeCharacters
+            for i, character in enumerate(PeggleDeluxeCharacters):
+                if character in unlocked_set and 0 <= i < 10:
+                    mask |= 1 << i
+
+            self.process.write_bytes(self.character_lock_mask_address, struct.pack("<I", mask), 4)
+
+            return True
+        except Exception:
+            return False
+
     def install_level_lock_hook(self) -> bool:
         if not self.is_process_running:
             return False
 
-        if self.level_lock_function_address is not None:
+        if self.level_lock_mask_address is not None:
             return True
 
         try:
-            function_address: int = self.process.base_address + 0x93600
+            hook_address: int = self.process.base_address + 0x93600
+            return_address: int = hook_address + 0x5
 
-            existing_prologue: bytes = self.process.read_bytes(function_address, 5)
+            original_bytes: bytes = self.process.read_bytes(hook_address, 5)
 
-            if existing_prologue[0] == 0xE9:
+            if original_bytes[0] == 0xE9:
                 return False
 
-            if existing_prologue != b"\x55\x8B\xEC\x56\x57":
+            if original_bytes != b"\x55\x8B\xEC\x56\x57":
                 return False
-
-            return_address: int = function_address + 0x5
 
             mask_address: int = self.process.allocate(8)
             cave_address: int = self.process.allocate(256)
@@ -732,17 +782,95 @@ class GameStateManager:
             cave_bytes: bytes = self._build_level_lock_cave_bytes(cave_address, mask_address, return_address)
             self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
 
-            relative_target: int = cave_address - (function_address + 0x5)
+            relative_target: int = cave_address - (hook_address + 0x5)
             hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target)
 
-            if not self._write_executable_bytes(function_address, hook_bytes):
+            if not self._write_executable_bytes(hook_address, hook_bytes):
                 return False
 
-            if self.process.read_bytes(function_address, 5) != hook_bytes:
+            if self.process.read_bytes(hook_address, 5) != hook_bytes:
                 return False
 
-            self.level_lock_function_address = function_address
             self.level_lock_mask_address = mask_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_character_lock_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.character_lock_mask_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0xB2F16
+            unlocked_return_address: int = self.process.base_address + 0xB2F31
+            locked_return_address: int = self.process.base_address + 0xB2F1E
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 8)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # mov eax,[ebp-34] / cmp eax,[ebp-3C] / jl 004B2F31
+            if original_bytes != b"\x8B\x45\xCC\x3B\x45\xC4\x7C\x13":
+                return False
+
+            mask_address: int = self.process.allocate(4)
+            cave_address: int = self.process.allocate(64)
+
+            self.process.write_bytes(mask_address, struct.pack("<I", 0), 4)
+
+            cave_bytes: bytes = self._build_character_lock_cave_bytes(
+                cave_address,
+                mask_address,
+                unlocked_return_address,
+                locked_return_address,
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target) + b"\x90\x90\x90"
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 8) != hook_bytes:
+                return False
+
+            self.character_lock_mask_address = mask_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_fever_trigger_fix(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.fever_trigger_patch_address is not None:
+            return True
+
+        try:
+            patch_address: int = self.process.base_address + 0xE330
+
+            original_bytes: bytes = self.process.read_bytes(patch_address, 7)
+
+            if original_bytes != b"\xC7\x46\x08\x00\x00\x00\x00":
+                return False
+
+            patch_bytes: bytes = b"\xFF\x4E\x08" + b"\x90\x90\x90\x90"  # dec dword ptr [esi+08]; nop*4
+
+            if not self._write_executable_bytes(patch_address, patch_bytes):
+                return False
+
+            if self.process.read_bytes(patch_address, 7) != patch_bytes:
+                return False
+
+            self.fever_trigger_patch_address = patch_address
 
             return True
         except Exception:
@@ -772,6 +900,32 @@ class GameStateManager:
         relative_target: int = return_address - (jump_instruction_address + 5)
 
         instruction_bytes.append(b"\xE9" + struct.pack("<i", relative_target))  # jmp return_address
+
+        return b"".join(instruction_bytes)
+
+    @staticmethod
+    def _build_character_lock_cave_bytes(
+        cave_address: int,
+        mask_address: int,
+        unlocked_return_address: int,
+        locked_return_address: int,
+    ) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x8B\x45\xCC")  # mov eax,[ebp-34]
+        instruction_bytes.append(b"\x0F\xA3\x05" + struct.pack("<I", mask_address))  # bt [mask],eax
+
+        # jc unlocked_return_address
+        bytes_before_jc: int = sum(len(chunk) for chunk in instruction_bytes)
+        jc_instruction_address: int = cave_address + bytes_before_jc
+        jc_relative: int = unlocked_return_address - (jc_instruction_address + 6)
+        instruction_bytes.append(b"\x0F\x82" + struct.pack("<i", jc_relative))  # jc rel32
+
+        # jmp locked_return_address
+        bytes_before_jmp: int = sum(len(chunk) for chunk in instruction_bytes)
+        jmp_instruction_address: int = cave_address + bytes_before_jmp
+        jmp_relative: int = locked_return_address - (jmp_instruction_address + 5)
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp rel32
 
         return b"".join(instruction_bytes)
 
