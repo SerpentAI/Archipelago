@@ -21,6 +21,7 @@ from ..client import PeggleDeluxeContext
 from ..data.mapping_data import character_to_ids, level_to_stage_levels
 
 from ..enums import (
+    PeggleDeluxeAPGoals,
     PeggleDeluxeAPItems,
     PeggleDeluxeAPUsefulItems,
     PeggleDeluxeCharacters,
@@ -63,15 +64,9 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
     game_state_manager: GameStateManager
 
     information_label: Label
+
     gold_pegs_label: Label
-
-    progressive_starting_balls_all: int
-    progressive_starting_balls_half: int
-
-    level_clears_available_label: Label
-    target_scores_mid_available_label: Label
-    target_scores_high_available_label: Label
-    full_clears_available_label: Label
+    goal_label: Label
 
     level_information_level_image: Image
     level_information_master_image: Image
@@ -120,6 +115,16 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
 
         self.add_widget(self.information_label)
 
+        goal_header_layout: BoxLayout = BoxLayout(
+            orientation="horizontal",
+            size_hint_y=None,
+            height="74dp",
+            spacing="8dp",
+            padding=[0, 0, 0, 10]
+        )
+
+        goal_header_layout.bind(minimum_height=goal_header_layout.setter("height"))
+
         # Gold Pegs
         self.gold_pegs_label: Label = Label(
             text=(
@@ -129,99 +134,36 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                 f"([color=888888]{self.ctx.game_controller.option_gold_pegs_total} total[/color])"
             ),
             markup=True,
-            size_hint_y=None,
-            height="40dp",
-            halign="left",
-            valign="middle",
-        )
-
-        self.gold_pegs_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        self.add_widget(self.gold_pegs_label)
-
-        # Logic Thresholds
-        self.progressive_starting_balls_all = self.ctx.game_controller.option_maximum_starting_ball_count - 5
-        self.progressive_starting_balls_half = round((self.ctx.game_controller.option_maximum_starting_ball_count - 5) / 2)
-
-        logic_thresholds_layout: BoxLayout = BoxLayout(
-            orientation="horizontal",
-            size_hint_y=None,
-            height="80dp",
-            spacing="8dp",
-        )
-
-        # Target Scores (Mid) Available
-        self.target_scores_mid_available_label: Label = Label(
-            text=(
-                f"[b]Scores (Mid) Available[/b]\n"
-                f"[color=00FA9A]0[/color] / [color=00FA9A]2[/color] Prog. Fever Meters\n"
-                f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_half}[/color] Prog. Start. Balls"
-            ),
-            markup=True,
-            size_hint_y=None,
-            height="80dp",
-            halign="left",
-            valign="middle",
-        )
-
-        self.target_scores_mid_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        logic_thresholds_layout.add_widget(self.target_scores_mid_available_label)
-
-        # Target Scores (High) Available
-        self.target_scores_high_available_label: Label = Label(
-            text=(
-                f"[b]Scores (High) Available[/b]\n"
-                f"[color=00FA9A]0[/color] / [color=00FA9A]4[/color] Prog. Fever Meters\n"
-                f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
-            ),
-            markup=True,
-            size_hint_y=None,
-            height="80dp",
-            halign="left",
-            valign="middle",
-        )
-
-        self.target_scores_high_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        logic_thresholds_layout.add_widget(self.target_scores_high_available_label)
-
-        # Level Clears Available
-        self.level_clears_available_label: Label = Label(
-            text=(
-                f"[b]Level Clears Available[/b]\n"
-                f"[color=00FA9A]0[/color] / [color=00FA9A]4[/color] Prog. Fever Meters"
-            ),
-            markup=True,
+            size_hint_x=40,
             size_hint_y=None,
             height="60dp",
             halign="left",
             valign="middle",
         )
 
-        self.level_clears_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.gold_pegs_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-        logic_thresholds_layout.add_widget(self.level_clears_available_label)
+        goal_header_layout.add_widget(self.gold_pegs_label)
 
-        # Full Clears Available
-        if self.ctx.game_controller.option_include_full_clears:
-            self.full_clears_available_label: Label = Label(
-                text=(
-                    f"[b]Full Clears Available[/b]\n"
-                    f"[color=00FA9A]0[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
-                ),
-                markup=True,
-                size_hint_y=None,
-                height="60dp",
-                halign="left",
-                valign="middle",
-            )
+        # Goal
+        self.goal_label: Label = Label(
+            text=(
+                f"[b]Goal[/b]\n"
+                f"Retrieve the Gold Pegs and Complete 11-5!"
+            ),
+            markup=True,
+            size_hint_x=60,
+            size_hint_y=None,
+            height="60dp",
+            halign="left",
+            valign="middle",
+        )
 
-            self.full_clears_available_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.goal_label.bind(size=lambda label, size: setattr(label, "text_size", size))
 
-            logic_thresholds_layout.add_widget(self.full_clears_available_label)
+        goal_header_layout.add_widget(self.goal_label)
 
-        self.add_widget(logic_thresholds_layout)
+        self.add_widget(goal_header_layout)
 
         # Level Information
         level_information_layout: BoxLayout = BoxLayout(
@@ -574,30 +516,16 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
             f"([color=888888]{self.ctx.game_controller.option_gold_pegs_total} total[/color])"
         )
 
-        fever_meters_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
-        balls_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value, 0)
-
-        self.target_scores_mid_available_label.text = (
-            f"[b]Scores (Mid) Available[/b]\n"
-            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]2[/color] Prog. Fever Meters\n"
-            f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_half}[/color] Prog. Start. Balls"
-        )
-
-        self.target_scores_high_available_label.text = (
-            f"[b]Scores (High) Available[/b]\n"
-            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]4[/color] Prog. Fever Meters\n"
-            f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
-        )
-
-        self.level_clears_available_label.text = (
-            f"[b]Level Clears Available[/b]\n"
-            f"[color=00FA9A]{fever_meters_obtained}[/color] / [color=00FA9A]4[/color] Prog. Fever Meters"
-        )
-
-        if self.ctx.game_controller.option_include_full_clears:
-            self.full_clears_available_label.text = (
-                f"[b]Full Clears Available[/b]\n"
-                f"[color=00FA9A]{balls_obtained}[/color] / [color=00FA9A]{self.progressive_starting_balls_all}[/color] Prog. Start. Balls"
+        # Goal
+        if self.ctx.game_controller.option_goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
+            self.goal_label.text = (
+                "[b]Goal[/b]\n"
+                f"Retrieve the Gold Pegs and Clear {self.ctx.game_controller.selected_goal_level.value.split(" ")[0]}!"
+            )
+        elif self.ctx.game_controller.option_goal == PeggleDeluxeAPGoals.GOLD_PEG_HUNT:
+            self.goal_label.text = (
+                "[b]Goal[/b]\n"
+                f"Retrieve the Gold Pegs!"
             )
 
         # Level
@@ -612,14 +540,14 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                 self.level_information_title.text = f"[b]Begin Playing a Quick Play Level...[/b]"
                 self.level_information_subtitle.text = f"[b]This level is not included this seed.[/b]"
 
-                self.target_score_low_label.text = "Low: [color=00FA9A]XXX,XXX[/color]"
-                self.target_score_mid_label.text = "Mid: [color=00FA9A]XXX,XXX[/color]"
-                self.target_score_high_label.text = "High: [color=00FA9A]XXX,XXX[/color]"
+                self.target_score_low_label.text = "Low: [color=888888]XXX,XXX[/color]"
+                self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
+                self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-                self.item_fever_meter_permanent_bonus_label.text = "Fever Meter Permanent Bonus: [color=00FA9A]Xx[/color]"
-                self.item_full_clear_discount_label.text = "Full Clear Discount: [color=00FA9A]Xx[/color]"
-                self.item_score_multiplier_label.text = "Score Multiplier: [color=00FA9A]Xx[/color]"
-                self.item_target_score_discount_label.text = "Target Score Discount: [color=00FA9A]Xx[/color]"
+                self.item_fever_meter_permanent_bonus_label.text = "Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
+                self.item_full_clear_discount_label.text = "Full Clear Discount: [color=888888]Xx[/color]"
+                self.item_score_multiplier_label.text = "Score Multiplier: [color=888888]Xx[/color]"
+                self.item_target_score_discount_label.text = "Target Score Discount: [color=888888]Xx[/color]"
 
                 self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
                 self.shot_score_label.text = "[b]Shot Score:[/b] 0  [color=888888]0[/color]"
@@ -677,14 +605,10 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                     is_level_unlocked: bool = False
                     is_master_unlocked: bool = False
 
-                    progressive_fever_meter_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
-
                     if level_unlock in received_items and received_items[level_unlock] > 0:
-                        if is_goal:
-                            if gold_pegs_obtained >= self.ctx.game_controller.option_gold_pegs_required:
-                                if progressive_fever_meter_obtained >= 4:
-                                    is_level_unlocked = True
-                        else:
+                        is_level_unlocked = True
+                    elif is_goal:
+                        if gold_pegs_obtained >= self.ctx.game_controller.option_gold_pegs_required:
                             is_level_unlocked = True
 
                     if master_unlock in received_items and received_items[master_unlock] > 0:
@@ -743,9 +667,9 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                                 self.target_score_mid_label.text = f"Mid: [color=00FA9A]{target_score_mid:,}[/color]  [color=888888][size=11]{round(self.ctx.game_controller.target_score_ratios[game_state.current_level], 2)}x Base + Items[/size][/color]".replace(" 0", " XXX,XXX").replace(": [color=00FA9A]0", ": [color=00FA9A]XXX,XXX")
                                 self.target_score_high_label.text = f"High: [color=00FA9A]{target_score_high:,}[/color]  [color=888888][size=11]{round(self.ctx.game_controller.target_score_ratios[game_state.current_level], 2)}x Base + Items[/size][/color]".replace(" 0", " XXX,XXX").replace(": [color=00FA9A]0", ": [color=00FA9A]XXX,XXX")
                             else:
-                                self.target_score_low_label.text = "Low: [color=00FA9A]XXX,XXX[/color]"
-                                self.target_score_mid_label.text = "Mid: [color=00FA9A]XXX,XXX[/color]"
-                                self.target_score_high_label.text = "High: [color=00FA9A]XXX,XXX[/color]"
+                                self.target_score_low_label.text = "Low: [color=888888]XXX,XXX[/color]"
+                                self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
+                                self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
                             # Useful Items
                             self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=00FA9A]{fever_meter_permanent_bonus_count}x[/color]"
@@ -786,14 +710,14 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                     else:
                         self.level_information_subtitle.text = f"[b]This level is not included this seed.[/b]"
 
-                        self.target_score_low_label.text = "Low: [color=00FA9A]XXX,XXX[/color]"
-                        self.target_score_mid_label.text = "Mid: [color=00FA9A]XXX,XXX[/color]"
-                        self.target_score_high_label.text = "High: [color=00FA9A]XXX,XXX[/color]"
+                        self.target_score_low_label.text = "Low: [color=888888]XXX,XXX[/color]"
+                        self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
+                        self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-                        self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=00FA9A]Xx[/color]"
-                        self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=00FA9A]Xx[/color]"
-                        self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]Xx[/color]"
-                        self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]Xx[/color]"
+                        self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
+                        self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=888888]Xx[/color]"
+                        self.item_score_multiplier_label.text = f"Score Multiplier: [color=888888]Xx[/color]"
+                        self.item_target_score_discount_label.text = f"Target Score Discount: [color=888888]Xx[/color]"
 
                         self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
                         self.shot_score_label.text = "[b]Shot Score:[/b] 0  [color=888888]0[/color]"
@@ -810,14 +734,14 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
             self.level_information_title.text = f"[b]Begin Playing a Quick Play Level...[/b]"
             self.level_information_subtitle.text = f"[b]This level is not included this seed.[/b]"
 
-            self.target_score_low_label.text = "Low: [color=00FA9A]XXX,XXX[/color]"
-            self.target_score_mid_label.text = "Mid: [color=00FA9A]XXX,XXX[/color]"
-            self.target_score_high_label.text = "High: [color=00FA9A]XXX,XXX[/color]"
+            self.target_score_low_label.text = "Low: [color=888888]XXX,XXX[/color]"
+            self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
+            self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-            self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=00FA9A]Xx[/color]"
-            self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=00FA9A]Xx[/color]"
-            self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]Xx[/color]"
-            self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]Xx[/color]"
+            self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
+            self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=888888]Xx[/color]"
+            self.item_score_multiplier_label.text = f"Score Multiplier: [color=888888]Xx[/color]"
+            self.item_target_score_discount_label.text = f"Target Score Discount: [color=888888]Xx[/color]"
 
             self.score_label.text = "[b]Score:[/b] 0  [color=888888]0[/color]"
             self.shot_score_label.text = "[b]Shot Score:[/b] 0  [color=888888]0[/color]"
@@ -830,7 +754,9 @@ class PeggleDeluxeMastersLayout(BoxLayout):
     ctx: PeggleDeluxeContext
 
     master_label: Label
+
     master_images: List[Image]
+    master_labels: List[Label]
 
     master_data: Dict[PeggleDeluxeCharacters, Dict[str, Any]]
 
@@ -856,6 +782,7 @@ class PeggleDeluxeMastersLayout(BoxLayout):
         self.add_widget(self.master_label)
 
         self.master_images = list()
+        self.master_labels = list()
 
         self.master_data = dict()
 
@@ -878,6 +805,17 @@ class PeggleDeluxeMastersLayout(BoxLayout):
         master: PeggleDeluxeCharacters
         data: Dict[str, Any]
         for master, data in self.master_data.items():
+            master_layout: BoxLayout = BoxLayout(
+                orientation="vertical",
+                size_hint_x=None,
+                size_hint_y=None,
+                width="96dp",
+                height="120dp",
+                spacing="4dp",
+            )
+
+            master_layout.bind(minimum_height=master_layout.setter("height"))
+
             image_bytes: bytes = pkgutil.get_data(client_gui.__name__, data["image_path"])
             image: CoreImage = CoreImage(io.BytesIO(image_bytes), ext="png")
 
@@ -890,7 +828,26 @@ class PeggleDeluxeMastersLayout(BoxLayout):
             )
 
             self.master_images.append(master_image)
-            grid_layout.add_widget(master_image)
+
+            master_layout.add_widget(master_image)
+
+            master_label: Label = Label(
+                text="Green Pegs: [color=00FA9A]1[/color]",
+                markup=True,
+                font_size="14dp",
+                size_hint_y=None,
+                height="20dp",
+                halign="left",
+                valign="middle",
+            )
+
+            master_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+            self.master_labels.append(master_label)
+
+            master_layout.add_widget(master_label)
+
+            grid_layout.add_widget(master_layout)
 
         self.add_widget(grid_layout)
 
@@ -916,6 +873,14 @@ class PeggleDeluxeMastersLayout(BoxLayout):
                 is_unlocked = True
 
             self.master_images[i].opacity = 1.0 if is_unlocked else 0.4
+
+            green_pegs_item: str = f"Progressive Green Pegs: {master.value}"
+            green_pegs_item_count: int = received_items.get(green_pegs_item, 0) + 1
+
+            if is_unlocked:
+                self.master_labels[i].text = f"Green Pegs: [color=00FA9A]{green_pegs_item_count}[/color]"
+            else:
+                self.master_labels[i].text = f"[color=888888]Green Pegs: {green_pegs_item_count}[/color]"
 
 
 class PeggleDeluxeLevelsLayout(BoxLayout):
@@ -1033,16 +998,12 @@ class PeggleDeluxeLevelsLayout(BoxLayout):
             is_unlocked: bool = False
 
             if data["unlock_item"] in received_items and received_items[data["unlock_item"]] > 0:
-                if data["is_goal"]:
-                    gold_pegs_required: int = self.ctx.game_controller.option_gold_pegs_required
+                is_unlocked = True
+            elif data["is_goal"]:
+                gold_pegs_required: int = self.ctx.game_controller.option_gold_pegs_required
+                gold_pegs_obtained: int = received_items.get(PeggleDeluxeAPItems.GOLD_PEG.value, 0)
 
-                    gold_pegs_obtained: int = received_items.get(PeggleDeluxeAPItems.GOLD_PEG.value, 0)
-                    progressive_fever_meter_obtained: int = received_items.get(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 0)
-
-                    if gold_pegs_obtained >= gold_pegs_required:
-                        if progressive_fever_meter_obtained >= 4:
-                            is_unlocked = True
-                else:
+                if gold_pegs_obtained >= gold_pegs_required:
                     is_unlocked = True
 
             self.level_images[i].opacity = 1.0 if is_unlocked else 0.4

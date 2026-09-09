@@ -690,7 +690,7 @@ class GameStateManager:
         except Exception:
             return False
 
-    def open_process_handle(self) -> bool:
+    def open_process_handle(self, include_hooks_patches: bool = False) -> bool:
         # The system could have multiple PopCap games running at once, and they all share the same executable name
         # so we need to look for a signature to know which one is the right process to open a handle to.
         try:
@@ -725,6 +725,13 @@ class GameStateManager:
             self.player_info_address = self.player_info_struct_address
             self.global_edit_val_address = self.global_edit_val_struct_address
             self.logic_manager_address = self.logic_manager_struct_address
+
+            if include_hooks_patches:
+                self.install_level_lock_hook()
+                self.install_character_lock_hook()
+
+                self.install_starting_ball_count_patch()
+                self.install_fever_trigger_fix()
         except Exception:
             return False
 

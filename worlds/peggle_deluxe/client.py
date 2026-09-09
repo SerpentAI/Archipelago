@@ -159,9 +159,9 @@ class PeggleDeluxeContext(Context):
                 PeggleDeluxeLevels(level_name) for level_name in _args["slot_data"]["selected_levels"]
             ]
 
-            self.game_controller.selected_starter_level = PeggleDeluxeLevels(
-                _args["slot_data"]["selected_starter_level"]
-            )
+            self.game_controller.selected_starter_levels = [
+                PeggleDeluxeLevels(level_name) for level_name in _args["slot_data"]["selected_starter_levels"]
+            ]
 
             if _args["slot_data"].get("selected_goal_level") is not None:
                 self.game_controller.selected_goal_level = PeggleDeluxeLevels(_args["slot_data"]["selected_goal_level"])
@@ -227,6 +227,8 @@ class PeggleDeluxeContext(Context):
                 if self.game_controller.is_process_running():
                     if self.can_display_process_found_message:
                         CommonClient.logger.info("Peggle Deluxe process found!")
+                        CommonClient.logger.info("Setting up hooks and patches...")
+                        CommonClient.logger.info("If this client is closed, Peggle Deluxe will need to be restarted")
 
                         self.can_display_process_found_message = False
                         self.can_display_process_not_found_message = True

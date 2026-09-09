@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional, TextIO, Tuple
 
 from rule_builder.rules import Rule, And, Has, Or
 
-from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
+from BaseClasses import Item, Location, Region, Tutorial
 
 from Options import OptionError
 
@@ -109,7 +109,7 @@ class PeggleDeluxeWorld(World):
     selected_starter_master: PeggleDeluxeCharacters
 
     selected_levels: List[PeggleDeluxeLevels]
-    selected_starter_level: PeggleDeluxeLevels
+    selected_starter_levels: List[PeggleDeluxeLevels]
     selected_goal_level: Optional[PeggleDeluxeLevels] = None
 
     target_scores: Dict[PeggleDeluxeLevels, List[int]]
@@ -192,9 +192,9 @@ class PeggleDeluxeWorld(World):
 
         level_pool = list(sorted(level_pool, key=lambda l: l.value))
 
-        if len(level_pool) < 5:
+        if len(level_pool) < 12:
             raise OptionError(
-                f"Peggle Deluxe: {self.player_name} must have at least 5 levels selected to play. "
+                f"Peggle Deluxe: {self.player_name} must have at least 12 levels selected to play. "
                 f"They only have {len(level_pool)} selected."
             )
 
@@ -216,7 +216,7 @@ class PeggleDeluxeWorld(World):
         else:
             self.selected_levels = level_pool[:]
 
-        self.selected_starter_level = self.selected_levels[0]
+        self.selected_starter_levels = self.selected_levels[:3]
 
         self.include_full_clears = bool(self.options.include_full_clears.value)
 
@@ -287,41 +287,12 @@ class PeggleDeluxeWorld(World):
 
         # Endgame
         region_endgame: Region = Region("Endgame", self.player, self.multiworld)
+        self.multiworld.regions.append(region_endgame)
 
-        victory_location: PeggleDeluxeLocation = PeggleDeluxeLocation(
-            self.player,
-            "Victory",
-            None,
+        region_menu.connect(
             region_endgame,
+            rule=Has(PeggleDeluxeAPItems.GOLD_PEG.value, self.gold_pegs_required)
         )
-
-        victory_location.place_locked_item(
-            PeggleDeluxeItem(
-                "Victory",
-                ItemClassification.progression,
-                None,
-                self.player,
-            )
-        )
-
-        region_endgame.locations.append(victory_location)
-
-        if self.goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
-            region_menu.connect(
-                region_endgame,
-                rule=(
-                    And(
-                        Has(PeggleDeluxeAPItems.GOLD_PEG.value, self.gold_pegs_required),
-                        Has(f"Level Unlock: {self.selected_goal_level.value}"),
-                        Has(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 4)
-                    )
-                )
-            )
-        elif self.goal == PeggleDeluxeAPGoals.GOLD_PEG_HUNT:
-            region_menu.connect(
-                region_endgame,
-                rule=Has(PeggleDeluxeAPItems.GOLD_PEG.value, self.gold_pegs_required)
-            )
 
         # Levels
         level: PeggleDeluxeLevels
@@ -351,15 +322,58 @@ class PeggleDeluxeWorld(World):
                     region_level,
                 )
 
-                location_access_rule: Optional[Rule]
+                location_access_rule: Optional[Rule] = None
 
-                if "Target Score (Mid)" in location_name:
+                starting_ball_increases_one_quarter: int = (self.maximum_starting_ball_count - 5) // 4
+                starting_ball_increases_one_third: int = (self.maximum_starting_ball_count - 5) // 3
+                starting_ball_increases_one_half: int = (self.maximum_starting_ball_count - 5) // 2
+                starting_ball_increases_two_thirds: int = ((self.maximum_starting_ball_count - 5) // 3) * 2
+                starting_ball_increases_three_quarters: int = ((self.maximum_starting_ball_count - 5) // 4) * 3
+
+                if "Fever Meter X2" in location_name:
+                    location_access_rule = Has(
+                        PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                        starting_ball_increases_one_quarter,
+                    )
+                elif "Fever Meter X3" in location_name:
+                    location_access_rule = And(
+                        Has(f"Progressive Orange Pegs: {level.value}", 1),
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            starting_ball_increases_one_third,
+                        )
+                    )
+                elif "Fever Meter X5" in location_name:
+                    location_access_rule = And(
+                        Has(f"Progressive Orange Pegs: {level.value}", 2),
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            starting_ball_increases_one_half,
+                        )
+                    )
+                elif "Fever Meter X10" in location_name:
+                    location_access_rule = And(
+                        Has(f"Progressive Orange Pegs: {level.value}", 3),
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            starting_ball_increases_two_thirds,
+                        )
+                    )
+                elif "Level Clear" in location_name:
+                    location_access_rule = And(
+                        Has(f"Progressive Orange Pegs: {level.value}", 4),
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            starting_ball_increases_three_quarters,
+                        )
+                    )
+                elif "Target Score (Mid)" in location_name:
                     location_access_rule = Or(
                         And(
-                            data.requirements,
+                            Has(f"Progressive Orange Pegs: {level.value}", 3),
                             Has(
                                 PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                                round((self.maximum_starting_ball_count - 5) / 2)
+                                starting_ball_increases_one_half
                             )
                         ),
                         Has(PeggleDeluxeAPItems.OOL.value),
@@ -367,37 +381,46 @@ class PeggleDeluxeWorld(World):
                 elif "Target Score (High)" in location_name:
                     location_access_rule = Or(
                         And(
-                            data.requirements,
+                            Has(f"Progressive Orange Pegs: {level.value}", 4),
+                            Has(f"Purple Peg: {level.value}"),
                             Has(
                                 PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                                self.maximum_starting_ball_count - 5
+                                starting_ball_increases_three_quarters
                             )
                         ),
                         And(
                             Has(PeggleDeluxeAPItems.OOL.value),
-                            Has(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value, 2),
+                            Has(f"Progressive Orange Pegs: {level.value}", 3),
                             Has(
                                 PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                                starting_ball_increases_one_half
                             )
                         )
+                    )
+                elif "Style Shot (25,000+)" in location_name:
+                    location_access_rule = Or(
+                        Has(f"Progressive Orange Pegs: {level.value}", 1),
+                        Has(PeggleDeluxeAPItems.OOL.value),
+                    )
+                elif "5 Orange Peg Combo" in location_name:
+                    location_access_rule = Or(
+                        Has(f"Progressive Orange Pegs: {level.value}", 2),
+                        Has(PeggleDeluxeAPItems.OOL.value),
                     )
                 elif "Full Clear" in location_name:
                     location_access_rule = Or(
                         Has(
                             PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                            self.maximum_starting_ball_count - 5
+                            (self.maximum_starting_ball_count - 5) - 1
                         ),
                         And(
                             Has(PeggleDeluxeAPItems.OOL.value),
                             Has(
                                 PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
-                                max((self.maximum_starting_ball_count // 2) - 5, 0)
+                                starting_ball_increases_three_quarters
                             ),
                         )
                     )
-                else:
-                    location_access_rule = data.requirements
 
                 if location_access_rule is not None:
                     self.set_rule(location, location_access_rule)
@@ -407,12 +430,7 @@ class PeggleDeluxeWorld(World):
             if level == self.selected_goal_level:
                 region_menu.connect(
                     region_level,
-                    rule=(
-                        And(
-                            Has(f"Level Unlock: {level.value}"),
-                            Has(PeggleDeluxeAPItems.GOLD_PEG.value, self.gold_pegs_required)
-                        )
-                    )
+                    rule=Has(PeggleDeluxeAPItems.GOLD_PEG.value, self.gold_pegs_required)
                 )
             else:
                 region_menu.connect(region_level, rule=Has(f"Level Unlock: {level.value}"))
@@ -428,8 +446,17 @@ class PeggleDeluxeWorld(World):
         # Starting Master
         items_to_precollect.append(f"Master Unlock: {self.selected_starter_master.value}")
 
-        # Starting Level
-        items_to_precollect.append(f"Level Unlock: {self.selected_starter_level.value}")
+        # Starting Levels
+        level: PeggleDeluxeLevels
+        for level in self.selected_starter_levels:
+            items_to_precollect.append(f"Level Unlock: {level.value}")
+
+        # Goal Level Items
+        if self.goal == PeggleDeluxeAPGoals.GOLD_PEGS_FINAL_LEVEL:
+            for _ in range(4):
+                items_to_precollect.append(f"Progressive Orange Pegs: {self.selected_goal_level.value}")
+
+            items_to_precollect.append(f"Purple Peg: {self.selected_goal_level.value}")
 
         ## Item Pool
         item_pool: List[PeggleDeluxeItem] = list()
@@ -437,35 +464,35 @@ class PeggleDeluxeWorld(World):
         # Gold Pegs
         i: int
         for i in range(self.gold_pegs_total):
-            item: PeggleDeluxeItem = self.create_item(PeggleDeluxeAPItems.GOLD_PEG.value)
-
-            if i >= self.gold_pegs_required:
-                item.classification = ItemClassification.useful
-
-            item_pool.append(item)
+            item_pool.append(self.create_item(PeggleDeluxeAPItems.GOLD_PEG.value))
 
         # Progressive Items
-        for _ in range(4):
-            item_pool.append(self.create_item(PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value))
-
-        for _ in range(self.maximum_starting_ball_count - 5):
+        for _ in range(self.maximum_starting_ball_count - 2):  # 3 Extra Copies
             item_pool.append(self.create_item(PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value))
 
-        # Character Unlocks
+        # Character Items
         character: PeggleDeluxeCharacters
         for character in self.selected_masters:
-            if character == self.selected_starter_master:
-                continue
+            unlock_item_name: str = f"Master Unlock: {character.value}"
 
-            item_pool.append(self.create_item(f"Master Unlock: {character.value}"))
+            if unlock_item_name not in items_to_precollect:
+                item_pool.append(self.create_item(unlock_item_name))
 
-        # Level Unlocks + Prepare Useful Item Pool
+            for _ in range(4):
+                item_pool.append(self.create_item(f"Progressive Green Pegs: {character.value}"))
+
+        # Level Items + Prepare Useful Item Pool
         useful_item_pool: List[str] = list()
 
         level: PeggleDeluxeLevels
         for level in self.selected_levels:
-            if level != self.selected_starter_level:
+            if level not in self.selected_starter_levels:
                 item_pool.append(self.create_item(f"Level Unlock: {level.value}"))
+
+            for _ in range(5):  # 1 Extra Copy
+                item_pool.append(self.create_item(f"Progressive Orange Pegs: {level.value}"))
+
+            item_pool.append(self.create_item(f"Purple Peg: {level.value}"))
 
             useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value}: {level.value}")
             useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER.value}: {level.value}")
@@ -473,9 +500,6 @@ class PeggleDeluxeWorld(World):
 
             if self.include_full_clears:
                 useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value}: {level.value}")
-
-        if self.selected_goal_level is not None:
-            item_pool.append(self.create_item(f"Level Unlock: {self.selected_goal_level.value}"))
 
         # Filler / Useful Replacements
         total_location_count: int = len(self.multiworld.get_unfilled_locations(self.player))
@@ -502,7 +526,7 @@ class PeggleDeluxeWorld(World):
         )
 
     def generate_basic(self) -> None:
-        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+        self.multiworld.completion_condition[self.player] = lambda state: state.can_reach_region("Endgame", self.player)
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data: Dict[str, Any] = self.options.as_dict(
@@ -526,7 +550,7 @@ class PeggleDeluxeWorld(World):
         slot_data["selected_starter_master"] = self.selected_starter_master.value
 
         slot_data["selected_levels"] = [level.value for level in self.selected_levels]
-        slot_data["selected_starter_level"] = self.selected_starter_level.value
+        slot_data["selected_starter_levels"] = [level.value for level in self.selected_starter_levels]
 
         if self.selected_goal_level is not None:
             slot_data["selected_goal_level"] = self.selected_goal_level.value
@@ -572,8 +596,8 @@ class PeggleDeluxeWorld(World):
             spoiler_handle.write(f"\nStarting Master: {self.selected_starter_master.value}")
             spoiler_handle.write(f"\n\nUnlockable Masters:\n  {join_string.join(sorted([m.value for m in self.selected_masters[1:]]))}")
 
-        spoiler_handle.write(f"\n\nStarting Level: {self.selected_starter_level.value}")
-        spoiler_handle.write(f"\n\nUnlockable Levels:\n  {join_string.join(sorted([l.value for l in self.selected_levels[1:]]))}")
+        spoiler_handle.write(f"\n\nStarting Levels: \n  {join_string.join(sorted([l.value for l in self.selected_starter_levels]))}")
+        spoiler_handle.write(f"\n\nUnlockable Levels:\n  {join_string.join(sorted([l.value for l in self.selected_levels[3:]]))}")
 
         if self.selected_goal_level is not None:
             spoiler_handle.write(f"\n\nGoal Level: {self.selected_goal_level.value}")
@@ -597,7 +621,7 @@ class PeggleDeluxeWorld(World):
         slot_data["selected_starter_master"] = PeggleDeluxeCharacters(slot_data["selected_starter_master"])
 
         slot_data["selected_levels"] = [PeggleDeluxeLevels(level_name) for level_name in slot_data["selected_levels"]]
-        slot_data["selected_starter_level"] = PeggleDeluxeLevels(slot_data["selected_starter_level"])
+        slot_data["selected_starter_levels"] = [PeggleDeluxeLevels(level_name) for level_name in slot_data["selected_starter_levels"]]
 
         if "selected_goal_level" in slot_data and slot_data["selected_goal_level"] is not None:
             slot_data["selected_goal_level"] = PeggleDeluxeLevels(slot_data["selected_goal_level"])
@@ -626,7 +650,7 @@ class PeggleDeluxeWorld(World):
             self.selected_starter_master = passthrough["selected_starter_master"]
             self.selected_levels = passthrough["selected_levels"]
             self.selected_goal_level = passthrough.get("selected_goal_level")
-            self.selected_starter_level = passthrough["selected_starter_level"]
+            self.selected_starter_levels = passthrough["selected_starter_levels"]
             self.include_full_clears = passthrough["include_full_clears"]
             self.target_score_requirement_mode = passthrough["target_score_requirement_mode"]
             self.target_score_requirement_percentage = passthrough["target_score_requirement_percentage"]

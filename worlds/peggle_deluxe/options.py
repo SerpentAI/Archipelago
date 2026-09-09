@@ -138,7 +138,7 @@ class LevelCount(Range):
 
     display_name = "Level Count"
 
-    range_start = 5
+    range_start = 15
     range_end = 55
 
     default = 20

@@ -6,6 +6,7 @@ from ..enums import (
     PeggleDeluxeAPItems,
     PeggleDeluxeAPTags,
     PeggleDeluxeAPUsefulItems,
+    PeggleDeluxeCharacters,
     PeggleDeluxeLevels,
 )
 
@@ -32,15 +33,15 @@ item_data: Dict[str, PeggleDeluxeItemData] = {
         tags=(PeggleDeluxeAPTags.OOL_ITEM,),
     ),
     # Progressive Items
-    PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value: PeggleDeluxeItemData(
-        archipelago_id=item_offset + 10 + 1,
-        classification=ItemClassification.progression,
-        tags=(PeggleDeluxeAPTags.PROGRESSIVE_ITEM,),
-    ),
+    # PeggleDeluxeAPItems.PROGRESSIVE_FEVER_METER.value: PeggleDeluxeItemData(
+    #     archipelago_id=item_offset + 10 + 1,
+    #     classification=ItemClassification.progression,
+    #     tags=(PeggleDeluxeAPTags.PROGRESSIVE_ITEM,),
+    # ),
     PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value: PeggleDeluxeItemData(
         archipelago_id=item_offset + 10 + 2,
         classification=ItemClassification.progression,
-        tags=(PeggleDeluxeAPTags.PROGRESSIVE_ITEM,),
+        tags=(PeggleDeluxeAPTags.PROGRESSIVE_STARTING_BALL_INCREASE_ITEM,),
     ),
     # Character Unlock Items
     PeggleDeluxeAPItems.CHARACTER_UNLOCK_BJORN.value: PeggleDeluxeItemData(
@@ -173,5 +174,43 @@ for i, level in enumerate(PeggleDeluxeLevels):
         tags=(
             PeggleDeluxeAPTags.USEFUL_ITEM,
             getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
+        ),
+    )
+
+    # Purple Peg
+    item_data[f"Purple Peg: {level.value}"] = PeggleDeluxeItemData(
+        archipelago_id=item_offset + level_offset + 6,
+        classification=ItemClassification.progression,
+        tags=(
+            PeggleDeluxeAPTags.PURPLE_PEG_ITEM,
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
+        ),
+    )
+
+    # Progressive Orange Pegs
+    item_data[f"Progressive Orange Pegs: {level.value}"] = PeggleDeluxeItemData(
+        archipelago_id=item_offset + level_offset + 7,
+        classification=ItemClassification.progression,
+        tags=(
+            PeggleDeluxeAPTags.PROGRESSIVE_ORANGE_PEGS_ITEM,
+            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
+        ),
+    )
+
+# Character Items
+item_offset = 100000
+
+i: int
+character: PeggleDeluxeCharacters
+for i, character in enumerate(PeggleDeluxeCharacters):
+    character_offset: int = 100 * i
+
+    # Progressive Green Pegs
+    item_data[f"Progressive Green Pegs: {character.value}"] = PeggleDeluxeItemData(
+        archipelago_id=item_offset + character_offset + 1,
+        classification=ItemClassification.useful,
+        tags=(
+            PeggleDeluxeAPTags.PROGRESSIVE_GREEN_PEGS_ITEM,
+            getattr(PeggleDeluxeAPTags, f"{character.name}_ITEM"),
         ),
     )
