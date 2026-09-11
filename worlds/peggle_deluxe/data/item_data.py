@@ -141,14 +141,14 @@ for i, level in enumerate(PeggleDeluxeLevels):
     )
 
     # Useful Items
-    item_data[f"{PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value}: {level.value}"] = PeggleDeluxeItemData(
-        archipelago_id=item_offset + level_offset + 2,
-        classification=ItemClassification.useful,
-        tags=(
-            PeggleDeluxeAPTags.USEFUL_ITEM,
-            getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
-        ),
-    )
+    # item_data[f"{PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value}: {level.value}"] = PeggleDeluxeItemData(
+    #     archipelago_id=item_offset + level_offset + 2,
+    #     classification=ItemClassification.useful,
+    #     tags=(
+    #         PeggleDeluxeAPTags.USEFUL_ITEM,
+    #         getattr(PeggleDeluxeAPTags, f"{level.name}_ITEM"),
+    #     ),
+    # )
 
     item_data[f"{PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value}: {level.value}"] = PeggleDeluxeItemData(
         archipelago_id=item_offset + level_offset + 3,

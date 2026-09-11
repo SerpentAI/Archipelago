@@ -1,4 +1,4 @@
-from typing import List, NamedTuple, Optional, Tuple
+from typing import Dict, List, NamedTuple, Optional, Tuple
 
 import ctypes
 import random
@@ -71,9 +71,15 @@ class GameStateManager:
     level_lock_mask_address: Optional[int]
     character_lock_mask_address: Optional[int]
 
-    starting_ball_count_address: Optional[int]
+    orange_peg_target_table_address: Optional[int]
 
-    fever_trigger_patch_address: Optional[int]
+    fever_multiplier_init_cave_address: Optional[int]
+    fever_multiplier_calculation_cave_address: Optional[int]
+    fever_multiplier_cave_address: Optional[int]
+
+    fever_meter_fill_cave_address: Optional[int]
+
+    starting_ball_count_address: Optional[int]
 
     def __init__(self) -> None:
         self.process = None
@@ -87,9 +93,15 @@ class GameStateManager:
         self.level_lock_mask_address = None
         self.character_lock_mask_address = None
 
-        self.starting_ball_count_address = None
+        self.orange_peg_target_table_address = None
 
-        self.fever_trigger_patch_address = None
+        self.fever_multiplier_init_cave_address = None
+        self.fever_multiplier_calculation_cave_address = None
+        self.fever_multiplier_cave_address = None
+
+        self.fever_meter_fill_cave_address = None
+
+        self.starting_ball_count_address = None
 
     @property
     def thunderball_app_struct_address(self) -> Optional[int]:
@@ -622,25 +634,6 @@ class GameStateManager:
 
         return pegs_cleared >= level_to_peg_count.get(level, 999999)
 
-    def cap_orange_pegs(self, count: int) -> bool:
-        level_pegs: Optional[List[Peg]] = self._get_level_pegs()
-
-        if level_pegs is None:
-            return False
-
-        orange_pegs: List[Peg] = [peg for peg in level_pegs if peg.color == PeggleDeluxePegColors.ORANGE]
-
-        if len(orange_pegs) <= count:
-            return True
-
-        pegs_to_downgrade: List[Peg] = random.sample(orange_pegs, len(orange_pegs) - count)
-
-        peg: Peg
-        for peg in pegs_to_downgrade:
-            self._set_peg_color(peg, PeggleDeluxePegColors.BLUE)
-
-        return True
-
     def set_green_pegs(self, green_count: int) -> bool:
         level_pegs: Optional[List[Peg]] = self._get_level_pegs()
 
@@ -729,9 +722,13 @@ class GameStateManager:
             if include_hooks_patches:
                 self.install_level_lock_hook()
                 self.install_character_lock_hook()
+                self.install_orange_peg_cap_hook()
+                self.install_fever_multiplier_init_hook()
+                self.install_fever_multiplier_hook()
+                self.install_fever_multiplier_calculation_hook()
+                self.install_fever_meter_fill_hook()
 
                 self.install_starting_ball_count_patch()
-                self.install_fever_trigger_fix()
         except Exception:
             return False
 
@@ -856,6 +853,38 @@ class GameStateManager:
         except Exception:
             return False
 
+    def set_orange_pegs_to_spawn(self, orange_pegs_by_level: Dict[PeggleDeluxeLevels, int]) -> bool:
+        if not self.is_process_running or self.orange_peg_target_table_address is None:
+            return False
+
+        try:
+            table: List[int] = [0] * 64
+
+            level: PeggleDeluxeLevels
+            orange_peg_count: int
+            for level, orange_peg_count in orange_pegs_by_level.items():
+                stage_level: Optional[Tuple[int, int]] = level_to_stage_levels.get(level)
+
+                if stage_level is None:
+                    continue
+
+                stage: int
+                level_index: int
+                stage, level_index = stage_level
+
+                table_index: int = stage * 5 + level_index
+
+                if 0 <= table_index < 64:
+                    table[table_index] = max(0, orange_peg_count)
+
+            self.process.write_bytes(
+                self.orange_peg_target_table_address, struct.pack("<64I", *table), 256
+            )
+
+            return True
+        except Exception:
+            return False
+
     def install_level_lock_hook(self) -> bool:
         if not self.is_process_running:
             return False
@@ -948,6 +977,238 @@ class GameStateManager:
         except Exception:
             return False
 
+    def install_orange_peg_cap_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.orange_peg_target_table_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0x57B39
+            return_address: int = hook_address + 0x9
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 9)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # mov eax, [ebp-10] / mov ebx, [eax+0x130]
+            if original_bytes != b"\x8B\x45\xF0\x8B\x98\x30\x01\x00\x00":
+                return False
+
+            table_address: int = self.process.allocate(256)
+            cave_address: int = self.process.allocate(128)
+
+            self.process.write_bytes(table_address, struct.pack("<64I", *([0] * 64)), 256)
+
+            thunderball_app_address: int = self.process.base_address + 0x2873AC
+
+            cave_bytes: bytes = self._build_orange_peg_cap_cave_bytes(
+                cave_address, table_address, thunderball_app_address, return_address
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target) + b"\x90\x90\x90\x90"
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 9) != hook_bytes:
+                return False
+
+            self.orange_peg_target_table_address = table_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_fever_multiplier_init_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.fever_multiplier_init_cave_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0x5E10D
+            return_address: int = hook_address + 0x8
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 8)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # push edx / mov ecx,edi / call 0x4370B0
+            if original_bytes != b"\x52\x8B\xCF\xE8\x9B\x8F\xFD\xFF":
+                return False
+
+            cave_address: int = self.process.allocate(128)
+
+            cave_bytes: bytes = self._build_fever_multiplier_init_cave_bytes(
+                cave_address,
+                self.orange_peg_target_table_address,
+                self.process.base_address + 0x2873AC,
+                self.process.base_address + 0x370B0,
+                return_address,
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target) + b"\x90\x90\x90"
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 8) != hook_bytes:
+                return False
+
+            self.fever_multiplier_init_cave_address = cave_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_fever_multiplier_calculation_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.fever_multiplier_calculation_cave_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0x6F741
+            return_address: int = hook_address + 0x8
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 8)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # push eax / mov ecx,esi / call 0x4370B0
+            if original_bytes != b"\x50\x8B\xCE\xE8\x67\x79\xFC\xFF":
+                return False
+
+            cave_address: int = self.process.allocate(128)
+
+            cave_bytes: bytes = self._build_fever_multiplier_cave_bytes(
+                cave_address,
+                self.orange_peg_target_table_address,
+                self.process.base_address + 0x2873AC,
+                self.process.base_address + 0x370B0,
+                return_address,
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target) + b"\x90\x90\x90"
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 8) != hook_bytes:
+                return False
+
+            self.fever_multiplier_calc_cave_address = cave_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_fever_multiplier_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.fever_multiplier_cave_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0x6F7B7
+            return_address: int = hook_address + 0x8
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 8)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # push eax / mov ecx,esi / call 0x4370B0
+            if original_bytes != b"\x50\x8B\xCE\xE8\xF1\x78\xFC\xFF":
+                return False
+
+            cave_address: int = self.process.allocate(128)
+
+            cave_bytes: bytes = self._build_fever_multiplier_cave_bytes(
+                cave_address,
+                self.orange_peg_target_table_address,
+                self.process.base_address + 0x2873AC,
+                self.process.base_address + 0x370B0,
+                return_address,
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target) + b"\x90\x90\x90"
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 8) != hook_bytes:
+                return False
+
+            self.fever_multiplier_cave_address = cave_address
+
+            return True
+        except Exception:
+            return False
+
+    def install_fever_meter_fill_hook(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if self.fever_meter_fill_cave_address is not None:
+            return True
+
+        try:
+            hook_address: int = self.process.base_address + 0x3CA21
+            return_address: int = hook_address + 0x5
+
+            original_bytes: bytes = self.process.read_bytes(hook_address, 5)
+
+            if original_bytes[0] == 0xE9:
+                return False
+
+            # mov esi, 0x19
+            if original_bytes != b"\xBE\x19\x00\x00\x00":
+                return False
+
+            cave_address: int = self.process.allocate(128)
+
+            cave_bytes: bytes = self._build_fever_meter_fill_cave_bytes(
+                cave_address, self.orange_peg_target_table_address, self.process.base_address + 0x2873AC, return_address
+            )
+
+            self.process.write_bytes(cave_address, cave_bytes, len(cave_bytes))
+
+            relative_target: int = cave_address - (hook_address + 0x5)
+            hook_bytes: bytes = b"\xE9" + struct.pack("<i", relative_target)
+
+            if not self._write_executable_bytes(hook_address, hook_bytes):
+                return False
+
+            if self.process.read_bytes(hook_address, 5) != hook_bytes:
+                return False
+
+            self.fever_meter_fill_cave_address = cave_address
+
+            return True
+        except Exception:
+            return False
+
     def install_starting_ball_count_patch(self) -> bool:
         if not self.is_process_running:
             return False
@@ -982,35 +1243,6 @@ class GameStateManager:
                 return False
 
             self.starting_ball_count_address = value_address
-
-            return True
-        except Exception:
-            return False
-
-    def install_fever_trigger_fix(self) -> bool:
-        if not self.is_process_running:
-            return False
-
-        if self.fever_trigger_patch_address is not None:
-            return True
-
-        try:
-            patch_address: int = self.process.base_address + 0xE330
-
-            original_bytes: bytes = self.process.read_bytes(patch_address, 7)
-
-            if original_bytes != b"\xC7\x46\x08\x00\x00\x00\x00":
-                return False
-
-            patch_bytes: bytes = b"\xFF\x4E\x08" + b"\x90\x90\x90\x90"  # dec dword ptr [esi+08]; nop*4
-
-            if not self._write_executable_bytes(patch_address, patch_bytes):
-                return False
-
-            if self.process.read_bytes(patch_address, 7) != patch_bytes:
-                return False
-
-            self.fever_trigger_patch_address = patch_address
 
             return True
         except Exception:
@@ -1118,6 +1350,149 @@ class GameStateManager:
         jmp_instruction_address: int = cave_address + bytes_before_jmp
         jmp_relative: int = locked_return_address - (jmp_instruction_address + 5)
         instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp rel32
+
+        return b"".join(instruction_bytes)
+
+    @staticmethod
+    def _build_orange_peg_cap_cave_bytes(
+            cave_address: int, table_address: int, thunderball_app_address: int, return_address: int
+    ) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x8B\x45\xF0")  # mov eax, [ebp-10]
+        instruction_bytes.append(b"\x50")  # push eax
+        instruction_bytes.append(b"\x8B\x0D" + struct.pack("<I", thunderball_app_address))  # mov ecx, [thunderball_app]
+        instruction_bytes.append(b"\x8B\x91\x64\x07\x00\x00")  # mov edx, [ecx+0x764]
+        instruction_bytes.append(b"\x8B\x81\x68\x07\x00\x00")  # mov eax, [ecx+0x768]
+        instruction_bytes.append(b"\x8D\x14\x92")  # lea edx, [edx+edx*4]
+        instruction_bytes.append(b"\x03\xD0")  # add edx, eax
+        instruction_bytes.append(b"\x81\xFA\x40\x00\x00\x00")  # cmp edx, 0x40
+        instruction_bytes.append(b"\x73\x09")  # jae +9
+        instruction_bytes.append(b"\x8B\x1C\x95" + struct.pack("<I", table_address))  # mov ebx, [edx*4+table]
+        instruction_bytes.append(b"\xEB\x02")  # jmp +2
+        instruction_bytes.append(b"\x33\xDB")  # xor ebx, ebx
+        instruction_bytes.append(b"\x58")  # pop eax
+
+        bytes_before_jmp: int = sum(len(chunk) for chunk in instruction_bytes)
+        jmp_instruction_address: int = cave_address + bytes_before_jmp
+        jmp_relative: int = return_address - (jmp_instruction_address + 5)
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp return_address
+
+        return b"".join(instruction_bytes)
+
+    @staticmethod
+    def _build_fever_multiplier_cave_bytes(
+        cave_address: int,
+        table_address: int,
+        thunderball_app_address: int,
+        fever_calc_address: int,
+        return_address: int,
+    ) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x8B\x0D" + struct.pack("<I", thunderball_app_address))  # mov ecx, [thunderball_app]
+        instruction_bytes.append(b"\x8B\x91\x64\x07\x00\x00")  # mov edx, [ecx+0x764]
+        instruction_bytes.append(b"\x8B\x81\x68\x07\x00\x00")  # mov eax, [ecx+0x768]
+        instruction_bytes.append(b"\x8D\x14\x92")  # lea edx, [edx+edx*4]
+        instruction_bytes.append(b"\x03\xD0")  # add edx, eax
+        instruction_bytes.append(b"\x81\xFA\x40\x00\x00\x00")  # cmp edx, 0x40
+        instruction_bytes.append(b"\x73\x09")  # jae +9
+        instruction_bytes.append(b"\x8B\x04\x95" + struct.pack("<I", table_address))  # mov eax, [edx*4+table]
+        instruction_bytes.append(b"\xEB\x02")  # jmp +2
+        instruction_bytes.append(b"\x33\xC0")  # xor eax, eax
+        instruction_bytes.append(b"\x85\xC0")  # test eax, eax
+        instruction_bytes.append(b"\x75\x05")  # jnz +5
+        instruction_bytes.append(b"\xB8\x19\x00\x00\x00")  # mov eax, 0x19
+        instruction_bytes.append(b"\x2B\x86\x60\x03\x00\x00")  # sub eax, [esi+0x360]
+        instruction_bytes.append(b"\x8B\xD0")  # mov edx, eax
+        instruction_bytes.append(b"\xB8\x19\x00\x00\x00")  # mov eax, 0x19
+        instruction_bytes.append(b"\x2B\xC2")  # sub eax, edx
+        instruction_bytes.append(b"\x50")  # push eax
+        instruction_bytes.append(b"\x8B\xCE")  # mov ecx, esi
+
+        bytes_before_call: int = sum(len(chunk) for chunk in instruction_bytes)
+        call_instruction_address: int = cave_address + bytes_before_call
+        call_relative: int = fever_calc_address - (call_instruction_address + 5)
+        instruction_bytes.append(b"\xE8" + struct.pack("<i", call_relative))  # call 0x4370B0
+
+        bytes_before_jmp: int = sum(len(chunk) for chunk in instruction_bytes)
+        jmp_instruction_address: int = cave_address + bytes_before_jmp
+        jmp_relative: int = return_address - (jmp_instruction_address + 5)
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp return_address
+
+        return b"".join(instruction_bytes)
+
+    @staticmethod
+    def _build_fever_multiplier_init_cave_bytes(
+        cave_address: int,
+        table_address: int,
+        thunderball_app_address: int,
+        fever_calc_address: int,
+        return_address: int,
+    ) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x53")  # push ebx
+        instruction_bytes.append(b"\x8B\x0D" + struct.pack("<I", thunderball_app_address))  # mov ecx, [thunderball_app]
+        instruction_bytes.append(b"\x8B\x81\x64\x07\x00\x00")  # mov eax, [ecx+0x764]
+        instruction_bytes.append(b"\x8B\x99\x68\x07\x00\x00")  # mov ebx, [ecx+0x768]
+        instruction_bytes.append(b"\x8D\x04\x80")  # lea eax, [eax+eax*4]
+        instruction_bytes.append(b"\x03\xC3")  # add eax, ebx
+        instruction_bytes.append(b"\x83\xF8\x40")  # cmp eax, 0x40
+        instruction_bytes.append(b"\x73\x09")  # jae +9
+        instruction_bytes.append(b"\x8B\x0C\x85" + struct.pack("<I", table_address))  # mov ecx, [eax*4+table]
+        instruction_bytes.append(b"\xEB\x02")  # jmp +2
+        instruction_bytes.append(b"\x33\xC9")  # xor ecx, ecx
+        instruction_bytes.append(b"\x85\xC9")  # test ecx, ecx
+        instruction_bytes.append(b"\x75\x05")  # jnz +5
+        instruction_bytes.append(b"\xB9\x19\x00\x00\x00")  # mov ecx, 0x19
+        instruction_bytes.append(b"\xB8\x19\x00\x00\x00")  # mov eax, 0x19
+        instruction_bytes.append(b"\x2B\xC1")  # sub eax, ecx
+        instruction_bytes.append(b"\x03\xC2")  # add eax, edx
+        instruction_bytes.append(b"\x5B")  # pop ebx
+        instruction_bytes.append(b"\x50")  # push eax
+        instruction_bytes.append(b"\x8B\xCF")  # mov ecx, edi
+
+        bytes_before_call: int = sum(len(chunk) for chunk in instruction_bytes)
+        call_instruction_address: int = cave_address + bytes_before_call
+        call_relative: int = fever_calc_address - (call_instruction_address + 5)
+        instruction_bytes.append(b"\xE8" + struct.pack("<i", call_relative))  # call 0x4370B0
+
+        bytes_before_jmp: int = sum(len(chunk) for chunk in instruction_bytes)
+        jmp_instruction_address: int = cave_address + bytes_before_jmp
+        jmp_relative: int = return_address - (jmp_instruction_address + 5)
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp return_address
+
+        return b"".join(instruction_bytes)
+
+    @staticmethod
+    def _build_fever_meter_fill_cave_bytes(
+            cave_address: int, table_address: int, thunderball_app_address: int, return_address: int
+    ) -> bytes:
+        instruction_bytes: List[bytes] = list()
+
+        instruction_bytes.append(b"\x50")  # push eax
+        instruction_bytes.append(b"\x52")  # push edx
+        instruction_bytes.append(b"\x8B\x35" + struct.pack("<I", thunderball_app_address))  # mov esi, [thunderball_app]
+        instruction_bytes.append(b"\x8B\x86\x64\x07\x00\x00")  # mov eax, [esi+0x764]
+        instruction_bytes.append(b"\x8B\x96\x68\x07\x00\x00")  # mov edx, [esi+0x768]
+        instruction_bytes.append(b"\x8D\x04\x80")  # lea eax, [eax+eax*4]
+        instruction_bytes.append(b"\x03\xC2")  # add eax, edx
+        instruction_bytes.append(b"\x83\xF8\x40")  # cmp eax, 0x40
+        instruction_bytes.append(b"\x73\x09")  # jae +9
+        instruction_bytes.append(b"\x8B\x34\x85" + struct.pack("<I", table_address))  # mov esi, [eax*4+table]
+        instruction_bytes.append(b"\xEB\x02")  # jmp +2
+        instruction_bytes.append(b"\x33\xF6")  # xor esi, esi
+        instruction_bytes.append(b"\x85\xF6")  # test esi, esi
+        instruction_bytes.append(b"\x75\x05")  # jnz +5
+        instruction_bytes.append(b"\xBE\x19\x00\x00\x00")  # mov esi, 0x19
+        instruction_bytes.append(b"\x5A")  # pop edx
+        instruction_bytes.append(b"\x58")  # pop eax
+
+        bytes_before_jmp: int = sum(len(chunk) for chunk in instruction_bytes)
+        jmp_instruction_address: int = cave_address + bytes_before_jmp
+        jmp_relative: int = return_address - (jmp_instruction_address + 5)
+        instruction_bytes.append(b"\xE9" + struct.pack("<i", jmp_relative))  # jmp return_address
 
         return b"".join(instruction_bytes)
 

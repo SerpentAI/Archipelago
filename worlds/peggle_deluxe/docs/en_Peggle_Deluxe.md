@@ -5,7 +5,7 @@
 The Peggle Deluxe randomizer takes the pachinko-inspired game and layers a progression system on top of it. You will need to unlock levels, their peg compositions, as well as Peggle masters, starting balls and various bonuses to progress. Collect enough Gold Pegs and optionally clear a final level to reach your goal.
 
 **Locations**
-- Fever Meter Multipliers (2X, 3X, 5X, 10X)
+- Fever Meter Thresholds (2X, 3X, 5X, 10X, Full)
 - Level Clears
 - Target Scores (Low / Mid / High)
 - Style Shots
@@ -19,7 +19,7 @@ The Peggle Deluxe randomizer takes the pachinko-inspired game and layers a progr
   - Level Unlocks
   - Progressive Orange Pegs
   - Purple Peg
-  - Useful items to progressively make things easier: Fever Meter Permanent Bonuses, Full Clear Discounts, Score Multipliers, Target Score Discounts
+  - Useful items to progressively make things easier: Full Clear Discounts, Score Multipliers, Target Score Discounts
 - Per Master:
   - Master Unlocks
   - Progressive Green Pegs

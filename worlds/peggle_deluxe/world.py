@@ -258,7 +258,6 @@ class PeggleDeluxeWorld(World):
         self.useful_item_percentage = self.options.useful_item_percentage.value
 
         self.useful_item_weights = {
-            PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS: 1,
             PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT: 1,
             PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER: 1,
             PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT: 1,
@@ -359,13 +358,21 @@ class PeggleDeluxeWorld(World):
                             starting_ball_increases_two_thirds,
                         )
                     )
-                elif "Level Clear" in location_name:
+                elif "Fever Meter Full" in location_name:
                     location_access_rule = And(
                         Has(f"Progressive Orange Pegs: {level.value}", 4),
                         Has(
                             PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
                             starting_ball_increases_three_quarters,
                         )
+                    )
+                elif "Level Clear" in location_name:
+                    location_access_rule = Or(
+                        Has(
+                            PeggleDeluxeAPItems.PROGRESSIVE_STARTING_BALL_INCREASE.value,
+                            starting_ball_increases_one_half,
+                        ),
+                        Has(PeggleDeluxeAPItems.OOL.value),
                     )
                 elif "Target Score (Mid)" in location_name:
                     location_access_rule = Or(
@@ -494,7 +501,6 @@ class PeggleDeluxeWorld(World):
 
             item_pool.append(self.create_item(f"Purple Peg: {level.value}"))
 
-            useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value}: {level.value}")
             useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER.value}: {level.value}")
             useful_item_pool.append(f"{PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT.value}: {level.value}")
 
@@ -680,7 +686,6 @@ class PeggleDeluxeWorld(World):
 
         if useful_items_needed > 0:
             useful_item_pool_by_type: Dict[PeggleDeluxeAPUsefulItems, List[str]] = {
-                PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS: list(),
                 PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER: list(),
                 PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT: list(),
             }
@@ -690,9 +695,7 @@ class PeggleDeluxeWorld(World):
 
             useful_item_name: str
             for useful_item_name in useful_item_pool:
-                if PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value in useful_item_name:
-                    useful_item_pool_by_type[PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS].append(useful_item_name)
-                elif PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value in useful_item_name and self.include_full_clears:
+                if PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value in useful_item_name and self.include_full_clears:
                     useful_item_pool_by_type[PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT].append(useful_item_name)
                 elif PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER.value in useful_item_name:
                     useful_item_pool_by_type[PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER].append(useful_item_name)
@@ -700,7 +703,6 @@ class PeggleDeluxeWorld(World):
                     useful_item_pool_by_type[PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT].append(useful_item_name)
 
             allowable_useful_item_types: List[PeggleDeluxeAPUsefulItems] = [
-                PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS,
                 PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER,
                 PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT,
             ]

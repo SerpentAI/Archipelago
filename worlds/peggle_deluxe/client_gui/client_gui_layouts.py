@@ -77,7 +77,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
     target_score_mid_label: Label
     target_score_high_label: Label
 
-    item_fever_meter_permanent_bonus_label: Label
     item_full_clear_discount_label: Label
     item_score_multiplier_label: Label
     item_target_score_discount_label: Label
@@ -329,20 +328,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
 
         level_information_items_layout.add_widget(items_label)
 
-        self.item_fever_meter_permanent_bonus_label = Label(
-            text="Fever Meter Permanent Bonus: [color=00FA9A]Xx[/color]",
-            markup=True,
-            size_hint_y=None,
-            font_size="12dp",
-            height="14dp",
-            halign="left",
-            valign="middle",
-        )
-
-        self.item_fever_meter_permanent_bonus_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        level_information_items_layout.add_widget(self.item_fever_meter_permanent_bonus_label)
-
         self.item_full_clear_discount_label = Label(
             text="Full Clear Discount: [color=00FA9A]Xx[/color]",
             markup=True,
@@ -544,7 +529,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                 self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
                 self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-                self.item_fever_meter_permanent_bonus_label.text = "Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
                 self.item_full_clear_discount_label.text = "Full Clear Discount: [color=888888]Xx[/color]"
                 self.item_score_multiplier_label.text = "Score Multiplier: [color=888888]Xx[/color]"
                 self.item_target_score_discount_label.text = "Target Score Discount: [color=888888]Xx[/color]"
@@ -562,15 +546,9 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                     level_unlock: str = f"Level Unlock: {game_state.current_level.value}"
                     master_unlock: str = f"Master Unlock: {game_state.current_character.value}"
 
-                    item_fever_meter_permanent_bonus: str = f"{PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value}: {game_state.current_level.value}"
                     item_full_clear_discount: str = f"{PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value}: {game_state.current_level.value}"
                     item_score_multiplier: str = f"{PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER.value}: {game_state.current_level.value}"
                     item_target_score_discount: str = f"{PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT.value}: {game_state.current_level.value}"
-
-                    fever_meter_permanent_bonus_count: int = 0
-
-                    if item_fever_meter_permanent_bonus in received_items:
-                        fever_meter_permanent_bonus_count = received_items[item_fever_meter_permanent_bonus]
 
                     full_clear_discount_count: int = 0
 
@@ -672,7 +650,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                                 self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
                             # Useful Items
-                            self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=00FA9A]{fever_meter_permanent_bonus_count}x[/color]"
                             self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=00FA9A]{full_clear_discount_count}x[/color]"
                             self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]{score_multiplier_count}x[/color]"
                             self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]{target_score_discount_count}x[/color]"
@@ -697,7 +674,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                             self.target_score_mid_label.text = "Mid: [color=00FA9A]XXX,XXX[/color]"
                             self.target_score_high_label.text = "High: [color=00FA9A]XXX,XXX[/color]"
 
-                            self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=00FA9A]Xx[/color]"
                             self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=00FA9A]Xx[/color]"
                             self.item_score_multiplier_label.text = f"Score Multiplier: [color=00FA9A]Xx[/color]"
                             self.item_target_score_discount_label.text = f"Target Score Discount: [color=00FA9A]Xx[/color]"
@@ -714,7 +690,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
                         self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
                         self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-                        self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
                         self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=888888]Xx[/color]"
                         self.item_score_multiplier_label.text = f"Score Multiplier: [color=888888]Xx[/color]"
                         self.item_target_score_discount_label.text = f"Target Score Discount: [color=888888]Xx[/color]"
@@ -738,7 +713,6 @@ class PeggleDeluxeLevelInformationLayout(BoxLayout):
             self.target_score_mid_label.text = "Mid: [color=888888]XXX,XXX[/color]"
             self.target_score_high_label.text = "High: [color=888888]XXX,XXX[/color]"
 
-            self.item_fever_meter_permanent_bonus_label.text = f"Fever Meter Permanent Bonus: [color=888888]Xx[/color]"
             self.item_full_clear_discount_label.text = f"Full Clear Discount: [color=888888]Xx[/color]"
             self.item_score_multiplier_label.text = f"Score Multiplier: [color=888888]Xx[/color]"
             self.item_target_score_discount_label.text = f"Target Score Discount: [color=888888]Xx[/color]"

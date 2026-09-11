@@ -88,10 +88,8 @@ class GameController:
     useful_items: Optional[Dict[PeggleDeluxeLevels, Dict[PeggleDeluxeAPUsefulItems, int]]]
 
     # State
-    can_modify_fever_meter: bool
-    can_modify_level_pegs: bool
-
     previous_level_state: PeggleDeluxeLevelStates
+    orange_pegs_by_level: Dict[PeggleDeluxeLevels, int]
 
     def __init__(self, logger: logging.Logger = None) -> None:
         self.logger = logger
@@ -157,10 +155,8 @@ class GameController:
         self.target_score_locations_by_level = None
         self.useful_items = None
 
-        self.can_modify_fever_meter = True
-        self.can_modify_level_pegs = True
-
         self.previous_level_state = PeggleDeluxeLevelStates.OTHER
+        self.orange_pegs_by_level = dict()
 
     def log(self, message) -> None:
         if self.logger:
@@ -297,10 +293,8 @@ class GameController:
         self.target_score_locations_by_level = None
         self.useful_items = None
 
-        self.can_modify_fever_meter = True
-        self.can_modify_level_pegs = True
-
         self.previous_level_state = PeggleDeluxeLevelStates.OTHER
+        self.orange_pegs_by_level = dict()
 
     def _refresh_game_state(self) -> None:
         self.previous_level_state = self.game_state_level_state or PeggleDeluxeLevelStates.OTHER
@@ -381,44 +375,47 @@ class GameController:
             min(5 + starting_ball_increase_item_count, self.option_maximum_starting_ball_count)
         )
 
+        # Level Orange Pegs
+        orange_pegs_by_level: Dict[PeggleDeluxeLevels, int] = dict()
+
+        level: PeggleDeluxeLevels
+        for level in self.selected_levels:
+            if level == self.game_state_current_level:
+                # Shouldn't alter the count while a level is being played; use last known value
+                orange_pegs_by_level[level] = self.orange_pegs_by_level.get(level, 10)
+                continue
+
+            progressive_orange_pegs_item: str = f"Progressive Orange Pegs: {level.value}"
+            progressive_orange_pegs_item_count: int = self.received_items.get(progressive_orange_pegs_item, 0)
+
+            orange_pegs: int = 12
+
+            if progressive_orange_pegs_item_count > 0:
+                orange_pegs += 5
+
+            if progressive_orange_pegs_item_count > 1:
+                orange_pegs += 4
+
+            if progressive_orange_pegs_item_count > 2:
+                orange_pegs += 2
+
+            if progressive_orange_pegs_item_count > 3:
+                orange_pegs += 2
+
+            orange_pegs_by_level[level] = orange_pegs
+
+        self.orange_pegs_by_level = orange_pegs_by_level
+        self.game_state_manager.set_orange_pegs_to_spawn(orange_pegs_by_level)
+
         return_contexts: List[Union[PeggleDeluxeContexts, None]] = [
             PeggleDeluxeContexts.INVALID,
             None,
         ]
 
         if self.game_state_context in return_contexts:
-            self.can_modify_fever_meter = True
-            self.can_modify_level_pegs = True
-
             return
 
         if self.game_state_current_level in self.selected_levels or self.game_state_current_level == self.selected_goal_level:
-            # Modify Level Pegs
-            if self.game_state_level_state == PeggleDeluxeLevelStates.MASTER_SELECTION and self.can_modify_level_pegs:
-                progressive_orange_pegs_item: str = f"Progressive Orange Pegs: {self.game_state_current_level.value}"
-                progressive_orange_pegs_item_count: int = self.received_items.get(progressive_orange_pegs_item, 0)
-
-                if progressive_orange_pegs_item_count < 4:
-                    if progressive_orange_pegs_item_count == 0:
-                        self.game_state_manager.cap_orange_pegs(15)
-                    elif progressive_orange_pegs_item_count == 1:
-                        self.game_state_manager.cap_orange_pegs(19)
-                    elif progressive_orange_pegs_item_count == 2:
-                        self.game_state_manager.cap_orange_pegs(21)
-                    elif progressive_orange_pegs_item_count == 3:
-                        self.game_state_manager.cap_orange_pegs(23)
-
-                self.can_modify_level_pegs = False
-
-            if self.game_state_level_state != PeggleDeluxeLevelStates.MASTER_SELECTION:
-                self.can_modify_level_pegs = True
-
-            if self.game_state_level_state == PeggleDeluxeLevelStates.BEFORE_SHOT and self.previous_level_state == PeggleDeluxeLevelStates.MASTER_SELECTION:
-                progressive_green_pegs_item: str = f"Progressive Green Pegs: {self.game_state_current_character.value}"
-                progressive_green_pegs_item_count: int = self.received_items.get(progressive_green_pegs_item, 0)
-
-                self.game_state_manager.set_green_pegs(1 + progressive_green_pegs_item_count)
-
             # Purple Peg
             purple_peg_item: str = f"Purple Peg: {self.game_state_current_level.value}"
             purple_peg_item_count: int = self.received_items.get(purple_peg_item, 0)
@@ -426,18 +423,12 @@ class GameController:
             if purple_peg_item_count == 0:
                 self.game_state_manager.force_purple_peg_blue()
 
-            # Fever Meter Bonus
-            if self.game_state_orange_pegs_remaining < 25:
-                self.can_modify_fever_meter = True
+            # Green Pegs
+            if self.game_state_level_state == PeggleDeluxeLevelStates.BEFORE_SHOT and self.previous_level_state == PeggleDeluxeLevelStates.MASTER_SELECTION:
+                progressive_green_pegs_item: str = f"Progressive Green Pegs: {self.game_state_current_character.value}"
+                progressive_green_pegs_item_count: int = self.received_items.get(progressive_green_pegs_item, 0)
 
-            if self.can_modify_fever_meter and self.game_state_orange_pegs_remaining == 25:
-                if self.game_state_current_level != self.selected_goal_level:
-                    useful_item_count: int = self.useful_items[self.game_state_current_level][
-                        PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS
-                    ]
-
-                    self.game_state_manager.set_orange_pegs_remaining(25 - useful_item_count)
-                    self.game_state_orange_pegs_remaining = 25 - useful_item_count
+                self.game_state_manager.set_green_pegs(1 + progressive_green_pegs_item_count)
 
     def _check_for_completed_locations(self) -> None:
         return_contexts: List[Union[PeggleDeluxeContexts, None]] = [
@@ -496,6 +487,13 @@ class GameController:
 
             if self.game_state_has_achieved_fever_meter_multiplier_10x:
                 location: str = f"{level_prefix} Fever Meter X10"
+                checked_locations.append(location)
+
+            progressive_orange_pegs_item: str = f"Progressive Orange Pegs: {self.game_state_current_level.value}"
+            progressive_orange_pegs_item_count: int = self.received_items.get(progressive_orange_pegs_item, 0)
+
+            if progressive_orange_pegs_item_count == 4 and self.game_state_orange_pegs_remaining == 0:
+                location: str = f"{level_prefix} Fever Meter Full"
                 checked_locations.append(location)
 
             if self.game_state_current_level in self.target_score_locations_by_level:
@@ -573,14 +571,12 @@ class GameController:
 
             self.received_items[item] += 1
 
-            is_fever_meter_bonus: bool = PeggleDeluxeAPUsefulItems.FEVER_METER_BONUS.value in item
             is_full_clear_discount: bool = PeggleDeluxeAPUsefulItems.FULL_CLEAR_DISCOUNT.value in item
             is_score_multiplier: bool = PeggleDeluxeAPUsefulItems.SCORE_MULTIPLIER.value in item
             is_target_score_discount: bool = PeggleDeluxeAPUsefulItems.TARGET_SCORE_DISCOUNT.value in item
 
             if (
-                is_fever_meter_bonus
-                or is_full_clear_discount
+                is_full_clear_discount
                 or is_score_multiplier
                 or is_target_score_discount
             ):

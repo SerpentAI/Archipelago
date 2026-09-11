@@ -179,7 +179,6 @@ class PeggleDeluxeAPTags(enum.Enum):
 
 
 class PeggleDeluxeAPUsefulItems(enum.Enum):
-    FEVER_METER_BONUS = "Fever Meter Permanent Bonus"
     FULL_CLEAR_DISCOUNT = "Full Clear Discount"
     SCORE_MULTIPLIER = "Score Multiplier"
     TARGET_SCORE_DISCOUNT = "Target Score Discount"

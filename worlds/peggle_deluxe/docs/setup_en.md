@@ -26,7 +26,9 @@ No manual mod installation or other configuration is required to play Peggle Del
 
 Once the Archipelago client is connected, hooks and patches will be set up in the game's memory. _**If the client is ever closed, Peggle Deluxe will NEED to be restarted before connecting another client**_ for everything to function as expected. If you don't restart the game, the previous hooks and patches will remain installed with no way for the new client to detect and use them.
 
-**Note:** You don't need to have completed Adventure Mode to play. The client will be able to unlock the Quick Play levels as needed regardless of Adventure progress.
+**Notes** 
+- You don't need to have completed Adventure Mode to play. The client will be able to unlock the Quick Play levels as needed regardless of Adventure progress.
+- Fever Meter Multiplier location checks will send when you hit the next peg after reaching the multiplier in the fever meter
 
 ## Joining a Multiworld Game
 - Launch Peggle Deluxe and either sit on the splash screen or advance to the main menu
