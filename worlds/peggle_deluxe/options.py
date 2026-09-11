@@ -233,7 +233,6 @@ class UsefulItemWeights(OptionDict):
     display_name = "Useful Item Weights"
 
     default = {
-        "Fever Meter Permanent Bonus": 1,
         "Full Clear Discount": 1,
         "Score Multiplier": 1,
         "Target Score Discount": 1,
