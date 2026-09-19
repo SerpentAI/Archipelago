@@ -23,6 +23,8 @@ No manual mod installation or other configuration is required to play 20 Minutes
 
 Once the Archipelago client is connected, a hook will be set up in the game's memory to allow the client to safely call game functions from the main thread. _**If the client is ever closed, 20 Minutes Till Dawn will NEED to be restarted before connecting another client**_ for everything to function as expected. If you don't restart the game, the previous hook will remain installed with no way for the new client to detect and use it.
 
+Also, if you care about the state of your vanilla save file, you will _need_ to manually back it up before playing this implementation! They can generally be found at `%USERPROFILE%\AppData\LocalLow\Flanne\MinutesTillDawn\*.json`.
+
 ## Joining a Multiworld Game
 - Launch 20 Minutes Till Dawn and reach the main menu
 - Open the Archipelago Launcher. Find and click _20 Minutes Till Dawn Client_
