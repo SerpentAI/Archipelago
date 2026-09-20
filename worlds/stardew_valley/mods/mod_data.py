@@ -1,3 +1,6 @@
+from typing import Iterable
+
+
 class ModNames:
     vanilla = None
     deepwoods = "DeepWoods"
@@ -27,13 +30,21 @@ class ModNames:
     lacey = "Hat Mouse Lacey"
     boarding_house = "Boarding House and Bus Stop Extension"
 
-    jasper_sve = jasper + "," + sve
+
+invalid_mod_combinations = [
+    # [ModNames.sve, ModNames.distant_lands] # This is going to become banned after Reptar's SVE update. For now, it's fine.
+]
 
 
-all_mods = frozenset({ModNames.deepwoods, ModNames.tractor, ModNames.big_backpack,
-                      ModNames.luck_skill, ModNames.magic, ModNames.socializing_skill, ModNames.archaeology,
-                      ModNames.cooking_skill, ModNames.binning_skill, ModNames.juna,
-                      ModNames.jasper, ModNames.alec, ModNames.yoba, ModNames.eugene,
-                      ModNames.wellwick, ModNames.ginger, ModNames.shiko, ModNames.delores,
-                      ModNames.ayeisha, ModNames.riley, ModNames.skull_cavern_elevator, ModNames.sve, ModNames.alecto,
-                      ModNames.distant_lands, ModNames.lacey, ModNames.boarding_house})
+def mod_combination_is_valid(mods: Iterable[str]):
+    for mod_combination in invalid_mod_combinations:
+        if all([mod in mods for mod in mod_combination]):
+            return False
+    return True
+
+
+def get_invalid_mod_combination(mods: Iterable[str]):
+    for mod_combination in invalid_mod_combinations:
+        if all([mod in mods for mod in mod_combination]):
+            return mod_combination
+    return None

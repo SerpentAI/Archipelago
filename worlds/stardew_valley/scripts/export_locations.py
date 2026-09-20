@@ -16,11 +16,19 @@ if not os.path.isdir("output"):
 if __name__ == "__main__":
     with open("output/stardew_valley_location_table.json", "w+") as f:
         locations = {
+            "Cheat Console":
+                {"code": -1, "region": "Archipelago", "tags": [], "content_packs": []},
+            "Server":
+                {"code": -2, "region": "Archipelago", "tags": [], "content_packs": []}
+        }
+        locations.update({
             location.name: {
                 "code": location.code,
                 "region": location.region,
+                "tags": sorted([tag.name for tag in location.tags]),
+                "content_packs": sorted([pack for pack in location.content_packs]),
             }
             for location in location_table.values()
             if location.code is not None
-        }
+        })
         json.dump({"locations": locations}, f)

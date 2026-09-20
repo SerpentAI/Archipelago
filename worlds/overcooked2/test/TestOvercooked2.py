@@ -4,10 +4,11 @@ from random import Random
 from worlds.AutoWorld import AutoWorldRegister
 from test.general import setup_solo_multiworld
 
-from worlds.overcooked2.Items import *
-from worlds.overcooked2.Overcooked2Levels import Overcooked2Dlc, Overcooked2Level, OverworldRegion, overworld_region_by_level, level_id_to_shortname
-from worlds.overcooked2.Logic import level_logic, overworld_region_logic, level_shuffle_factory
-from worlds.overcooked2.Locations import oc2_location_name_to_id
+from ..Items import *
+from ..Overcooked2Levels import (Overcooked2Dlc, Overcooked2Level, OverworldRegion, overworld_region_by_level,
+                                 level_id_to_shortname)
+from ..Logic import level_logic, overworld_region_logic, level_shuffle_factory
+from ..Locations import oc2_location_name_to_id
 
 
 class Overcooked2Test(unittest.TestCase):
@@ -198,8 +199,8 @@ class Overcooked2Test(unittest.TestCase):
 
         self.assertIn("Overcooked! 2", AutoWorldRegister.world_types.keys())
         world_type = AutoWorldRegister.world_types["Overcooked! 2"]
-        world = setup_solo_multiworld(world_type)
-        state = world.get_all_state(False)
+        multiworld = setup_solo_multiworld(world_type)
+        state = multiworld.get_all_state(False)
 
         # Test region logic
         for logic in overworld_region_logic.values():

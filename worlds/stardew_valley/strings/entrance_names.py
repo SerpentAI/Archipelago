@@ -42,14 +42,7 @@ class Entrance:
     forest_to_marnie_ranch = "Forest to Marnie's Ranch"
     forest_to_leah_cottage = "Forest to Leah's Cottage"
     forest_to_sewer = "Forest to Sewer"
-    buy_from_traveling_merchant = "Buy from Traveling Merchant"
-    buy_from_traveling_merchant_sunday = "Buy from Traveling Merchant Sunday"
-    buy_from_traveling_merchant_monday = "Buy from Traveling Merchant Monday"
-    buy_from_traveling_merchant_tuesday = "Buy from Traveling Merchant Tuesday"
-    buy_from_traveling_merchant_wednesday = "Buy from Traveling Merchant Wednesday"
-    buy_from_traveling_merchant_thursday = "Buy from Traveling Merchant Thursday"
-    buy_from_traveling_merchant_friday = "Buy from Traveling Merchant Friday"
-    buy_from_traveling_merchant_saturday = "Buy from Traveling Merchant Saturday"
+    forest_to_mastery_cave = "Forest to Mastery Cave"
     mountain_to_railroad = "Mountain to Railroad"
     mountain_to_tent = "Mountain to Tent"
     mountain_to_carpenter_shop = "Mountain to Carpenter Shop"
@@ -57,6 +50,7 @@ class Entrance:
     mountain_to_the_mines = "Mountain to The Mines"
     enter_quarry = "Mountain to Quarry"
     mountain_to_adventurer_guild = "Mountain to Adventurer's Guild"
+    adventurer_guild_to_bedroom = "Adventurer's Guild to Marlon's Bedroom"
     mountain_to_town = "Mountain to Town"
     town_to_community_center = "Town to Community Center"
     access_crafts_room = "Access Crafts Room"
@@ -72,6 +66,8 @@ class Entrance:
     town_to_alex_house = "Town to Alex's House"
     town_to_trailer = "Town to Trailer"
     town_to_mayor_manor = "Town to Mayor's Manor"
+    enter_lewis_bedroom = "Enter Lewis's Bedroom"
+    enter_shorts_maze = "Mayor's Manor to Purple Shorts Maze"
     town_to_sam_house = "Town to Sam's House"
     town_to_haley_house = "Town to Haley's House"
     town_to_sewer = "Town to Sewer"
@@ -100,8 +96,11 @@ class Entrance:
     play_junimo_kart = "Play Junimo Kart"
     reach_junimo_kart_2 = "Reach Junimo Kart 2"
     reach_junimo_kart_3 = "Reach Junimo Kart 3"
-    enter_locker_room = "Bathhouse Entrance to Locker Room"
-    enter_public_bath = "Locker Room to Public Bath"
+    reach_junimo_kart_4 = "Reach Junimo Kart 4"
+    enter_mens_locker_room = "Bathhouse Entrance to Men's Locker Room"
+    enter_womens_locker_room = "Bathhouse Entrance to Women's Locker Room"
+    mens_lockers_to_public_bath = "Men's Locker Room to Public Bath"
+    womens_lockers_to_public_bath = "Women's Locker Room to Public Bath"
     enter_witch_swamp = "Witch Warp Cave to Witch's Swamp"
     enter_witch_hut = "Witch's Swamp to Witch's Hut"
     witch_warp_to_wizard_basement = "Witch's Hut to Wizard Basement"
@@ -111,6 +110,7 @@ class Entrance:
     enter_casino = "Oasis to Casino"
     enter_skull_cavern_entrance = "Desert to Skull Cavern Entrance"
     enter_skull_cavern = "Skull Cavern Entrance to Skull Cavern"
+    mine_in_skull_cavern = "Can Mine in Skull Cavern"
     mine_to_skull_cavern_floor_25 = dig_to_skull_floor(25)
     mine_to_skull_cavern_floor_50 = dig_to_skull_floor(50)
     mine_to_skull_cavern_floor_75 = dig_to_skull_floor(75)
@@ -120,7 +120,6 @@ class Entrance:
     mine_to_skull_cavern_floor_175 = dig_to_skull_floor(175)
     mine_to_skull_cavern_floor_200 = dig_to_skull_floor(200)
     enter_dangerous_skull_cavern = "Enter the Dangerous Skull Cavern"
-    talk_to_mines_dwarf = "Talk to Mines Dwarf"
     dig_to_mines_floor_5 = dig_to_mines_floor(5)
     dig_to_mines_floor_10 = dig_to_mines_floor(10)
     dig_to_mines_floor_15 = dig_to_mines_floor(15)
@@ -183,25 +182,98 @@ class Entrance:
     parrot_express_jungle_to_docks = "Parrot Express Jungle to Docks"
     parrot_express_dig_site_to_docks = "Parrot Express Dig Site to Docks"
     parrot_express_volcano_to_docks = "Parrot Express Volcano to Docks"
+    mountain_to_outside_adventure_guild = "Mountain to Outside Adventure Guild"
+
+    forest_beach_shortcut = "Forest to Beach Shortcut"
+    mountain_jojamart_shortcut = "Mountain to Jojamart Shortcut"
+    mountain_town_shortcut = "Mountain to Town Shortcut"
+    town_tidepools_shortcut = "Town to Tide Pools Shortcut"
+    tunnel_backwoods_shortcut = "Tunnel to Backwoods Shortcut"
+    mountain_lake_to_outside_adventure_guild_shortcut = "Mountain Lake to Outside Adventure Guild"
+
+    feed_trash_bear = "Feed Trash Bear"
+
+
+class LogicEntrance:
+    talk_to_mines_dwarf = "Talk to Mines Dwarf"
+
+    buy_from_traveling_merchant = "Buy from Traveling Merchant"
+    buy_from_traveling_merchant_sunday = "Buy from Traveling Merchant Sunday"
+    buy_from_traveling_merchant_monday = "Buy from Traveling Merchant Monday"
+    buy_from_traveling_merchant_tuesday = "Buy from Traveling Merchant Tuesday"
+    buy_from_traveling_merchant_wednesday = "Buy from Traveling Merchant Wednesday"
+    buy_from_traveling_merchant_thursday = "Buy from Traveling Merchant Thursday"
+    buy_from_traveling_merchant_friday = "Buy from Traveling Merchant Friday"
+    buy_from_traveling_merchant_saturday = "Buy from Traveling Merchant Saturday"
     farmhouse_cooking = "Farmhouse Cooking"
     island_cooking = "Island Cooking"
     shipping = "Use Shipping Bin"
     watch_queen_of_sauce = "Watch Queen of Sauce"
-    blacksmith_copper = "Upgrade Copper Tools"
-    blacksmith_iron = "Upgrade Iron Tools"
-    blacksmith_gold = "Upgrade Gold Tools"
-    blacksmith_iridium = "Upgrade Iridium Tools"
-    farming = "Start Farming"
+
+    @staticmethod
+    def blacksmith_upgrade(material: str) -> str:
+        return f"Upgrade {material} Tools"
+
+    blacksmith_copper = blacksmith_upgrade("Copper")
+    blacksmith_iron = blacksmith_upgrade("Iron")
+    blacksmith_gold = blacksmith_upgrade("Gold")
+    blacksmith_iridium = blacksmith_upgrade("Iridium")
+
+    grow_spring_crops = "Grow Spring Crops"
+    grow_summer_crops = "Grow Summer Crops"
+    grow_fall_crops = "Grow Fall Crops"
+    grow_winter_crops = "Grow Winter Crops"
+    grow_spring_crops_in_greenhouse = "Grow Spring Crops in Greenhouse"
+    grow_summer_crops_in_greenhouse = "Grow Summer Crops in Greenhouse"
+    grow_fall_crops_in_greenhouse = "Grow Fall Crops in Greenhouse"
+    grow_winter_crops_in_greenhouse = "Grow Winter Crops in Greenhouse"
+    grow_indoor_crops_in_greenhouse = "Grow Indoor Crops in Greenhouse"
+    grow_spring_crops_on_island = "Grow Spring Crops on Island"
+    grow_summer_crops_on_island = "Grow Summer Crops on Island"
+    grow_fall_crops_on_island = "Grow Fall Crops on Island"
+    grow_winter_crops_on_island = "Grow Winter Crops on Island"
+    grow_indoor_crops_on_island = "Grow Indoor Crops on Island"
+    grow_summer_fall_crops_in_summer = "Grow Summer Fall Crops in Summer"
+    grow_summer_fall_crops_in_fall = "Grow Summer Fall Crops in Fall"
+
     fishing = "Start Fishing"
     attend_egg_festival = "Attend Egg Festival"
+    attend_desert_festival = "Attend Desert Festival"
     attend_flower_dance = "Attend Flower Dance"
     attend_luau = "Attend Luau"
+    attend_trout_derby = "Attend Trout Derby"
     attend_moonlight_jellies = "Attend Dance of the Moonlight Jellies"
     attend_fair = "Attend Stardew Valley Fair"
     attend_spirit_eve = "Attend Spirit's Eve"
     attend_festival_of_ice = "Attend Festival of Ice"
+    buy_from_hat_mouse = "Buy From Hat Mouse"
+    buy_from_lost_items_shop = "Buy From Lost Items Shop"
     attend_night_market = "Attend Night Market"
     attend_winter_star = "Attend Feast of the Winter Star"
+    attend_squidfest = "Attend SquidFest"
+    buy_books = "Buy from the bookseller"
+    buy_permanent_books = "Buy Permanent Books"
+    buy_rare_books = "Buy Rare Books"
+    buy_experience_books = "Buy Experience Books"
+    has_giant_stump = "Has Giant Stump"
+    can_complete_raccoon_requests_1 = "Can Complete Raccoon Request 1"
+    can_complete_raccoon_requests_2 = "Can Complete Raccoon Request 2"
+    can_complete_raccoon_requests_3 = "Can Complete Raccoon Request 3"
+    can_complete_raccoon_requests_4 = "Can Complete Raccoon Request 4"
+    can_complete_raccoon_requests_5 = "Can Complete Raccoon Request 5"
+    can_complete_raccoon_requests_6 = "Can Complete Raccoon Request 6"
+    can_complete_raccoon_requests_7 = "Can Complete Raccoon Request 7"
+    can_complete_raccoon_requests_8 = "Can Complete Raccoon Request 8"
+    buy_from_raccoon_1 = "Buy From Raccoon After 1 Request"
+    buy_from_raccoon_2 = "Buy From Raccoon After 2 Requests"
+    buy_from_raccoon_3 = "Buy From Raccoon After 3 Requests"
+    buy_from_raccoon_4 = "Buy From Raccoon After 4 Requests"
+    buy_from_raccoon_5 = "Buy From Raccoon After 5 Requests"
+    buy_from_raccoon_6 = "Buy From Raccoon After 6 Requests"
+    fish_in_waterfall = "Fish In Waterfall"
+    find_secret_notes = "Find Secret Notes"
+    search_garbage_cans = "Search Garbage Cans"
+    purchase_wizard_blueprints = "Purchase Wizard Blueprints"
 
 
 # Skull Cavern Elevator
@@ -326,6 +398,7 @@ class SVEEntrance:
     sprite_spring_to_cave = "Sprite Spring to Sprite Spring Cave"
     fish_shop_to_willy_bedroom = "Willy's Fish Shop to Willy's Bedroom"
     museum_to_gunther_bedroom = "Museum to Gunther's Bedroom"
+    highlands_to_pond = "Highlands to Highlands Pond"
 
 
 class AlectoEntrance:
@@ -356,4 +429,3 @@ class BoardingHouseEntrance:
     lost_valley_ruins_to_lost_valley_house_1 = "Lost Valley Ruins to Lost Valley Ruins - First House"
     lost_valley_ruins_to_lost_valley_house_2 = "Lost Valley Ruins to Lost Valley Ruins - Second House"
     boarding_house_plateau_to_buffalo_ranch = "Boarding House Outside to Buffalo's Ranch"
-

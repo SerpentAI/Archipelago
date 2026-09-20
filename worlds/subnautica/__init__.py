@@ -1,22 +1,20 @@
 from __future__ import annotations
 
-import logging
 import itertools
 from typing import List, Dict, Any, cast
 
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
+from Options import OptionError
 from worlds.AutoWorld import World, WebWorld
 from . import items
 from . import locations
 from . import creatures
 from . import options
-from .items import item_table, group_items, items_by_type, ItemType
+from .items import item_table, group_items
 from .rules import set_rules
 
-logger = logging.getLogger("Subnautica")
 
-
-class SubnaticaWeb(WebWorld):
+class SubnauticaWeb(WebWorld):
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
         "A guide to setting up the Subnautica randomizer connected to an Archipelago Multiworld",
@@ -38,19 +36,20 @@ class SubnauticaWorld(World):
     You must find a cure for yourself, build an escape rocket, and leave the planet.
     """
     game = "Subnautica"
-    web = SubnaticaWeb()
+    web = SubnauticaWeb()
 
     item_name_to_id = {data.name: item_id for item_id, data in items.item_table.items()}
     location_name_to_id = all_locations
     options_dataclass = options.SubnauticaOptions
     options: options.SubnauticaOptions
-    required_client_version = (0, 4, 1)
-
+    required_client_version = (0, 6, 2)
+    origin_region_name = "Planet 4546B"
     creatures_to_scan: List[str]
 
     def generate_early(self) -> None:
-        if not self.options.filler_items_distribution.weights_pair[1][-1]:
-            raise Exception("Filler Items Distribution needs at least one positive weight.")
+        weights_list = self.options.filler_items_distribution.weights_pair[1]
+        if not weights_list or not weights_list[-1]:
+            raise OptionError("Filler Items Distribution needs at least one positive weight.")
         if self.options.early_seaglide:
             self.multiworld.local_early_items[self.player]["Seaglide Fragment"] = 2
 
@@ -66,12 +65,8 @@ class SubnauticaWorld(World):
             creature_pool, self.options.creature_scans.value)
 
     def create_regions(self):
-        # Create Regions
-        menu_region = Region("Menu", self.player, self.multiworld)
+        # Create Region
         planet_region = Region("Planet 4546B", self.player, self.multiworld)
-
-        # Link regions together
-        menu_region.connect(planet_region, "Lifepod 5")
 
         # Create regular locations
         location_names = itertools.chain((location["name"] for location in locations.location_table.values()),
@@ -93,11 +88,8 @@ class SubnauticaWorld(World):
                 # make the goal event the victory "item"
                 location.item.name = "Victory"
 
-        # Register regions to multiworld
-        self.multiworld.regions += [
-            menu_region,
-            planet_region
-        ]
+        # Register region to multiworld
+        self.multiworld.regions.append(planet_region)
 
     # refer to rules.py
     set_rules = set_rules
@@ -165,6 +157,7 @@ class SubnauticaWorld(World):
             "creatures_to_scan": self.creatures_to_scan,
             "death_link": self.options.death_link.value,
             "free_samples": self.options.free_samples.value,
+            "empty_tanks": self.options.empty_tanks.value,
         }
 
         return slot_data

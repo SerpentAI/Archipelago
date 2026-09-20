@@ -1,3 +1,6 @@
+from .tool_names import ToolMaterial
+
+
 class Region:
     menu = "Menu"
     stardew_valley = "Stardew Valley"
@@ -14,6 +17,7 @@ class Region:
     forest = "Forest"
     bus_stop = "Bus Stop"
     backwoods = "Backwoods"
+    tunnel_entrance = "Tunnel Entrance"
     bus_tunnel = "Bus Tunnel"
     railroad = "Railroad"
     secret_woods = "Secret Woods"
@@ -28,9 +32,9 @@ class Region:
     oasis = "Oasis"
     casino = "Casino"
     mines = "The Mines"
-    mines_dwarf_shop = "Mines Dwarf Shop"
     skull_cavern_entrance = "Skull Cavern Entrance"
     skull_cavern = "Skull Cavern"
+    skull_cavern_mining = "Skull Cavern Mining"
     sewer = "Sewer"
     mutant_bug_lair = "Mutant Bug Lair"
     witch_swamp = "Witch's Swamp"
@@ -73,17 +77,9 @@ class Region:
     alex_house = "Alex's House"
     elliott_house = "Elliott's House"
     ranch = "Marnie's Ranch"
-    traveling_cart = "Traveling Cart"
-    traveling_cart_sunday = "Traveling Cart Sunday"
-    traveling_cart_monday = "Traveling Cart Monday"
-    traveling_cart_tuesday = "Traveling Cart Tuesday"
-    traveling_cart_wednesday = "Traveling Cart Wednesday"
-    traveling_cart_thursday = "Traveling Cart Thursday"
-    traveling_cart_friday = "Traveling Cart Friday"
-    traveling_cart_saturday = "Traveling Cart Saturday"
+    mastery_cave = "Mastery Cave"
     farm_cave = "Farmcave"
     greenhouse = "Greenhouse"
-    tunnel_entrance = "Tunnel Entrance"
     leah_house = "Leah's Cottage"
     wizard_tower = "Wizard Tower"
     wizard_basement = "Wizard Basement"
@@ -91,6 +87,7 @@ class Region:
     maru_room = "Maru's Room"
     sebastian_room = "Sebastian's Room"
     adventurer_guild = "Adventurer's Guild"
+    adventurer_guild_bedroom = "Marlon's bedroom"
     quarry = "Quarry"
     quarry_mine_entrance = "Quarry Mine Entrance"
     quarry_mine = "Quarry Mine"
@@ -113,14 +110,18 @@ class Region:
     boat_tunnel = "Boat Tunnel"
     tide_pools = "Tide Pools"
     bathhouse_entrance = "Bathhouse Entrance"
-    locker_room = "Locker Room"
+    mens_locker_room = "Men's Locker Room"
+    womens_locker_room = "Women's Locker Room"
     public_bath = "Public Bath"
+    lewis_bedroom = "Lewis's Bedroom"
+    purple_shorts_maze = "Purple Shorts Maze"
     jotpk_world_1 = "JotPK World 1"
     jotpk_world_2 = "JotPK World 2"
     jotpk_world_3 = "JotPK World 3"
     junimo_kart_1 = "Junimo Kart 1"
     junimo_kart_2 = "Junimo Kart 2"
     junimo_kart_3 = "Junimo Kart 3"
+    junimo_kart_4 = "Junimo Kart 4"
     mines_floor_5 = "The Mines - Floor 5"
     mines_floor_10 = "The Mines - Floor 10"
     mines_floor_15 = "The Mines - Floor 15"
@@ -148,16 +149,46 @@ class Region:
     dangerous_mines_20 = "Dangerous Mines - Floor 20"
     dangerous_mines_60 = "Dangerous Mines - Floor 60"
     dangerous_mines_100 = "Dangerous Mines - Floor 100"
+    outside_adventure_guild = "Outside Adventure Guild"
+    trash_bear = "Trash Bear"
+
+
+class LogicRegion:
+    mines_dwarf_shop = "Mines Dwarf Shop"
+
+    traveling_cart = "Traveling Cart"
+    traveling_cart_sunday = "Traveling Cart Sunday"
+    traveling_cart_monday = "Traveling Cart Monday"
+    traveling_cart_tuesday = "Traveling Cart Tuesday"
+    traveling_cart_wednesday = "Traveling Cart Wednesday"
+    traveling_cart_thursday = "Traveling Cart Thursday"
+    traveling_cart_friday = "Traveling Cart Friday"
+    traveling_cart_saturday = "Traveling Cart Saturday"
+
     kitchen = "Kitchen"
     shipping = "Shipping"
     queen_of_sauce = "The Queen of Sauce"
-    blacksmith_copper = "Blacksmith Copper Upgrades"
-    blacksmith_iron = "Blacksmith Iron Upgrades"
-    blacksmith_gold = "Blacksmith Gold Upgrades"
-    blacksmith_iridium = "Blacksmith Iridium Upgrades"
-    farming = "Farming"
+
+    @staticmethod
+    def blacksmith_upgrade(material: str) -> str:
+        return f"Blacksmith {material} Upgrades"
+
+    blacksmith_copper = blacksmith_upgrade(ToolMaterial.copper)
+    blacksmith_iron = blacksmith_upgrade(ToolMaterial.iron)
+    blacksmith_gold = blacksmith_upgrade(ToolMaterial.gold)
+    blacksmith_iridium = blacksmith_upgrade(ToolMaterial.iridium)
+
+    spring_farming = "Spring Farming"
+    summer_farming = "Summer Farming"
+    fall_farming = "Fall Farming"
+    winter_farming = "Winter Farming"
+    indoor_farming = "Indoor Farming"
+    summer_or_fall_farming = "Summer or Fall Farming"
+
     fishing = "Fishing"
     egg_festival = "Egg Festival"
+    desert_festival = "Desert Festival"
+    trout_derby = "Trout Derby"
     flower_dance = "Flower Dance"
     luau = "Luau"
     moonlight_jellies = "Dance of the Moonlight Jellies"
@@ -166,6 +197,32 @@ class Region:
     festival_of_ice = "Festival of Ice"
     night_market = "Night Market"
     winter_star = "Feast of the Winter Star"
+    squidfest = "SquidFest"
+    raccoon_daddy = "Raccoon Bundles"
+    raccoon_request_1 = "Raccoon Request 1"
+    raccoon_request_2 = "Raccoon Request 2"
+    raccoon_request_3 = "Raccoon Request 3"
+    raccoon_request_4 = "Raccoon Request 4"
+    raccoon_request_5 = "Raccoon Request 5"
+    raccoon_request_6 = "Raccoon Request 6"
+    raccoon_request_7 = "Raccoon Request 7"
+    raccoon_request_8 = "Raccoon Request 8"
+    raccoon_shop_1 = "Raccoon Shop After 1 Request"
+    raccoon_shop_2 = "Raccoon Shop After 2 Requests"
+    raccoon_shop_3 = "Raccoon Shop After 3 Requests"
+    raccoon_shop_4 = "Raccoon Shop After 4 Requests"
+    raccoon_shop_5 = "Raccoon Shop After 5 Requests"
+    raccoon_shop_6 = "Raccoon Shop After 6 Requests"
+    bookseller = "Bookseller"
+    bookseller_permanent = "Bookseller Permanent Books"
+    bookseller_rare = "Bookseller Rare Books"
+    bookseller_experience = "Bookseller Experience Books"
+    forest_waterfall = "Waterfall"
+    secret_notes = "Secret Notes"
+    hat_mouse = "Hat Mouse"
+    lost_items_shop = "Lost Items Shop"
+    garbage_cans = "Garbage Cans"
+    wizard_blueprints = "Wizard Blueprints"
 
 
 class DeepWoodsRegion:
@@ -273,6 +330,7 @@ class SVERegion:
     sprite_spring_cave = "Sprite Spring Cave"
     willy_bedroom = "Willy's Bedroom"
     gunther_bedroom = "Gunther's Bedroom"
+    highlands_pond = "Highlands Pond"
 
 
 class AlectoRegion:
@@ -302,5 +360,3 @@ class BoardingHouseRegion:
     lost_valley_house_1 = "Lost Valley Ruins - First House"
     lost_valley_house_2 = "Lost Valley Ruins - Second House"
     buffalo_ranch = "Buffalo's Ranch"
-
-

@@ -31,7 +31,7 @@ DEATHFLAG = WRAM_START + 0x00DB
 DEATHLINKRECV = WRAM_START + 0x00E0
 GOALFLAG = WRAM_START + 0x14B6
 
-VALID_GAME_STATES = [0x0F, 0x10, 0x2C]
+VALID_GAME_STATES = [0x0F, 0x10, 0x2C, 0x16, 0x1D]
 
 
 class YoshisIslandSNIClient(SNIClient):
@@ -87,9 +87,7 @@ class YoshisIslandSNIClient(SNIClient):
 
         if game_mode is None:
             return
-        elif goal_flag[0] != 0x00:
-            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-            ctx.finished_game = True
+
         elif game_mode[0] not in VALID_GAME_STATES:
             return
         elif item_received[0] > 0x00:
@@ -100,6 +98,10 @@ class YoshisIslandSNIClient(SNIClient):
         if rom != ctx.rom:
             ctx.rom = None
             return
+
+        if goal_flag[0] != 0x00:
+            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+            ctx.finished_game = True
 
         new_checks = []
         from .Rom import location_table
