@@ -45,11 +45,11 @@ class GameState(NamedTuple):
 class GameStateManager:
     process_name: str = "ThankYouVeryCool-Win64-Shipping.exe"
 
-    gnames_offset: int = 0x5A018C0
-    gobjects_offset: int = 0x5A3DC10
-    gworld_offset: int = 0x5B85440
+    gnames_offset: int = 0x5A1A180
+    gobjects_offset: int = 0x5A564D0
+    gworld_offset: int = 0x5B9DD00
 
-    process_event_offset: int = 0x1AC4EB0
+    process_event_offset: int = 0x1AD6A80
     process_event_vtable_offset: int = 0x44
 
     process: Optional[Pymem]
