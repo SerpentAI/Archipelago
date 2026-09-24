@@ -1,792 +1,504 @@
-from typing import Dict, NamedTuple, Optional, Tuple, Union
+from typing import Dict, NamedTuple, Tuple
 
 from BaseClasses import ItemClassification
 
-from ..enums import ZorkGrandInquisitorItems, ZorkGrandInquisitorTags
+from ..enums import DayOfTheTentacleItems, DayOfTheTentacleTags
 
 
-class ZorkGrandInquisitorItemData(NamedTuple):
-    statemap_keys: Optional[Tuple[int, ...]]
-    archipelago_id: Optional[int]
+class DayOfTheTentacleItemData(NamedTuple):
+    archipelago_id: int
     classification: ItemClassification
-    tags: Tuple[ZorkGrandInquisitorTags, ...]
-    maximum_quantity: Optional[int] = 1
+    tags: Tuple[DayOfTheTentacleTags, ...]
 
 
-ITEM_OFFSET = 9758067000
+item_base_offset: int = 10000
 
-item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
-    # Inventory Items
-    ZorkGrandInquisitorItems.BROGS_BICKERING_TORCH: ZorkGrandInquisitorItemData(
-        statemap_keys=(67,),  # Extinguished = 103
-        archipelago_id=ITEM_OFFSET + 0,
-        classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH: ZorkGrandInquisitorItemData(
-        statemap_keys=(68,),  # Extinguished = 104
-        archipelago_id=ITEM_OFFSET + 1,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.BROGS_GRUE_EGG: ZorkGrandInquisitorItemData(
-        statemap_keys=(70,),  # Boiled = 71
-        archipelago_id=ITEM_OFFSET + 2,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.BROGS_PLANK: ZorkGrandInquisitorItemData(
-        statemap_keys=(69,),
-        archipelago_id=ITEM_OFFSET + 3,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.FLATHEADIA_FUDGE: ZorkGrandInquisitorItemData(
-        statemap_keys=(54,),
-        archipelago_id=ITEM_OFFSET + 4,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP: ZorkGrandInquisitorItemData(
-        statemap_keys=(86,),
-        archipelago_id=ITEM_OFFSET + 5,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH: ZorkGrandInquisitorItemData(
-        statemap_keys=(84,),
-        archipelago_id=ITEM_OFFSET + 6,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT: ZorkGrandInquisitorItemData(
-        statemap_keys=(9,),
-        archipelago_id=ITEM_OFFSET + 7,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN: ZorkGrandInquisitorItemData(
-        statemap_keys=(16,),
-        archipelago_id=ITEM_OFFSET + 8,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.HAMMER: ZorkGrandInquisitorItemData(
-        statemap_keys=(23,),
-        archipelago_id=ITEM_OFFSET + 9,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.HUNGUS_LARD: ZorkGrandInquisitorItemData(
-        statemap_keys=(55,),
-        archipelago_id=ITEM_OFFSET + 10,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.JAR_OF_HOTBUGS: ZorkGrandInquisitorItemData(
-        statemap_keys=(56,),
-        archipelago_id=ITEM_OFFSET + 11,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LANTERN: ZorkGrandInquisitorItemData(
-        statemap_keys=(4,),
-        archipelago_id=ITEM_OFFSET + 12,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER: ZorkGrandInquisitorItemData(
-        statemap_keys=(88,),
-        archipelago_id=ITEM_OFFSET + 13,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_1: ZorkGrandInquisitorItemData(
-        statemap_keys=(116,),  # With fly = 120
-        archipelago_id=ITEM_OFFSET + 14,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2: ZorkGrandInquisitorItemData(
-        statemap_keys=(117,),  # With fly = 121
-        archipelago_id=ITEM_OFFSET + 15,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3: ZorkGrandInquisitorItemData(
-        statemap_keys=(118,),  # With fly = 122
-        archipelago_id=ITEM_OFFSET + 16,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4: ZorkGrandInquisitorItemData(
-        statemap_keys=(119,),  # With fly = 123
-        archipelago_id=ITEM_OFFSET + 17,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.MAP: ZorkGrandInquisitorItemData(
-        statemap_keys=(6,),
-        archipelago_id=ITEM_OFFSET + 18,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.MEAD_LIGHT: ZorkGrandInquisitorItemData(
-        statemap_keys=(2,),
-        archipelago_id=ITEM_OFFSET + 19,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.MOSS_OF_MAREILON: ZorkGrandInquisitorItemData(
-        statemap_keys=(57,),
-        archipelago_id=ITEM_OFFSET + 20,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.MUG: ZorkGrandInquisitorItemData(
-        statemap_keys=(35,),
-        archipelago_id=ITEM_OFFSET + 21,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.OLD_SCRATCH_CARD: ZorkGrandInquisitorItemData(
-        statemap_keys=(17,),
-        archipelago_id=ITEM_OFFSET + 22,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.PERMA_SUCK_MACHINE: ZorkGrandInquisitorItemData(
-        statemap_keys=(36,),
-        archipelago_id=ITEM_OFFSET + 23,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.PLASTIC_SIX_PACK_HOLDER: ZorkGrandInquisitorItemData(
-        statemap_keys=(3,),
-        archipelago_id=ITEM_OFFSET + 24,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS: ZorkGrandInquisitorItemData(
-        statemap_keys=(5827,),
-        archipelago_id=ITEM_OFFSET + 25,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.PROZORK_TABLET: ZorkGrandInquisitorItemData(
-        statemap_keys=(65,),
-        archipelago_id=ITEM_OFFSET + 26,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.QUELBEE_HONEYCOMB: ZorkGrandInquisitorItemData(
-        statemap_keys=(53,),
-        archipelago_id=ITEM_OFFSET + 27,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.ROPE: ZorkGrandInquisitorItemData(
-        statemap_keys=(83,),
-        archipelago_id=ITEM_OFFSET + 28,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS: ZorkGrandInquisitorItemData(
-        statemap_keys=(101,),  # SNA = 41
-        archipelago_id=ITEM_OFFSET + 29,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV: ZorkGrandInquisitorItemData(
-        statemap_keys=(102,),  # VIG = 48
-        archipelago_id=ITEM_OFFSET + 30,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SHOVEL: ZorkGrandInquisitorItemData(
-        statemap_keys=(49,),
-        archipelago_id=ITEM_OFFSET + 31,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SNAPDRAGON: ZorkGrandInquisitorItemData(
-        statemap_keys=(50,),
-        archipelago_id=ITEM_OFFSET + 32,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.STUDENT_ID: ZorkGrandInquisitorItemData(
-        statemap_keys=(39,),
-        archipelago_id=ITEM_OFFSET + 33,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SUBWAY_TOKEN: ZorkGrandInquisitorItemData(
-        statemap_keys=(20,),
-        archipelago_id=ITEM_OFFSET + 34,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.SWORD: ZorkGrandInquisitorItemData(
-        statemap_keys=(21,),
-        archipelago_id=ITEM_OFFSET + 35,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.ZIMDOR_SCROLL: ZorkGrandInquisitorItemData(
-        statemap_keys=(25,),
-        archipelago_id=ITEM_OFFSET + 36,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    ZorkGrandInquisitorItems.ZORK_ROCKS: ZorkGrandInquisitorItemData(
-        statemap_keys=(37,),
-        archipelago_id=ITEM_OFFSET + 37,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
-    ),
-    # Hotspots
-    ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX: ZorkGrandInquisitorItemData(
-        statemap_keys=(9116,),
-        archipelago_id=ITEM_OFFSET + 100 + 0,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS: ZorkGrandInquisitorItemData(
-        statemap_keys=(15434, 15436, 15438, 15440),
-        archipelago_id=ITEM_OFFSET + 100 + 1,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX: ZorkGrandInquisitorItemData(
-        statemap_keys=(12096,),
-        archipelago_id=ITEM_OFFSET + 100 + 2,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_BLINDS: ZorkGrandInquisitorItemData(
-        statemap_keys=(4799,),
-        archipelago_id=ITEM_OFFSET + 100 + 3,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS: ZorkGrandInquisitorItemData(
-        statemap_keys=(12691, 12692, 12693, 12694, 12695, 12696, 12697, 12698, 12699, 12700, 12701),
-        archipelago_id=ITEM_OFFSET + 100 + 4,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(12702,),
-        archipelago_id=ITEM_OFFSET + 100 + 5,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_VACUUM_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(12909,),
-        archipelago_id=ITEM_OFFSET + 100 + 6,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CHANGE_MACHINE_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(12900,),
-        archipelago_id=ITEM_OFFSET + 100 + 7,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(5010,),
-        archipelago_id=ITEM_OFFSET + 100 + 8,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(9539,),
-        archipelago_id=ITEM_OFFSET + 100 + 9,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER: ZorkGrandInquisitorItemData(
-        statemap_keys=(19712,),
-        archipelago_id=ITEM_OFFSET + 100 + 10,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT: ZorkGrandInquisitorItemData(
-        statemap_keys=(2586,),
-        archipelago_id=ITEM_OFFSET + 100 + 11,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DENTED_LOCKER: ZorkGrandInquisitorItemData(
-        statemap_keys=(11878,),
-        archipelago_id=ITEM_OFFSET + 100 + 12,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DIRT_MOUND: ZorkGrandInquisitorItemData(
-        statemap_keys=(11751,),
-        archipelago_id=ITEM_OFFSET + 100 + 13,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH: ZorkGrandInquisitorItemData(
-        statemap_keys=(15147, 15153),
-        archipelago_id=ITEM_OFFSET + 100 + 14,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW: ZorkGrandInquisitorItemData(
-        statemap_keys=(1705,),
-        archipelago_id=ITEM_OFFSET + 100 + 15,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS: ZorkGrandInquisitorItemData(
-        statemap_keys=(1425, 1426),
-        archipelago_id=ITEM_OFFSET + 100 + 16,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE: ZorkGrandInquisitorItemData(
-        statemap_keys=(13106,),
-        archipelago_id=ITEM_OFFSET + 100 + 17,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS: ZorkGrandInquisitorItemData(
-        statemap_keys=(13219, 13220, 13221, 13222),
-        archipelago_id=ITEM_OFFSET + 100 + 18,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_DOORS: ZorkGrandInquisitorItemData(
-        statemap_keys=(14327, 14332, 14337, 14342),
-        archipelago_id=ITEM_OFFSET + 100 + 19,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_COIN_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(12528,),
-        archipelago_id=ITEM_OFFSET + 100 + 20,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS: ZorkGrandInquisitorItemData(
-        statemap_keys=(12523, 12524, 12525),
-        archipelago_id=ITEM_OFFSET + 100 + 21,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE: ZorkGrandInquisitorItemData(
-        statemap_keys=(13002,),
-        archipelago_id=ITEM_OFFSET + 100 + 22,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL: ZorkGrandInquisitorItemData(
-        statemap_keys=(10726,),
-        archipelago_id=ITEM_OFFSET + 100 + 23,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(12280,),
-        archipelago_id=ITEM_OFFSET + 100 + 24,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
-    ),
-    ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_GRASS: ZorkGrandInquisitorItemData(
-        statemap_keys=(
-            17694,
-            17695,
-            17696,
-            17697,
-            18200,
-            17703,
-            17704,
-            17705,
-            17710,
-            17711,
-            17712,
-            17713,
-            17714,
-            17715,
-            17716,
-            17722,
-            17723,
-            17724,
-            17725,
-            17726,
-            17727
+item_data: Dict[DayOfTheTentacleItems, DayOfTheTentacleItemData] = {
+    # Goal
+    DayOfTheTentacleItems.SWISS_DEPOSIT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 1,
+        classification=ItemClassification.progression_deprioritized_skip_balancing,
+        tags=(
+            DayOfTheTentacleTags.GOAL_ITEM,
         ),
-        archipelago_id=ITEM_OFFSET + 100 + 25,
+    ),
+    # Characters
+    DayOfTheTentacleItems.CHARACTER_BERNARD: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 100 + 1,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.CHARACTER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS: ZorkGrandInquisitorItemData(
-        statemap_keys=(8448, 8449, 8450, 8451, 8452, 8453, 8454, 8455, 8456, 8457, 8458, 8459),
-        archipelago_id=ITEM_OFFSET + 100 + 26,
+    DayOfTheTentacleItems.CHARACTER_HOAGIE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 100 + 2,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.CHARACTER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER: ZorkGrandInquisitorItemData(
-        statemap_keys=(8446,),
-        archipelago_id=ITEM_OFFSET + 100 + 27,
+    DayOfTheTentacleItems.CHARACTER_LAVERNE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 100 + 3,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.CHARACTER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_HARRY: ZorkGrandInquisitorItemData(
-        statemap_keys=(4260,),
-        archipelago_id=ITEM_OFFSET + 100 + 28,
+    # Inventory Items
+    DayOfTheTentacleItems.BATTERY: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 1,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY: ZorkGrandInquisitorItemData(
-        statemap_keys=(18026,),
-        archipelago_id=ITEM_OFFSET + 100 + 29,
+    DayOfTheTentacleItems.BLANKET: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 2,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH: ZorkGrandInquisitorItemData(
-        statemap_keys=(17623,),
-        archipelago_id=ITEM_OFFSET + 100 + 30,
+    DayOfTheTentacleItems.BOOBOO_B_GONE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 3,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(13140,),
-        archipelago_id=ITEM_OFFSET + 100 + 31,
+    DayOfTheTentacleItems.BOX_O_LAUGHS: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 5,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(10441,),
-        archipelago_id=ITEM_OFFSET + 100 + 32,
+    DayOfTheTentacleItems.BRUSH: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 6,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_LOUDSPEAKER_VOLUME_BUTTONS: ZorkGrandInquisitorItemData(
-        statemap_keys=(19632, 19627),
-        archipelago_id=ITEM_OFFSET + 100 + 33,
+    DayOfTheTentacleItems.BUCKET: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 7,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(3025,),
-        archipelago_id=ITEM_OFFSET + 100 + 34,
+    DayOfTheTentacleItems.CAN_OPENER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 8,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG: ZorkGrandInquisitorItemData(
-        statemap_keys=(3036,),
-        archipelago_id=ITEM_OFFSET + 100 + 35,
+    DayOfTheTentacleItems.CAT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 9,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_MIRROR: ZorkGrandInquisitorItemData(
-        statemap_keys=(5031,),
-        archipelago_id=ITEM_OFFSET + 100 + 36,
+    DayOfTheTentacleItems.CHATTERING_TEETH: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 10,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_MONASTERY_VENT: ZorkGrandInquisitorItemData(
-        statemap_keys=(13597,),
-        archipelago_id=ITEM_OFFSET + 100 + 37,
+    DayOfTheTentacleItems.CIGAR_LIGHTER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 11,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE: ZorkGrandInquisitorItemData(
-        statemap_keys=(13390,),
-        archipelago_id=ITEM_OFFSET + 100 + 38,
+    DayOfTheTentacleItems.COFFEE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 12,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR: ZorkGrandInquisitorItemData(
-        statemap_keys=(2455, 2447),
-        archipelago_id=ITEM_OFFSET + 100 + 39,
+    DayOfTheTentacleItems.CONTRACT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 13,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS: ZorkGrandInquisitorItemData(
-        statemap_keys=(12389, 12390),
-        archipelago_id=ITEM_OFFSET + 100 + 40,
+    DayOfTheTentacleItems.CRANK: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 14,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE: ZorkGrandInquisitorItemData(
-        statemap_keys=(4302,),
-        archipelago_id=ITEM_OFFSET + 100 + 41,
+    DayOfTheTentacleItems.CROWBAR: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 15,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE: ZorkGrandInquisitorItemData(
-        statemap_keys=(16383, 16384),
-        archipelago_id=ITEM_OFFSET + 100 + 42,
+    DayOfTheTentacleItems.DECAF_COFFEE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 16,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE: ZorkGrandInquisitorItemData(
-        statemap_keys=(2769,),
-        archipelago_id=ITEM_OFFSET + 100 + 43,
+    DayOfTheTentacleItems.DENTURES: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 17,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON: ZorkGrandInquisitorItemData(
-        statemap_keys=(4149,),
-        archipelago_id=ITEM_OFFSET + 100 + 44,
+    DayOfTheTentacleItems.DIME: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 18,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_BUTTONS: ZorkGrandInquisitorItemData(
-        statemap_keys=(12584, 12585, 12586, 12587),
-        archipelago_id=ITEM_OFFSET + 100 + 45,
+    DayOfTheTentacleItems.DINNER_CERTIFICATE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 19,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_COIN_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(12574,),
-        archipelago_id=ITEM_OFFSET + 100 + 46,
+    DayOfTheTentacleItems.DISAPPEARING_INK: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 20,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SOUVENIR_COIN_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(13412,),
-        archipelago_id=ITEM_OFFSET + 100 + 47,
+    DayOfTheTentacleItems.EXPLODING_CIGAR: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 21,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER: ZorkGrandInquisitorItemData(
-        statemap_keys=(12170,),
-        archipelago_id=ITEM_OFFSET + 100 + 48,
+    DayOfTheTentacleItems.EXTENSION_CORD: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 22,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM: ZorkGrandInquisitorItemData(
-        statemap_keys=(16382,),
-        archipelago_id=ITEM_OFFSET + 100 + 49,
+    DayOfTheTentacleItems.FAKE_BARF: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 23,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM: ZorkGrandInquisitorItemData(
-        statemap_keys=(4209,),
-        archipelago_id=ITEM_OFFSET + 100 + 50,
+    DayOfTheTentacleItems.FLAG: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 24,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_STUDENT_ID_MACHINE: ZorkGrandInquisitorItemData(
-        statemap_keys=(11973,),
-        archipelago_id=ITEM_OFFSET + 100 + 51,
+    DayOfTheTentacleItems.FLAG_GUN: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 25,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT: ZorkGrandInquisitorItemData(
-        statemap_keys=(13168,),
-        archipelago_id=ITEM_OFFSET + 100 + 52,
+    DayOfTheTentacleItems.FLIER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 26,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY: ZorkGrandInquisitorItemData(
-        statemap_keys=(15396,),
-        archipelago_id=ITEM_OFFSET + 100 + 53,
+    DayOfTheTentacleItems.FORK: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 27,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH: ZorkGrandInquisitorItemData(
-        statemap_keys=(9706,),
-        archipelago_id=ITEM_OFFSET + 100 + 54,
+    DayOfTheTentacleItems.FUNNEL: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 28,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS: ZorkGrandInquisitorItemData(
-        statemap_keys=(9728, 9729, 9730),
-        archipelago_id=ITEM_OFFSET + 100 + 55,
+    DayOfTheTentacleItems.GOLD_PLATED_QUILL_PEN: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 29,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_WELL: ZorkGrandInquisitorItemData(
-        statemap_keys=(10314,),
-        archipelago_id=ITEM_OFFSET + 100 + 56,
+    DayOfTheTentacleItems.GUM_WITH_A_DIME_STUCK_IN_IT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 30,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.HOTSPOT,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    # Spells
-    ZorkGrandInquisitorItems.SPELL_GLORF: ZorkGrandInquisitorItemData(
-        statemap_keys=(202,),
-        archipelago_id=ITEM_OFFSET + 200 + 0,
+    DayOfTheTentacleItems.HAMSTER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 31,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.SPELL_GOLGATEM: ZorkGrandInquisitorItemData(
-        statemap_keys=(192,),
-        archipelago_id=ITEM_OFFSET + 200 + 1,
+    DayOfTheTentacleItems.HELP_WANTED_SIGN: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 32,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.SPELL_IGRAM: ZorkGrandInquisitorItemData(
-        statemap_keys=(199,),
-        archipelago_id=ITEM_OFFSET + 200 + 2,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    ZorkGrandInquisitorItems.SPELL_KENDALL: ZorkGrandInquisitorItemData(
-        statemap_keys=(196,),
-        archipelago_id=ITEM_OFFSET + 200 + 3,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    ZorkGrandInquisitorItems.SPELL_NARWILE: ZorkGrandInquisitorItemData(
-        statemap_keys=(197,),
-        archipelago_id=ITEM_OFFSET + 200 + 4,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    ZorkGrandInquisitorItems.SPELL_REZROV: ZorkGrandInquisitorItemData(
-        statemap_keys=(195,),
-        archipelago_id=ITEM_OFFSET + 200 + 5,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    ZorkGrandInquisitorItems.SPELL_THROCK: ZorkGrandInquisitorItemData(
-        statemap_keys=(200,),
-        archipelago_id=ITEM_OFFSET + 200 + 6,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    ZorkGrandInquisitorItems.SPELL_VOXAM: ZorkGrandInquisitorItemData(
-        statemap_keys=(191,),
-        archipelago_id=ITEM_OFFSET + 200 + 7,
-        classification=ItemClassification.useful,
-        tags=(ZorkGrandInquisitorTags.SPELL,),
-    ),
-    # Subway Destinations
-    ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM: ZorkGrandInquisitorItemData(
-        statemap_keys=(13757, 13297, 13486, 13625),
-        archipelago_id=ITEM_OFFSET + 300 + 0,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SUBWAY_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES: ZorkGrandInquisitorItemData(
-        statemap_keys=(13758, 13309, 13498, 13637),
-        archipelago_id=ITEM_OFFSET + 300 + 1,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SUBWAY_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY: ZorkGrandInquisitorItemData(
-        statemap_keys=(13759, 13316, 13505, 13644),
-        archipelago_id=ITEM_OFFSET + 300 + 2,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.SUBWAY_DESTINATION,),
-    ),
-    # Teleporter Destinations
-    ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR: ZorkGrandInquisitorItemData(
-        statemap_keys=(2203,),
-        archipelago_id=ITEM_OFFSET + 400 + 0,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TELEPORTER_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_GUE_TECH: ZorkGrandInquisitorItemData(
-        statemap_keys=(7132,),
-        archipelago_id=ITEM_OFFSET + 400 + 1,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TELEPORTER_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES: ZorkGrandInquisitorItemData(
-        statemap_keys=(7119,),
-        archipelago_id=ITEM_OFFSET + 400 + 2,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TELEPORTER_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY: ZorkGrandInquisitorItemData(
-        statemap_keys=(7148,),
-        archipelago_id=ITEM_OFFSET + 400 + 3,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TELEPORTER_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB: ZorkGrandInquisitorItemData(
-        statemap_keys=(16545,),
-        archipelago_id=ITEM_OFFSET + 400 + 4,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TELEPORTER_DESTINATION,),
-    ),
-    # Totemizer Destinations
-    ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_HALL_OF_INQUISITION: ZorkGrandInquisitorItemData(
-        statemap_keys=(9660,),
-        archipelago_id=ITEM_OFFSET + 500 + 0,
-        classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TOTEMIZER_DESTINATION,),
-    ),
-    ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY: ZorkGrandInquisitorItemData(
-        statemap_keys=(9666,),
-        archipelago_id=ITEM_OFFSET + 500 + 1,
+    DayOfTheTentacleItems.HUBCAP: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 33,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.TOTEMIZER_DESTINATION,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_STRAIGHT_TO_HELL: ZorkGrandInquisitorItemData(
-        statemap_keys=(9668,),
-        archipelago_id=ITEM_OFFSET + 500 + 2,
+    DayOfTheTentacleItems.KEYS: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 34,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TOTEMIZER_DESTINATION,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ: ZorkGrandInquisitorItemData(
-        statemap_keys=(9662,),
-        archipelago_id=ITEM_OFFSET + 500 + 3,
+    DayOfTheTentacleItems.LAB_COAT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 35,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.LEFT_HANDED_HAMMER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 36,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.LETTER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 37,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.NAME_TAG: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 38,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.OIL: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 39,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.PATENT_APPLICATION: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 40,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.QUARTERS: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 41,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.RED_PAINT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 42,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.RIGHT_HANDED_HAMMER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 43,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.TOTEMIZER_DESTINATION,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    # Totems
-    ZorkGrandInquisitorItems.TOTEM_BROG: ZorkGrandInquisitorItemData(
-        statemap_keys=(4853,),
-        archipelago_id=ITEM_OFFSET + 600 + 0,
+    DayOfTheTentacleItems.ROLLER_SKATES: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 44,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TOTEM,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.TOTEM_GRIFF: ZorkGrandInquisitorItemData(
-        statemap_keys=(4315,),
-        archipelago_id=ITEM_OFFSET + 600 + 1,
+    DayOfTheTentacleItems.ROPE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 45,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TOTEM,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.TOTEM_LUCY: ZorkGrandInquisitorItemData(
-        statemap_keys=(5223,),
-        archipelago_id=ITEM_OFFSET + 600 + 2,
+    DayOfTheTentacleItems.SCALPEL: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 46,
         classification=ItemClassification.progression,
-        tags=(ZorkGrandInquisitorTags.TOTEM,),
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SOAP: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 47,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SPAGHETTI: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 48,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SQUEAKY_MOUSE_TOY: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 49,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.STAMP: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 50,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.STAMP_ALBUM: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 51,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.STICKY_DIME: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 52,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SWEATER: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 53,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SWISS_BANKBOOK: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 54,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.TENTACLE_CHART: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 55,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.TEXTBOOK: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 56,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.TROPHY: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 57,
+        classification=ItemClassification.filler,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.VIDEOTAPE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 58,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.VINEGAR: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 59,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.WINE_BOTTLE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 200 + 60,
+        classification=ItemClassification.progression,
+        tags=(
+            DayOfTheTentacleTags.INVENTORY_ITEM,
+        ),
     ),
     # Filler
-    ZorkGrandInquisitorItems.FILLER_INQUISITION_PROPAGANDA_FLYER: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 700 + 0,
+    DayOfTheTentacleItems.CACTUS_NEEDLE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 1,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.FILLER,),
-        maximum_quantity=None,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.FILLER_UNREADABLE_SPELL_SCROLL: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 700 + 1,
+    DayOfTheTentacleItems.COMPLIMENTARY_MINT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 2,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.FILLER,),
-        maximum_quantity=None,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.FILLER_MAGIC_CONTRABAND: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 700 + 2,
+    DayOfTheTentacleItems.CONVENTION_BADGE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 3,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.FILLER,),
-        maximum_quantity=None,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.FILLER_FROBOZZ_ELECTRIC_GADGET: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 700 + 3,
+    DayOfTheTentacleItems.HUMAN_SHOW_TICKET_STUB: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 4,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.FILLER,),
-        maximum_quantity=None,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
     ),
-    ZorkGrandInquisitorItems.FILLER_NONSENSICAL_INQUISITION_PAPERWORK: ZorkGrandInquisitorItemData(
-        statemap_keys=None,
-        archipelago_id=ITEM_OFFSET + 700 + 4,
+    DayOfTheTentacleItems.KUMQUAT: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 5,
         classification=ItemClassification.filler,
-        tags=(ZorkGrandInquisitorTags.FILLER,),
-        maximum_quantity=None,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
+    ),
+    DayOfTheTentacleItems.SILVER_SHOE_BUCKLE: DayOfTheTentacleItemData(
+        archipelago_id=item_base_offset + 300 + 6,
+        classification=ItemClassification.filler,
+        tags=(
+            DayOfTheTentacleTags.FILLER_ITEM,
+        ),
     ),
 }
