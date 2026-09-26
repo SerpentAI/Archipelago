@@ -30,7 +30,7 @@ death_cause_labels: Dict[int, str] = {
     19: "PLAYER was vaporized by Zork Rocks",
     20: "PLAYER got stung by a thousand quelbees",
     21: "PLAYER broke curfew",
-    22: "PLAYER lost their soul to a scratch-and-win card",
+    23: "PLAYER lost their soul to a scratch-and-win card",
     29: "PLAYER was outsmarted by bees",
     30: "PLAYER got pureed by a six-armed invisible guard",
     32: "PLAYER's head exploded",

@@ -1,4 +1,5 @@
 import asyncio
+import time
 
 import CommonClient
 import NetUtils
@@ -61,6 +62,14 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
             return
 
         self.ctx.death_link_status = not self.ctx.death_link_status
+
+    # DEV TESTING ONLY - remove before public release
+    def _cmd_deathlink_test(self) -> None:
+        """Simulate receiving a DeathLink bounce to test the receiving path without a second game in the multiworld."""
+        if not self.ctx.death_link_status:
+            return
+
+        self.ctx.on_deathlink({"time": time.time(), "source": "Manual Test", "cause": "Manual DeathLink Test"})
 
 
 class ZorkGrandInquisitorContext(CommonClient.CommonContext):

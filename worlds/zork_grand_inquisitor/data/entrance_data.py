@@ -143,10 +143,7 @@ entrance_rule_data: EntranceRuleData = {
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): (
-        And(
-            Has(ZorkGrandInquisitorItems.SPELL_SNAVIG.value),
-            Has(ZorkGrandInquisitorItems.TOTEM_BROG.value),
-        )
+        Has(ZorkGrandInquisitorItems.SPELL_SNAVIG.value)
     ),
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_SHORE): (
         And(

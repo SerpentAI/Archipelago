@@ -11,6 +11,7 @@ class ZorkGrandInquisitorItemData(NamedTuple):
     classification: ItemClassification
     tags: Tuple[ZorkGrandInquisitorTags, ...]
     maximum_quantity: Optional[int] = 1
+    granted_key: Optional[int] = None
 
 
 ITEM_OFFSET = 9758067000
@@ -22,30 +23,35 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 0,
         classification=ItemClassification.filler,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19740,
     ),
     ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH: ZorkGrandInquisitorItemData(
         statemap_keys=(68,),  # Extinguished = 104
         archipelago_id=ITEM_OFFSET + 1,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19741,
     ),
     ZorkGrandInquisitorItems.BROGS_GRUE_EGG: ZorkGrandInquisitorItemData(
         statemap_keys=(70,),  # Boiled = 71
         archipelago_id=ITEM_OFFSET + 2,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19742,
     ),
     ZorkGrandInquisitorItems.BROGS_PLANK: ZorkGrandInquisitorItemData(
         statemap_keys=(69,),
         archipelago_id=ITEM_OFFSET + 3,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19743,
     ),
     ZorkGrandInquisitorItems.CIGAR: ZorkGrandInquisitorItemData(
         statemap_keys=(1,),
         archipelago_id=ITEM_OFFSET + 4,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19744,
     ),
     ZorkGrandInquisitorItems.COCOA_INGREDIENTS: ZorkGrandInquisitorItemData(
         statemap_keys=None,
@@ -58,78 +64,91 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 6,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19745,
     ),
     ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH: ZorkGrandInquisitorItemData(
         statemap_keys=(84,),
         archipelago_id=ITEM_OFFSET + 7,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19746,
     ),
     ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_RAFT: ZorkGrandInquisitorItemData(
         statemap_keys=(9,),
         archipelago_id=ITEM_OFFSET + 8,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19747,
     ),
     ZorkGrandInquisitorItems.GRIFFS_INFLATABLE_SEA_CAPTAIN: ZorkGrandInquisitorItemData(
         statemap_keys=(16,),
         archipelago_id=ITEM_OFFSET + 9,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19748,
     ),
     ZorkGrandInquisitorItems.HAMMER: ZorkGrandInquisitorItemData(
         statemap_keys=(23,),
         archipelago_id=ITEM_OFFSET + 10,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19749,
     ),
     ZorkGrandInquisitorItems.HUNGUS_LARD: ZorkGrandInquisitorItemData(
         statemap_keys=(55,),
         archipelago_id=ITEM_OFFSET + 11,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19750,
     ),
     ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER: ZorkGrandInquisitorItemData(
         statemap_keys=(88,),
         archipelago_id=ITEM_OFFSET + 12,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19751,
     ),
     ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_1: ZorkGrandInquisitorItemData(
         statemap_keys=(116,),  # With fly = 120
         archipelago_id=ITEM_OFFSET + 13,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19752,
     ),
     ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2: ZorkGrandInquisitorItemData(
         statemap_keys=(117,),  # With fly = 121
         archipelago_id=ITEM_OFFSET + 14,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19753,
     ),
     ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3: ZorkGrandInquisitorItemData(
         statemap_keys=(118,),  # With fly = 122
         archipelago_id=ITEM_OFFSET + 15,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19754,
     ),
     ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4: ZorkGrandInquisitorItemData(
         statemap_keys=(119,),  # With fly = 123
         archipelago_id=ITEM_OFFSET + 16,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19755,
     ),
     ZorkGrandInquisitorItems.MAP: ZorkGrandInquisitorItemData(
         statemap_keys=(6,),
         archipelago_id=ITEM_OFFSET + 17,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19756,
     ),
     ZorkGrandInquisitorItems.MEAD_LIGHT: ZorkGrandInquisitorItemData(
         statemap_keys=(2,),
         archipelago_id=ITEM_OFFSET + 18,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19757,
     ),
     ZorkGrandInquisitorItems.MONASTERY_ROPE: ZorkGrandInquisitorItemData(
         statemap_keys=None,
@@ -142,18 +161,21 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 20,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19758,
     ),
     ZorkGrandInquisitorItems.PERMA_SUCK_MACHINE: ZorkGrandInquisitorItemData(
         statemap_keys=(36,),
         archipelago_id=ITEM_OFFSET + 21,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19759,
     ),
     ZorkGrandInquisitorItems.PLASTIC_SIX_PACK_HOLDER: ZorkGrandInquisitorItemData(
         statemap_keys=(3,),
         archipelago_id=ITEM_OFFSET + 22,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19760,
     ),
     ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS: ZorkGrandInquisitorItemData(
         statemap_keys=None,
@@ -166,54 +188,63 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 24,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19761,
     ),
     ZorkGrandInquisitorItems.SANDWITCH_WRAPPER: ZorkGrandInquisitorItemData(
         statemap_keys=(34,),
         archipelago_id=ITEM_OFFSET + 25,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19762,
     ),
     ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS: ZorkGrandInquisitorItemData(
         statemap_keys=(101,),  # SNA = 41
         archipelago_id=ITEM_OFFSET + 26,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19763,
     ),
     ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV: ZorkGrandInquisitorItemData(
         statemap_keys=(102,),  # VIG = 48
         archipelago_id=ITEM_OFFSET + 27,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19764,
     ),
     ZorkGrandInquisitorItems.SHOVEL: ZorkGrandInquisitorItemData(
         statemap_keys=(49,),
         archipelago_id=ITEM_OFFSET + 28,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19765,
     ),
     ZorkGrandInquisitorItems.SNAPDRAGON: ZorkGrandInquisitorItemData(
         statemap_keys=(50,),
         archipelago_id=ITEM_OFFSET + 29,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19766,
     ),
     ZorkGrandInquisitorItems.STUDENT_ID: ZorkGrandInquisitorItemData(
         statemap_keys=(39,),
         archipelago_id=ITEM_OFFSET + 30,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19767,
     ),
     ZorkGrandInquisitorItems.SUBWAY_TOKEN: ZorkGrandInquisitorItemData(
         statemap_keys=(20,),
         archipelago_id=ITEM_OFFSET + 31,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19768,
     ),
     ZorkGrandInquisitorItems.SWORD: ZorkGrandInquisitorItemData(
         statemap_keys=(21,),
         archipelago_id=ITEM_OFFSET + 32,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19769,
     ),
     ZorkGrandInquisitorItems.WELL_ROPE: ZorkGrandInquisitorItemData(
         statemap_keys=None,
@@ -226,12 +257,14 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 34,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19770,
     ),
     ZorkGrandInquisitorItems.ZORK_ROCKS: ZorkGrandInquisitorItemData(
         statemap_keys=(37,),
         archipelago_id=ITEM_OFFSET + 35,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.INVENTORY_ITEM,),
+        granted_key=19771,
     ),
     # Hotspots
     ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX: ZorkGrandInquisitorItemData(
@@ -682,66 +715,77 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 200 + 0,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19772,
     ),
     ZorkGrandInquisitorItems.SPELL_GLORF: ZorkGrandInquisitorItemData(
         statemap_keys=(202,),
         archipelago_id=ITEM_OFFSET + 200 + 1,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19773,
     ),
     ZorkGrandInquisitorItems.SPELL_GOLGATEM: ZorkGrandInquisitorItemData(
         statemap_keys=(192,),
         archipelago_id=ITEM_OFFSET + 200 + 2,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19774,
     ),
     ZorkGrandInquisitorItems.SPELL_IGRAM: ZorkGrandInquisitorItemData(
         statemap_keys=(199,),
         archipelago_id=ITEM_OFFSET + 200 + 3,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19775,
     ),
     ZorkGrandInquisitorItems.SPELL_KENDALL: ZorkGrandInquisitorItemData(
         statemap_keys=(196,),
         archipelago_id=ITEM_OFFSET + 200 + 4,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19776,
     ),
     ZorkGrandInquisitorItems.SPELL_OBIDIL: ZorkGrandInquisitorItemData(
         statemap_keys=(193,),
         archipelago_id=ITEM_OFFSET + 200 + 5,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19777,
     ),
     ZorkGrandInquisitorItems.SPELL_NARWILE: ZorkGrandInquisitorItemData(
         statemap_keys=(197,),
         archipelago_id=ITEM_OFFSET + 200 + 6,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19778,
     ),
     ZorkGrandInquisitorItems.SPELL_REZROV: ZorkGrandInquisitorItemData(
         statemap_keys=(195,),
         archipelago_id=ITEM_OFFSET + 200 + 7,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19779,
     ),
     ZorkGrandInquisitorItems.SPELL_SNAVIG: ZorkGrandInquisitorItemData(
         statemap_keys=(201,),
         archipelago_id=ITEM_OFFSET + 200 + 8,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19780,
     ),
     ZorkGrandInquisitorItems.SPELL_THROCK: ZorkGrandInquisitorItemData(
         statemap_keys=(200,),
         archipelago_id=ITEM_OFFSET + 200 + 9,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19781,
     ),
     ZorkGrandInquisitorItems.SPELL_YASTARD: ZorkGrandInquisitorItemData(
         statemap_keys=(198,),
         archipelago_id=ITEM_OFFSET + 200 + 10,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.SPELL,),
+        granted_key=19782,
     ),
     # Subway Destinations
     ZorkGrandInquisitorItems.SUBWAY_DESTINATION_CROSSROADS: ZorkGrandInquisitorItemData(
@@ -842,18 +886,21 @@ item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = {
         archipelago_id=ITEM_OFFSET + 600 + 0,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.TOTEM,),
+        granted_key=19783,
     ),
     ZorkGrandInquisitorItems.TOTEM_GRIFF: ZorkGrandInquisitorItemData(
         statemap_keys=(4315,),
         archipelago_id=ITEM_OFFSET + 600 + 1,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.TOTEM,),
+        granted_key=19784,
     ),
     ZorkGrandInquisitorItems.TOTEM_LUCY: ZorkGrandInquisitorItemData(
         statemap_keys=(5223,),
         archipelago_id=ITEM_OFFSET + 600 + 2,
         classification=ItemClassification.progression,
         tags=(ZorkGrandInquisitorTags.TOTEM,),
+        granted_key=19785,
     ),
     # Filler
     ZorkGrandInquisitorItems.FILLER_AIMFIZ_SCROLL: ZorkGrandInquisitorItemData(

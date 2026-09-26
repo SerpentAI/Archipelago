@@ -16,6 +16,8 @@ class ZorkGrandInquisitorLocationData(NamedTuple):
         Tuple[
             Union[
                 Tuple[str, str],
+                Tuple[str, int],
+                Tuple[str, Tuple[int, int]],
                 Tuple[int, int],
                 Tuple[int, Tuple[int, ...]],
                 Tuple[Tuple[int, ...], int],
@@ -162,7 +164,7 @@ location_data: Dict[
         ),
     ),
     ZorkGrandInquisitorLocations.BOING_BOING_BOING: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((4220, 1),),
+        game_state_trigger=(("puzzle", 4220),),
         archipelago_id=LOCATION_OFFSET + 10,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Place the snapdragon on the spring mushroom and hit it with the hammer behind the house in the Dungeon Master's Lair",
@@ -327,7 +329,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((17632, 1),),
+        game_state_trigger=(("puzzle", 17632),),
         archipelago_id=LOCATION_OFFSET + 23,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Cast GOLGATEM on the lake when looking at the walking castle inside the house in the Dungeon Master's Lair",
@@ -343,14 +345,14 @@ location_data: Dict[
         )
     ),
     ZorkGrandInquisitorLocations.DINGWHACKER_DELUXE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((2417, 1),),
+        game_state_trigger=(("puzzle", 2417),),
         archipelago_id=LOCATION_OFFSET + 24,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Activate the pachinko machine in the Past Port Foozle tavern",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "hp5e"), (8919, 2), (9, 100)),
+        game_state_trigger=(("puzzle", 8926),),
         archipelago_id=LOCATION_OFFSET + 25,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Attack the two-headed monster with the sword in Hades",
@@ -496,7 +498,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.FLYING_SNAPDRAGON: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((4222, 1),),
+        game_state_trigger=(("puzzle", 4222),),
         archipelago_id=LOCATION_OFFSET + 38,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast THROCK on the spring mushroom, place the snapdragon and hit the mushroom with the hammer in the Dungeon Master's Lair",
@@ -856,7 +858,7 @@ location_data: Dict[
         )
     ),
     ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "tp1e"), (9, 87), (1011, 1)),
+        game_state_trigger=(("puzzle", 16410), (9, 87)),
         archipelago_id=LOCATION_OFFSET + 67,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Try to bribe the invisible bridge guard at the Spell Lab with a zorkmid",
@@ -962,7 +964,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((4217, 1),),
+        game_state_trigger=(("puzzle", 4217),),
         archipelago_id=LOCATION_OFFSET + 75,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Hit the spring mushroom with the hammer behind the house in the Dungeon Master's Lair",
@@ -1064,7 +1066,7 @@ location_data: Dict[
         )
     ),
     ZorkGrandInquisitorLocations.NO_BONDAGE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "pe2e"), (10262, 2), (15150, 83)),
+        game_state_trigger=(("puzzle", 15149), ("set", (9, 83))),
         archipelago_id=LOCATION_OFFSET + 82,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Activate the dock winch with the rope on the hook in Port Foozle",
@@ -1124,7 +1126,7 @@ location_data: Dict[
         )
     ),
     ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((2448, 1),),
+        game_state_trigger=(("puzzle", 2448),),
         archipelago_id=LOCATION_OFFSET + 86,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         description="Knock on the door as Brog in Past Port Foozle",
@@ -1484,7 +1486,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
     ),
     ZorkGrandInquisitorLocations.THATS_STILL_A_ROPE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "tp1e"), (9, 83), (1011, 1)),
+        game_state_trigger=(("puzzle", 16409),),
         archipelago_id=LOCATION_OFFSET + 113,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Use the rope on the invisible bridge guard at the Spell Lab",
@@ -1574,7 +1576,7 @@ location_data: Dict[
         ),
     ),
     ZorkGrandInquisitorLocations.THROCKED_MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((4219, 1),),
+        game_state_trigger=(("puzzle", 4219),),
         archipelago_id=LOCATION_OFFSET + 122,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast THROCK on the spring mushroom and hit it with the hammer behind the house in the Dungeon Master's Lair",
@@ -1709,7 +1711,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((2461, 1),),
+        game_state_trigger=(("puzzle", 2461),),
         archipelago_id=LOCATION_OFFSET + 134,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         description="Knock on the door as Griff in Past Port Foozle",
@@ -1810,7 +1812,7 @@ location_data: Dict[
         )
     ),
     ZorkGrandInquisitorLocations.YOUR_PUNY_WEAPONS_DONT_PHASE_ME_BABY: ZorkGrandInquisitorLocationData(
-        game_state_trigger=(("location", "dg4e"), (4266, 1), (9, 21), (4035, 1)),
+        game_state_trigger=(("puzzle", 4292), (4279, 0)),
         archipelago_id=LOCATION_OFFSET + 141,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Attack Harry with the sword in the Dungeon Master's Lair",

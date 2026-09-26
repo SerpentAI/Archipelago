@@ -1,118 +1,161 @@
-from typing import Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 from pymem import Pymem
-from pymem.process import close_handle
+from pymem.process import close_handle, list_processes
+from pymem.ressources.structure import ProcessEntry32
+
+from .scummvm_zvision import ScummVMZVisionProcess
 
 
 class GameStateManager:
-    process_name = "scummvm.exe"
+    process_name: str = "scummvm.exe"
 
     process: Optional[Pymem]
     is_process_running: bool
 
-    script_manager_struct_address: int
-    render_manager_struct_address: int
+    zvision: Optional[ScummVMZVisionProcess]
+
+    engine_address: int
 
     game_location: Optional[str]
     game_location_offset: Optional[int]
+    arrivals: List[Tuple[str, str, int, bool]]
+
+    state_values: Dict[int, int]
+    state_changes: List[Tuple[int, int]]
+    previous_state_changes: List[Tuple[int, int]]
+    pending_state_values: Dict[int, int]
+    pending_state_flags: Dict[int, bool]
+    pending_state_flag_overrides: Dict[int, bool]
+
+    state_value_journal: List[Tuple[int, int, int]]
+    state_value_journal_start: int
+    state_value_journal_valid_from: int
+    suppressed_state_changes: Dict[Tuple[int, int], int]
+    suppressed_state_changes_ticks: int
+
+    needs_resynchronization: bool
+
+    are_game_changes_active: bool
+    state_value_overrides: Dict[int, int]
+    state_value_remaps: List[Tuple[int, int, int, int]]
+    state_value_read_overrides: List[Tuple[int, int, int]]
+    blocked_actions: List[Tuple[Optional[int], Optional[str]]]
+    state_flag_overrides: Dict[int, bool]
+    location_redirects: List[Tuple[str, str, str, int]]
+    are_location_redirects_suspended: bool
+
+    zvision_trap_defaults: Optional[Tuple[float, float]]
 
     def __init__(self) -> None:
         self.process = None
         self.is_process_running = False
 
-        self.script_manager_struct_address = 0x0
-        self.render_manager_struct_address = 0x0
+        self.zvision = None
+
+        self.engine_address = 0
 
         self.game_location = None
         self.game_location_offset = None
+        self.arrivals = list()
 
-    @property
-    def game_state_storage_pointer_address(self) -> int:
-        return self.script_manager_struct_address + 0x88
+        self.state_values = dict()
+        self.state_changes = list()
+        self.previous_state_changes = list()
 
-    @property
-    def game_state_storage_address(self) -> int:
-        return self.process.read_longlong(self.game_state_storage_pointer_address)
+        self.state_value_journal = list()
+        self.state_value_journal_start = 0
+        self.state_value_journal_valid_from = 0
+        self.suppressed_state_changes = dict()
+        self.suppressed_state_changes_ticks = 0
+        self.pending_state_values = dict()
+        self.pending_state_flags = dict()
+        self.pending_state_flag_overrides = dict()
 
-    @property
-    def game_state_hashmap_size_address(self) -> int:
-        return self.script_manager_struct_address + 0x90
+        self.needs_resynchronization = True
 
-    @property
-    def game_state_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x94
+        self.are_game_changes_active = False
+        self.state_value_overrides = dict()
+        self.state_value_remaps = list()
+        self.state_value_read_overrides = list()
+        self.blocked_actions = list()
+        self.state_flag_overrides = dict()
+        self.location_redirects = list()
+        self.are_location_redirects_suspended = False
 
-    @property
-    def game_state_deleted_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x98
-
-    @property
-    def game_flags_storage_pointer_address(self) -> int:
-        return self.script_manager_struct_address + 0x120
-
-    @property
-    def game_flags_storage_address(self) -> int:
-        return self.process.read_longlong(self.game_flags_storage_pointer_address)
-
-    @property
-    def game_flags_hashmap_size_address(self) -> int:
-        return self.script_manager_struct_address + 0x128
-
-    @property
-    def game_flags_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x12C
-
-    @property
-    def game_flags_deleted_key_count_address(self) -> int:
-        return self.script_manager_struct_address + 0x130
-
-    @property
-    def current_location_address(self) -> int:
-        return self.script_manager_struct_address + 0x400
-
-    @property
-    def current_location_offset_address(self) -> int:
-        return self.script_manager_struct_address + 0x404
-
-    @property
-    def next_location_address(self) -> int:
-        return self.script_manager_struct_address + 0x408
-
-    @property
-    def next_location_offset_address(self) -> int:
-        return self.script_manager_struct_address + 0x40C
-
-    @property
-    def zvision_address(self) -> int:
-        return self.render_manager_struct_address + 0x1C
-
-    @property
-    def render_type_address(self) -> int:
-        return self.render_manager_struct_address + 0x28
-
-    @property
-    def panorama_reversed_address(self) -> int:
-        return self.render_manager_struct_address + 0x40
+        self.zvision_trap_defaults = None
 
     def open_process_handle(self) -> bool:
         try:
-            self.process = Pymem(self.process_name)
-            self.is_process_running = True
+            candidate_process_ids: List[int] = list()
 
-            self.script_manager_struct_address = self._resolve_address(0x6CE45F8, (0xC0, 0x0))
-            self.render_manager_struct_address = self._resolve_address(0x6CE45F8, (0xC8, 0x3F8))
+            process_entry: ProcessEntry32
+            for process_entry in list_processes():
+                if process_entry.szExeFile.decode("utf-8").lower() == self.process_name:
+                    candidate_process_ids.append(process_entry.th32ProcessID)
+
+            process_id: int
+            for process_id in candidate_process_ids:
+                try:
+                    process: Pymem = Pymem(process_id)
+                except Exception:
+                    continue
+
+                try:
+                    self.zvision = ScummVMZVisionProcess(process, self.process_name)
+                    self.zvision.call_timeout_seconds = 0.5
+                    self.process = process
+
+                    break
+                except Exception:
+                    close_handle(process.process_handle)
+
+            if self.process is None:
+                return False
+
+            try:
+                self.zvision.install_hooks()
+            except RuntimeError:
+                pass
+
+            self.is_process_running = True
         except Exception:
+            if self.process is not None:
+                close_handle(self.process.process_handle)
+
+            self.process = None
+            self.zvision = None
+
             return False
 
         return True
 
     def close_process_handle(self) -> bool:
+        self.set_game_changes_active(False)
+
         if close_handle(self.process.process_handle):
             self.is_process_running = False
             self.process = None
 
-            self.script_manager_struct_address = 0x0
-            self.render_manager_struct_address = 0x0
+            self.zvision = None
+
+            self.engine_address = 0
+            self.state_values = dict()
+            self.pending_state_values = dict()
+            self.pending_state_flags = dict()
+            self.pending_state_flag_overrides = dict()
+            self.arrivals = list()
+            self.state_changes = list()
+            self.previous_state_changes = list()
+            self.needs_resynchronization = True
+            self.are_game_changes_active = False
+            self.state_value_overrides = dict()
+            self.state_value_remaps = list()
+            self.state_value_read_overrides = list()
+            self.blocked_actions = list()
+            self.state_flag_overrides = dict()
+            self.location_redirects = list()
+            self.are_location_redirects_suspended = False
 
             return True
 
@@ -125,270 +168,447 @@ class GameStateManager:
             self.is_process_running = False
             self.process = None
 
-            self.script_manager_struct_address = 0x0
-            self.render_manager_struct_address = 0x0
+            self.zvision = None
+
+            self.engine_address = 0
+            self.state_values = dict()
+            self.pending_state_values = dict()
+            self.pending_state_flags = dict()
+            self.pending_state_flag_overrides = dict()
+            self.arrivals = list()
+            self.state_changes = list()
+            self.previous_state_changes = list()
+            self.needs_resynchronization = True
+            self.are_game_changes_active = False
+            self.state_value_overrides = dict()
+            self.state_value_remaps = list()
+            self.state_value_read_overrides = list()
+            self.blocked_actions = list()
+            self.state_flag_overrides = dict()
+            self.location_redirects = list()
+            self.are_location_redirects_suspended = False
 
             return False
 
         return True
 
-    def read_game_state_value_for(self, key: int) -> Optional[int]:
-        return self.read_statemap_value_for(key, scope="game_state")
+    def begin_tick(self) -> bool:
+        if not self.is_process_running:
+            return False
 
-    def read_game_flags_value_for(self, key: int) -> Optional[int]:
-        return self.read_statemap_value_for(key, scope="game_flags")
+        try:
+            if not self.zvision.is_zvision_running():
+                return False
 
-    def read_statemap_value_for(self, key: int, scope: str = "game_state") -> Optional[int]:
-        if self.is_process_running:
-            offset: int
+            if not self.zvision.is_hooked():
+                self.zvision.install_hooks()
+                self.zvision.set_state_value_overrides(self.state_value_overrides if self.are_game_changes_active else dict())
+                self.zvision.set_state_value_remaps(self.state_value_remaps if self.are_game_changes_active else list())
+                self.zvision.set_state_value_read_overrides(self.state_value_read_overrides if self.are_game_changes_active else list())
+                self.zvision.block_actions(self.blocked_actions if self.are_game_changes_active else list())
+                self.zvision.set_state_flag_overrides(self.state_flag_overrides if self.are_game_changes_active else dict())
+                self.zvision.set_location_redirects(self.location_redirects if self.are_game_changes_active and not self.are_location_redirects_suspended else list())
 
-            address: int
-            address_value: int
+            if not self.zvision.is_game_running():
+                return False
 
-            if scope == "game_state":
-                offset = self._get_game_state_address_read_offset_for(key)
+            new_arrivals, are_arrivals_complete = self.zvision.read_new_arrivals()
+            engine_address: int = self.zvision.read_engine_address()
 
-                address = self.game_state_storage_address + offset
-                address_value = self.process.read_longlong(address)
-            elif scope == "game_flags":
-                offset = self._get_game_flags_address_read_offset_for(key)
+            self.arrivals.extend(new_arrivals)
 
-                address = self.game_flags_storage_address + offset
-                address_value = self.process.read_longlong(address)
-            else:
-                raise ValueError(f"Invalid scope: {scope}")
+            if (
+                engine_address != self.engine_address
+                or not are_arrivals_complete
+                or any(is_loading or destination == "gary" for _, destination, _, is_loading in new_arrivals)
+            ):
+                self.needs_resynchronization = True
 
-            if address_value == 0:
-                return 0
+            if not self.needs_resynchronization:
+                changes, are_changes_complete = self.zvision.read_new_state_changes()
 
-            statemap_value: int = self.process.read_int(address_value + 0x0)
-            statemap_key: int = self.process.read_int(address_value + 0x4)
+                change: Tuple[int, int]
+                for change in changes:
+                    if self.suppressed_state_changes.get(change, 0):
+                        self.suppressed_state_changes[change] -= 1
+                    else:
+                        self.state_changes.append(change)
 
-            assert statemap_key == key
+                if are_changes_complete:
+                    key: int
+                    value: int
+                    for key, value in changes:
+                        previous_value: int = self.state_values.get(key, 0)
 
-            return statemap_value
+                        if previous_value != value:
+                            self.state_value_journal.append((key, previous_value, value))
 
-        return None
-
-    def write_game_state_value_for(self, key: int, value: int) -> Optional[bool]:
-        return self.write_statemap_value_for(key, value, scope="game_state")
-
-    def write_game_flags_value_for(self, key: int, value: int) -> Optional[bool]:
-        return self.write_statemap_value_for(key, value, scope="game_flags")
-
-    def write_statemap_value_for(self, key: int, value: int, scope: str = "game_state") -> Optional[bool]:
-        if self.is_process_running:
-            offset: int
-            is_existing_node: bool
-            is_reused_dummy_node: bool
-
-            key_count_address: int
-            deleted_key_count_address: int
-
-            storage_address: int
-
-            if scope == "game_state":
-                offset, is_existing_node, is_reused_dummy_node = self._get_game_state_address_write_offset_for(key)
-
-                key_count_address = self.game_state_key_count_address
-                deleted_key_count_address = self.game_state_deleted_key_count_address
-
-                storage_address = self.game_state_storage_address
-            elif scope == "game_flags":
-                offset, is_existing_node, is_reused_dummy_node = self._get_game_flags_address_write_offset_for(key)
-
-                key_count_address = self.game_flags_key_count_address
-                deleted_key_count_address = self.game_flags_deleted_key_count_address
-
-                storage_address = self.game_flags_storage_address
-            else:
-                raise ValueError(f"Invalid scope: {scope}")
-
-            statemap_key_count: int = self.process.read_int(key_count_address)
-            statemap_deleted_key_count: int = self.process.read_int(deleted_key_count_address)
-
-            if value == 0:
-                if not is_existing_node:
-                    return False
-
-                self.process.write_longlong(storage_address + offset, 1)
-
-                self.process.write_int(key_count_address, statemap_key_count - 1)
-                self.process.write_int(deleted_key_count_address, statemap_deleted_key_count + 1)
-            else:
-                if is_existing_node:
-                    address_value: int = self.process.read_longlong(storage_address + offset)
-                    self.process.write_int(address_value + 0x0, value)
+                        self.state_values[key] = value
                 else:
-                    write_address: int = self.process.allocate(0x8)
+                    self.needs_resynchronization = True
 
-                    self.process.write_int(write_address + 0x0, value)
-                    self.process.write_int(write_address + 0x4, key)
+            if self.needs_resynchronization:
+                self.zvision.read_new_state_changes()
 
-                    self.process.write_longlong(storage_address + offset, write_address)
+                self.state_values = self.zvision.read_state_values(list(range(21000)))
+                self.pending_state_values = dict()
+                self.pending_state_flags = dict()
+                self.engine_address = engine_address
+                self.needs_resynchronization = False
 
-                    self.process.write_int(key_count_address, statemap_key_count + 1)
+                self.state_value_journal_start += len(self.state_value_journal)
+                self.state_value_journal = list()
+                self.state_value_journal_valid_from = self.state_value_journal_start
 
-                    if is_reused_dummy_node:
-                        self.process.write_int(deleted_key_count_address, statemap_deleted_key_count - 1)
+                changes, _ = self.zvision.read_new_state_changes()
 
+                self.state_changes.extend(changes)
+
+                for key, value in changes:
+                    self.state_values[key] = value
+
+            if self.are_location_redirects_suspended and any(not is_loading for _, _, _, is_loading in self.arrivals):
+                if self.are_game_changes_active:
+                    self.zvision.set_location_redirects(self.location_redirects)
+
+                self.are_location_redirects_suspended = False
+
+            self.game_location, self.game_location_offset = self.zvision.read_current_location()
+        except Exception:
+            return False
+
+        return True
+
+    def end_tick(self) -> bool:
+        if not self.is_process_running:
+            return False
+
+        try:
+            if len(self.pending_state_values):
+                self.zvision.write_state_values(self.pending_state_values)
+                self.pending_state_values = dict()
+
+            if len(self.pending_state_flags):
+                self.zvision.write_state_flags([(key, 0x02, is_disabled) for key, is_disabled in self.pending_state_flags.items()])
+                self.pending_state_flags = dict()
+
+            if self.pending_state_flag_overrides != self.state_flag_overrides:
+                if self.are_game_changes_active:
+                    self.zvision.set_state_flag_overrides(self.pending_state_flag_overrides)
+
+                self.state_flag_overrides = self.pending_state_flag_overrides
+        except Exception:
+            return False
+
+        self.pending_state_flag_overrides = dict()
+        self.arrivals = list()
+        self.previous_state_changes = self.state_changes
+        self.state_changes = list()
+
+        if self.suppressed_state_changes_ticks:
+            self.suppressed_state_changes_ticks -= 1
+
+            if not self.suppressed_state_changes_ticks:
+                self.suppressed_state_changes = dict()
+
+        return True
+
+    def set_game_changes_active(self, are_game_changes_active: bool) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if are_game_changes_active == self.are_game_changes_active:
             return True
+
+        try:
+            self.zvision.set_state_value_overrides(self.state_value_overrides if are_game_changes_active else dict())
+            self.zvision.set_state_value_remaps(self.state_value_remaps if are_game_changes_active else list())
+            self.zvision.set_state_value_read_overrides(self.state_value_read_overrides if are_game_changes_active else list())
+            self.zvision.block_actions(self.blocked_actions if are_game_changes_active else list())
+            self.zvision.set_state_flag_overrides(self.state_flag_overrides if are_game_changes_active else dict())
+            self.zvision.set_location_redirects(self.location_redirects if are_game_changes_active and not self.are_location_redirects_suspended else list())
+        except Exception:
+            return False
+
+        self.are_game_changes_active = are_game_changes_active
+
+        return True
+
+    def read_game_state_value_for(self, key: int) -> int:
+        return self.state_values.get(key, 0)
+
+    @property
+    def state_value_journal_position(self) -> int:
+        return self.state_value_journal_start + len(self.state_value_journal)
+
+    def trim_state_value_journal(self, position: int) -> None:
+        if position <= self.state_value_journal_start:
+            return
+
+        del self.state_value_journal[:position - self.state_value_journal_start]
+        self.state_value_journal_start = position
+
+    def rewind_state_value_journal(self, position: int) -> Optional[Dict[int, int]]:
+        if not self.state_value_journal_valid_from <= position <= self.state_value_journal_position:
+            return None
+
+        if position < self.state_value_journal_start:
+            return None
+
+        index: int = position - self.state_value_journal_start
+
+        previous_values: Dict[int, int] = dict()
+        finished_keys: Set[int] = set()
+
+        key: int
+        previous_value: int
+        value: int
+        for key, previous_value, value in self.state_value_journal[index:]:
+            previous_values.setdefault(key, previous_value)
+
+            if previous_value == 1 and value == 2:
+                finished_keys.add(key)
+
+        del self.state_value_journal[index:]
+
+        return {
+            key: previous_value
+            for key, previous_value in previous_values.items()
+            if not (previous_value == 1 and key in finished_keys)
+        }
+
+    def find_expired_timer_start(self, position: int, timer_keys: Set[int]) -> Optional[int]:
+        if not self.state_value_journal_start <= position <= self.state_value_journal_position:
+            return None
+
+        index: int = position - self.state_value_journal_start
+
+        previous_values: Dict[int, int] = dict()
+
+        key: int
+        previous_value: int
+        value: int
+        for key, previous_value, _ in self.state_value_journal[index:]:
+            previous_values.setdefault(key, previous_value)
+
+        expired_timers: Set[int] = {
+            key
+            for key, previous_value, value in self.state_value_journal[index:]
+            if key in timer_keys and previous_value == 1 and value == 2 and previous_values[key] == 1
+        }
+
+        start_index: int
+        for start_index in range(index - 1, -1, -1):
+            key, previous_value, value = self.state_value_journal[start_index]
+
+            if key in expired_timers and value == 1:
+                expired_timers.discard(key)
+
+                if not expired_timers:
+                    return self.state_value_journal_start + start_index
 
         return None
 
-    def refresh_game_location(self) -> Optional[bool]:
-        if self.is_process_running:
-            game_location_bytes: bytes = self.process.read_bytes(self.current_location_address, 4)
+    def suppress_state_changes(self, values: Dict[int, int]) -> None:
+        change: Tuple[int, int]
+        for change in values.items():
+            self.suppressed_state_changes[change] = self.suppressed_state_changes.get(change, 0) + 1
 
-            self.game_location = game_location_bytes.decode("ascii")
-            self.game_location_offset = self.process.read_int(self.current_location_offset_address)
+        self.suppressed_state_changes_ticks = 3
 
+    def write_game_state_value_for(self, key: int, value: int) -> bool:
+        if self.state_values.get(key, 0) == value:
             return True
 
-        return None
+        self.state_values[key] = value
+        self.pending_state_values[key] = value
 
-    def set_game_location(self, game_location: str, offset: int) -> Optional[bool]:
-        if self.is_process_running:
-            game_location_bytes: bytes = game_location.encode("ascii")
+        return True
 
-            self.process.write_bytes(self.next_location_address, game_location_bytes, 4)
-            self.process.write_int(self.next_location_offset_address, offset)
+    def write_game_flags_value_for(self, key: int, value: int) -> bool:
+        self.pending_state_flag_overrides[key] = value == 2
 
+        return True
+
+    def persist_game_flags_value_for(self, key: int, value: int) -> bool:
+        self.pending_state_flags[key] = value == 2
+
+        return True
+
+    def set_game_location(self, game_location: str, offset: int, is_redirectable: bool = False) -> bool:
+        if not self.is_process_running:
+            return False
+
+        try:
+            if len(self.pending_state_values):
+                self.zvision.write_state_values(self.pending_state_values)
+                self.pending_state_values = dict()
+
+            if not is_redirectable and len(self.location_redirects) and not self.are_location_redirects_suspended:
+                if self.are_game_changes_active:
+                    self.zvision.set_location_redirects(list())
+
+                self.are_location_redirects_suspended = True
+
+            self.zvision.change_location(game_location, offset)
+        except Exception:
+            return False
+
+        return True
+
+    def set_state_value_overrides(self, state_value_overrides: Dict[int, int]) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if state_value_overrides == self.state_value_overrides:
             return True
 
-        return None
+        try:
+            if self.are_game_changes_active:
+                self.zvision.set_state_value_overrides(state_value_overrides)
+        except Exception:
+            return False
 
-    def set_zvision(self, is_zvision: bool) -> Optional[bool]:
-        if self.is_process_running:
-            self.process.write_float(self.zvision_address, 15.5 if is_zvision else 171.5)
+        self.state_value_overrides = dict(state_value_overrides)
 
+        return True
+
+    def set_state_value_remaps(self, state_value_remaps: List[Tuple[int, int, int, int]]) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if state_value_remaps == self.state_value_remaps:
             return True
 
-        return None
+        try:
+            if self.are_game_changes_active:
+                self.zvision.set_state_value_remaps(state_value_remaps)
+        except Exception:
+            return False
 
-    def set_render_type(self, render_type: int) -> Optional[bool]:
-        if self.is_process_running:
-            self.process.write_int(self.render_type_address, render_type)
+        self.state_value_remaps = list(state_value_remaps)
 
+        return True
+
+    def set_state_value_read_overrides(self, state_value_read_overrides: List[Tuple[int, int, int]]) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if state_value_read_overrides == self.state_value_read_overrides:
             return True
 
-        return None
+        try:
+            if self.are_game_changes_active:
+                self.zvision.set_state_value_read_overrides(state_value_read_overrides)
+        except Exception:
+            return False
 
-    def set_panorama_reversed(self, is_reversed: bool) -> Optional[bool]:
-        if self.is_process_running:
-            self.process.write_int(self.panorama_reversed_address, 1 if is_reversed else 0)
+        self.state_value_read_overrides = list(state_value_read_overrides)
 
+        return True
+
+    def set_blocked_actions(self, blocked_actions: List[Tuple[Optional[int], Optional[str]]]) -> bool:
+        if not self.is_process_running:
+            return False
+
+        if blocked_actions == self.blocked_actions:
             return True
 
-        return None
+        try:
+            if self.are_game_changes_active:
+                self.zvision.block_actions(blocked_actions)
+        except Exception:
+            return False
 
-    def _resolve_address(self, base_offset: int, offsets: Tuple[int, ...]):
-        address: int = self.process.read_longlong(self.process.base_address + base_offset)
+        self.blocked_actions = list(blocked_actions)
 
-        for offset in offsets[:-1]:
-            address = self.process.read_longlong(address + offset)
+        return True
 
-        return address + offsets[-1]
+    def set_location_redirects(self, location_redirects: List[Tuple[str, str, str, int]]) -> bool:
+        if not self.is_process_running:
+            return False
 
-    def _get_game_state_address_read_offset_for(self, key: int):
-        return self._get_statemap_address_read_offset_for(key, scope="game_state")
+        if location_redirects == self.location_redirects:
+            return True
 
-    def _get_game_flags_address_read_offset_for(self, key: int):
-        return self._get_statemap_address_read_offset_for(key, scope="game_flags")
+        try:
+            if self.are_game_changes_active and not self.are_location_redirects_suspended:
+                self.zvision.set_location_redirects(location_redirects)
+        except Exception:
+            return False
 
-    def _get_statemap_address_read_offset_for(self, key: int, scope: str = "game_state") -> int:
-        hashmap_size_address: int
-        storage_address: int
+        self.location_redirects = location_redirects
 
-        if scope == "game_state":
-            hashmap_size_address = self.game_state_hashmap_size_address
-            storage_address = self.game_state_storage_address
-        elif scope == "game_flags":
-            hashmap_size_address = self.game_flags_hashmap_size_address
-            storage_address = self.game_flags_storage_address
-        else:
-            raise ValueError(f"Invalid scope: {scope}")
+        return True
 
-        statemap_hashmap_size: int = self.process.read_int(hashmap_size_address)
+    def set_panorama_reversed(self, is_reversed: bool) -> bool:
+        if not self.is_process_running:
+            return False
 
-        perturb: int = key
-        perturb_shift: int = 0x5
+        try:
+            render_table: Dict[str, object] = self.zvision.read_render_table()
 
-        index: int = key & statemap_hashmap_size
-        offset: int = index * 0x8
+            if render_table["render_state"] != "panorama" or render_table["panorama_reverse"] == is_reversed:
+                return True
 
-        while True:
-            offset_value: int = self.process.read_longlong(storage_address + offset)
+            self.zvision.set_view_options("panorama", reverse=is_reversed)
+        except Exception:
+            return False
 
-            if offset_value == 0:  # Null Pointer
-                break
-            elif offset_value == 1:  # Dummy Node
-                pass
-            elif offset_value > 1:  # Existing Node
-                if self.process.read_int(offset_value + 0x4) == key:
-                    break
+        return True
 
-            index = ((0x5 * index) + perturb + 0x1) & statemap_hashmap_size
-            offset = index * 0x8
+    def set_zvision(self, is_zvision: bool) -> bool:
+        if not self.is_process_running:
+            return False
 
-            perturb >>= perturb_shift
+        try:
+            render_table: Dict[str, object] = self.zvision.read_render_table()
 
-        return offset
+            if render_table["render_state"] != "panorama":
+                return True
 
-    def _get_game_state_address_write_offset_for(self, key: int) -> Tuple[int, bool, bool]:
-        return self._get_statemap_address_write_offset_for(key, scope="game_state")
+            is_distorted: bool = abs(render_table["panorama_vertical_fov"] - 50.0) < 0.01 and abs(render_table["panorama_linear_scale"] - 0.5) < 0.01
 
-    def _get_game_flags_address_write_offset_for(self, key: int) -> Tuple[int, bool, bool]:
-        return self._get_statemap_address_write_offset_for(key, scope="game_flags")
+            if is_zvision and not is_distorted:
+                self.zvision_trap_defaults = (render_table["panorama_vertical_fov"], render_table["panorama_linear_scale"])
+                self.zvision.set_view_options("panorama", vertical_fov=50.0, linear_scale=0.5)
+            elif not is_zvision and is_distorted and self.zvision_trap_defaults is not None:
+                self.zvision.set_view_options("panorama", vertical_fov=self.zvision_trap_defaults[0], linear_scale=self.zvision_trap_defaults[1])
+                self.zvision_trap_defaults = None
+        except Exception:
+            return False
 
-    def _get_statemap_address_write_offset_for(self, key: int, scope: str = "game_state") -> Tuple[int, bool, bool]:
-        hashmap_size_address: int
-        storage_address: int
+        return True
 
-        if scope == "game_state":
-            hashmap_size_address = self.game_state_hashmap_size_address
-            storage_address = self.game_state_storage_address
-        elif scope == "game_flags":
-            hashmap_size_address = self.game_flags_hashmap_size_address
-            storage_address = self.game_flags_storage_address
-        else:
-            raise ValueError(f"Invalid scope: {scope}")
+    def drop_inventory_item(self, item: int) -> bool:
+        if not self.is_process_running:
+            return False
 
-        statemap_hashmap_size: int = self.process.read_int(hashmap_size_address)
+        try:
+            self.zvision.inventory_drop(item)
+        except Exception:
+            return False
 
-        perturb: int = key
-        perturb_shift: int = 0x5
+        return True
 
-        index: int = key & statemap_hashmap_size
-        offset: int = index * 0x8
+    def kill_side_effect(self, key: int) -> bool:
+        if not self.is_process_running:
+            return False
 
-        node_found: bool = False
+        try:
+            self.zvision.kill_side_effect(key)
+        except Exception:
+            return False
 
-        dummy_node_found: bool = False
-        dummy_node_offset: Optional[int] = None
+        return True
 
-        while True:
-            offset_value: int = self.process.read_longlong(storage_address + offset)
+    def show_message(self, message: str) -> bool:
+        if not self.is_process_running:
+            return False
 
-            if offset_value == 0:  # Null Pointer
-                break
-            elif offset_value == 1:  # Dummy Node
-                if not dummy_node_found:
-                    dummy_node_offset = offset
-                    dummy_node_found = True
-            elif offset_value > 1:  # Existing Node
-                if self.process.read_int(offset_value + 0x4) == key:
-                    node_found = True
-                    break
+        try:
+            self.zvision.show_message(message, 4000)
+        except Exception:
+            return False
 
-            index = ((0x5 * index) + perturb + 0x1) & statemap_hashmap_size
-            offset = index * 0x8
-
-            perturb >>= perturb_shift
-
-        if not node_found and dummy_node_found:  # We should reuse the dummy node
-            return dummy_node_offset, False, True
-        elif not node_found and not dummy_node_found:  # We should allocate a new node
-            return offset, False, False
-
-        return offset, True, False  # We should update the existing node
+        return True
