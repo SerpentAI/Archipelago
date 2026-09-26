@@ -274,16 +274,32 @@ location_data: Dict[
             Has(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value)
         )
     ),
+    ZorkGrandInquisitorLocations.CLOSET_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((4983, 1),),
+        archipelago_id=LOCATION_OFFSET + 19,
+        region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+        description="Cast NARWILE on the time tunnel inside the house in the Dungeon Master's Lair",
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(
+            And(
+                Or(
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR.value),
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
+                ),
+                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
+            )
+        )
+    ),
     ZorkGrandInquisitorLocations.CLOSING_THE_TIME_TUNNELS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9543, 1),),
-        archipelago_id=LOCATION_OFFSET + 19,
+        archipelago_id=LOCATION_OFFSET + 20,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         description="Activate the display at the Monastery Exhibit",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd6k"), (1673, 1), (1660, 1), (1312, 1)),
-        archipelago_id=LOCATION_OFFSET + 20,
+        archipelago_id=LOCATION_OFFSET + 21,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         description="Escape with the Coconut of Quendor in Dragon Archipelago",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -302,7 +318,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.CRISIS_AVERTED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11769, 1),),
-        archipelago_id=LOCATION_OFFSET + 21,
+        archipelago_id=LOCATION_OFFSET + 22,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         description="Stash the activated zork rocks in the dented locker in the GUE Tech hallway",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -323,14 +339,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.CUT_THAT_OUT_YOU_LITTLE_CREEP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19350, 1),),
-        archipelago_id=LOCATION_OFFSET + 22,
+        archipelago_id=LOCATION_OFFSET + 23,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on the door in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 17632),),
-        archipelago_id=LOCATION_OFFSET + 23,
+        archipelago_id=LOCATION_OFFSET + 24,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Cast GOLGATEM on the lake when looking at the walking castle inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -346,14 +362,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DINGWHACKER_DELUXE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2417),),
-        archipelago_id=LOCATION_OFFSET + 24,
+        archipelago_id=LOCATION_OFFSET + 25,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Activate the pachinko machine in the Past Port Foozle tavern",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.DONT_EVEN_START_WITH_US_SPARKY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 8926),),
-        archipelago_id=LOCATION_OFFSET + 25,
+        archipelago_id=LOCATION_OFFSET + 26,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Attack the two-headed monster with the sword in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -363,7 +379,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4512, 87),),
-        archipelago_id=LOCATION_OFFSET + 26,
+        archipelago_id=LOCATION_OFFSET + 27,
         region=ZorkGrandInquisitorRegions.ANYWHERE,
         description="Inspect a Zorkmid coin",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -373,7 +389,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DOOOOOOWN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 3600),),
-        archipelago_id=LOCATION_OFFSET + 27,
+        archipelago_id=LOCATION_OFFSET + 28,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         description="Lower the mailbox flag as Griff outside the White House",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -389,7 +405,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.DOWN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 5300),),
-        archipelago_id=LOCATION_OFFSET + 28,
+        archipelago_id=LOCATION_OFFSET + 29,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         description="Lower the mailbox flag as Lucy outside the White House",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -401,16 +417,6 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
                 )
             )
-        )
-    ),
-    ZorkGrandInquisitorLocations.DRAGON_ARCHIPELAGO_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((9216, 1),),
-        archipelago_id=LOCATION_OFFSET + 29,
-        region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
-        description="Cast NARWILE on the time tunnel beyond the gates in Hades",
-        tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(
-            Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
         )
     ),
     ZorkGrandInquisitorLocations.DUNCE_LOCKER: ZorkGrandInquisitorLocationData(
@@ -573,9 +579,19 @@ location_data: Dict[
         description="Solve the entrance exam outside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
+    ZorkGrandInquisitorLocations.HADES_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((9216, 1),),
+        archipelago_id=LOCATION_OFFSET + 44,
+        region=ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
+        description="Cast NARWILE on the time tunnel beyond the gates in Hades",
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(
+            Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
+        )
+    ),
     ZorkGrandInquisitorLocations.HAVE_A_HELL_OF_A_DAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8443, 1),),
-        archipelago_id=LOCATION_OFFSET + 44,
+        archipelago_id=LOCATION_OFFSET + 45,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         description="Answer all the questions correctly on the phone in Hades. Solution: 82895 or KENDALL + *",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -594,14 +610,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HELLO_THIS_IS_SHONA_FROM_GURTH_PUBLISHING: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 1),),
-        archipelago_id=LOCATION_OFFSET + 45,
+        archipelago_id=LOCATION_OFFSET + 46,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Listen to the message on the answering machine inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HELP_ME_CANT_BREATHE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10421, 1),),
-        archipelago_id=LOCATION_OFFSET + 46,
+        archipelago_id=LOCATION_OFFSET + 47,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Activate the dock winch with the plastic six-pack holder on the hook in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -617,7 +633,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HEY_FREE_DIRT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11747, 1),),
-        archipelago_id=LOCATION_OFFSET + 47,
+        archipelago_id=LOCATION_OFFSET + 48,
         region=ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
         description="Dig in the dirt pile with the shovel outside of GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -633,7 +649,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HMMM_BIG_TOOTHPICK: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2194, 69),),
-        archipelago_id=LOCATION_OFFSET + 48,
+        archipelago_id=LOCATION_OFFSET + 49,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR,
         description="Inspect the plank as Brog",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -643,21 +659,21 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.HMMM_INFORMATIVE_YET_DEEPLY_DISTURBING: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mt2h"),),
-        archipelago_id=LOCATION_OFFSET + 49,
+        archipelago_id=LOCATION_OFFSET + 50,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         description="Look at the infographic on the wall at the Monastery",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HOW_TO_HYPNOTIZE_YOURSELF: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1e"),),
-        archipelago_id=LOCATION_OFFSET + 50,
+        archipelago_id=LOCATION_OFFSET + 51,
         region=ZorkGrandInquisitorRegions.SUBWAY_HADES,
         description="Read the book in the Hades station",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.HOW_TO_WIN_AT_DOUBLE_FANUCCI: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3s"),),
-        archipelago_id=LOCATION_OFFSET + 51,
+        archipelago_id=LOCATION_OFFSET + 52,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         description="Read the book inside locker #8 in the GUE Tech hallway",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -667,7 +683,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IMBUE_BEBURTT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12166, 1),),
-        archipelago_id=LOCATION_OFFSET + 52,
+        archipelago_id=LOCATION_OFFSET + 53,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         description="Create a BEBURTT scroll by using the machines in the Spell Lab and running it through the spell checker. Solution: O M R I T",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -686,21 +702,21 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IM_COMPLETELY_NUDE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19344, 1),),
-        archipelago_id=LOCATION_OFFSET + 53,
+        archipelago_id=LOCATION_OFFSET + 54,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on the door in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.INFLATUS_THE_ETERNAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd4h"),),
-        archipelago_id=LOCATION_OFFSET + 54,
+        archipelago_id=LOCATION_OFFSET + 55,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         description="Visit the skeleton in Dragon Archipelago",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.INTO_THE_FOLIAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13060, 1),),
-        archipelago_id=LOCATION_OFFSET + 55,
+        archipelago_id=LOCATION_OFFSET + 56,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Use the sword on the foliage blocking the door at the Crossroads",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -716,7 +732,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.INVISIBLE_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12967, 1),),
-        archipelago_id=LOCATION_OFFSET + 56,
+        archipelago_id=LOCATION_OFFSET + 57,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Cast IGRAM on the umbrella flowers at the Crossroads",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -726,7 +742,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IN_CASE_OF_ADVENTURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12931, 1),),
-        archipelago_id=LOCATION_OFFSET + 57,
+        archipelago_id=LOCATION_OFFSET + 58,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Break the glass case with the hammer at the Crossroads",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -742,7 +758,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IN_MAGIC_WE_TRUST: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13062, 1),),
-        archipelago_id=LOCATION_OFFSET + 58,
+        archipelago_id=LOCATION_OFFSET + 59,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Cast REZROV on the door at the Crossroads",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -758,21 +774,21 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11005, 15),),
-        archipelago_id=LOCATION_OFFSET + 59,
+        archipelago_id=LOCATION_OFFSET + 60,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Go DEEP in the infinite corridor inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
     ),
     ZorkGrandInquisitorLocations.ITS_ONE_OF_THOSE_ADVENTURERS_AGAIN: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe3j"),),
-        archipelago_id=LOCATION_OFFSET + 60,
+        archipelago_id=LOCATION_OFFSET + 61,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Look at the door in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.ITS_PLAYING_A_LITTLE_HARD_TO_GET: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 1006),),
-        archipelago_id=LOCATION_OFFSET + 61,
+        archipelago_id=LOCATION_OFFSET + 62,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast OBIDIL on the snapdragon in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -788,7 +804,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.IT_DOESNT_APPEAR_TO_BE_FOOLED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 1009),),
-        archipelago_id=LOCATION_OFFSET + 62,
+        archipelago_id=LOCATION_OFFSET + 63,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast BEBURTT on the snapdragon in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -804,7 +820,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_AM_NOT_IMPRESSED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", ("hp4f", "hp1g")), (8419, 1)),
-        archipelago_id=LOCATION_OFFSET + 63,
+        archipelago_id=LOCATION_OFFSET + 64,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Cast SNAVIG on Charon in Hades and interact with him",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -814,7 +830,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_DONT_THINK_YOU_WOULDVE_WANTED_THAT_TO_WORK_ANYWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 1008),),
-        archipelago_id=LOCATION_OFFSET + 64,
+        archipelago_id=LOCATION_OFFSET + 65,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast THROCK on the snapdragon in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -830,14 +846,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_DONT_WANT_NO_TROUBLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10694, 1),),
-        archipelago_id=LOCATION_OFFSET + 65,
+        archipelago_id=LOCATION_OFFSET + 66,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on the door in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.I_LIKE_YOUR_STYLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16374, 1),),
-        archipelago_id=LOCATION_OFFSET + 66,
+        archipelago_id=LOCATION_OFFSET + 67,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Cast GOLGATEM over the Spell Lab chasm",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -859,7 +875,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 16410), (9, 87)),
-        archipelago_id=LOCATION_OFFSET + 67,
+        archipelago_id=LOCATION_OFFSET + 68,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Try to bribe the invisible bridge guard at the Spell Lab with a zorkmid",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -869,7 +885,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.LIT_SUNFLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4129, 1),),
-        archipelago_id=LOCATION_OFFSET + 68,
+        archipelago_id=LOCATION_OFFSET + 69,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast THROCK on the sunflowers in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -879,7 +895,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.LOOK_AN_ICE_CREAM_BAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12517, 1),),
-        archipelago_id=LOCATION_OFFSET + 69,
+        archipelago_id=LOCATION_OFFSET + 70,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Open the rightmost door of the frozen treat machine inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -899,7 +915,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MAILED_IT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2498, (1, 2)),),
-        archipelago_id=LOCATION_OFFSET + 70,
+        archipelago_id=LOCATION_OFFSET + 71,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         description="Mail the GLORF scroll with either Griff or Lucy outside the White House",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -922,7 +938,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(((8623, 8734), 21),),
-        archipelago_id=LOCATION_OFFSET + 71,
+        archipelago_id=LOCATION_OFFSET + 72,
         region=ZorkGrandInquisitorRegions.HADES_SHORE,
         description="Attack Charon with the sword in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -935,7 +951,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.MEAD_LIGHT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10485, 1),),
-        archipelago_id=LOCATION_OFFSET + 72,
+        archipelago_id=LOCATION_OFFSET + 73,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on Jack's door with the mead light in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -951,21 +967,42 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.ME_I_AM_THE_BOSS_OF_YOU: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px1k"),),
-        archipelago_id=LOCATION_OFFSET + 73,
+        archipelago_id=LOCATION_OFFSET + 74,
         region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         description="Look at the sign at the inquisition headquarters outside Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.MIKES_PANTS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tr2p"),),
-        archipelago_id=LOCATION_OFFSET + 74,
+        archipelago_id=LOCATION_OFFSET + 75,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Read the flyer on the bulletin board inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
+    ZorkGrandInquisitorLocations.MONASTERY_EXHIBIT_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
+        game_state_trigger=((9404, 1),),
+        archipelago_id=LOCATION_OFFSET + 76,
+        region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
+        description="Cast NARWILE on the time tunnel in the Monastery Exhibit",
+        tags=(ZorkGrandInquisitorTags.CORE,),
+        requirements=(
+            And(
+                Or(
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER.value),
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
+                ),
+                Or(
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT.value),
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
+                ),
+                Has(ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER.value),
+                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value),
+            )
+        )
+    ),
     ZorkGrandInquisitorLocations.MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 4217),),
-        archipelago_id=LOCATION_OFFSET + 75,
+        archipelago_id=LOCATION_OFFSET + 77,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Hit the spring mushroom with the hammer behind the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -981,7 +1018,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NATIONAL_TREASURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14318, 1),),
-        archipelago_id=LOCATION_OFFSET + 76,
+        archipelago_id=LOCATION_OFFSET + 78,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         description="Destroy Flood Control Dam #3 by casting REZROV on the closed floodgate and then closing all floodgates",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1001,14 +1038,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NATURAL_AND_SUPERNATURAL_CREATURES_OF_QUENDOR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1p"),),
-        archipelago_id=LOCATION_OFFSET + 77,
+        archipelago_id=LOCATION_OFFSET + 79,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Read the book inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.NOOOOOOOOOOOOO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12706, 1),),
-        archipelago_id=LOCATION_OFFSET + 78,
+        archipelago_id=LOCATION_OFFSET + 80,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Open the locker by purchasing item #8 from the vending machine inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1028,7 +1065,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NOTHIN_LIKE_A_GOOD_STOGIE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4237, 1),),
-        archipelago_id=LOCATION_OFFSET + 79,
+        archipelago_id=LOCATION_OFFSET + 81,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Place the cigar in Harry's ashtray in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1044,7 +1081,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NOW_YOU_LOOK_LIKE_US_WHICH_IS_AN_IMPROVEMENT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8935, 1),),
-        archipelago_id=LOCATION_OFFSET + 80,
+        archipelago_id=LOCATION_OFFSET + 82,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Cast SNAVIG on the two-headed monster in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1054,7 +1091,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NO_AUTOGRAPHS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10476, 1),),
-        archipelago_id=LOCATION_OFFSET + 81,
+        archipelago_id=LOCATION_OFFSET + 83,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on Jack's door in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1067,7 +1104,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NO_BONDAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 15149), ("set", (9, 83))),
-        archipelago_id=LOCATION_OFFSET + 82,
+        archipelago_id=LOCATION_OFFSET + 84,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Activate the dock winch with the rope on the hook in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1083,7 +1120,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.NO_ONE_RETURNS_FROM_HADES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15204, 1),),
-        archipelago_id=LOCATION_OFFSET + 83,
+        archipelago_id=LOCATION_OFFSET + 85,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Try to pay the toll to Charon after going beyond the gates in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1093,7 +1130,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12164, 1),),
-        archipelago_id=LOCATION_OFFSET + 84,
+        archipelago_id=LOCATION_OFFSET + 86,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         description="Run the soggy OBIDIL scroll through the spell checker in the Spell Lab",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1109,7 +1146,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_DEAR_GOD_ITS_A_DRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=((1300, 1),),
-        archipelago_id=LOCATION_OFFSET + 85,
+        archipelago_id=LOCATION_OFFSET + 87,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         description="Plug the dragon's nostrils with the inflatables and use the air pump on them in Dragon Archipelago",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1127,7 +1164,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2448),),
-        archipelago_id=LOCATION_OFFSET + 86,
+        archipelago_id=LOCATION_OFFSET + 88,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         description="Knock on the door as Brog in Past Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1143,7 +1180,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4869, 1),),
-        archipelago_id=LOCATION_OFFSET + 87,
+        archipelago_id=LOCATION_OFFSET + 89,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Make a cup of cocoa inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1156,7 +1193,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OLD_SCRATCH_WINNER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4512, 32),),
-        archipelago_id=LOCATION_OFFSET + 88,
+        archipelago_id=LOCATION_OFFSET + 90,
         region=ZorkGrandInquisitorRegions.ANYWHERE,
         description="Solve the maze on the old scratch ticket",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1166,14 +1203,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.ONLY_YOU_CAN_PREVENT_FOOZLE_FIRES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe5n"),),
-        archipelago_id=LOCATION_OFFSET + 89,
+        archipelago_id=LOCATION_OFFSET + 91,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Look at the poster in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.OPEN_THE_GATES_OF_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((8651, 1),),
-        archipelago_id=LOCATION_OFFSET + 90,
+        archipelago_id=LOCATION_OFFSET + 92,
         region=ZorkGrandInquisitorRegions.HADES,
         description="Cast SNAVIG on Charon and punch out in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1186,7 +1223,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4241, 1),),
-        archipelago_id=LOCATION_OFFSET + 91,
+        archipelago_id=LOCATION_OFFSET + 93,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Plug the hive with the hungus lard, remove it and slice the hive with the sword in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1203,49 +1240,28 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.PERMASEAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mt1g"),),
-        archipelago_id=LOCATION_OFFSET + 92,
+        archipelago_id=LOCATION_OFFSET + 94,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         description="Look at the PermaSeal container in the Monastery",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.PLANETFALL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pp1j"),),
-        archipelago_id=LOCATION_OFFSET + 93,
+        archipelago_id=LOCATION_OFFSET + 95,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP,
         description="Look at the computer inside Jack's shop in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.PLEASE_DONT_THROCK_THE_GRASS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "te1g"),),
-        archipelago_id=LOCATION_OFFSET + 94,
+        archipelago_id=LOCATION_OFFSET + 96,
         region=ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         description="Look at the sign outside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
-    ZorkGrandInquisitorLocations.PORT_FOOZLE_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((9404, 1),),
-        archipelago_id=LOCATION_OFFSET + 95,
-        region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
-        description="Cast NARWILE on the time tunnel in the Monastery Exhibit",
-        tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(
-            And(
-                Or(
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER.value),
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                ),
-                Or(
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT.value),
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                ),
-                Has(ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER.value),
-                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value),
-            )
-        )
-    ),
     ZorkGrandInquisitorLocations.PROZORKED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4115, 1),),
-        archipelago_id=LOCATION_OFFSET + 96,
+        archipelago_id=LOCATION_OFFSET + 97,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Give the snapdragon the prozork tablet in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1261,14 +1277,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.PURPLE_BEAST_ALARM_SYSTEM: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tp1f"),),
-        archipelago_id=LOCATION_OFFSET + 97,
+        archipelago_id=LOCATION_OFFSET + 98,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Look at the sign next to the guard at the Spell Lab Bridge",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.REASSEMBLE_SNAVIG: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4512, 98),),
-        archipelago_id=LOCATION_OFFSET + 98,
+        archipelago_id=LOCATION_OFFSET + 99,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Combine the mirrored scroll fragments in the mirror room inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1285,28 +1301,28 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.RESTOCKED_ON_GRUESDAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tr2h"),),
-        archipelago_id=LOCATION_OFFSET + 99,
+        archipelago_id=LOCATION_OFFSET + 100,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Read the flyer on the bulletin board inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.RIGHT_HELLO_YES_UH_THIS_IS_SNEFFLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 3),),
-        archipelago_id=LOCATION_OFFSET + 100,
+        archipelago_id=LOCATION_OFFSET + 101,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Listen to the message on the answering machine inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.RIGHT_UH_SORRY_ITS_ME_AGAIN_SNEFFLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 4),),
-        archipelago_id=LOCATION_OFFSET + 101,
+        archipelago_id=LOCATION_OFFSET + 102,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Listen to the message on the answering machine inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.SNAVIG_REPAIRED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12161, 1),),
-        archipelago_id=LOCATION_OFFSET + 102,
+        archipelago_id=LOCATION_OFFSET + 103,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         description="Run the torn SNAVIG scroll through the spell checker in the Spell Lab",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1322,7 +1338,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.SOUVENIR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13408, 1),),
-        archipelago_id=LOCATION_OFFSET + 103,
+        archipelago_id=LOCATION_OFFSET + 104,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         description="Press a zorkmid at the Flood Control Dam #3 station",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1338,7 +1354,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.SPELL_CHECK_COMPLETE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12168, 1),),
-        archipelago_id=LOCATION_OFFSET + 104,
+        archipelago_id=LOCATION_OFFSET + 105,
         region=ZorkGrandInquisitorRegions.SPELL_LAB,
         description="Insert a blank scroll sheet into the spell checker in the Spell Lab",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1357,7 +1373,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9719, 1),),
-        archipelago_id=LOCATION_OFFSET + 105,
+        archipelago_id=LOCATION_OFFSET + 106,
         region=ZorkGrandInquisitorRegions.MONASTERY,
         description="Set the totemizer destination to Straight to Hell, turn off PermaSeal and totemize yourself in the Monastery",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1377,7 +1393,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14511, 1), (14524, 5)),
-        archipelago_id=LOCATION_OFFSET + 106,
+        archipelago_id=LOCATION_OFFSET + 107,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Win the game of strip grue, fire, water against Jack inside the tavern in Past Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1400,7 +1416,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.SUCKING_ROCKS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12859, 1),),
-        archipelago_id=LOCATION_OFFSET + 107,
+        archipelago_id=LOCATION_OFFSET + 108,
         region=ZorkGrandInquisitorRegions.GUE_TECH,
         description="Place and activate the perma-suck machine while the zork rocks are loose in the vending machine inside GUE Tech",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1425,7 +1441,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TALK_TO_ME_GRAND_INQUISITOR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10299, 1),),
-        archipelago_id=LOCATION_OFFSET + 108,
+        archipelago_id=LOCATION_OFFSET + 109,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Activate the grand inquisitor doll in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1438,14 +1454,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TAMING_YOUR_SNAPDRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1h"),),
-        archipelago_id=LOCATION_OFFSET + 109,
+        archipelago_id=LOCATION_OFFSET + 110,
         region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         description="Read the book inside the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THAR_SHE_BLOWS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((1311, 1), (1312, 1)),
-        archipelago_id=LOCATION_OFFSET + 110,
+        archipelago_id=LOCATION_OFFSET + 111,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         description="Pop the sea captain with the dragon tooth while the inflatables are tied with the rope and the coconut is in the raft inside the dragon's mouth in the Dragon Archipelago",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1464,7 +1480,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THATS_A_ROPE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10486, 1),),
-        archipelago_id=LOCATION_OFFSET + 111,
+        archipelago_id=LOCATION_OFFSET + 112,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on Jack's door with the rope in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1480,14 +1496,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THATS_IT_JUST_KEEP_HITTING_THOSE_BUTTONS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13805, 1),),
-        archipelago_id=LOCATION_OFFSET + 112,
+        archipelago_id=LOCATION_OFFSET + 113,
         region=ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS,
         description="Randomly press buttons on the complex subway map in the Crossroads station",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
     ),
     ZorkGrandInquisitorLocations.THATS_STILL_A_ROPE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 16409),),
-        archipelago_id=LOCATION_OFFSET + 113,
+        archipelago_id=LOCATION_OFFSET + 114,
         region=ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE,
         description="Use the rope on the invisible bridge guard at the Spell Lab",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1497,7 +1513,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THATS_THE_SPIRIT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10341, 95),),
-        archipelago_id=LOCATION_OFFSET + 114,
+        archipelago_id=LOCATION_OFFSET + 115,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Turn up the volume of the loudspeaker in Port Foozle to the maximum level",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1510,28 +1526,28 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THE_ALCHEMICAL_DEBACLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9459, 1),),
-        archipelago_id=LOCATION_OFFSET + 115,
+        archipelago_id=LOCATION_OFFSET + 116,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         description="Activate the display at the Monastery Exhibit",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_ENDLESS_FIRE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9473, 1),),
-        archipelago_id=LOCATION_OFFSET + 116,
+        archipelago_id=LOCATION_OFFSET + 117,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         description="Activate the display at the Monastery Exhibit",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_FLATHEADIAN_FUDGE_FIASCO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9520, 1),),
-        archipelago_id=LOCATION_OFFSET + 117,
+        archipelago_id=LOCATION_OFFSET + 118,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         description="Activate the display at the Monastery Exhibit",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_ONLY_WAY_TO_WIN_IS_NOT_TO_PLAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16286, 1),),
-        archipelago_id=LOCATION_OFFSET + 118,
+        archipelago_id=LOCATION_OFFSET + 119,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         description="Cast KENDALL while reading How to Win at Double Fanucci inside locker #8 in the GUE Tech hallway",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1544,14 +1560,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THE_PERILS_OF_MAGIC: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "me1j"),),
-        archipelago_id=LOCATION_OFFSET + 119,
+        archipelago_id=LOCATION_OFFSET + 120,
         region=ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         description="Look at the sign at the Monastery Exhibit",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.THE_UNDERGROUND_UNDERGROUND: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13167, 1),),
-        archipelago_id=LOCATION_OFFSET + 120,
+        archipelago_id=LOCATION_OFFSET + 121,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Go through the turnstile after inserting a subway token at the Crossroads station",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1567,7 +1583,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THIS_DOESNT_LOOK_ANYTHING_LIKE_THE_BROCHURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"), (1524, 1)),
-        archipelago_id=LOCATION_OFFSET + 121,
+        archipelago_id=LOCATION_OFFSET + 122,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         description="Visit the Dragon Archipelago as Lucy",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1577,7 +1593,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.THROCKED_MUSHROOM_HAMMERED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 4219),),
-        archipelago_id=LOCATION_OFFSET + 122,
+        archipelago_id=LOCATION_OFFSET + 123,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Cast THROCK on the spring mushroom and hit it with the hammer behind the house in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1594,7 +1610,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TIME_TRAVEL_FOR_DUMMIES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3z"),),
-        archipelago_id=LOCATION_OFFSET + 123,
+        archipelago_id=LOCATION_OFFSET + 124,
         region=ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         description="Read the book inside locker #11 in the GUE Tech hallway",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1604,14 +1620,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.TOTEMIZED_DAILY_BILLBOARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "px1h"),),
-        archipelago_id=LOCATION_OFFSET + 124,
+        archipelago_id=LOCATION_OFFSET + 125,
         region=ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         description="Look at the billboard at the inquisition headquarters outside Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.UH_OH_BROG_CANT_SWIM: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"), (1520, 1)),
-        archipelago_id=LOCATION_OFFSET + 125,
+        archipelago_id=LOCATION_OFFSET + 126,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         description="Visit the Dragon Archipelago as Brog",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1621,14 +1637,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.UM_AH_UM_AH_UM_AH: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16997, 4),),
-        archipelago_id=LOCATION_OFFSET + 126,
+        archipelago_id=LOCATION_OFFSET + 127,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Read the mind of the bouncer 4 times inside the Past Port Foozle tavern",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.UMBRELLA_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12926, 1),),
-        archipelago_id=LOCATION_OFFSET + 127,
+        archipelago_id=LOCATION_OFFSET + 128,
         region=ZorkGrandInquisitorRegions.CROSSROADS,
         description="Cast BEBURTT on the umbrella flowers at the Crossroads",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1638,7 +1654,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 5200),),
-        archipelago_id=LOCATION_OFFSET + 128,
+        archipelago_id=LOCATION_OFFSET + 129,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         description="Raise the mailbox flag as Lucy outside the White House",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1654,7 +1670,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.USELESS_BUT_FUN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14321, 1),),
-        archipelago_id=LOCATION_OFFSET + 129,
+        archipelago_id=LOCATION_OFFSET + 130,
         region=ZorkGrandInquisitorRegions.SUBWAY_FLOOD_CONTROL_DAM,
         description="Cast GOLGATEM above Flood Control Dam #3",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1664,7 +1680,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.UUUUUP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 3500),),
-        archipelago_id=LOCATION_OFFSET + 130,
+        archipelago_id=LOCATION_OFFSET + 131,
         region=ZorkGrandInquisitorRegions.WHITE_HOUSE,
         description="Raise the mailbox flag as Griff outside the White House",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1680,14 +1696,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1h"),),
-        archipelago_id=LOCATION_OFFSET + 131,
+        archipelago_id=LOCATION_OFFSET + 132,
         region=ZorkGrandInquisitorRegions.SUBWAY_HADES,
         description="Read the book at the Hades station",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4034, 1),),
-        archipelago_id=LOCATION_OFFSET + 132,
+        archipelago_id=LOCATION_OFFSET + 133,
         region=ZorkGrandInquisitorRegions.DM_LAIR,
         description="Add the mead light to Harry's bird bath and cast ZIMDOR on it in the Dungeon Master's Lair",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1705,14 +1721,14 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO_PAST: ZorkGrandInquisitorLocationData(
         game_state_trigger=((17006, 5001),),
-        archipelago_id=LOCATION_OFFSET + 133,
+        archipelago_id=LOCATION_OFFSET + 134,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Read the mind of the bartender 2 times inside the Past Port Foozle tavern",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
     ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2461),),
-        archipelago_id=LOCATION_OFFSET + 134,
+        archipelago_id=LOCATION_OFFSET + 135,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST,
         description="Knock on the door as Griff in Past Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1728,7 +1744,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WE_GOT_A_HIGH_ROLLER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15472, 1),),
-        archipelago_id=LOCATION_OFFSET + 135,
+        archipelago_id=LOCATION_OFFSET + 136,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Win the game of Alpine's Quandry inside the tavern in Past Port Foozle. Solution: 4+1 (Fly), 1, 2, 3 (or 3, 2)",
         tags=(ZorkGrandInquisitorTags.CORE,),
@@ -1751,7 +1767,7 @@ location_data: Dict[
     ),
     ZorkGrandInquisitorLocations.WHAT_ARE_YOU_STUPID: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10484, 1),),
-        archipelago_id=LOCATION_OFFSET + 136,
+        archipelago_id=LOCATION_OFFSET + 137,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE,
         description="Knock on Jack's door with the plastic six-pack holder in Port Foozle",
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
@@ -1762,22 +1778,6 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
                 )
-            )
-        )
-    ),
-    ZorkGrandInquisitorLocations.WHITE_HOUSE_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
-        game_state_trigger=((4983, 1),),
-        archipelago_id=LOCATION_OFFSET + 137,
-        region=ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
-        description="Cast NARWILE on the time tunnel inside the house in the Dungeon Master's Lair",
-        tags=(ZorkGrandInquisitorTags.CORE,),
-        requirements=(
-            And(
-                Or(
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR.value),
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                ),
-                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
             )
         )
     ),

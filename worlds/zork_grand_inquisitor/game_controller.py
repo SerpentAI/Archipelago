@@ -84,6 +84,7 @@ class GameController:
     option_wild_voxam_chance: Optional[int]
     option_deathsanity: Optional[ZorkGrandInquisitorDeathsanity]
     option_landmarksanity: Optional[ZorkGrandInquisitorLandmarksanity]
+    option_shuffle_time_tunnels: Optional[bool]
     option_entrance_randomizer: Optional[ZorkGrandInquisitorEntranceRandomizer]
     option_entrance_randomizer_include_subway_destinations: Optional[bool]
     option_trap_percentage: Optional[int]
@@ -94,8 +95,8 @@ class GameController:
     starter_kit: Optional[List[str]]
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
 
-    entrance_randomizer_data: Dict[str, str]
     time_tunnel_destinations: Dict[str, str]
+    entrance_randomizer_data: Dict[str, str]
     entrance_randomizer_arrivals: Dict[Tuple[str, str], str]
 
     discovered_regions: Set[str]
@@ -179,6 +180,7 @@ class GameController:
         self.option_wild_voxam_chance = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
+        self.option_shuffle_time_tunnels = None
         self.option_entrance_randomizer = None
         self.option_entrance_randomizer_include_subway_destinations = None
         self.option_trap_percentage = None
@@ -189,8 +191,8 @@ class GameController:
         self.starter_kit = None
         self.initial_totemizer_destination = None
 
-        self.entrance_randomizer_data = dict()
         self.time_tunnel_destinations = dict()
+        self.entrance_randomizer_data = dict()
         self.entrance_randomizer_arrivals = dict()
 
         self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
@@ -336,6 +338,12 @@ class GameController:
 
             self.log(f"    Deathsanity: {labels_for_enum_items[self.option_deathsanity]}")
             self.log(f"    Landmarksanity: {labels_for_enum_items[self.option_landmarksanity]}")
+
+            if self.option_shuffle_time_tunnels:
+                self.log("    Shuffle Time Tunnels: On")
+            else:
+                self.log("    Shuffle Time Tunnels: Off")
+
             self.log(f"    Entrance Randomizer: {labels_for_enum_items[self.option_entrance_randomizer]}")
 
             if self.option_entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
@@ -486,6 +494,7 @@ class GameController:
         self.option_wild_voxam_chance = None
         self.option_deathsanity = None
         self.option_landmarksanity = None
+        self.option_shuffle_time_tunnels = None
         self.option_entrance_randomizer = None
         self.option_entrance_randomizer_include_subway_destinations = None
         self.option_trap_percentage = None
@@ -496,8 +505,8 @@ class GameController:
         self.starter_kit = None
         self.initial_totemizer_destination = None
 
-        self.entrance_randomizer_data = dict()
         self.time_tunnel_destinations = dict()
+        self.entrance_randomizer_data = dict()
         self.entrance_randomizer_arrivals = dict()
 
         self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
@@ -918,14 +927,11 @@ class GameController:
 
             completed_world: int = self._read_game_state_value_for(19987)
 
-            if 1 <= completed_world <= len(time_tunnel_names):
+            if completed_world:
                 used_tunnel: str = next(
-                    (
-                        tunnel
-                        for tunnel, world in self.time_tunnel_destinations.items()
-                        if world == time_tunnel_names[completed_world - 1]
-                    ),
-                    time_tunnel_names[completed_world - 1],
+                    tunnel
+                    for tunnel, world in self.time_tunnel_destinations.items()
+                    if world == time_tunnel_names[completed_world - 1]
                 )
 
                 vanilla_return: str
@@ -1597,10 +1603,12 @@ class GameController:
             4533: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
             4534: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
             4857: ZorkGrandInquisitorItems.HUNGUS_LARD,
+            4869: ZorkGrandInquisitorItems.HUNGUS_LARD,
             5158: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
             5161: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
             5162: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
             5163: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
+            6144: ZorkGrandInquisitorItems.ZIMDOR_SCROLL,
             13600: ZorkGrandInquisitorItems.SWORD,
             16964: ZorkGrandInquisitorItems.OLD_SCRATCH_CARD,
             17197: ZorkGrandInquisitorItems.STUDENT_ID,

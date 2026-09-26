@@ -202,6 +202,15 @@ class Landmarksanity(DefaultOnToggle):
     display_name: str = "Landmarksanity"
 
 
+class ShuffleTimeTunnels(Toggle):
+    """
+    If true, shuffles the destination of the three time tunnels. For example, the time tunnel in the Dungeon Master's
+    Lair could lead to the Dragon Archipelago instead of the White House.
+    """
+
+    display_name: str = "Shuffle Time Tunnels"
+
+
 class EntranceRandomizer(Choice):
     """
     Determines the behavior of entrances in the game.
@@ -358,6 +367,7 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     wild_voxam_chance: WildVoxamChance
     deathsanity: Deathsanity
     landmarksanity: Landmarksanity
+    shuffle_time_tunnels: ShuffleTimeTunnels
     entrance_randomizer: EntranceRandomizer
     entrance_randomizer_include_subway_destinations: EntranceRandomizerIncludeSubwayDestinations
     trap_percentage: TrapPercentage
@@ -390,6 +400,7 @@ option_groups: List[OptionGroup] = [
             WildVoxamChance,
             Deathsanity,
             Landmarksanity,
+            ShuffleTimeTunnels,
             EntranceRandomizer,
             EntranceRandomizerIncludeSubwayDestinations,
         ],

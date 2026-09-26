@@ -184,6 +184,8 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
                 id_to_landmarksanity()[_args["slot_data"]["landmarksanity"]]
             )
 
+            self.game_controller.option_shuffle_time_tunnels = _args["slot_data"]["shuffle_time_tunnels"] == 1
+
             self.game_controller.option_entrance_randomizer = (
                 id_to_entrance_randomizer()[_args["slot_data"]["entrance_randomizer"]]
             )
@@ -214,6 +216,9 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
             self.game_controller.initial_totemizer_destination = item_names_to_item()[
                 _args["slot_data"]["initial_totemizer_destination"]
             ]
+
+            # Time Tunnel Destinations
+            self.game_controller.time_tunnel_destinations = _args["slot_data"]["time_tunnel_destinations"]
 
             # Entrance Randomizer Data
             self.game_controller.entrance_randomizer_data = _args["slot_data"]["entrance_randomizer_data"]

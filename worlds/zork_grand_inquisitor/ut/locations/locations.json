@@ -904,7 +904,7 @@
                 ]
             },
             {
-                "name": "White House Time Tunnel",
+                "name": "Closet Time Tunnel",
                 "map_locations": [
                     {
                         "map": "map",
@@ -916,7 +916,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "White House Time Tunnel"
+                        "name": "Closet Time Tunnel"
                     }
                 ]
             },
@@ -1210,7 +1210,7 @@
                 ]
             },
             {
-                "name": "Dragon Archipelago Time Tunnel",
+                "name": "Hades Time Tunnel",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1222,7 +1222,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Dragon Archipelago Time Tunnel"
+                        "name": "Hades Time Tunnel"
                     }
                 ]
             },
@@ -2417,7 +2417,7 @@
                 ]
             },
             {
-                "name": "Port Foozle Time Tunnel",
+                "name": "Monastery Exhibit Time Tunnel",
                 "map_locations": [
                     {
                         "map": "map",
@@ -2429,7 +2429,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Port Foozle Time Tunnel"
+                        "name": "Monastery Exhibit Time Tunnel"
                     }
                 ]
             },

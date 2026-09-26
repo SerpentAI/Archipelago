@@ -131,6 +131,12 @@ for entrance_pair, game_location_pairs in entrances_to_game_locations.items():
     for game_location_pair in game_location_pairs:
         entrances_to_game_locations_reverse[game_location_pair] = entrance_pair
 
+time_tunnels: Tuple[Tuple[str, ZGIRegions, ZGIRegions], ...] = (
+    ("dw1j", ZGIRegions.DM_LAIR_INTERIOR, ZGIRegions.WHITE_HOUSE),
+    ("hp6f", ZGIRegions.HADES_BEYOND_GATES, ZGIRegions.DRAGON_ARCHIPELAGO),
+    ("me2f", ZGIRegions.MONASTERY_EXHIBIT, ZGIRegions.PORT_FOOZLE_PAST),
+)
+
 randomizable_entrances: Tuple[Tuple[ZGIRegions, ZGIRegions]] = (
     (ZGIRegions.BOTTOM_OF_THE_WELL, ZGIRegions.CROSSROADS),
     (ZGIRegions.BOTTOM_OF_THE_WELL, ZGIRegions.OUTSIDE_PORT_FOOZLE_WELL),

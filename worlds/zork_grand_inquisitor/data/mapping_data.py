@@ -127,7 +127,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
         ZorkGrandInquisitorRegions.WHITE_HOUSE
-    ): "Through the White House Time Tunnel",
+    ): "Through the Closet Time Tunnel",
     (
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON
@@ -187,7 +187,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
-    ): "Through the Dragon Archipelago Time Tunnel",
+    ): "Through the Hades Time Tunnel",
     (
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES,
         ZorkGrandInquisitorRegions.HADES
@@ -223,7 +223,7 @@ entrance_names: Dict[
     (
         ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
-    ): "Through the Past Port Foozle Time Tunnel",
+    ): "Through the Monastery Exhibit Time Tunnel",
     (
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
