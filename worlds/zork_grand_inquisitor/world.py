@@ -31,6 +31,8 @@ from .data.mapping_data import (
     starter_kit_for_entrance_randomizer,
     starter_kits_for_starting_location,
     starting_location_to_region,
+    time_tunnel_for_starting_location,
+    time_tunnel_starter_kit_items,
 )
 
 from .data_funcs import (
@@ -223,6 +225,38 @@ class ZorkGrandInquisitorWorld(World):
             self.starter_kit = self.random.choice(
                 starter_kits_for_starting_location[self.starting_location]
             )
+
+            if self.time_tunnel_destinations and self.starting_location in time_tunnel_for_starting_location:
+                starting_tunnel_id: str = time_tunnel_for_starting_location[self.starting_location]
+
+                world_for_tunnel: Dict[str, ZorkGrandInquisitorRegions] = {
+                    time_tunnel_id: world_region for time_tunnel_id, _, world_region in time_tunnels
+                }
+
+                vanilla_world: ZorkGrandInquisitorRegions = world_for_tunnel[starting_tunnel_id]
+                destination_world: ZorkGrandInquisitorRegions = world_for_tunnel[
+                    self.time_tunnel_destinations[starting_tunnel_id]
+                ]
+
+                totem: ZorkGrandInquisitorItems
+                for totem in (
+                    ZorkGrandInquisitorItems.TOTEM_BROG,
+                    ZorkGrandInquisitorItems.TOTEM_GRIFF,
+                    ZorkGrandInquisitorItems.TOTEM_LUCY,
+                ):
+                    if totem in self.starter_kit and destination_world != vanilla_world:
+                        starter_kit_adjusted: List[ZorkGrandInquisitorItems] = [
+                            item
+                            for item in self.starter_kit
+                            if item not in time_tunnel_starter_kit_items[(vanilla_world, totem)]
+                        ]
+
+                        item: ZorkGrandInquisitorItems
+                        for item in time_tunnel_starter_kit_items[(destination_world, totem)]:
+                            if item not in starter_kit_adjusted:
+                                starter_kit_adjusted.append(item)
+
+                        self.starter_kit = tuple(starter_kit_adjusted)
 
             if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
                 starter_kit_extended: List[ZorkGrandInquisitorItems] = list(self.starter_kit)
@@ -635,6 +669,7 @@ class ZorkGrandInquisitorWorld(World):
             "trap_percentage",
             "grant_missable_location_checks",
             "client_seed_information",
+            "in_game_overlay",
             "death_link",
         )
 
@@ -895,8 +930,8 @@ class ZorkGrandInquisitorWorld(World):
                 ZorkGrandInquisitorItems.SPELL_GOLGATEM,
                 ZorkGrandInquisitorItems.SPELL_IGRAM,
                 ZorkGrandInquisitorItems.SPELL_KENDALL,
-                ZorkGrandInquisitorItems.SPELL_OBIDIL,
                 ZorkGrandInquisitorItems.SPELL_NARWILE,
+                ZorkGrandInquisitorItems.SPELL_OBIDIL,
                 ZorkGrandInquisitorItems.SPELL_REZROV,
                 ZorkGrandInquisitorItems.SPELL_SNAVIG,
                 ZorkGrandInquisitorItems.SPELL_THROCK,

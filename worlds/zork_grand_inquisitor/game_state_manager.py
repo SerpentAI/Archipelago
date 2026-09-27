@@ -4,11 +4,17 @@ from pymem import Pymem
 from pymem.process import close_handle, list_processes
 from pymem.ressources.structure import ProcessEntry32
 
-from .scummvm_zvision import ScummVMZVisionProcess
+from .scummvm_zvision import OVERLAY_SCREEN_WIDTH, OVERLAY_TRANSPARENT_COLOR, ScummVMZVisionProcess
 
 
 class GameStateManager:
     process_name: str = "scummvm.exe"
+    goal_progress_overlay_layer: int = 0
+    toast_frame_overlay_layer: int = 1
+    toast_overlay_layer: int = 2
+    status_overlay_layer: int = 3
+    in_logic_frame_overlay_layer: int = 4
+    in_logic_overlay_layer: int = 5
 
     process: Optional[Pymem]
     is_process_running: bool
@@ -44,6 +50,8 @@ class GameStateManager:
     state_flag_overrides: Dict[int, bool]
     location_redirects: List[Tuple[str, str, str, int]]
     are_location_redirects_suspended: bool
+    shown_overlays: Dict[int, Tuple[int, str, int, int, int, int, int, bool, int, Optional[Tuple[int, int, int]]]]
+    is_widescreen: bool
 
     zvision_trap_defaults: Optional[Tuple[float, float]]
 
@@ -82,6 +90,8 @@ class GameStateManager:
         self.state_flag_overrides = dict()
         self.location_redirects = list()
         self.are_location_redirects_suspended = False
+        self.shown_overlays = dict()
+        self.is_widescreen = False
 
         self.zvision_trap_defaults = None
 
@@ -131,6 +141,7 @@ class GameStateManager:
         return True
 
     def close_process_handle(self) -> bool:
+        self.clear_overlays()
         self.set_game_changes_active(False)
 
         if close_handle(self.process.process_handle):
@@ -156,6 +167,7 @@ class GameStateManager:
             self.state_flag_overrides = dict()
             self.location_redirects = list()
             self.are_location_redirects_suspended = False
+            self.shown_overlays = dict()
 
             return True
 
@@ -187,6 +199,7 @@ class GameStateManager:
             self.state_flag_overrides = dict()
             self.location_redirects = list()
             self.are_location_redirects_suspended = False
+            self.shown_overlays = dict()
 
             return False
 
@@ -208,6 +221,7 @@ class GameStateManager:
                 self.zvision.block_actions(self.blocked_actions if self.are_game_changes_active else list())
                 self.zvision.set_state_flag_overrides(self.state_flag_overrides if self.are_game_changes_active else dict())
                 self.zvision.set_location_redirects(self.location_redirects if self.are_game_changes_active and not self.are_location_redirects_suspended else list())
+                self.shown_overlays = dict()
 
             if not self.zvision.is_game_running():
                 return False
@@ -254,6 +268,8 @@ class GameStateManager:
                 self.pending_state_values = dict()
                 self.pending_state_flags = dict()
                 self.engine_address = engine_address
+                self.shown_overlays = dict()
+                self.is_widescreen = self.zvision.is_widescreen()
                 self.needs_resynchronization = False
 
                 self.state_value_journal_start += len(self.state_value_journal)
@@ -602,13 +618,127 @@ class GameStateManager:
 
         return True
 
-    def show_message(self, message: str) -> bool:
+    @property
+    def toast_capacity(self) -> int:
+        return 3 if self.is_widescreen else 2
+
+    def show_goal_progress(self, text: str) -> bool:
+        return self._show_overlays([
+            (
+                self.goal_progress_overlay_layer,
+                f"<justify right> {text} " if text else "",
+                OVERLAY_SCREEN_WIDTH - 302,
+                (344 if self.is_widescreen else 480) - 15,
+                300,
+                13,
+                OVERLAY_TRANSPARENT_COLOR if self.is_widescreen else 0,
+                True,
+                255,
+                None,
+            ),
+        ])
+
+    def show_toasts(self, messages: List[str]) -> bool:
+        lines: str = "<newline>".join(f" {message} " for message in messages)
+
+        return self._show_overlays([
+            (
+                self.toast_frame_overlay_layer,
+                f'<justify center><font "times"><point 13><red 0><green 0><blue 0>{lines}',
+                0,
+                34,
+                OVERLAY_SCREEN_WIDTH,
+                14 * self.toast_capacity,
+                OVERLAY_TRANSPARENT_COLOR if self.is_widescreen else 0,
+                True,
+                160,
+                (0, 14, self.toast_capacity),
+            ),
+            (
+                self.toast_overlay_layer,
+                f'<justify center><font "times"><point 13><red 255><green 215><blue 0>{lines}',
+                0,
+                34,
+                OVERLAY_SCREEN_WIDTH,
+                14 * self.toast_capacity,
+                OVERLAY_TRANSPARENT_COLOR if self.is_widescreen else 0,
+                False,
+                255,
+                None,
+            ),
+        ])
+
+    def show_status(self, messages: List[str]) -> bool:
+        return self._show_overlays([
+            (
+                self.status_overlay_layer,
+                "<newline>".join([""] * (4 - len(messages[-4:])) + [f" {message} " for message in messages[-4:]]),
+                2,
+                (344 if self.is_widescreen else 480) - 54,
+                300,
+                52,
+                OVERLAY_TRANSPARENT_COLOR if self.is_widescreen else 0,
+                True,
+                255,
+                None,
+            ),
+        ])
+
+    def show_in_logic(self, locations: List[str], is_dimmed: bool) -> bool:
+        names: List[str] = [location.replace("Landmark Visited: ", "Landmark: ", 1) for location in locations[:19]]
+
+        lines: str = "<newline>".join(
+            f" {name if len(name) <= 38 else name[:35].rstrip() + '...'} "
+            for name in names + ([f"+{len(locations) - 19} More..."] if len(locations) > 19 else [])
+        )
+
+        return self._show_overlays([
+            (
+                self.in_logic_frame_overlay_layer,
+                f"<justify right><point 11><red 0><green 0><blue 0><newline>{lines}",
+                OVERLAY_SCREEN_WIDTH - 302,
+                (46 if self.is_widescreen else 82) - 13,
+                300,
+                13 + 20 * 12,
+                OVERLAY_TRANSPARENT_COLOR,
+                True,
+                48 if is_dimmed else 128,
+                (13, 12, 20),
+            ),
+            (
+                self.in_logic_overlay_layer,
+                f"<justify right><point 11><newline>{lines}",
+                OVERLAY_SCREEN_WIDTH - 302,
+                (46 if self.is_widescreen else 82) - 13,
+                300,
+                13 + 20 * 12,
+                OVERLAY_TRANSPARENT_COLOR,
+                False,
+                88 if is_dimmed else 208,
+                None,
+            ),
+        ])
+
+    def clear_overlays(self) -> None:
+        self.show_goal_progress("")
+        self.show_toasts(list())
+        self.show_status(list())
+        self.show_in_logic(list(), False)
+
+    def _show_overlays(self, overlays: List[Tuple[int, str, int, int, int, int, int, bool, int, Optional[Tuple[int, int, int]]]]) -> bool:
         if not self.is_process_running:
             return False
 
+        if all(self.shown_overlays.get(overlay[0]) == overlay for overlay in overlays):
+            return True
+
         try:
-            self.zvision.show_message(message, 4000)
+            self.zvision.show_overlays(overlays)
         except Exception:
             return False
+
+        overlay: Tuple[int, str, int, int, int, int, int, bool, int, Optional[Tuple[int, int, int]]]
+        for overlay in overlays:
+            self.shown_overlays[overlay[0]] = overlay
 
         return True

@@ -7,6 +7,19 @@ import Utils
 
 from typing import Any, Dict, List, Optional, Set
 
+from MultiServer import mark_raw
+
+tracker_loaded: bool = False
+
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as Context
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor as CommandProcessor
+
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as Context
+    from CommonClient import ClientCommandProcessor as CommandProcessor
+
 from .data_funcs import (
     item_names_to_id,
     item_names_to_item,
@@ -16,6 +29,7 @@ from .data_funcs import (
     id_to_deathsanity,
     id_to_entrance_randomizer,
     id_to_hotspots,
+    id_to_in_game_overlay_options,
     id_to_items,
     id_to_landmarksanity,
     id_to_locations,
@@ -27,7 +41,7 @@ from .enums import ZorkGrandInquisitorItems, ZorkGrandInquisitorLocations
 from .game_controller import GameController
 
 
-class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
+class ZorkGrandInquisitorCommandProcessor(CommandProcessor):
     ctx: "ZorkGrandInquisitorContext"
 
     def _cmd_zork(self) -> None:
@@ -71,8 +85,13 @@ class ZorkGrandInquisitorCommandProcessor(CommonClient.ClientCommandProcessor):
 
         self.ctx.on_deathlink({"time": time.time(), "source": "Manual Test", "cause": "Manual DeathLink Test"})
 
+    @mark_raw
+    def _cmd_toast(self, message: str = "") -> None:
+        """Show a toast message in game."""
+        self.ctx.game_controller.show_toast(message)
 
-class ZorkGrandInquisitorContext(CommonClient.CommonContext):
+
+class ZorkGrandInquisitorContext(Context):
     tags: Set[str] = {"AP"}
     game: str = "Zork Grand Inquisitor"
     command_processor: CommonClient.ClientCommandProcessor = ZorkGrandInquisitorCommandProcessor
@@ -110,9 +129,15 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         self.process_attached_at_least_once = False
         self.can_display_process_message = True
 
+        if tracker_loaded:
+            def update_locations_in_logic(locations_in_logic: List[str]) -> None:
+                self.game_controller.locations_in_logic = locations_in_logic
+
+            self.update_callback = update_locations_in_logic
+
     def make_gui(self):
-        from .client_gui.client_gui import ZorkGrandInquisitorManager
-        return ZorkGrandInquisitorManager
+        from .client_gui.client_gui import bootstrap_client_gui
+        return bootstrap_client_gui(super().make_gui())
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -137,6 +162,11 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         self.ui.update_tabs()
 
         await super().disconnect(allow_autoreconnect)
+
+    async def shutdown(self):
+        self.game_controller.clear_overlays()
+
+        await super().shutdown()
 
     def on_package(self, cmd: str, _args: Any) -> None:
         if cmd == "Connected":
@@ -202,6 +232,10 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
 
             self.game_controller.option_client_seed_information = (
                 id_to_client_seed_information()[_args["slot_data"]["client_seed_information"]]
+            )
+
+            self.game_controller.option_in_game_overlay = (
+                id_to_in_game_overlay_options()[_args["slot_data"]["in_game_overlay"]]
             )
 
             is_death_link = _args["slot_data"]["death_link"] == 1
@@ -276,6 +310,23 @@ class ZorkGrandInquisitorContext(CommonClient.CommonContext):
         elif cmd == "SetReply":
             if _args["key"] == self.data_storage_key:
                 self.ui.update_tabs()
+
+        super().on_package(cmd, _args)
+
+    def on_print_json(self, args: Dict[str, Any]) -> None:
+        if args.get("type") == "ItemSend" and self.game_controller.is_process_running():
+            network_item: NetUtils.NetworkItem = args["item"]
+            receiving: int = args["receiving"]
+            item_name: str = self.item_names.lookup_in_slot(network_item.item, receiving)
+
+            if network_item.player == self.slot and receiving == self.slot:
+                self.game_controller.show_toast(f"Found {item_name}")
+            elif receiving == self.slot:
+                self.game_controller.show_toast(f"Received {item_name} from {self.player_names[network_item.player]}")
+            elif network_item.player == self.slot:
+                self.game_controller.show_toast(f"Sent {item_name} to {self.player_names[receiving]}")
+
+        super().on_print_json(args)
 
     def on_deathlink(self, data: Dict[str, Any]) -> None:
         self.last_death_link = max(data["time"], self.last_death_link)
@@ -437,6 +488,9 @@ def main() -> None:
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="ZorkGrandInquisitorController")
+
+        if tracker_loaded:
+            ctx.run_generator()
 
         if CommonClient.gui_enabled:
             ctx.run_gui()

@@ -301,6 +301,46 @@ class TrackerLocationsLayout(ScrollView):
             ZorkGrandInquisitorLocations.GOOD_PUZZLE_SMART_BROG,
             ZorkGrandInquisitorLocations.HMMM_BIG_TOOTHPICK,
             ZorkGrandInquisitorLocations.WHOOPS,
+            ZorkGrandInquisitorLocations.ROPE,
+            ZorkGrandInquisitorLocations.MEAD_LIGHT_AND_PLASTIC_SIX_PACK_HOLDER,
+            ZorkGrandInquisitorLocations.LANTERN,
+            ZorkGrandInquisitorLocations.SHOVEL,
+            ZorkGrandInquisitorLocations.THROCK_SCROLL,
+            ZorkGrandInquisitorLocations.HUNGUS_LARD,
+            ZorkGrandInquisitorLocations.JAR_OF_HOTBUGS,
+            ZorkGrandInquisitorLocations.FLATHEADIA_FUDGE,
+            ZorkGrandInquisitorLocations.MUG,
+            ZorkGrandInquisitorLocations.QUELBEE_HONEYCOMB,
+            ZorkGrandInquisitorLocations.SNAPDRAGON,
+            ZorkGrandInquisitorLocations.SCROLL_FRAGMENT_ANS,
+            ZorkGrandInquisitorLocations.SCROLL_FRAGMENT_GIV,
+            ZorkGrandInquisitorLocations.NARWILE_SCROLL,
+            ZorkGrandInquisitorLocations.MOSS_OF_MAREILON,
+            ZorkGrandInquisitorLocations.GOLGATEM_SCROLL,
+            ZorkGrandInquisitorLocations.LETTER_OPENER,
+            ZorkGrandInquisitorLocations.BROGS_TOTEM,
+            ZorkGrandInquisitorLocations.KENDALL_SCROLL,
+            ZorkGrandInquisitorLocations.STUDENT_ID,
+            ZorkGrandInquisitorLocations.PROZORK_TABLET,
+            ZorkGrandInquisitorLocations.POUCH_OF_ZORKMIDS,
+            ZorkGrandInquisitorLocations.ZORK_ROCKS,
+            ZorkGrandInquisitorLocations.OLD_SCRATCH_CARD,
+            ZorkGrandInquisitorLocations.HAMMER,
+            ZorkGrandInquisitorLocations.MAP,
+            ZorkGrandInquisitorLocations.SWORD,
+            ZorkGrandInquisitorLocations.GRIFFS_TOTEM,
+            ZorkGrandInquisitorLocations.ZIMDOR_SCROLL,
+            ZorkGrandInquisitorLocations.SUBWAY_TOKEN,
+            ZorkGrandInquisitorLocations.LUCYS_TOTEM,
+            ZorkGrandInquisitorLocations.GRIFFS_INFLATABLE_SEA_CAPTAIN,
+            ZorkGrandInquisitorLocations.GRIFFS_INFLATABLE_RAFT,
+            ZorkGrandInquisitorLocations.GRIFFS_AIR_PUMP,
+            ZorkGrandInquisitorLocations.GRIFFS_DRAGON_TOOTH,
+            ZorkGrandInquisitorLocations.LUCYS_PLAYING_CARDS,
+            ZorkGrandInquisitorLocations.BROGS_BICKERING_TORCH,
+            ZorkGrandInquisitorLocations.BROGS_FLICKERING_TORCH,
+            ZorkGrandInquisitorLocations.BROGS_GRUE_EGG,
+            ZorkGrandInquisitorLocations.BROGS_PLANK,
         ]
 
         if self.ctx.game_controller.option_goal != ZorkGrandInquisitorGoals.THREE_ARTIFACTS:
@@ -365,7 +405,8 @@ class TrackerLocationsLayout(ScrollView):
                 ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK,
                 ZorkGrandInquisitorLocations.DEATH_LOST_GAME_OF_STRIP_GRUE_FIRE_WATER,
                 ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD,
-                ZorkGrandInquisitorLocations.DEATH_EATEN_BY_A_GRUE
+                ZorkGrandInquisitorLocations.DEATH_EATEN_BY_A_GRUE,
+                ZorkGrandInquisitorLocations.DEATH_RILED_THE_FISHWIFE,
             ]
 
             self.layout.add_widget(
@@ -937,6 +978,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
             ZorkGrandInquisitorItems.HOTSPOT_TAVERN_FLY,
             ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
             ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
+            ZorkGrandInquisitorItems.HOTSPOT_GARDEN_SHED,
         ]
 
         item: ZorkGrandInquisitorItems

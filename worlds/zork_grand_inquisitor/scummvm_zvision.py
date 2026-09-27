@@ -14,13 +14,14 @@ from pymem import Pymem
 
 
 SCUMMVM_SIZE_OF_IMAGE: int = 0xC5A6000
-SCUMMVM_FUNCTION_FINGERPRINT: int = 0xE39D76AA
+SCUMMVM_FUNCTION_FINGERPRINT: int = 0x37FAFE8D
 
 SCUMMVM_FUNCTION_RVAS: Dict[str, int] = {
     "ActionInventory::ActionInventory": 0x3565D80,
     "ActionInventory::execute": 0x3563D50,
     "Control::parsePanoramaControl": 0x3567840,
     "Control::parseTiltControl": 0x3567B20,
+    "ManagedSurface::transBlitFrom": 0x388D650,
     "MenuManager::setEnable": 0x3556D40,
     "MenuNemesis::process": 0x3556840,
     "MenuZGI::process": 0x3556970,
@@ -57,7 +58,10 @@ SCUMMVM_FUNCTION_RVAS: Dict[str, int] = {
     "ScriptManager::setStateValue": 0x3543BC0,
     "ScriptManager::unsetStateFlag": 0x3544360,
     "ScriptManager::updateNodes": 0x3541E70,
-    "SubtitleManager::timedMessage": 0x355DEC0,
+    "Screen::update": 0x38B1240,
+    "Surface::create": 0x38B5420,
+    "Surface::fillRect": 0x38B5CF0,
+    "TextRenderer::drawTextWithWordWrapping": 0x355F4D0,
     "ZVision::getGameId": 0x3541880,
     "ZVision::initialize": 0x3546E00,
     "ZVision::playVideo": 0x3562140,
@@ -129,6 +133,7 @@ SCUMMVM_DETOUR_PROLOGUES: Dict[str, bytes] = {
     "ScriptManager::ChangeLocationReal": bytes.fromhex("4157415641554154555756534881ecd8000000"),
     "ScriptManager::getStateFlag": bytes.fromhex("534883ec20448b91280100004c8b8920010000"),
     "ScriptManager::getStateValue": bytes.fromhex("534883ec20448b91900000004c8b8988000000"),
+    "Screen::update": bytes.fromhex("41554154555756534883ec48488d7170"),
 }
 
 ZVISION_MEMBER_OFFSETS: Dict[str, int] = {
@@ -138,6 +143,7 @@ ZVISION_MEMBER_OFFSETS: Dict[str, int] = {
     "MenuManager::_engine": 0x18,
     "MenuManager::_menuBarFlag": 0x44,
     "RenderManager::_renderTable": 0x3F8,
+    "RenderManager::_screen": 0x98,
     "RenderTable::_panoramaOptions.linearScale": 0x3C,
     "RenderTable::_panoramaOptions.reverse": 0x40,
     "RenderTable::_panoramaOptions.verticalFOV": 0x38,
@@ -164,10 +170,12 @@ ZVISION_MEMBER_OFFSETS: Dict[str, int] = {
     "ZVision::_gameDescription": 0xA8,
     "ZVision::_menu": 0xF8,
     "ZVision::_renderManager": 0xC0,
+    "ZVision::_resourcePixelFormat": 0x98,
     "ZVision::_saveManager": 0xF0,
     "ZVision::_scriptManager": 0xB8,
-    "ZVision::_subtitleManager": 0x100,
+    "ZVision::_textRenderer": 0xD8,
     "ZVision::_videoIsPlaying": 0x1A2,
+    "ZVision::_widescreen": 0x1A1,
     "ZVisionGameDescription::gameId": 0x1E0,
 }
 
@@ -180,6 +188,7 @@ ZVISION_STRUCTURE_OFFSETS: Dict[str, int] = {
     "Puzzle::resultActions": 0x18,
     "Control::_key": 0x10,
     "Control::_type": 0x18,
+    "ManagedSurface::w": 0x50,
     "ScriptingEffect::_key": 0x10,
     "ScriptingEffect::_type": 0x14,
 }
@@ -208,12 +217,14 @@ LOAD_RESULT_OFFSET: int = 0x2000
 SAVE_NAME_OFFSET: int = 0x2040
 SAVE_NAME_BUFFER_OFFSET: int = 0x2080
 STRING_REFERENCE_COUNT_OFFSET: int = 0x2180
-MESSAGE_STRINGS_OFFSET: int = 0x2200
 FLAG_OVERRIDE_CODE_OFFSET: int = 0x2300
 FLAG_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x2400
 READ_OVERRIDE_CODE_OFFSET: int = 0x2480
 READ_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x2580
 CURRENT_PUZZLE_TRAMPOLINE_OFFSET: int = 0x2600
+OVERLAY_CODE_OFFSET: int = 0x2680
+OVERLAY_DATA_OFFSET: int = 0x2C00
+OVERLAY_GAP_DATA_OFFSET: int = 0x2F00
 STATE_OVERRIDE_DATA_OFFSET: int = 0x3000
 STATE_VALUE_REMAP_DATA_OFFSET: int = 0x3300
 LOCATION_REDIRECT_DATA_OFFSET: int = 0x3400
@@ -222,12 +233,12 @@ PICKUP_TABLE_OFFSET: int = 0x5000
 READ_OVERRIDE_DATA_OFFSET: int = 0x5400
 SNAPSHOT_KEYS_OFFSET: int = 0x6000
 SNAPSHOT_VALUES_OFFSET: int = 0xA000
-MESSAGE_BUFFERS_OFFSET: int = 0xE000
 ACTION_LOG_OFFSET: int = 0x10000
 STATE_CHANGE_LOG_OFFSET: int = 0x20000
 FLAG_OVERRIDE_DISABLED_OFFSET: int = 0x40000
 FLAG_OVERRIDE_ENABLED_OFFSET: int = 0x41000
-CAVE_SIZE: int = 0x42000
+OVERLAY_TEXT_OFFSET: int = 0x42000
+CAVE_SIZE: int = 0x4E000
 
 CALL_RECORD_CAPACITY: int = 16
 STATE_CHANGE_LOG_CAPACITY: int = 16384
@@ -241,10 +252,13 @@ PICKUP_TABLE_SIZE: int = 0x400
 SNAPSHOT_CAPACITY: int = 4096
 ACTION_BLOCK_CAPACITY: int = 64
 ACTION_LOG_CAPACITY: int = 8192
-MESSAGE_CAPACITY: int = 8
-MESSAGE_LENGTH: int = 255
+OVERLAY_CAPACITY: int = 6
+OVERLAY_LAYER_SIZE: int = 0x80
+OVERLAY_TEXT_LENGTH: int = 2047
+OVERLAY_SCREEN_WIDTH: int = 640
+OVERLAY_TRANSPARENT_COLOR: int = 0xFFFF
 
-MAILBOX_MAGIC: int = 0x0653495656505A41
+MAILBOX_MAGIC: int = 0x0C53495656505A41
 MAILBOX_STATE_IDLE: int = 0
 MAILBOX_STATE_PENDING: int = 1
 MAILBOX_STATE_DONE: int = 2
@@ -265,6 +279,7 @@ DETOURS: List[Tuple[str, int]] = [
     ("ScriptManager::ChangeLocationReal", LOCATION_CHANGE_CODE_OFFSET),
     ("ScriptManager::getStateFlag", FLAG_OVERRIDE_CODE_OFFSET),
     ("ScriptManager::getStateValue", READ_OVERRIDE_CODE_OFFSET),
+    ("Screen::update", OVERLAY_CODE_OFFSET),
 ]
 
 
@@ -763,6 +778,58 @@ def build_pickup_filter_code(cave_address: int, module_base: int) -> bytes:
     ])
 
 
+def build_overlay_code(cave_address: int, module_base: int) -> bytes:
+    parts: List = [
+        b"\x51",  # push rcx  ; screen
+        b"\x52",  # push rdx
+        b"\x48\x83\xEC\x58",  # sub rsp, 0x58
+    ]
+
+    layer: int
+    for layer in range(OVERLAY_CAPACITY):
+        parts.extend([
+            b"\x48\x8B\x4C\x24\x60",  # mov rcx, [rsp + 0x60]  ; screen
+            b"\x49\xBA" + struct.pack("<Q", cave_address + OVERLAY_DATA_OFFSET + layer * OVERLAY_LAYER_SIZE),  # mov r10, overlay layer
+            b"\x41\x83\x3A\x00",  # cmp dword [r10], 0  ; is shown
+            ("jump", b"\x74", f"skip_{layer}"),  # je skip
+            b"\x49\x3B\x4A\x08",  # cmp rcx, [r10 + 0x08]  ; screen the layer was made for
+            ("jump", b"\x75", f"skip_{layer}"),  # jne skip
+            b"\x48\x8B\x41" + struct.pack("<b", ZVISION_STRUCTURE_OFFSETS["ManagedSurface::w"]),  # mov rax, [rcx + width reference]
+            b"\x66\x81\x38" + struct.pack("<H", OVERLAY_SCREEN_WIDTH),  # cmp word [rax], screen width  ; not during hi-res videos
+            ("jump", b"\x75", f"skip_{layer}"),  # jne skip
+            b"\x49\x8D\x52\x10",  # lea rdx, [r10 + 0x10]  ; surface
+            b"\x4D\x8D\x42\x30",  # lea r8, [r10 + 0x30]  ; source rectangle
+            b"\x4D\x8D\x4A\x38",  # lea r9, [r10 + 0x38]  ; destination rectangle
+            b"\xC7\x44\x24\x20" + struct.pack("<I", OVERLAY_TRANSPARENT_COLOR),  # mov dword [rsp + 0x20], transparent color
+            b"\xC7\x44\x24\x28\x00\x00\x00\x00",  # mov dword [rsp + 0x28], 0  ; not flipped
+            b"\x41\x8B\x42\x04",  # mov eax, [r10 + 0x04]  ; alpha
+            b"\x3D\xFF\x00\x00\x00",  # cmp eax, 0xFF
+            ("jump", b"\x74", f"alpha_{layer}"),  # je alpha
+            b"\x49\xBB" + struct.pack("<Q", module_base + SCUMMVM_GLOBAL_RVAS["g_engine"]),  # mov r11, g_engine
+            b"\x4D\x8B\x1B",  # mov r11, [r11]  ; engine
+            b"\x41\x80\xBB" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ZVision::_videoIsPlaying"]) + b"\x00",  # cmp byte [r11 + video is playing], 0
+            ("jump", b"\x74", f"alpha_{layer}"),  # je alpha
+            b"\xB8\xFF\x00\x00\x00",  # mov eax, 0xFF  ; opaque while a video plays over an unrefreshed scene
+            ("label", f"alpha_{layer}"),
+            b"\x89\x44\x24\x30",  # mov [rsp + 0x30], eax
+            b"\x48\xC7\x44\x24\x38\x00\x00\x00\x00",  # mov qword [rsp + 0x38], 0  ; no palette
+            b"\x48\xC7\x44\x24\x40\x00\x00\x00\x00",  # mov qword [rsp + 0x40], 0
+            b"\x48\xB8" + struct.pack("<Q", module_base + SCUMMVM_FUNCTION_RVAS["ManagedSurface::transBlitFrom"]),  # mov rax, transBlitFrom
+            b"\xFF\xD0",  # call rax
+            ("label", f"skip_{layer}"),
+        ])
+
+    parts.extend([
+        b"\x48\x83\xC4\x58",  # add rsp, 0x58
+        b"\x5A",  # pop rdx
+        b"\x59",  # pop rcx
+        SCUMMVM_DETOUR_PROLOGUES["Screen::update"],  # original prologue
+        absolute_jump(module_base + SCUMMVM_FUNCTION_RVAS["Screen::update"] + len(SCUMMVM_DETOUR_PROLOGUES["Screen::update"])),
+    ])
+
+    return assemble(parts)
+
+
 class ScummVMZVisionProcess:
     process: Pymem
     module: pymem.ressources.structure.MODULEINFO
@@ -773,7 +840,6 @@ class ScummVMZVisionProcess:
     state_change_log_cursor: Optional[int]
     arrival_log_cursor: Optional[int]
     action_log_cursor: Optional[int]
-    message_index: int
     call_timeout_seconds: float
 
     def __init__(self, process: Pymem, module_name: str) -> None:
@@ -798,7 +864,6 @@ class ScummVMZVisionProcess:
         self.state_change_log_cursor = None
         self.arrival_log_cursor = None
         self.action_log_cursor = None
-        self.message_index = 0
         self.call_timeout_seconds = 5.0
 
     def install_hooks(self) -> None:
@@ -867,6 +932,9 @@ class ScummVMZVisionProcess:
 
     def is_video_playing(self) -> bool:
         return bool(self.process.read_uchar(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_videoIsPlaying"]))
+
+    def is_widescreen(self) -> bool:
+        return bool(self.process.read_uchar(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_widescreen"]))
 
     def read_engine_address(self) -> int:
         if not self.is_zvision_running():
@@ -1289,26 +1357,70 @@ class ScummVMZVisionProcess:
 
         return [item for item, value in enumerate(table) if value == PICKUP_CHECKED]
 
-    def show_message(self, text: str, milliseconds: int = 3000) -> None:
+    def show_overlays(self, overlays: Sequence[Tuple[int, str, int, int, int, int, int, bool, int, Optional[Tuple[int, int, int]]]]) -> None:
         cave_address: int = self._require_cave()
-        encoded: bytes = text[:MESSAGE_LENGTH].encode("utf-32-le")
-        string_address: int = cave_address + MESSAGE_STRINGS_OFFSET + self.message_index * 0x20
-        buffer_address: int = cave_address + MESSAGE_BUFFERS_OFFSET + self.message_index * 4 * (MESSAGE_LENGTH + 1)
+        engine: int = self.read_engine_address()
+        screen: int = self.read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"]) + ZVISION_MEMBER_OFFSETS["RenderManager::_screen"]
+        text_renderer: int = self.read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_textRenderer"])
+        copy_address: int = cave_address + COPY_CODE_OFFSET
+        calls: List[Tuple[int, ...]] = list()
 
-        self.message_index = (self.message_index + 1) % MESSAGE_CAPACITY
+        layer: int
+        text: str
+        x: int
+        y: int
+        width: int
+        height: int
+        fill_color: int
+        has_black_frame: bool
+        alpha: int
+        line_gaps: Optional[Tuple[int, int, int]]
+        for layer, text, x, y, width, height, fill_color, has_black_frame, alpha, line_gaps in overlays:
+            layer_address: int = cave_address + OVERLAY_DATA_OFFSET + layer * OVERLAY_LAYER_SIZE
+            text_address: int = cave_address + OVERLAY_TEXT_OFFSET + layer * 4 * (OVERLAY_TEXT_LENGTH + 1)
+            encoded: bytes = text[:OVERLAY_TEXT_LENGTH].encode("utf-32-le")
 
-        self.process.write_bytes(buffer_address, encoded + b"\x00" * 4, len(encoded) + 4)
-        self.process.write_bytes(
-            string_address,
-            struct.pack("<IIQQI4x", len(encoded) // 4, 0, buffer_address, cave_address + STRING_REFERENCE_COUNT_OFFSET, MESSAGE_LENGTH + 1),
-            0x20,
-        )
+            self.process.write_bytes(text_address, encoded + b"\x00" * 4, len(encoded) + 4)
+            self.process.write_bytes(
+                layer_address + 0x40,
+                struct.pack("<IIQQI4x", len(encoded) // 4, 0, text_address, cave_address + STRING_REFERENCE_COUNT_OFFSET, OVERLAY_TEXT_LENGTH + 1),
+                0x20,
+            )
+            self.process.write_bytes(
+                layer_address + 0x60,
+                struct.pack("<IIQ8h", 1, alpha, screen, 0, 0, height, width, y, x, y + height, x + width),
+                0x20,
+            )
 
-        subtitle_manager: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_subtitleManager"])
+            calls.extend([
+                (self._get_function_address("Surface::create"), layer_address + 0x10, width, height, engine + ZVISION_MEMBER_OFFSETS["ZVision::_resourcePixelFormat"]),
+                (self._get_function_address("Surface::fillRect"), layer_address + 0x10, (width << 48) | (height << 32), fill_color),
+                (self._get_function_address("TextRenderer::drawTextWithWordWrapping"), text_renderer, layer_address + 0x40, layer_address + 0x10, int(has_black_frame)),
+            ])
 
-        self.call_on_main_thread([
-            (self._get_function_address("SubtitleManager::timedMessage"), subtitle_manager, string_address, milliseconds),
-        ])
+            if line_gaps is not None:
+                first_row: int
+                line_height: int
+                line_count: int
+                first_row, line_height, line_count = line_gaps
+
+                gap_address: int = cave_address + OVERLAY_GAP_DATA_OFFSET + layer * 0x28
+                left: int = width * first_row
+
+                self.process.write_bytes(gap_address + 0x20, struct.pack("<hhh2x", left + width, line_count, width * 2 * line_height), 8)
+
+                calls.extend([
+                    (copy_address, gap_address, layer_address + 0x10, 0x20),
+                    (copy_address, gap_address, gap_address + 0x20, 8),
+                    (self._get_function_address("Surface::fillRect"), gap_address, ((left + width) << 48) | (line_count << 32) | (left << 16), fill_color),
+                ])
+
+            calls.extend([
+                (copy_address, layer_address, layer_address + 0x60, 0x10),
+                (copy_address, layer_address + 0x30, layer_address + 0x70, 0x10),
+            ])
+
+        self.call_on_main_thread(calls)
 
     def save_game(self, slot: int, description: str) -> None:
         cave_address: int = self._require_cave()
@@ -1411,6 +1523,7 @@ class ScummVMZVisionProcess:
         self._write_cave(PICKUP_FILTER_CODE_OFFSET, build_pickup_filter_code(self.cave_address, self.module_base))
         self._write_cave(FLAG_OVERRIDE_CODE_OFFSET, build_flag_override_code(self.cave_address, self.module_base))
         self._write_cave(READ_OVERRIDE_CODE_OFFSET, build_read_override_code(self.cave_address))
+        self._write_cave(OVERLAY_CODE_OFFSET, build_overlay_code(self.cave_address, self.module_base))
 
         name: str
         trampoline_offset: int

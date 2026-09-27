@@ -22,7 +22,7 @@ class Goal(Choice):
     Artifact of Magic Hunt: Retrieve X artifacts of magic and bring them to the walking castle
     Spell Heist: Acquire all spells and travel to the Port Foozle signpost
     Zork Tour: Visit all 20 landmarks and travel to the Port Foozle signpost
-    Grim Journey: Experience all 22 player deaths and go beyond the gates of Hades
+    Grim Journey: Experience all 23 player deaths and go beyond the gates of Hades
     """
     display_name: str = "Goal"
 
@@ -90,9 +90,9 @@ class DeathsRequired(Range):
     display_name = "Deaths Required"
 
     range_start = 10
-    range_end = 22
+    range_end = 23
 
-    default = 22
+    default = 23
 
 
 class StartingLocation(Choice):
@@ -184,7 +184,7 @@ class WildVoxamChance(Range):
 
 class Deathsanity(Toggle):
     """
-    If true, adds 22 unique player death locations to the world.
+    If true, adds 23 unique player death locations to the world.
 
     This option will be forced on if your goal is Grim Journey.
     """
@@ -352,6 +352,24 @@ class ClientSeedInformation(Choice):
     default = 2
 
 
+class InGameOverlay(Choice):
+    """
+    Determines what information the client displays on top of the game.
+
+    Disabled: Nothing is displayed
+    Enabled: Goal progress, received and sent item notifications, trap countdowns and death link announcements are displayed
+    Enabled with Tracker: Same as Enabled, plus a list of the locations currently in logic (requires Universal Tracker)
+    """
+
+    display_name: str = "In-Game Overlay"
+
+    option_disabled: int = 0
+    option_enabled: int = 1
+    option_enabled_with_tracker: int = 2
+
+    default = 1
+
+
 @dataclass
 class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     start_inventory_from_pool: StartInventoryPool
@@ -377,6 +395,7 @@ class ZorkGrandInquisitorOptions(PerGameCommonOptions, DeathLinkMixin):
     zvision_trap_weight: ZVisionTrapWeight
     grant_missable_location_checks: GrantMissableLocationChecks
     client_seed_information: ClientSeedInformation
+    in_game_overlay: InGameOverlay
 
 
 option_groups: List[OptionGroup] = [
@@ -420,6 +439,7 @@ option_groups: List[OptionGroup] = [
         [
             GrantMissableLocationChecks,
             ClientSeedInformation,
+            InGameOverlay,
         ],
     ),
 ]

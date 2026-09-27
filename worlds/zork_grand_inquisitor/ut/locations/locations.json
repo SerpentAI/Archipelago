@@ -71,11 +71,28 @@
                 ]
             },
             {
-                "name": "Totemized Daily Billboard Functioning Correctly",
+                "name": "Rope",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 74,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Rope"
+                    }
+                ]
+            },
+            {
+                "name": "Totemized Daily Billboard Functioning Correctly",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 104,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -258,11 +275,28 @@
                 ]
             },
             {
-                "name": "Mead Light?",
+                "name": "Lantern",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 1004,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lantern"
+                    }
+                ]
+            },
+            {
+                "name": "Mead Light?",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1034,
                         "y": 210,
                         "size": 24,
                         "border_thickness": 2
@@ -275,12 +309,29 @@
                 ]
             },
             {
+                "name": "Mead Light and Plastic Six-Pack Holder",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 764,
+                        "y": 240,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mead Light and Plastic Six-Pack Holder"
+                    }
+                ]
+            },
+            {
                 "name": "No Autographs",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1034,
-                        "y": 210,
+                        "x": 794,
+                        "y": 240,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -296,7 +347,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 764,
+                        "x": 824,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -313,7 +364,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 794,
+                        "x": 854,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -330,7 +381,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 824,
+                        "x": 884,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -347,7 +398,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 854,
+                        "x": 914,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -364,7 +415,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 884,
+                        "x": 944,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -381,7 +432,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 914,
+                        "x": 974,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -398,7 +449,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 944,
+                        "x": 1004,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -415,7 +466,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 974,
+                        "x": 1034,
                         "y": 240,
                         "size": 24,
                         "border_thickness": 2
@@ -428,11 +479,28 @@
                 ]
             },
             {
-                "name": "Death: Interesting Philosophical Thought",
+                "name": "Death: More Than Just Pretty Words",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 1034,
+                        "y": 110,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: More Than Just Pretty Words"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Interesting Philosophical Thought",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1004,
                         "y": 110,
                         "size": 24,
                         "border_thickness": 2
@@ -501,7 +569,7 @@
                     {
                         "map": "map",
                         "x": 160,
-                        "y": 560,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -518,7 +586,7 @@
                     {
                         "map": "map",
                         "x": 190,
-                        "y": 560,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -535,7 +603,7 @@
                     {
                         "map": "map",
                         "x": 220,
-                        "y": 560,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -547,12 +615,29 @@
                 ]
             },
             {
-                "name": "Denied by the Lake Monster",
+                "name": "Closet Time Tunnel",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 250,
-                        "y": 560,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Closet Time Tunnel"
+                    }
+                ]
+            },
+            {
+                "name": "Denied by the Lake Monster",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -568,8 +653,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 280,
-                        "y": 560,
+                        "x": 310,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -581,12 +666,29 @@
                 ]
             },
             {
+                "name": "Flatheadia Fudge",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 340,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flatheadia Fudge"
+                    }
+                ]
+            },
+            {
                 "name": "Flying Snapdragon",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 310,
-                        "y": 560,
+                        "x": 370,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -602,8 +704,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 340,
-                        "y": 560,
+                        "x": 400,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -619,8 +721,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 370,
-                        "y": 560,
+                        "x": 430,
+                        "y": 530,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -632,11 +734,28 @@
                 ]
             },
             {
+                "name": "Hungus Lard",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hungus Lard"
+                    }
+                ]
+            },
+            {
                 "name": "It's Playing a Little Hard to Get",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 400,
+                        "x": 190,
                         "y": 560,
                         "size": 24,
                         "border_thickness": 2
@@ -653,7 +772,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 430,
+                        "x": 220,
                         "y": 560,
                         "size": 24,
                         "border_thickness": 2
@@ -670,8 +789,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 160,
-                        "y": 590,
+                        "x": 250,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -683,12 +802,29 @@
                 ]
             },
             {
+                "name": "Jar of Hotbugs",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Jar of Hotbugs"
+                    }
+                ]
+            },
+            {
                 "name": "Lit Sunflowers",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 190,
-                        "y": 590,
+                        "x": 310,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -700,12 +836,29 @@
                 ]
             },
             {
+                "name": "Mug",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 340,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mug"
+                    }
+                ]
+            },
+            {
                 "name": "Mushroom, Hammered",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 220,
-                        "y": 590,
+                        "x": 370,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -717,12 +870,29 @@
                 ]
             },
             {
+                "name": "NARWILE Scroll",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "NARWILE Scroll"
+                    }
+                ]
+            },
+            {
                 "name": "Natural and Supernatural Creatures of Quendor",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 250,
-                        "y": 590,
+                        "x": 430,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -738,7 +908,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 280,
+                        "x": 160,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -755,7 +925,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 310,
+                        "x": 190,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -772,7 +942,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 340,
+                        "x": 220,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -789,7 +959,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 370,
+                        "x": 250,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -802,11 +972,28 @@
                 ]
             },
             {
+                "name": "Quelbee Honeycomb",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Quelbee Honeycomb"
+                    }
+                ]
+            },
+            {
                 "name": "Reassemble SNAVIG",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 400,
+                        "x": 310,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -823,7 +1010,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 430,
+                        "x": 340,
                         "y": 590,
                         "size": 24,
                         "border_thickness": 2
@@ -840,8 +1027,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 160,
-                        "y": 620,
+                        "x": 370,
+                        "y": 590,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -853,11 +1040,79 @@
                 ]
             },
             {
-                "name": "Taming Your Snapdragon",
+                "name": "Scroll Fragment: ANS",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 400,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Scroll Fragment: ANS"
+                    }
+                ]
+            },
+            {
+                "name": "Scroll Fragment: GIV",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 430,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Scroll Fragment: GIV"
+                    }
+                ]
+            },
+            {
+                "name": "Shovel",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 160,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Shovel"
+                    }
+                ]
+            },
+            {
+                "name": "Snapdragon",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 190,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Snapdragon"
+                    }
+                ]
+            },
+            {
+                "name": "Taming Your Snapdragon",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 220,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -874,7 +1129,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 220,
+                        "x": 250,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -887,11 +1142,28 @@
                 ]
             },
             {
+                "name": "THROCK Scroll",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 280,
+                        "y": 620,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "THROCK Scroll"
+                    }
+                ]
+            },
+            {
                 "name": "Want Some Rye? Course Ya Do!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 250,
+                        "x": 310,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -904,28 +1176,11 @@
                 ]
             },
             {
-                "name": "Closet Time Tunnel",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 280,
-                        "y": 620,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Closet Time Tunnel"
-                    }
-                ]
-            },
-            {
                 "name": "Wow! I've Never Gone Inside Him Before!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 310,
+                        "x": 340,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -942,7 +1197,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 340,
+                        "x": 370,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -959,7 +1214,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 370,
+                        "x": 400,
                         "y": 620,
                         "size": 24,
                         "border_thickness": 2
@@ -977,7 +1232,7 @@
                     {
                         "map": "map",
                         "x": 430,
-                        "y": 520,
+                        "y": 490,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -994,7 +1249,7 @@
                     {
                         "map": "map",
                         "x": 400,
-                        "y": 520,
+                        "y": 490,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1011,7 +1266,7 @@
                     {
                         "map": "map",
                         "x": 160,
-                        "y": 520,
+                        "y": 490,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1028,7 +1283,7 @@
                     {
                         "map": "map",
                         "x": 190,
-                        "y": 520,
+                        "y": 490,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1045,7 +1300,7 @@
                     {
                         "map": "map",
                         "x": 220,
-                        "y": 520,
+                        "y": 490,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1062,7 +1317,7 @@
                     {
                         "map": "map",
                         "x": 820,
-                        "y": 550,
+                        "y": 535,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1079,7 +1334,7 @@
                     {
                         "map": "map",
                         "x": 850,
-                        "y": 550,
+                        "y": 535,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1091,12 +1346,63 @@
                 ]
             },
             {
-                "name": "300 Year Old National Treasure",
+                "name": "GOLGATEM Scroll",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 880,
-                        "y": 550,
+                        "y": 535,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "GOLGATEM Scroll"
+                    }
+                ]
+            },
+            {
+                "name": "Letter Opener",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 910,
+                        "y": 535,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Letter Opener"
+                    }
+                ]
+            },
+            {
+                "name": "Moss of Mareilon",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 940,
+                        "y": 535,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Moss of Mareilon"
+                    }
+                ]
+            },
+            {
+                "name": "300 Year Old National Treasure",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 850,
+                        "y": 565,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1112,8 +1418,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 910,
-                        "y": 550,
+                        "x": 880,
+                        "y": 565,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1129,8 +1435,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 940,
-                        "y": 550,
+                        "x": 910,
+                        "y": 565,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1163,7 +1469,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1050,
+                        "x": 1110,
                         "y": 530,
                         "size": 24,
                         "border_thickness": 2
@@ -1180,7 +1486,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1080,
+                        "x": 1140,
                         "y": 530,
                         "size": 24,
                         "border_thickness": 2
@@ -1193,11 +1499,28 @@
                 ]
             },
             {
+                "name": "Brog's Totem",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1170,
+                        "y": 530,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Totem"
+                    }
+                ]
+            },
+            {
                 "name": "Don't Even Start With Us, Sparky",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1110,
+                        "x": 1200,
                         "y": 530,
                         "size": 24,
                         "border_thickness": 2
@@ -1214,7 +1537,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1140,
+                        "x": 1230,
                         "y": 530,
                         "size": 24,
                         "border_thickness": 2
@@ -1231,7 +1554,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1170,
+                        "x": 1260,
                         "y": 530,
                         "size": 24,
                         "border_thickness": 2
@@ -1248,8 +1571,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1200,
-                        "y": 530,
+                        "x": 1110,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1265,8 +1588,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1230,
-                        "y": 530,
+                        "x": 1140,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1282,8 +1605,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1260,
-                        "y": 530,
+                        "x": 1170,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1299,8 +1622,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1290,
-                        "y": 530,
+                        "x": 1200,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1316,8 +1639,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1320,
-                        "y": 530,
+                        "x": 1230,
+                        "y": 560,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1333,7 +1656,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1320,
+                        "x": 1260,
                         "y": 490,
                         "size": 24,
                         "border_thickness": 2
@@ -1350,7 +1673,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1050,
+                        "x": 1110,
                         "y": 490,
                         "size": 24,
                         "border_thickness": 2
@@ -1367,7 +1690,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1080,
+                        "x": 1140,
                         "y": 490,
                         "size": 24,
                         "border_thickness": 2
@@ -1652,11 +1975,28 @@
                 ]
             },
             {
-                "name": "Look! An Ice Cream Bar",
+                "name": "KENDALL Scroll",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 800,
+                        "y": 760,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "KENDALL Scroll"
+                    }
+                ]
+            },
+            {
+                "name": "Look! An Ice Cream Bar",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 830,
                         "y": 760,
                         "size": 24,
                         "border_thickness": 2
@@ -1673,8 +2013,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 830,
-                        "y": 760,
+                        "x": 560,
+                        "y": 790,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -1690,7 +2030,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 560,
+                        "x": 590,
                         "y": 790,
                         "size": 24,
                         "border_thickness": 2
@@ -1707,7 +2047,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 590,
+                        "x": 620,
                         "y": 790,
                         "size": 24,
                         "border_thickness": 2
@@ -1720,11 +2060,45 @@
                 ]
             },
             {
+                "name": "Pouch of Zorkmids",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Pouch of Zorkmids"
+                    }
+                ]
+            },
+            {
+                "name": "Prozork Tablet",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 680,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Prozork Tablet"
+                    }
+                ]
+            },
+            {
                 "name": "Restocked on Gruesday",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 620,
+                        "x": 710,
                         "y": 790,
                         "size": 24,
                         "border_thickness": 2
@@ -1737,11 +2111,28 @@
                 ]
             },
             {
+                "name": "Student ID",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Student ID"
+                    }
+                ]
+            },
+            {
                 "name": "Sucking Rocks",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 650,
+                        "x": 770,
                         "y": 790,
                         "size": 24,
                         "border_thickness": 2
@@ -1750,6 +2141,23 @@
                 "sections": [
                     {
                         "name": "Sucking Rocks"
+                    }
+                ]
+            },
+            {
+                "name": "Zork Rocks",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 800,
+                        "y": 790,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Zork Rocks"
                     }
                 ]
             },
@@ -2115,7 +2523,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1235,
+                        "x": 1220,
                         "y": 700,
                         "size": 24,
                         "border_thickness": 2
@@ -2128,11 +2536,28 @@
                 ]
             },
             {
+                "name": "Old Scratch Card",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1250,
+                        "y": 700,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Old Scratch Card"
+                    }
+                ]
+            },
+            {
                 "name": "Voyage of Captain Zahab",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1265,
+                        "x": 1280,
                         "y": 700,
                         "size": 24,
                         "border_thickness": 2
@@ -2145,11 +2570,45 @@
                 ]
             },
             {
-                "name": "Into the Foliage",
+                "name": "Griff's Totem",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 135,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Griff's Totem"
+                    }
+                ]
+            },
+            {
+                "name": "Hammer",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 165,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Hammer"
+                    }
+                ]
+            },
+            {
+                "name": "Into the Foliage",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 195,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2166,7 +2625,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 165,
+                        "x": 225,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2183,7 +2642,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 195,
+                        "x": 255,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2200,7 +2659,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 225,
+                        "x": 285,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2213,11 +2672,62 @@
                 ]
             },
             {
+                "name": "Map",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 315,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Map"
+                    }
+                ]
+            },
+            {
+                "name": "Subway Token",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 345,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Subway Token"
+                    }
+                ]
+            },
+            {
+                "name": "Sword",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 375,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Sword"
+                    }
+                ]
+            },
+            {
                 "name": "The Underground Underground",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 255,
+                        "x": 405,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2234,8 +2744,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 285,
-                        "y": 880,
+                        "x": 225,
+                        "y": 910,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2247,11 +2757,28 @@
                 ]
             },
             {
+                "name": "ZIMDOR Scroll",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 255,
+                        "y": 910,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "ZIMDOR Scroll"
+                    }
+                ]
+            },
+            {
                 "name": "Death: Breaking Curfew",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 315,
+                        "x": 405,
                         "y": 840,
                         "size": 24,
                         "border_thickness": 2
@@ -2400,7 +2927,7 @@
                 ]
             },
             {
-                "name": "PermaSeal",
+                "name": "Lucy's Totem",
                 "map_locations": [
                     {
                         "map": "map",
@@ -2412,7 +2939,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "PermaSeal"
+                        "name": "Lucy's Totem"
                     }
                 ]
             },
@@ -2434,12 +2961,29 @@
                 ]
             },
             {
-                "name": "Straight to Hell",
+                "name": "PermaSeal",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 1120,
                         "y": 990,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "PermaSeal"
+                    }
+                ]
+            },
+            {
+                "name": "Straight to Hell",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 1020,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2455,7 +2999,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1000,
+                        "x": 1030,
                         "y": 1020,
                         "size": 24,
                         "border_thickness": 2
@@ -2472,7 +3016,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1030,
+                        "x": 1060,
                         "y": 1020,
                         "size": 24,
                         "border_thickness": 2
@@ -2489,7 +3033,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1060,
+                        "x": 1090,
                         "y": 1020,
                         "size": 24,
                         "border_thickness": 2
@@ -2506,7 +3050,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1090,
+                        "x": 1120,
                         "y": 1020,
                         "size": 24,
                         "border_thickness": 2
@@ -2677,7 +3221,7 @@
                     {
                         "map": "map",
                         "x": 222,
-                        "y": 1326,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2694,7 +3238,7 @@
                     {
                         "map": "map",
                         "x": 252,
-                        "y": 1326,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2706,12 +3250,80 @@
                 ]
             },
             {
-                "name": "Inflatus the Eternal",
+                "name": "Griff's Air Pump",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 282,
-                        "y": 1326,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Griff's Air Pump"
+                    }
+                ]
+            },
+            {
+                "name": "Griff's Dragon Tooth",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 312,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Griff's Dragon Tooth"
+                    }
+                ]
+            },
+            {
+                "name": "Griff's Inflatable Raft",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 342,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Griff's Inflatable Raft"
+                    }
+                ]
+            },
+            {
+                "name": "Griff's Inflatable Sea Captain",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 372,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Griff's Inflatable Sea Captain"
+                    }
+                ]
+            },
+            {
+                "name": "Inflatus the Eternal",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 402,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2727,8 +3339,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 312,
-                        "y": 1326,
+                        "x": 432,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2744,8 +3356,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 342,
-                        "y": 1326,
+                        "x": 462,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2761,8 +3373,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 372,
-                        "y": 1326,
+                        "x": 492,
+                        "y": 1296,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2778,7 +3390,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 402,
+                        "x": 222,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2842,11 +3454,28 @@
                 ]
             },
             {
-                "name": "Oh, Very Funny Guys",
+                "name": "Lucy's Playing Cards",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 612,
+                        "y": 1326,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lucy's Playing Cards"
+                    }
+                ]
+            },
+            {
+                "name": "Oh, Very Funny Guys",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 642,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2863,7 +3492,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 642,
+                        "x": 672,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2880,7 +3509,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 672,
+                        "x": 702,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2897,7 +3526,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 702,
+                        "x": 732,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2914,7 +3543,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 732,
+                        "x": 762,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2931,7 +3560,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 762,
+                        "x": 792,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2948,7 +3577,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 792,
+                        "x": 822,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -2995,11 +3624,79 @@
                 ]
             },
             {
-                "name": "Brog Do Good!",
+                "name": "Brog's Bickering Torch",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 942,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Bickering Torch"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Flickering Torch",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 972,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Flickering Torch"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Grue Egg",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1002,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Grue Egg"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Plank",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1032,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Plank"
+                    }
+                ]
+            },
+            {
+                "name": "Brog Do Good!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1062,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3016,7 +3713,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 972,
+                        "x": 1092,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3033,7 +3730,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1002,
+                        "x": 1122,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3050,7 +3747,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1032,
+                        "x": 1152,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3067,7 +3764,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1062,
+                        "x": 1182,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3084,7 +3781,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1092,
+                        "x": 1212,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3101,8 +3798,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1122,
-                        "y": 1296,
+                        "x": 942,
+                        "y": 1326,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3118,8 +3815,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1152,
-                        "y": 1296,
+                        "x": 972,
+                        "y": 1326,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3135,8 +3832,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1182,
-                        "y": 1296,
+                        "x": 1002,
+                        "y": 1326,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3152,8 +3849,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1212,
-                        "y": 1296,
+                        "x": 1032,
+                        "y": 1326,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3169,7 +3866,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 942,
+                        "x": 1062,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2
@@ -3186,7 +3883,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 972,
+                        "x": 1092,
                         "y": 1326,
                         "size": 24,
                         "border_thickness": 2

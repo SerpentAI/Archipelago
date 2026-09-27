@@ -7,6 +7,7 @@ from ..enums import (
     ZorkGrandInquisitorEntranceRandomizer,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorHotspots,
+    ZorkGrandInquisitorInGameOverlayOptions,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorRegions,
@@ -30,6 +31,7 @@ death_cause_labels: Dict[int, str] = {
     19: "PLAYER was vaporized by Zork Rocks",
     20: "PLAYER got stung by a thousand quelbees",
     21: "PLAYER broke curfew",
+    22: "PLAYER riled a fishwife one time too many",
     23: "PLAYER lost their soul to a scratch-and-win card",
     29: "PLAYER was outsmarted by bees",
     30: "PLAYER got pureed by a six-armed invisible guard",
@@ -509,11 +511,11 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO
     ),
-    ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE: (
-        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS
-    ),
     ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS
     ),
     ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM
@@ -526,6 +528,9 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ),
     ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_GARDEN_SHED: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR
     ),
     ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS
@@ -646,6 +651,7 @@ hotspots_for_regional_hotspot: Dict[ZorkGrandInquisitorItems, Tuple[ZorkGrandInq
         ZorkGrandInquisitorItems.HOTSPOT_BLINDS,
         ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR,
         ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT,
+        ZorkGrandInquisitorItems.HOTSPOT_GARDEN_SHED,
         ZorkGrandInquisitorItems.HOTSPOT_HARRY,
         ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY,
         ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH,
@@ -725,6 +731,7 @@ labels_for_enum_items: Dict[
         ZorkGrandInquisitorEntranceRandomizer,
         ZorkGrandInquisitorGoals,
         ZorkGrandInquisitorHotspots,
+        ZorkGrandInquisitorInGameOverlayOptions,
         ZorkGrandInquisitorLandmarksanity,
         ZorkGrandInquisitorStartingLocations,
     ],
@@ -749,6 +756,9 @@ labels_for_enum_items: Dict[
     ZorkGrandInquisitorHotspots.ENABLED: "Enabled",
     ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_REGION: "Require Item Per Region",
     ZorkGrandInquisitorHotspots.REQUIRE_ITEM_PER_HOTSPOT: "Require Item Per Hotspot",
+    ZorkGrandInquisitorInGameOverlayOptions.DISABLED: "Disabled",
+    ZorkGrandInquisitorInGameOverlayOptions.ENABLED: "Enabled",
+    ZorkGrandInquisitorInGameOverlayOptions.ENABLED_WITH_TRACKER: "Enabled with Tracker",
     ZorkGrandInquisitorLandmarksanity.OFF: "Off",
     ZorkGrandInquisitorLandmarksanity.ON: "On",
     ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: "Port Foozle",
@@ -1136,6 +1146,54 @@ starter_kits_for_starting_location: Dict[
             ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
             ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
         ),
+    ),
+}
+
+time_tunnel_for_starting_location: Dict[ZorkGrandInquisitorStartingLocations, str] = {
+    ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: "dw1j",
+    ZorkGrandInquisitorStartingLocations.HADES_SHORE: "hp6f",
+    ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: "me2f",
+}
+
+time_tunnel_starter_kit_items: Dict[
+    Tuple[ZorkGrandInquisitorRegions, ZorkGrandInquisitorItems], Tuple[ZorkGrandInquisitorItems, ...]
+] = {
+    (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorItems.TOTEM_BROG): (
+        ZorkGrandInquisitorItems.TOTEM_BROG,
+        ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
+        ZorkGrandInquisitorItems.BROGS_GRUE_EGG,
+        ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT,
+    ),
+    (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorItems.TOTEM_GRIFF): (
+        ZorkGrandInquisitorItems.TOTEM_GRIFF,
+        ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+    ),
+    (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorItems.TOTEM_LUCY): (
+        ZorkGrandInquisitorItems.TOTEM_LUCY,
+        ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG,
+        ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR,
+    ),
+    (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorItems.TOTEM_BROG): (
+        ZorkGrandInquisitorItems.TOTEM_BROG,
+    ),
+    (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorItems.TOTEM_GRIFF): (
+        ZorkGrandInquisitorItems.TOTEM_GRIFF,
+        ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW,
+    ),
+    (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorItems.TOTEM_LUCY): (
+        ZorkGrandInquisitorItems.TOTEM_LUCY,
+    ),
+    (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST, ZorkGrandInquisitorItems.TOTEM_BROG): (
+        ZorkGrandInquisitorItems.TOTEM_BROG,
+        ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+    ),
+    (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST, ZorkGrandInquisitorItems.TOTEM_GRIFF): (
+        ZorkGrandInquisitorItems.TOTEM_GRIFF,
+        ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
+    ),
+    (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST, ZorkGrandInquisitorItems.TOTEM_LUCY): (
+        ZorkGrandInquisitorItems.TOTEM_LUCY,
+        ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR,
     ),
 }
 

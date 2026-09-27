@@ -15,15 +15,7 @@ EntranceRuleData = Dict[Entrance, Optional[Rule]]
 
 entrance_rule_data: EntranceRuleData = {
     (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.CROSSROADS): None,
-    (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL): (
-        And(
-            Has(ZorkGrandInquisitorItems.WELL_ROPE.value),
-            Or(
-                Has(ZorkGrandInquisitorItems.HOTSPOT_BUCKET.value),
-                Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-            )
-        )
-    ),
+    (ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL, ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL): None,
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.BOTTOM_OF_THE_WELL): None,
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.DM_LAIR): (
         And(

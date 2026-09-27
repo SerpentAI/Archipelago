@@ -18,6 +18,7 @@ from .enums import (
     ZorkGrandInquisitorEvents,
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorHotspots,
+    ZorkGrandInquisitorInGameOverlayOptions,
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorItemTransforms,
     ZorkGrandInquisitorLandmarksanity,
@@ -75,6 +76,10 @@ def id_to_goals() -> Dict[int, ZorkGrandInquisitorGoals]:
 
 def id_to_hotspots() -> Dict[int, ZorkGrandInquisitorHotspots]:
     return {hotspot.value: hotspot for hotspot in ZorkGrandInquisitorHotspots}
+
+
+def id_to_in_game_overlay_options() -> Dict[int, ZorkGrandInquisitorInGameOverlayOptions]:
+    return {overlay.value: overlay for overlay in ZorkGrandInquisitorInGameOverlayOptions}
 
 
 def id_to_items() -> Dict[int, ZorkGrandInquisitorItems]:
@@ -307,9 +312,10 @@ def generate_universal_tracker_location_data() -> None:
     location_group: str
     locations: Tuple[ZorkGrandInquisitorLocations]
     for location_group, locations in tracker_location_groups.items():
-        location_group_configuration: Tuple[int, int, bool, int] = tracker_location_group_configuration[location_group]
+        location_group_configuration: Tuple[int, int, bool, int, Tuple[int, ...]] = tracker_location_group_configuration[location_group]
 
-        x_offset: int = location_group_configuration[0]
+        row_offsets: Tuple[int, ...] = location_group_configuration[4]
+        x_offset: int = location_group_configuration[0] + (row_offsets[0] if len(row_offsets) else 0)
         y_offset: int = location_group_configuration[1]
         is_left_to_right: bool = location_group_configuration[2]
         maximum_locations_per_row: int = location_group_configuration[3]
@@ -348,7 +354,7 @@ def generate_universal_tracker_location_data() -> None:
                 overflows += 1
                 count = 1
 
-                x_offset = location_group_configuration[0]
+                x_offset = location_group_configuration[0] + (row_offsets[overflows] if overflows < len(row_offsets) else 0)
                 y_offset = location_group_configuration[1] + (location_size_with_margin * overflows)
             else:
                 if is_left_to_right:

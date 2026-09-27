@@ -61,6 +61,13 @@ missable_location_grant_conditions_data: Dict[
             item_conditions=None,
         )
     ,
+    ZorkGrandInquisitorLocations.DEATH_RILED_THE_FISHWIFE:
+        ZorkGrandInquisitorMissableLocationGrantConditionsData(
+            game_location_condition="pe2h",
+            location_condition=(ZorkGrandInquisitorLocations.MEAD_LIGHT_AND_PLASTIC_SIX_PACK_HOLDER,),
+            item_conditions=None,
+        )
+    ,
     ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD:
         ZorkGrandInquisitorMissableLocationGrantConditionsData(
             game_location_condition="tp10",
