@@ -26,7 +26,9 @@ death_cause_labels: Dict[int, str] = {
     9: "PLAYER rolled into the airless expanse of the cosmos",
     10: "PLAYER got their head bitten off",
     11: "PLAYER was swallowed whole by a dragon",
+    12: "PLAYER learned what the Omega hammer is for",
     13: "PLAYER decided to spend an eternity staring at scenic vistas",
+    17: "PLAYER learned what the Psi hammer is for",
     18: "PLAYER was eaten by a grue",
     19: "PLAYER was vaporized by Zork Rocks",
     20: "PLAYER got stung by a thousand quelbees",
@@ -224,8 +226,16 @@ entrance_names: Dict[
     ): "To the Totemizer",
     (
         ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
+        ZorkGrandInquisitorRegions.MONASTERY_OUTSIDE
+    ): "Out Through the Exhibit Door",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT,
         ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST
     ): "Through the Monastery Exhibit Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.MONASTERY_OUTSIDE,
+        ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT
+    ): "Back In Through the Exhibit Door",
     (
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST
@@ -420,6 +430,7 @@ game_location_to_region: Dict[
     "mt10": ZorkGrandInquisitorRegions.MONASTERY,
     "mt20": ZorkGrandInquisitorRegions.MONASTERY,
     "mt30": ZorkGrandInquisitorRegions.MONASTERY,
+    "mx20": ZorkGrandInquisitorRegions.MONASTERY_OUTSIDE,
     "pc10": ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_WELL,
     "pe10": ZorkGrandInquisitorRegions.PORT_FOOZLE,
     "pp10": ZorkGrandInquisitorRegions.PORT_FOOZLE_JACKS_SHOP,
@@ -580,6 +591,9 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ZorkGrandInquisitorItems.HOTSPOT_MIRROR: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR
     ),
+    ZorkGrandInquisitorItems.HOTSPOT_MONASTERY_EXHIBIT_DOOR: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY
+    ),
     ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM
     ),
@@ -695,6 +709,7 @@ hotspots_for_regional_hotspot: Dict[ZorkGrandInquisitorItems, Tuple[ZorkGrandInq
     ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY: (
         ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_HAMMER_SLOT,
         ZorkGrandInquisitorItems.HOTSPOT_CLOSING_THE_TIME_TUNNELS_LEVER,
+        ZorkGrandInquisitorItems.HOTSPOT_MONASTERY_EXHIBIT_DOOR,
         ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH,
         ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_WHEELS,
     ),

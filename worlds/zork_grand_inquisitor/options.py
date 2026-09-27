@@ -21,8 +21,8 @@ class Goal(Choice):
     Three Artifacts: Retrieve the Coconut of Quendor, the Cube of Foundation and the Skull of Yoruk
     Artifact of Magic Hunt: Retrieve X artifacts of magic and bring them to the walking castle
     Spell Heist: Acquire all spells and travel to the Port Foozle signpost
-    Zork Tour: Visit all 20 landmarks and travel to the Port Foozle signpost
-    Grim Journey: Experience all 23 player deaths and go beyond the gates of Hades
+    Zork Tour: Visit all 21 landmarks and travel to the Port Foozle signpost
+    Grim Journey: Experience all 25 player deaths and go beyond the gates of Hades
     """
     display_name: str = "Goal"
 
@@ -75,9 +75,9 @@ class LandmarksRequired(Range):
     display_name = "Landmarks Required"
 
     range_start = 10
-    range_end = 20
+    range_end = 21
 
-    default = 20
+    default = 21
 
 
 class DeathsRequired(Range):
@@ -90,9 +90,9 @@ class DeathsRequired(Range):
     display_name = "Deaths Required"
 
     range_start = 10
-    range_end = 23
+    range_end = 25
 
-    default = 23
+    default = 25
 
 
 class StartingLocation(Choice):
@@ -184,7 +184,7 @@ class WildVoxamChance(Range):
 
 class Deathsanity(Toggle):
     """
-    If true, adds 23 unique player death locations to the world.
+    If true, adds 25 unique player death locations to the world.
 
     This option will be forced on if your goal is Grim Journey.
     """
@@ -194,7 +194,7 @@ class Deathsanity(Toggle):
 
 class Landmarksanity(DefaultOnToggle):
     """
-    If true, adds 20 landmark locations to the world.
+    If true, adds 21 landmark locations to the world.
 
     This option will be forced on if your goal is Zork Tour.
     """

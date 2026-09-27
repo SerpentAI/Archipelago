@@ -259,6 +259,17 @@ tracker_location_groups: Dict[str, Tuple[ZorkGrandInquisitorLocations]] = {
     "Monastery - Landmarksanity": (
         ZorkGrandInquisitorLocations.LANDMARK_TOTEMIZER,
     ),
+    "Monastery - Outside the Exhibit": (
+        ZorkGrandInquisitorLocations.LARGE_TELEGRAPH_HAMMER,
+        ZorkGrandInquisitorLocations.THE_INQUISITION_HAS_WAY_TOO_MUCH_TIME_ON_ITS_HANDS,
+    ),
+    "Monastery - Outside the Exhibit - Deathsanity": (
+        ZorkGrandInquisitorLocations.DEATH_TOOK_THE_OMEGA_HAMMER,
+        ZorkGrandInquisitorLocations.DEATH_TOOK_THE_PSI_HAMMER,
+    ),
+    "Monastery - Outside the Exhibit - Landmarksanity": (
+        ZorkGrandInquisitorLocations.LANDMARK_OUTSIDE_THE_MONASTERY_EXHIBIT,
+    ),
     "Dragon Archipelago": (
         ZorkGrandInquisitorLocations.AN_EXCELLENT_POPPING_UTENSIL,
         ZorkGrandInquisitorLocations.COME_TO_PAPA_YOU_NUT,
@@ -353,9 +364,12 @@ tracker_location_group_configuration: Dict[str, Tuple[int, int, bool, int, Tuple
     "Crossroads - Deathsanity": (405, 840, False, 10, ()),
     "Crossroads - Landmarksanity": (135, 840, True, 10, ()),
     "Crossroads Station": (400, 965, True, 10, ()),
-    "Monastery": (1000, 990, True, 5, ()),
-    "Monastery - Deathsanity": (1270, 950, False, 10, ()),
-    "Monastery - Landmarksanity": (1000, 950, True, 10, ()),
+    "Monastery": (1000, 960, True, 10, ()),
+    "Monastery - Deathsanity": (1270, 920, False, 10, ()),
+    "Monastery - Landmarksanity": (1000, 920, True, 10, ()),
+    "Monastery - Outside the Exhibit": (1000, 1050, True, 10, ()),
+    "Monastery - Outside the Exhibit - Deathsanity": (1120, 1010, False, 10, ()),
+    "Monastery - Outside the Exhibit - Landmarksanity": (1000, 1010, True, 10, ()),
     "Dragon Archipelago": (222, 1296, True, 10, ()),
     "Dragon Archipelago - Deathsanity": (492, 1196, False, 10, ()),
     "Dragon Archipelago - Landmarksanity": (222, 1196, True, 10, ()),

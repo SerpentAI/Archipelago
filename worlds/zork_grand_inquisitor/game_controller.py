@@ -657,7 +657,6 @@ class GameController:
             10297: 0,  # Lantern on Jack's Table
             5221: 1,  # Player has Lantern
             13929: 1,  # Great Underground Door Open
-            9818: 1,  # Middle Telegraph Hammer Taken
             5032: 0,  # Always Consider SNAVIG to not be Reassembled
             4980: 0,  # ANS Scroll in Window
             3768: 0,  # GIV Scroll in Window
@@ -759,6 +758,7 @@ class GameController:
         self.game_state_manager.set_state_value_read_overrides(state_value_read_overrides)
 
         blocked_actions: List[Tuple[Optional[int], Optional[str]]] = [
+            (9844, "inventory"),
             (11975, "inventory"),
             (17497, "dissolve"),
             (17497, "change_location"),
@@ -935,6 +935,20 @@ class GameController:
         ):
             self._write_game_state_value_for(19883, 0)
 
+        if self.game_location != "mx2e" and not self.game_location.startswith("g"):
+            if self._read_game_state_value_for(9818) in (1, 3):
+                self.game_state_manager.kill_side_effect(9832)
+                self._write_game_state_value_for(9832, 0)
+                self._write_game_state_value_for(9834, 0)
+
+            if self._read_game_state_value_for(9825) == 1 and self._read_game_state_value_for(9826) == 0:
+                self.game_state_manager.kill_side_effect(9827)
+                self._write_game_state_value_for(9827, 0)
+                self._write_game_state_value_for(9825, 0)
+
+            self._write_game_state_value_for(9818, 0)
+            self._write_game_state_value_for(9844, 0)
+
         if (
             self.game_location == "dg4f"
             and self._read_game_state_value_for(4299) == 0
@@ -947,7 +961,6 @@ class GameController:
 
     def _apply_permanent_game_flags(self) -> None:
         self._write_game_flags_value_for(13597, 2)  # Monastery Vent
-        self._write_game_flags_value_for(9437, 2)  # Monastery Exhibit Door to Outside
         location: ZorkGrandInquisitorLocations
         keys: Tuple[int, ...]
         for location, keys in (
@@ -2122,6 +2135,7 @@ class GameController:
             self._player_is_at("gjde")
             or self.game_location in ("qs1e", "qs1x", "pe5x", "pp1h", "qb2x")
             or any(self._read_game_state_value_for(key) != 0 for key in (4512, 2194, 2196, 2198))
+            or (self._player_is_at("mx2e") and self._read_game_state_value_for(9818) != 0)
             or (
                 held_game_id != 0
                 and held_game_id not in self.game_id_to_items

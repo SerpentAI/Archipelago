@@ -193,6 +193,12 @@ entrance_rule_data: EntranceRuleData = {
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): None,
     (ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT, ZorkGrandInquisitorRegions.MONASTERY): None,
+    (ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT, ZorkGrandInquisitorRegions.MONASTERY_OUTSIDE): (
+        Or(
+            Has(ZorkGrandInquisitorItems.HOTSPOT_MONASTERY_EXHIBIT_DOOR.value),
+            Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
+        )
+    ),
     (ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST): (
         And(
             Or(
@@ -208,6 +214,7 @@ entrance_rule_data: EntranceRuleData = {
             Has(ZorkGrandInquisitorItems.SPELL_YASTARD.value),
         )
     ),
+    (ZorkGrandInquisitorRegions.MONASTERY_OUTSIDE, ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT): None,
     (
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_INQUISITION_HQ,
         ZorkGrandInquisitorRegions.OUTSIDE_PORT_FOOZLE_SIGNPOST

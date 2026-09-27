@@ -2898,7 +2898,7 @@
                     {
                         "map": "map",
                         "x": 1000,
-                        "y": 990,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2915,7 +2915,7 @@
                     {
                         "map": "map",
                         "x": 1030,
-                        "y": 990,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2932,7 +2932,7 @@
                     {
                         "map": "map",
                         "x": 1060,
-                        "y": 990,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2949,7 +2949,7 @@
                     {
                         "map": "map",
                         "x": 1090,
-                        "y": 990,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2966,7 +2966,7 @@
                     {
                         "map": "map",
                         "x": 1120,
-                        "y": 990,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2982,8 +2982,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1000,
-                        "y": 1020,
+                        "x": 1150,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2999,8 +2999,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1030,
-                        "y": 1020,
+                        "x": 1180,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3016,8 +3016,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1060,
-                        "y": 1020,
+                        "x": 1210,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3033,8 +3033,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1090,
-                        "y": 1020,
+                        "x": 1240,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3050,8 +3050,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1120,
-                        "y": 1020,
+                        "x": 1270,
+                        "y": 960,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3068,7 +3068,7 @@
                     {
                         "map": "map",
                         "x": 1270,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3085,7 +3085,7 @@
                     {
                         "map": "map",
                         "x": 1240,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3102,7 +3102,7 @@
                     {
                         "map": "map",
                         "x": 1210,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3119,7 +3119,7 @@
                     {
                         "map": "map",
                         "x": 1180,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3136,7 +3136,7 @@
                     {
                         "map": "map",
                         "x": 1150,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3153,7 +3153,7 @@
                     {
                         "map": "map",
                         "x": 1120,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3170,7 +3170,7 @@
                     {
                         "map": "map",
                         "x": 1090,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3187,7 +3187,7 @@
                     {
                         "map": "map",
                         "x": 1060,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3204,7 +3204,7 @@
                     {
                         "map": "map",
                         "x": 1000,
-                        "y": 950,
+                        "y": 920,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3212,6 +3212,91 @@
                 "sections": [
                     {
                         "name": "Landmark Visited: Totemizer"
+                    }
+                ]
+            },
+            {
+                "name": "Large Telegraph Hammer",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 1050,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Large Telegraph Hammer"
+                    }
+                ]
+            },
+            {
+                "name": "The Inquisition Has Way Too Much Time on Its Hands",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1030,
+                        "y": 1050,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Inquisition Has Way Too Much Time on Its Hands"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Shoot to Kill",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1120,
+                        "y": 1010,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Shoot to Kill"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Drop a Large Bomb Here",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1090,
+                        "y": 1010,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Drop a Large Bomb Here"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Outside the Monastery Exhibit",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1000,
+                        "y": 1010,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Outside the Monastery Exhibit"
                     }
                 ]
             },
