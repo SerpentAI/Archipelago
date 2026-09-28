@@ -108,7 +108,6 @@ class ZorkGrandInquisitorContext(Context):
     data_storage_key: Optional[str]
     death_link_status: bool = False
     entrance_randomizer_data_by_name: Optional[Dict[str, str]]
-    ui_locations_checked: Set[ZorkGrandInquisitorLocations]
 
     controller_task: Optional[asyncio.Task]
 
@@ -124,7 +123,6 @@ class ZorkGrandInquisitorContext(Context):
 
         self.data_storage_key = None
         self.entrance_randomizer_data_by_name = None
-        self.ui_locations_checked = set()
 
         self.controller_task = None
 
@@ -277,7 +275,6 @@ class ZorkGrandInquisitorContext(Context):
                         "key": self.data_storage_key,
                         "want_reply": True,
                         "default": {
-                            "discovered_regions": list(),
                             "discovered_entrances": list(),
                         },
                         "operations": [
@@ -298,21 +295,11 @@ class ZorkGrandInquisitorContext(Context):
                 )
 
                 self.game_controller.completed_locations |= locations_checked
-                self.ui_locations_checked |= locations_checked
 
             # UI Tabs
             self.ui.update_tabs()
         elif cmd == "ReceivedItems":
             self.ui.update_tabs()
-        elif cmd == "RoomUpdate":
-            if "checked_locations" in _args:
-                ui_locations_checked_update: Set[ZorkGrandInquisitorLocations] = set(
-                    [self.id_to_locations[location_id] for location_id in _args["checked_locations"]]
-                )
-
-                self.ui_locations_checked |= ui_locations_checked_update
-
-                self.ui.update_tabs()
         elif cmd == "SetReply":
             if _args["key"] == self.data_storage_key:
                 self.ui.update_tabs()
@@ -416,17 +403,6 @@ class ZorkGrandInquisitorContext(Context):
                 # Update Data Storage
                 if self.data_storage_key is not None and self.data_storage_key in self.stored_data:
                     update_dict: Dict[str, Any] = dict()
-
-                    current_discovered_regions: Set[str] = set(
-                        self.stored_data[self.data_storage_key]["discovered_regions"]
-                    )
-
-                    update_discovered_regions: Set[str] = (
-                        current_discovered_regions | self.game_controller.discovered_regions
-                    )
-
-                    if len(update_discovered_regions) > len(current_discovered_regions):
-                        update_dict["discovered_regions"] = sorted(update_discovered_regions)
 
                     current_discovered_entrances: Set[str] = set(
                         self.stored_data[self.data_storage_key]["discovered_entrances"]

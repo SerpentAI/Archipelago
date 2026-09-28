@@ -14,7 +14,6 @@ from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.mapping_data import (
     death_cause_labels,
     entrance_names,
-    game_location_to_region,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
     voxam_cast_game_locations,
@@ -38,7 +37,6 @@ from .enums import (
     ZorkGrandInquisitorItems,
     ZorkGrandInquisitorLandmarksanity,
     ZorkGrandInquisitorLocations,
-    ZorkGrandInquisitorRegions,
     ZorkGrandInquisitorStartingLocations,
     ZorkGrandInquisitorTags,
 )
@@ -103,7 +101,6 @@ class GameController:
     entrance_randomizer_data: Dict[str, str]
     entrance_randomizer_arrivals: Dict[Tuple[str, str], str]
 
-    discovered_regions: Set[str]
     discovered_entrances: Set[str]
 
     received_traps: List[ZorkGrandInquisitorItems]
@@ -208,7 +205,6 @@ class GameController:
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_arrivals = dict()
 
-        self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
         self.discovered_entrances = set()
 
         self.received_traps = list()
@@ -544,7 +540,6 @@ class GameController:
         self.entrance_randomizer_data = dict()
         self.entrance_randomizer_arrivals = dict()
 
-        self.discovered_regions = {ZorkGrandInquisitorRegions.ANYWHERE.value}
         self.discovered_entrances = set()
 
         self.received_traps = list()
@@ -1057,21 +1052,6 @@ class GameController:
     def _manage_game_location(self) -> None:
         if self._read_game_state_value_for(19985) == 0:
             return
-
-        visited_game_locations: Set[str] = {
-            destination for _, destination, _, _ in self.game_state_manager.arrivals
-        } | {self.game_location}
-
-        game_location: str
-        for game_location in visited_game_locations:
-            if game_location not in game_location_to_region:
-                continue
-
-            # Only register White House - Interior if the player is there as Brog
-            if game_location == "sg10" and not self._player_is_brog():
-                continue
-
-            self.discovered_regions.add(game_location_to_region[game_location].value)
 
         if any(
             destination == "uw10" and origin not in ("uw10", "uw1f", "uw1g", "uw1k") and not is_loading
