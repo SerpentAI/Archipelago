@@ -144,7 +144,6 @@ class ZorkGrandInquisitorWorld(World):
     entrance_rule_data: EntranceRuleData
     filler_item_names: List[str] = item_groups()["Filler"]
     goal: ZorkGrandInquisitorGoals
-    grant_missable_location_checks: bool
     hotspots: ZorkGrandInquisitorHotspots
     initial_totemizer_destination: ZorkGrandInquisitorItems
     item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]
@@ -290,17 +289,6 @@ class ZorkGrandInquisitorWorld(World):
             self.landmarksanity == ZorkGrandInquisitorLandmarksanity.OFF
         ):
             self.landmarksanity = ZorkGrandInquisitorLandmarksanity.ON
-
-        self.grant_missable_location_checks = bool(self.options.grant_missable_location_checks)
-
-        if self.grant_missable_location_checks:
-            if self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED:
-                self.grant_missable_location_checks = False
-
-                logging.warning(
-                    f"Zork Grand Inquisitor: {self.player_name} wants to grant missable location checks but "
-                    "has the entrance randomizer enabled. Disabling the granting of missable location checks..."
-                )
 
         self.entrance_randomizer_pairings = dict()
         self.entrance_randomizer_pairings_by_name = dict()
@@ -688,9 +676,6 @@ class ZorkGrandInquisitorWorld(World):
 
         if slot_data["landmarksanity"] != self.landmarksanity.value:
             slot_data["landmarksanity"] = self.landmarksanity.value
-
-        if slot_data["grant_missable_location_checks"] != self.grant_missable_location_checks:
-            slot_data["grant_missable_location_checks"] = self.grant_missable_location_checks
 
         slot_data["time_tunnel_destinations"] = self.time_tunnel_destinations
 

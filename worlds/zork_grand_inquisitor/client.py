@@ -236,6 +236,12 @@ class ZorkGrandInquisitorContext(Context):
                 _args["slot_data"]["grant_missable_location_checks"] == 1
             )
 
+            if self.game_controller.option_grant_missable_location_checks and not tracker_loaded:
+                CommonClient.logger.info(
+                    "Grant Missable Location Checks is enabled but requires Universal Tracker, which isn't installed. "
+                    "No missable location checks will be granted."
+                )
+
             self.game_controller.option_client_seed_information = (
                 id_to_client_seed_information()[_args["slot_data"]["client_seed_information"]]
             )

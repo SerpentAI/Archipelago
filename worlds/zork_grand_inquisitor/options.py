@@ -321,15 +321,15 @@ class ZVisionTrapWeight(Range):
 
 class GrantMissableLocationChecks(Toggle):
     """
-    If true, performing an irreversible action will grant the locations checks that would have become unobtainable as a
-    result of that action when you meet the item requirements.
+    If true, performing an irreversible action will grant the location checks that would have become unobtainable as a
+    result of that action as soon as they are in logic.
 
     Otherwise, the player is expected to potentially have to use the save system to reach those location checks. If you
     don't like the idea of rarely having to reload an earlier save to get a location check, make sure this option is
     enabled.
 
-    Note: This option is incompatible with the entrance randomizer and will be forced off in the scenario where
-    entrances are randomized.
+    Note: This option requires Universal Tracker to be installed alongside the client. Without it, no location checks
+    are granted.
     """
 
     display_name: str = "Grant Missable Checks"

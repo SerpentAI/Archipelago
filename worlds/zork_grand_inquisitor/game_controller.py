@@ -19,10 +19,7 @@ from .data.mapping_data import (
     voxam_cast_game_locations,
 )
 
-from .data.missable_location_data import (
-    missable_location_grant_conditions_data,
-    ZorkGrandInquisitorMissableLocationGrantConditionsData,
-)
+from .data.missable_location_data import missable_location_grant_conditions_data
 
 from .data_funcs import game_id_to_items, items_with_tag, locations_with_tag
 
@@ -1266,38 +1263,15 @@ class GameController:
             if missable_location in self.completed_locations:
                 continue
 
-            data: ZorkGrandInquisitorLocationData = location_data[missable_location]
-
-            if ZorkGrandInquisitorTags.DEATHSANITY in data.tags and not self.is_deathsanity:
+            if missable_location.value not in self.locations_in_logic:
                 continue
 
-            condition_data: ZorkGrandInquisitorMissableLocationGrantConditionsData = (
-                missable_location_grant_conditions_data.get(missable_location)
+            location_condition: Tuple[ZorkGrandInquisitorLocations, ...] = (
+                missable_location_grant_conditions_data[missable_location]
             )
 
-            if condition_data is None:
-                self.log_debug(f"Missable Location {missable_location.value} has no grant conditions")
-                continue
-
-            if condition_data.game_location_condition is not None:
-                if not self._player_is_at(condition_data.game_location_condition):
-                    continue
-
-            location_condition_intersection: Set[ZorkGrandInquisitorLocations] = (
-                set(condition_data.location_condition) & self.completed_locations
-            )
-
-            if len(location_condition_intersection) == len(condition_data.location_condition):
-                grant_location: bool = True
-
-                item: ZorkGrandInquisitorItems
-                for item in condition_data.item_conditions or tuple():
-                    if self._player_doesnt_have(item):
-                        grant_location = False
-                        break
-
-                if grant_location:
-                    self.completed_locations_queue.append(missable_location)
+            if set(location_condition) <= self.completed_locations:
+                self.completed_locations_queue.append(missable_location)
 
     def _process_received_items(self) -> None:
         while len(self.received_items_queue) > 0:
@@ -2689,9 +2663,6 @@ class GameController:
 
     def _player_has(self, item: ZorkGrandInquisitorItems) -> bool:
         return item in self.received_items
-
-    def _player_doesnt_have(self, item: ZorkGrandInquisitorItems) -> bool:
-        return item not in self.received_items
 
     def _player_is_at(self, game_location: str) -> bool:
         return self.game_location == game_location
