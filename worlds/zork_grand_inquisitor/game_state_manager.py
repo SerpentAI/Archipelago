@@ -15,6 +15,7 @@ class GameStateManager:
     status_overlay_layer: int = 3
     in_logic_frame_overlay_layer: int = 4
     in_logic_overlay_layer: int = 5
+    crash_prevention_blocked_actions: List[Tuple[Optional[int], Optional[str]]] = [(18143, "music")]
 
     process: Optional[Pymem]
     is_process_running: bool
@@ -128,6 +129,8 @@ class GameStateManager:
             except RuntimeError:
                 pass
 
+            self.zvision.block_actions(self.crash_prevention_blocked_actions)
+
             self.is_process_running = True
         except Exception:
             if self.process is not None:
@@ -218,7 +221,7 @@ class GameStateManager:
                 self.zvision.set_state_value_overrides(self.state_value_overrides if self.are_game_changes_active else dict())
                 self.zvision.set_state_value_remaps(self.state_value_remaps if self.are_game_changes_active else list())
                 self.zvision.set_state_value_read_overrides(self.state_value_read_overrides if self.are_game_changes_active else list())
-                self.zvision.block_actions(self.blocked_actions if self.are_game_changes_active else list())
+                self.zvision.block_actions(self.crash_prevention_blocked_actions + (self.blocked_actions if self.are_game_changes_active else list()))
                 self.zvision.set_state_flag_overrides(self.state_flag_overrides if self.are_game_changes_active else dict())
                 self.zvision.set_location_redirects(self.location_redirects if self.are_game_changes_active and not self.are_location_redirects_suspended else list())
                 self.shown_overlays = dict()
@@ -340,7 +343,7 @@ class GameStateManager:
             self.zvision.set_state_value_overrides(self.state_value_overrides if are_game_changes_active else dict())
             self.zvision.set_state_value_remaps(self.state_value_remaps if are_game_changes_active else list())
             self.zvision.set_state_value_read_overrides(self.state_value_read_overrides if are_game_changes_active else list())
-            self.zvision.block_actions(self.blocked_actions if are_game_changes_active else list())
+            self.zvision.block_actions(self.crash_prevention_blocked_actions + (self.blocked_actions if are_game_changes_active else list()))
             self.zvision.set_state_flag_overrides(self.state_flag_overrides if are_game_changes_active else dict())
             self.zvision.set_location_redirects(self.location_redirects if are_game_changes_active and not self.are_location_redirects_suspended else list())
         except Exception:
@@ -532,7 +535,7 @@ class GameStateManager:
 
         try:
             if self.are_game_changes_active:
-                self.zvision.block_actions(blocked_actions)
+                self.zvision.block_actions(self.crash_prevention_blocked_actions + list(blocked_actions))
         except Exception:
             return False
 

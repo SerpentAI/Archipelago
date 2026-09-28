@@ -23,7 +23,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE): (
@@ -32,7 +32,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.SUBWAY_CROSSROADS): (
@@ -41,7 +41,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.CROSSROADS, ZorkGrandInquisitorRegions.TELEPORTER): None,
@@ -84,7 +84,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): None,
@@ -122,7 +122,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH, ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE): (
@@ -145,7 +145,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_STUDENT_ID_MACHINE.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH): (
@@ -196,7 +196,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.MONASTERY_EXHIBIT): (
@@ -209,7 +209,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.MONASTERY, ZorkGrandInquisitorRegions.SUBWAY_MONASTERY): None,
@@ -278,7 +278,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN, ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST): None,
@@ -301,7 +301,7 @@ entrance_rule_data: EntranceRuleData = {
             Or(
                 Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-            )
+            ),
         )
     ),
     (ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE, ZorkGrandInquisitorRegions.TELEPORTER): None,
@@ -403,4 +403,3 @@ entrance_rule_data: EntranceRuleData = {
     ),
     (ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR, ZorkGrandInquisitorRegions.WHITE_HOUSE): None,
 }
-

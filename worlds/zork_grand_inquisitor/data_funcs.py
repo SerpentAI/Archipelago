@@ -38,7 +38,7 @@ def item_names_to_item() -> Dict[str, ZorkGrandInquisitorItems]:
     return {item.value: item for item in item_data}
 
 
-def location_names_to_id() -> Dict[Any, int]:
+def location_names_to_id() -> Dict[str, int]:
     return {
         location.value: data.archipelago_id
         for location, data in location_data.items()
@@ -111,11 +111,10 @@ def item_groups() -> Dict[str, List[str]]:
     item: ZorkGrandInquisitorItems
     data: ZorkGrandInquisitorItemData
     for item, data in item_data.items():
-        if data.tags is not None:
-            for tag in data.tags:
-                groups.setdefault(tag.value, list()).append(item.value)
+        for tag in data.tags:
+            groups.setdefault(tag.value, list()).append(item.value)
 
-    return {k: v for k, v in groups.items() if len(v)}
+    return groups
 
 
 def items_with_tag(tag: ZorkGrandInquisitorTags) -> Set[ZorkGrandInquisitorItems]:
@@ -124,7 +123,7 @@ def items_with_tag(tag: ZorkGrandInquisitorTags) -> Set[ZorkGrandInquisitorItems
     item: ZorkGrandInquisitorItems
     data: ZorkGrandInquisitorItemData
     for item, data in item_data.items():
-        if data.tags is not None and tag in data.tags:
+        if tag in data.tags:
             items.add(item)
 
     return items
@@ -136,8 +135,8 @@ def game_id_to_items() -> Dict[int, ZorkGrandInquisitorItems]:
     item: ZorkGrandInquisitorItems
     data: ZorkGrandInquisitorItemData
     for item, data in item_data.items():
-        if data.statemap_keys is not None:
-            for key in data.statemap_keys:
+        if data.game_keys is not None:
+            for key in data.game_keys:
                 mapping[key] = item
 
     return mapping
@@ -194,16 +193,8 @@ def prepare_item_data(
     landmarksanity: ZorkGrandInquisitorLandmarksanity,
     entrance_randomizer: ZorkGrandInquisitorEntranceRandomizer,
 ) -> Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData]:
-    transformed_item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = dict()
+    transformed_item_data: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorItemData] = dict(item_data)
 
-    # Filter items
-    item: ZorkGrandInquisitorItems
-    data: ZorkGrandInquisitorItemData
-    for item, data in item_data.items():
-        # Filter here...
-        transformed_item_data[item] = data
-
-    # Apply transformations
     items_to_make_filler: Set[ZorkGrandInquisitorItems] = set()
     items_to_make_deprioritized_skip_balancing: Set[ZorkGrandInquisitorItems] = set()
 
@@ -221,11 +212,9 @@ def prepare_item_data(
                     for item in items:
                         items_to_make_filler.add(item)
                 elif transform == ZorkGrandInquisitorItemTransforms.MAKE_DEPRIORITIZED_SKIP_BALANCING:
-                    item: ZorkGrandInquisitorItems
                     for item in items:
                         items_to_make_deprioritized_skip_balancing.add(item)
 
-    item: ZorkGrandInquisitorItems
     for item in items_to_make_filler:
         transformed_item_data[item] = transformed_item_data[item]._replace(
             classification=ItemClassification.filler
@@ -249,16 +238,8 @@ def prepare_location_data(
 ]:
     transformed_location_data: Dict[
         Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents], ZorkGrandInquisitorLocationData
-    ] = dict()
+    ] = dict(location_data)
 
-    # Filter locations
-    location: Union[ZorkGrandInquisitorLocations, ZorkGrandInquisitorEvents]
-    data: ZorkGrandInquisitorLocationData
-    for location, data in location_data.items():
-        # Filter here...
-        transformed_location_data[location] = data
-
-    # Apply transformations
     locations_to_remove: List[ZorkGrandInquisitorLocations] = list()
 
     for context in (starting_location, goal, deathsanity, landmarksanity):
@@ -271,7 +252,6 @@ def prepare_location_data(
                     for location in locations:
                         locations_to_remove.append(location)
 
-    location: ZorkGrandInquisitorLocations
     for location in locations_to_remove:
         if location in transformed_location_data:
             del transformed_location_data[location]
@@ -310,7 +290,7 @@ def generate_universal_tracker_location_data() -> None:
     location_size_with_margin: int = int(location_size * 1.25)
 
     location_group: str
-    locations: Tuple[ZorkGrandInquisitorLocations]
+    locations: Tuple[ZorkGrandInquisitorLocations, ...]
     for location_group, locations in tracker_location_groups.items():
         location_group_configuration: Tuple[int, int, bool, int, Tuple[int, ...]] = tracker_location_group_configuration[location_group]
 

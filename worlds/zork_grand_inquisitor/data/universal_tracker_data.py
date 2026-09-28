@@ -3,7 +3,7 @@ from typing import Dict, Tuple
 from ..enums import ZorkGrandInquisitorLocations
 
 
-tracker_location_groups: Dict[str, Tuple[ZorkGrandInquisitorLocations]] = {
+tracker_location_groups: Dict[str, Tuple[ZorkGrandInquisitorLocations, ...]] = {
     "Anywhere": (
         ZorkGrandInquisitorLocations.DONT_GO_SPENDING_IT_ALL_IN_ONE_PLACE,
         ZorkGrandInquisitorLocations.OLD_SCRATCH_WINNER,

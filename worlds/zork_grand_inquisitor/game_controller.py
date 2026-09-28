@@ -98,7 +98,7 @@ class GameController:
     initial_totemizer_destination: Optional[ZorkGrandInquisitorItems]
 
     time_tunnel_destinations: Dict[str, str]
-    entrance_randomizer_data: Dict[str, str]
+    entrance_randomizer_data: Dict[str, Tuple[str, int]]
     entrance_randomizer_arrivals: Dict[Tuple[str, str], str]
 
     discovered_entrances: Set[str]
@@ -1162,11 +1162,11 @@ class GameController:
         self.entrance_randomizer_arrivals = dict()
 
         location_pairing_key: str
-        teleport: str
+        teleport: Tuple[str, int]
         for location_pairing_key, teleport in sorted(self.entrance_randomizer_data.items()):
             origin, destination = location_pairing_key.split("-")
-            next_game_location: str = "".join(teleport.split(" ")[:-1])
-            offset: int = int(teleport.split(" ")[-1])
+            next_game_location: str = teleport[0]
+            offset: int = teleport[1]
             entrance_name: str = entrance_names[entrances_to_game_locations_reverse[(origin, destination)]]
 
             redirected_origin: str
@@ -1328,7 +1328,7 @@ class GameController:
 
             if hotspot_item not in self.received_items:
                 key: int
-                for key in data.statemap_keys:
+                for key in data.game_keys:
                     self._write_game_flags_value_for(key, 2)
             else:
                 if hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX:
@@ -1376,7 +1376,7 @@ class GameController:
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS:
                     if self.game_location == "tr5g":
                         key: int
-                        for key in data.statemap_keys:
+                        for key in data.game_keys:
                             self._write_game_flags_value_for(key, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_COIN_SLOT:
                     if self.game_location == "tr5g":
@@ -1530,7 +1530,7 @@ class GameController:
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_GRASS:
                     if self.game_location in ("te10", "te1g", "te20", "te30", "te40"):
                         key: int
-                        for key in data.statemap_keys:
+                        for key in data.game_keys:
                             self._write_game_flags_value_for(key, 0)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS:
                     if self.game_location == "te3e":
@@ -1544,11 +1544,11 @@ class GameController:
                     if self.game_location == "hp1e":
                         if self._read_game_state_value_for(8431) == 1:
                             key: int
-                            for key in data.statemap_keys:
+                            for key in data.game_keys:
                                 self._write_game_flags_value_for(key, 0)
                         else:
                             key: int
-                            for key in data.statemap_keys:
+                            for key in data.game_keys:
                                 self._write_game_flags_value_for(key, 2)
                 elif hotspot_item == ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_RECEIVER:
                     if self.game_location == "hp1e":
@@ -2600,7 +2600,7 @@ class GameController:
     def _add_to_inventory(self, item: ZorkGrandInquisitorItems) -> bool:
         data: ZorkGrandInquisitorItemData = item_data[item]
 
-        if data.statemap_keys is None:
+        if data.game_keys is None:
             return False
 
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
@@ -2608,23 +2608,23 @@ class GameController:
                 return False
 
             inventory_slot: int = self.available_inventory_slots.pop()
-            self._write_game_state_value_for(inventory_slot, data.statemap_keys[0])
+            self._write_game_state_value_for(inventory_slot, data.game_keys[0])
         elif ZorkGrandInquisitorTags.SPELL in data.tags:
-            self._write_game_state_value_for(data.statemap_keys[0], 1)
+            self._write_game_state_value_for(data.game_keys[0], 1)
         elif ZorkGrandInquisitorTags.TOTEM in data.tags:
-            self._write_game_state_value_for(data.statemap_keys[0], 1)
+            self._write_game_state_value_for(data.game_keys[0], 1)
 
         return True
 
     def _remove_from_inventory(self, item: ZorkGrandInquisitorItems) -> None:
         data: ZorkGrandInquisitorItemData = item_data[item]
 
-        if data.statemap_keys is None:
+        if data.game_keys is None:
             return None
 
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
-            if data.statemap_keys[0] in [self._read_game_state_value_for(key) for key in range(101, 150)]:
-                self.game_state_manager.drop_inventory_item(data.statemap_keys[0])
+            if data.game_keys[0] in [self._read_game_state_value_for(key) for key in range(101, 150)]:
+                self.game_state_manager.drop_inventory_item(data.game_keys[0])
                 return None
 
             inventory_slot: Optional[int] = self._inventory_slot_for(item)
@@ -2637,9 +2637,9 @@ class GameController:
             if inventory_slot != 9:
                 self.available_inventory_slots.add(inventory_slot)
         elif ZorkGrandInquisitorTags.SPELL in data.tags:
-            self._write_game_state_value_for(data.statemap_keys[0], 0)
+            self._write_game_state_value_for(data.game_keys[0], 0)
         elif ZorkGrandInquisitorTags.TOTEM in data.tags:
-            self._write_game_state_value_for(data.statemap_keys[0], 0)
+            self._write_game_state_value_for(data.game_keys[0], 0)
 
     def _determine_available_inventory_slots(self, is_totem: bool = False) -> Set[int]:
         available_inventory_slots: Set[int] = set()
@@ -2667,13 +2667,13 @@ class GameController:
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             i: int
             for i in range(151, 171):
-                if self._read_game_state_value_for(i) == data.statemap_keys[0]:
+                if self._read_game_state_value_for(i) == data.game_keys[0]:
                     return i
 
-        if self._read_game_state_value_for(9) == data.statemap_keys[0]:
+        if self._read_game_state_value_for(9) == data.game_keys[0]:
             return 9
 
-        if self._read_game_state_value_for(4512) == data.statemap_keys[0]:
+        if self._read_game_state_value_for(4512) == data.game_keys[0]:
             return 4512
 
         return None

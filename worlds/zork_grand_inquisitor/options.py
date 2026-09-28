@@ -24,6 +24,7 @@ class Goal(Choice):
     Zork Tour: Visit all 23 landmarks and travel to the Port Foozle signpost
     Grim Journey: Experience all 31 player deaths and go beyond the gates of Hades
     """
+
     display_name: str = "Goal"
 
     option_three_artifacts: int = 0
@@ -118,7 +119,7 @@ class StartingLocation(Choice):
     option_monastery_totemizer: int = 8
     option_monastery_exhibit: int = 9
 
-    default = 0
+    default = "random"
 
 
 class Hotspots(Choice):
@@ -247,7 +248,7 @@ class TrapPercentage(Range):
     - Infinite Corridor Trap: The player is teleported to a random depth in the Infinite Corridor
     - Reverse Controls Trap: The player's panorama controls are reversed for 30 seconds
     - Teleport Trap: The player is teleported to a random location
-    - ZVision Trap: The player's vision is obscured for 30 seconds
+    - ZVision Trap: The player's vision is distorted for 30 seconds
     """
 
     display_name = "Trap Percentage"

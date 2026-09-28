@@ -1,5 +1,7 @@
 import asyncio
+import sys
 import time
+import urllib.parse
 
 import CommonClient
 import NetUtils
@@ -464,11 +466,26 @@ class ZorkGrandInquisitorContext(Context):
                     self.game_controller.outgoing_death_link = (False, None)
 
 
-def main() -> None:
+def main(*args) -> None:
     Utils.init_logging("ZorkGrandInquisitorClient", exception_logger="Client")
 
-    async def _main():
-        ctx: ZorkGrandInquisitorContext = ZorkGrandInquisitorContext(None, None)
+    parser = CommonClient.get_base_parser(description="Zork Grand Inquisitor Client")
+
+    parser.add_argument("url", nargs="?", help="Archipelago Connection URL")
+    parser.add_argument("--name", default=None, help="Archipelago Slot Name")
+
+    args = parser.parse_args(args)
+
+    if args.url:
+        url = urllib.parse.urlparse(args.url)
+        args.connect = url.netloc
+        if url.username:
+            args.name = urllib.parse.unquote(url.username)
+        if url.password:
+            args.password = urllib.parse.unquote(url.password)
+
+    async def _main(_args):
+        ctx: ZorkGrandInquisitorContext = ZorkGrandInquisitorContext(args.connect, args.password)
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="ZorkGrandInquisitorController")
@@ -488,10 +505,10 @@ def main() -> None:
 
     colorama.just_fix_windows_console()
 
-    asyncio.run(_main())
+    asyncio.run(_main(args))
 
     colorama.deinit()
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv[1:])

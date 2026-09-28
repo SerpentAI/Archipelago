@@ -24,55 +24,55 @@ item_data_transforms: Dict[
     ZorkGrandInquisitorStartingLocations.PORT_FOOZLE: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.CROSSROADS: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.DM_LAIR: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_CROSSROADS,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_DM_LAIR,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.GUE_TECH: None,
     ZorkGrandInquisitorStartingLocations.SPELL_LAB: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_SPELL_LAB,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.HADES_SHORE: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_HADES,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_HADES,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.SUBWAY_FLOOD_CONTROL_DAM: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_FLOOD_CONTROL_DAM,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.MONASTERY: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
+            ZorkGrandInquisitorItems.MONASTERY_ROPE,
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-            ZorkGrandInquisitorItems.MONASTERY_ROPE,
-        )
+        ),
     },
     ZorkGrandInquisitorStartingLocations.MONASTERY_EXHIBIT: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
+            ZorkGrandInquisitorItems.MONASTERY_ROPE,
             ZorkGrandInquisitorItems.SUBWAY_DESTINATION_MONASTERY,
             ZorkGrandInquisitorItems.TELEPORTER_DESTINATION_MONASTERY,
-            ZorkGrandInquisitorItems.MONASTERY_ROPE,
-        )
+        ),
     },
     ZorkGrandInquisitorGoals.THREE_ARTIFACTS: None,
     ZorkGrandInquisitorGoals.ARTIFACT_OF_MAGIC_HUNT: None,
@@ -89,16 +89,16 @@ item_data_transforms: Dict[
             ZorkGrandInquisitorItems.SPELL_SNAVIG,
             ZorkGrandInquisitorItems.SPELL_THROCK,
             ZorkGrandInquisitorItems.SPELL_YASTARD,
-        )
+        ),
     },
     ZorkGrandInquisitorGoals.ZORK_TOUR: None,
     ZorkGrandInquisitorGoals.GRIM_JOURNEY: None,
     ZorkGrandInquisitorDeathsanity.OFF: {
         ZorkGrandInquisitorItemTransforms.MAKE_FILLER: (
-            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
-            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY,
             ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_INFINITY,
-        )
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_NEWARK_NEW_JERSEY,
+            ZorkGrandInquisitorItems.TOTEMIZER_DESTINATION_SURFACE_OF_MERZ,
+        ),
     },
     ZorkGrandInquisitorDeathsanity.ON: None,
     ZorkGrandInquisitorLandmarksanity.OFF: None,

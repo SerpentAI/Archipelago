@@ -17,7 +17,6 @@ class ZorkGrandInquisitorLocationData(NamedTuple):
             Union[
                 Tuple[str, str],
                 Tuple[str, int],
-                Tuple[str, Tuple[int, int]],
                 Tuple[str, Tuple[int, ...]],
                 Tuple[int, int],
                 Tuple[int, Tuple[int, ...]],
@@ -31,7 +30,7 @@ class ZorkGrandInquisitorLocationData(NamedTuple):
     region: ZorkGrandInquisitorRegions
     description: Optional[str]
     tags: Optional[Tuple[ZorkGrandInquisitorTags, ...]] = None
-    requirements: Rule = None
+    requirements: Optional[Rule] = None
     event_item_name: Optional[str] = None
 
 
@@ -58,7 +57,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.TOTEM_GRIFF.value),
                 Has(ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.ARREST_THE_VANDAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10789, 1),),
@@ -74,7 +73,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.CIGAR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.ARTIFACTS_EXPLAINED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11787, 1), (11788, 1), (11789, 1)),
@@ -91,7 +90,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorItems.SPELL_OBIDIL.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.A_LETTER_FROM_THE_WHITE_HOUSE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9124, 1),),
@@ -105,9 +104,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.A_SMALLWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11777, 1),),
@@ -121,9 +120,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
                 ),
-                Has(ZorkGrandInquisitorItems.SPELL_IGRAM.value)
+                Has(ZorkGrandInquisitorItems.SPELL_IGRAM.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BEAUTIFUL_THATS_PLENTY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13278, 1),),
@@ -137,9 +136,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
                 ),
-                Has(ZorkGrandInquisitorItems.SPELL_THROCK.value)
+                Has(ZorkGrandInquisitorItems.SPELL_THROCK.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BEBURTT_DEMYSTIFIED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16315, 1),),
@@ -150,9 +149,9 @@ location_data: Dict[
         requirements=(
             And(
                 Has(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value),
-                Has(ZorkGrandInquisitorItems.SPELL_KENDALL.value)
+                Has(ZorkGrandInquisitorItems.SPELL_KENDALL.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BETTER_SPELL_MANUFACTURING_IN_UNDER_10_MINUTES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "th3x"),),
@@ -177,9 +176,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BONK: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19491, 1),),
@@ -193,9 +192,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BRAVE_SOULS_WANTED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "us2g"),),
@@ -260,9 +259,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_COOKING_POT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BROG_EAT_ROCKS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2629, 1),),
@@ -279,7 +278,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorItems.BROGS_GRUE_EGG.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.BROG_MUCH_BETTER_AT_THIS_GAME: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15715, 1),),
@@ -298,9 +297,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.CASTLE_WATCHING_A_FIELD_GUIDE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1t"),),
@@ -317,7 +316,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.CLOSET_TIME_TUNNEL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4983, 1),),
@@ -331,9 +330,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CLOSET_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
                 ),
-                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
+                Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.CLOSING_THE_TIME_TUNNELS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9543, 1),),
@@ -359,7 +358,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.CRISIS_AVERTED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11769, 1),),
@@ -378,9 +377,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DENTED_LOCKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.CUT_THAT_OUT_YOU_LITTLE_CREEP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19350, 1),),
@@ -403,7 +402,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.SPELL_GOLGATEM.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DINGWHACKER_DELUXE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2417),),
@@ -444,9 +443,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DOWN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3619, 5300),),
@@ -460,9 +459,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DUNCE_LOCKER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11851, 1),),
@@ -482,7 +481,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
                 ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.EGGPLANTS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 11000),),
@@ -563,9 +562,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
                 ),
-                Has(ZorkGrandInquisitorItems.CIGAR.value)
+                Has(ZorkGrandInquisitorItems.CIGAR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.FLATHEADIA_FUDGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4834, 1),),
@@ -595,9 +594,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.FROBUARY_3_UNDERGROUNDHOG_DAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dw2g"),),
@@ -618,9 +617,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CHANGE_MACHINE_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.GOLGATEM_SCROLL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13260, 1),),
@@ -646,9 +645,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SKULL_CAGE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.GO_AWAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10654, 1),),
@@ -678,7 +677,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO.value),
-                )
+                ),
             )
         ),
     ),
@@ -718,7 +717,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.HAMMER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12930, 1),),
@@ -742,9 +741,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.HELLO_THIS_IS_SHONA_FROM_GURTH_PUBLISHING: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4698, 1),),
@@ -767,7 +766,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.PLASTIC_SIX_PACK_HOLDER.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.HEY_FREE_DIRT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11747, 1),),
@@ -783,7 +782,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.SHOVEL.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.HMMM_BIG_TOOTHPICK: ZorkGrandInquisitorLocationData(
         game_state_trigger=((2194, 69),),
@@ -817,7 +816,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.HUNGUS_LARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4755, 1),),
@@ -841,9 +840,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.IM_COMPLETELY_NUDE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((19344, 1),),
@@ -873,7 +872,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
                 ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.INVISIBLE_FLOWERS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12967, 1),),
@@ -897,9 +896,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.IN_MAGIC_WE_TRUST: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13062, 1),),
@@ -913,9 +912,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_IN_MAGIC_WE_TRUST_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11005, 15),),
@@ -943,9 +942,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.IT_DOESNT_APPEAR_TO_BE_FOOLED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((3816, 1009),),
@@ -959,9 +958,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.I_AM_NOT_IMPRESSED: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", ("hp4f", "hp1g")), (8419, 1)),
@@ -984,10 +983,10 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.SPELL_THROCK.value),
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
-                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value)
-                )
+                    Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.I_DONT_WANT_NO_TROUBLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10694, 1),),
@@ -1014,9 +1013,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_CHASM.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.I_SPIT_ON_YOUR_FILTHY_COINAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 16410), (9, 87)),
@@ -1026,7 +1025,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE, ZorkGrandInquisitorTags.MISSABLE),
         requirements=(
             Has(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.JAR_OF_HOTBUGS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4746, 1),),
@@ -1086,7 +1085,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SOUVENIR_COIN_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
-                )
+                ),
             )
         ),
     ),
@@ -1116,9 +1115,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_FROZEN_TREAT_MACHINE_DOORS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.LUCYS_PLAYING_CARDS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15405, 4),),
@@ -1127,7 +1126,6 @@ location_data: Dict[
         description="Pick up the playing cards at Alpine's Quandry in the Past Port Foozle tavern",
         tags=(ZorkGrandInquisitorTags.CORE,),
     ),
-    # Events
     ZorkGrandInquisitorLocations.LUCYS_TOTEM: ZorkGrandInquisitorLocationData(
         game_state_trigger=((17147, 1),),
         archipelago_id=LOCATION_OFFSET + 92,
@@ -1156,7 +1154,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
                 ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(((8623, 8734), 21),),
@@ -1169,7 +1167,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorEvents.CHARON_CALLED.value),
                 Has(ZorkGrandInquisitorItems.SWORD.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.MAP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12932, 1),),
@@ -1183,7 +1181,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-                )
+                ),
             )
         ),
     ),
@@ -1199,9 +1197,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.MEAD_LIGHT_AND_PLASTIC_SIX_PACK_HOLDER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10418, 1),),
@@ -1249,7 +1247,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.LARGE_TELEGRAPH_HAMMER.value),
                 Has(ZorkGrandInquisitorItems.SPELL_NARWILE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.MOSS_OF_MAREILON: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13279, 1),),
@@ -1263,7 +1261,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MOSSY_GRATE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
                 ),
-                Has(ZorkGrandInquisitorItems.SPELL_THROCK.value)
+                Has(ZorkGrandInquisitorItems.SPELL_THROCK.value),
             )
         ),
     ),
@@ -1286,9 +1284,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NARWILE_SCROLL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 3730),),
@@ -1313,9 +1311,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NATURAL_AND_SUPERNATURAL_CREATURES_OF_QUENDOR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1p"),),
@@ -1340,9 +1338,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NOTHIN_LIKE_A_GOOD_STOGIE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4237, 1),),
@@ -1356,9 +1354,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HARRYS_ASHTRAY.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
                 ),
-                Has(ZorkGrandInquisitorItems.CIGAR.value)
+                Has(ZorkGrandInquisitorItems.CIGAR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NOT_BAD_BUT_ITS_STILL_ELECTRIFIED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((5595, 1),),
@@ -1402,7 +1400,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NO_BONDAGE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 15149), ("set", (9, 83))),
@@ -1416,9 +1414,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.NO_ONE_RETURNS_FROM_HADES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15204, 1),),
@@ -1428,7 +1426,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorEvents.BEYOND_GATES_OF_HELL_ACCESSED.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OBIDIL_DRIED_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12164, 1),),
@@ -1442,9 +1440,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
                 ),
-                Has(ZorkGrandInquisitorItems.SANDWITCH_WRAPPER.value)
+                Has(ZorkGrandInquisitorItems.SANDWITCH_WRAPPER.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OH_DEAR_GOD_ITS_A_DRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=((1300, 1),),
@@ -1460,9 +1458,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OH_VERY_FUNNY_GUYS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2448),),
@@ -1476,9 +1474,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OH_WOW_TALK_ABOUT_DEJA_VU: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4869, 1),),
@@ -1491,7 +1489,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.COCOA_INGREDIENTS.value),
                 Has(ZorkGrandInquisitorItems.HUNGUS_LARD.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OLD_SCRATCH_CARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16959, 1),),
@@ -1528,7 +1526,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.SPELL_SNAVIG.value),
                 Has(ZorkGrandInquisitorItems.TOTEM_BROG.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4241, 1),),
@@ -1543,9 +1541,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.PERMASEAL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mt1g"),),
@@ -1580,7 +1578,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CHANGE_MACHINE_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
     ),
@@ -1596,9 +1594,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.PROZORK_TABLET: ZorkGrandInquisitorLocationData(
         game_state_trigger=((16279, 1),),
@@ -1630,7 +1628,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
         ),
     ),
@@ -1647,9 +1645,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MIRROR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.RESTOCKED_ON_GRUESDAY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "tr2h"),),
@@ -1725,7 +1723,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SNAPDRAGON.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
         ),
     ),
@@ -1741,9 +1739,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.SOUVENIR: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13408, 1),),
@@ -1757,9 +1755,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SOUVENIR_COIN_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.SPELL_CHECK_COMPLETE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12168, 1),),
@@ -1776,9 +1774,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_BLANK_SCROLL_BOX.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9719, 1),),
@@ -1798,7 +1796,7 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
                 ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14511, 1), (14524, 5)),
@@ -1819,9 +1817,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.STUDENT_ID: ZorkGrandInquisitorLocationData(
         game_state_trigger=((11886, 1),),
@@ -1840,7 +1838,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DENTED_LOCKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
     ),
@@ -1878,9 +1876,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_VACUUM_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.SWEET_YORUK_WERE_ALL_GOING_TO_DIE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((18107, 1),),
@@ -1910,7 +1908,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GLASS_CASE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-                )
+                ),
             )
         ),
     ),
@@ -1925,7 +1923,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.TAMING_YOUR_SNAPDRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dv1h"),),
@@ -1949,9 +1947,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO.value),
                 ),
-                Has(ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH.value)
+                Has(ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THATS_A_ROPE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10486, 1),),
@@ -1965,9 +1963,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THATS_IT_JUST_KEEP_HITTING_THOSE_BUTTONS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((13805, 1),),
@@ -1997,7 +1995,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_LOUDSPEAKER_VOLUME_BUTTONS.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THE_ALCHEMICAL_DEBACLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=((9459, 1),),
@@ -2038,7 +2036,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE.value),
                 Has(ZorkGrandInquisitorItems.SPELL_KENDALL.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THE_PERILS_OF_MAGIC: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "me1j"),),
@@ -2059,9 +2057,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SUBWAY_TOKEN_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THIS_DOESNT_LOOK_ANYTHING_LIKE_THE_BROCHURE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"), (1524, 1)),
@@ -2086,9 +2084,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPRING_MUSHROOM.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.THROCK_SCROLL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((4059, 1),),
@@ -2159,9 +2157,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.USELESS_BUT_FUN: ZorkGrandInquisitorLocationData(
         game_state_trigger=((14321, 1),),
@@ -2185,9 +2183,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_FLAG.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.VOYAGE_OF_CAPTAIN_ZAHAB: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "uh1h"),),
@@ -2210,9 +2208,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WANT_SOME_RYE_COURSE_YA_DO_PAST: ZorkGrandInquisitorLocationData(
         game_state_trigger=((17006, 5001),),
@@ -2234,9 +2232,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_666_MAILBOX.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WE_DONT_SERVE_YOUR_KIND_HERE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 2461),),
@@ -2250,9 +2248,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_PORT_FOOZLE_PAST_TAVERN_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WE_GOT_A_HIGH_ROLLER: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15472, 1),),
@@ -2273,9 +2271,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WE_JUST_NEED_TO_TAKE_A_LONG_COLD_SHOWER_TOGETHER: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 8930),),
@@ -2285,7 +2283,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorItems.SPELL_OBIDIL.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WHAT_ARE_YOU_STUPID: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10484, 1),),
@@ -2299,9 +2297,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_JACKS_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WHOOPS: ZorkGrandInquisitorLocationData(
         game_state_trigger=((15959, (1, 2)),),
@@ -2311,7 +2309,7 @@ location_data: Dict[
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
             Has(ZorkGrandInquisitorItems.BROGS_GRUE_EGG.value)
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.WOW_IVE_NEVER_GONE_INSIDE_HIM_BEFORE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dc10"), (1596, 1)),
@@ -2331,7 +2329,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_MIRROR.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.YOUR_PUNY_WEAPONS_DONT_PHASE_ME_BABY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("puzzle", 4292), (4279, 0)),
@@ -2345,9 +2343,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HARRY.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.YOU_ARE_TRULY_GIFTED_YOU_KNOW_THAT: ZorkGrandInquisitorLocationData(
         game_state_trigger=((5764, 1),),
@@ -2396,9 +2394,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.YOU_LOSE_MUFFET_ANTE_UP: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "qs1e"), (14511, 1), (14524, 5)),
@@ -2419,9 +2417,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.YOU_ONE_OF_THEM_AGITATORS_AINT_YA: ZorkGrandInquisitorLocationData(
         game_state_trigger=((10586, 1),),
@@ -2441,7 +2439,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_DOCK_WINCH.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.ZIMDOR_IS_UNDAMAGED: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12167, 1),),
@@ -2455,11 +2453,10 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SPELL_CHECKER.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB.value),
-                )
+                ),
             )
-        )
+        ),
     ),
-    # Deathsanity
     ZorkGrandInquisitorLocations.ZIMDOR_SCROLL: ZorkGrandInquisitorLocationData(
         game_state_trigger=((12948, 1),),
         archipelago_id=LOCATION_OFFSET + 194,
@@ -2491,10 +2488,11 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_VACUUM_SLOT.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
     ),
+    # Deathsanity
     ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 1)),
         archipelago_id=LOCATION_OFFSET + 200 + 0,
@@ -2507,9 +2505,9 @@ location_data: Dict[
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE.value),
                 ),
-                Has(ZorkGrandInquisitorItems.CIGAR.value)
+                Has(ZorkGrandInquisitorItems.CIGAR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_ATTACKED_THE_QUELBEES: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 20)),
@@ -2523,9 +2521,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_CLIMBED_OUT_OF_THE_WELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 21)),
@@ -2587,7 +2585,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.TOTEM_GRIFF.value),
                 Has(ZorkGrandInquisitorItems.TOTEM_LUCY.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_ENTERED_THE_GUARDS_TENT: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 36)),
@@ -2628,9 +2626,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_ALPINES_QUANDRY_CARD_SLOTS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE_PAST.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_LOST_SOUL_TO_OLD_SCRATCH: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 23)),
@@ -2654,9 +2652,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_RILED_THE_FISHWIFE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 22)),
@@ -2665,7 +2663,6 @@ location_data: Dict[
         description="Try to take the fish lady's goods four times while she can hear you in Port Foozle",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
     ),
-    # Landmarksanity
     ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 30)),
         archipelago_id=LOCATION_OFFSET + 200 + 12,
@@ -2692,9 +2689,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_PURPLE_WORDS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_SWALLOWED_BY_A_DRAGON: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 11)),
@@ -2713,7 +2710,7 @@ location_data: Dict[
                 ),
                 Has(ZorkGrandInquisitorItems.GRIFFS_DRAGON_TOOTH.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_THROCKED_THE_GRASS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 34)),
@@ -2727,9 +2724,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_GRASS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOOK_THE_OMEGA_HAMMER: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 12)),
@@ -2749,7 +2746,7 @@ location_data: Dict[
         game_state_trigger=(("location", "gjde"), (2201, 9)),
         archipelago_id=LOCATION_OFFSET + 200 + 19,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Infinity and with PermalSeal turned off at the Monastery",
+        description="Totemize yourself with the destination set to Infinity and with PermaSeal turned off at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2761,15 +2758,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_NEWARK_NEW_JERSEY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 33)),
         archipelago_id=LOCATION_OFFSET + 200 + 20,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Newark, New Jersey and with PermalSeal turned off at the Monastery",
+        description="Totemize yourself with the destination set to Newark, New Jersey and with PermaSeal turned off at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2781,15 +2778,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_HALLS_OF_INQUISITION: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 8)),
         archipelago_id=LOCATION_OFFSET + 200 + 21,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Halls of Inquisition and with PermalSeal turned on at the Monastery.and with PermalSeal turned on at the Monastery",
+        description="Totemize yourself with the destination set to Halls of Inquisition and with PermaSeal turned on at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2797,15 +2794,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_INFINITY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 7)),
         archipelago_id=LOCATION_OFFSET + 200 + 22,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Infinity and with PermalSeal turned on at the Monastery",
+        description="Totemize yourself with the destination set to Infinity and with PermaSeal turned on at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2813,15 +2810,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_NEWARK_NEW_JERSEY: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 6)),
         archipelago_id=LOCATION_OFFSET + 200 + 23,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Newark, New Jersey and with PermalSeal turned on at the Monastery",
+        description="Totemize yourself with the destination set to Newark, New Jersey and with PermaSeal turned on at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2829,15 +2826,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_STRAIGHT_TO_HELL: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 5)),
         archipelago_id=LOCATION_OFFSET + 200 + 24,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Straight to Hell and with PermalSeal turned on at the Monastery",
+        description="Totemize yourself with the destination set to Straight to Hell and with PermaSeal turned on at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2845,15 +2842,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_PERMANENTLY_SURFACE_OF_MERZ: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 13)),
         archipelago_id=LOCATION_OFFSET + 200 + 25,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Surface of Merz and with PermalSeal turned on at the Monastery",
+        description="Totemize yourself with the destination set to Surface of Merz and with PermaSeal turned on at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2861,15 +2858,15 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOTEMIZED_SURFACE_OF_MERZ: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 32)),
         archipelago_id=LOCATION_OFFSET + 200 + 26,
         region=ZorkGrandInquisitorRegions.MONASTERY,
-        description="Totemize yourself with the destination set to Surface of Merz and with PermalSeal turned off at the Monastery",
+        description="Totemize yourself with the destination set to Surface of Merz and with PermaSeal turned off at the Monastery",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
@@ -2881,9 +2878,9 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_TOTEMIZER_SWITCH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_MONASTERY.value),
-                )
+                ),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.DEATH_TOUCHED_THE_ELECTRIFIED_FENCE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 26)),
@@ -2942,6 +2939,7 @@ location_data: Dict[
             Has(ZorkGrandInquisitorEvents.ZORK_ROCKS_ACTIVATED.value)
         ),
     ),
+    # Landmarksanity
     ZorkGrandInquisitorLocations.LANDMARK_DRAGON_ARCHIPELAGO: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "cd60"),),
         archipelago_id=LOCATION_OFFSET + 300 + 0,
@@ -2954,7 +2952,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.TOTEM_GRIFF.value),
                 Has(ZorkGrandInquisitorItems.TOTEM_LUCY.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_DUNGEON_MASTERS_HOUSE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "dg40"),),
@@ -3044,7 +3042,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.HOTSPOT_MIRROR.value),
                 Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_OUTSIDE_THE_MONASTERY_EXHIBIT: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "mx20"),),
@@ -3065,7 +3063,7 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.TOTEM_GRIFF.value),
                 Has(ZorkGrandInquisitorItems.TOTEM_LUCY.value),
             )
-        )
+        ),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_PORT_FOOZLE: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "pe10"),),
@@ -3128,8 +3126,9 @@ location_data: Dict[
                 Has(ZorkGrandInquisitorItems.TOTEM_GRIFF.value),
                 Has(ZorkGrandInquisitorItems.TOTEM_LUCY.value),
             )
-        )
+        ),
     ),
+    # Events
     ZorkGrandInquisitorEvents.BEYOND_GATES_OF_HELL_ACCESSED: ZorkGrandInquisitorLocationData(
         game_state_trigger=None,
         archipelago_id=None,
@@ -3151,7 +3150,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HADES_PHONE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_HADES.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.CHARON_CALLED.value,
@@ -3171,7 +3170,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.DALBOZ_LOCKER_OPENABLE.value,
@@ -3191,7 +3190,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.DAM_DESTROYED.value,
@@ -3209,7 +3208,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_HARRYS_BIRD_BATH.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.DOOR_DRANK_MEAD.value,
@@ -3245,7 +3244,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_CANDY_MACHINE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.DUNCE_LOCKER_OPENABLE.value,
@@ -3262,7 +3261,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MIRROR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.HAS_REPAIRABLE_SNAVIG.value,
@@ -3305,7 +3304,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_MAILBOX_DOOR.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_WHITE_HOUSE.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.WHITE_HOUSE_LETTER_MAILABLE.value,
@@ -3336,7 +3335,7 @@ location_data: Dict[
                 Or(
                     Has(ZorkGrandInquisitorItems.HOTSPOT_SODA_MACHINE_BUTTONS.value),
                     Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
-                )
+                ),
             )
         ),
         event_item_name=ZorkGrandInquisitorEvents.ZORK_ROCKS_ACTIVATED.value,
