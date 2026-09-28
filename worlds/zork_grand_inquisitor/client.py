@@ -115,6 +115,8 @@ class ZorkGrandInquisitorContext(Context):
     process_attached_at_least_once: bool
     can_display_process_message: bool
 
+    is_goal_sent: bool
+
     def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
         super().__init__(server_address, password)
 
@@ -128,6 +130,8 @@ class ZorkGrandInquisitorContext(Context):
 
         self.process_attached_at_least_once = False
         self.can_display_process_message = True
+
+        self.is_goal_sent = False
 
         if tracker_loaded:
             def update_locations_in_logic(locations_in_logic: List[str]) -> None:
@@ -155,6 +159,8 @@ class ZorkGrandInquisitorContext(Context):
         self.game_controller.reset()
 
         self.data_storage_key = None
+
+        self.is_goal_sent = False
 
         self.items_received = []
         self.locations_info = {}
@@ -397,13 +403,15 @@ class ZorkGrandInquisitorContext(Context):
                 await self.check_locations(checked_location_ids)
 
                 # Check for Goal Completion
-                if self.game_controller.goal_completed:
+                if self.game_controller.goal_completed and not self.is_goal_sent:
                     await self.send_msgs([
                         {
                             "cmd": "StatusUpdate",
                             "status": CommonClient.ClientStatus.CLIENT_GOAL
                         }
                     ])
+
+                    self.is_goal_sent = True
 
                 # Update Data Storage
                 if self.data_storage_key is not None and self.data_storage_key in self.stored_data:

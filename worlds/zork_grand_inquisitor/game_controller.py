@@ -71,6 +71,8 @@ class GameController:
     goal_item_count: int
     goal_completed: bool
 
+    logged_errors: Set[str]
+
     game_location: Optional[str]
 
     option_goal: Optional[ZorkGrandInquisitorGoals]
@@ -110,6 +112,7 @@ class GameController:
     processed_trap_counters: Dict[ZorkGrandInquisitorItems, int]
     active_trap_timestamps: Dict[ZorkGrandInquisitorItems, Optional[int]]
     pending_infinite_corridor_depth: Optional[int]
+    pending_walking_castle_return: bool
 
     energy_link_queue: collections.deque
     pause_energy_link_monitoring: bool
@@ -173,6 +176,8 @@ class GameController:
         self.goal_item_count = 0
         self.goal_completed = False
 
+        self.logged_errors = set()
+
         self.game_location = None
 
         self.option_goal = None
@@ -223,6 +228,7 @@ class GameController:
         }
 
         self.pending_infinite_corridor_depth = None
+        self.pending_walking_castle_return = False
 
         self.energy_link_queue = collections.deque()
         self.pause_energy_link_monitoring = False
@@ -485,8 +491,16 @@ class GameController:
                 self._manage_overlays()
 
                 self.game_state_manager.end_tick()
-            except Exception as e:
-                self.log_debug(e)
+            except Exception:
+                import traceback
+
+                error: str = traceback.format_exc()
+
+                if error not in self.logged_errors:
+                    self.logged_errors.add(error)
+
+                    with open("zork_grand_inquisitor_errors.log", "a") as f:
+                        f.write(error + "\n\n")
 
     def reset(self) -> None:
         self.received_items = set()
@@ -550,6 +564,7 @@ class GameController:
         }
 
         self.pending_infinite_corridor_depth = None
+        self.pending_walking_castle_return = False
 
         self.energy_link_queue = collections.deque()
         self.pause_energy_link_monitoring = False
@@ -803,6 +818,7 @@ class GameController:
             (ZorkGrandInquisitorLocations.NARWILE_SCROLL, "dc1h", 3730, "change_location"),
             (ZorkGrandInquisitorLocations.LUCYS_TOTEM, "me2m", 17150, "dissolve"),
             (ZorkGrandInquisitorLocations.LUCYS_TOTEM, "me2m", 17150, "change_location"),
+            (ZorkGrandInquisitorLocations.LUCYS_TOTEM, "me2m", 17150, "cursor"),
             (ZorkGrandInquisitorLocations.BROGS_TOTEM, "hp6g", 9381, "dissolve"),
             (ZorkGrandInquisitorLocations.BROGS_TOTEM, "hp6g", 9381, "change_location"),
             (ZorkGrandInquisitorLocations.MEAD_LIGHT_AND_PLASTIC_SIX_PACK_HOLDER, "pe2h", 16249, "inventory"),
@@ -949,6 +965,14 @@ class GameController:
             self._write_game_state_value_for(9818, 0)
             self._write_game_state_value_for(9844, 0)
 
+        if self.game_location.startswith("em"):
+            key: int
+            for key in range(192, 203):
+                if self._read_game_state_value_for(key) in (1, 2):
+                    self._write_game_state_value_for(key, 3)
+        elif self._read_game_state_value_for(2343) == 1 and not self.game_location.startswith(("dc", "g")):
+            self._clean_up_flathead_mesa()
+
         if (
             self.game_location == "dg4f"
             and self._read_game_state_value_for(4299) == 0
@@ -981,6 +1005,11 @@ class GameController:
 
         if ZorkGrandInquisitorLocations.BROGS_PLANK in self.completed_locations or not self._player_is_brog():
             self._write_game_flags_value_for(3074, 2)
+
+        if self._player_is_afgncaap() and self._read_game_state_value_for(2343) == 1:
+            key: int
+            for key in (2332, 2336, 2338):
+                self._write_game_flags_value_for(key, 2)
 
         if self._read_game_state_value_for(12930) == 0:
             key: int
@@ -1049,6 +1078,18 @@ class GameController:
             for origin, destination, _, is_loading in self.game_state_manager.arrivals
         ):
             self.show_toast("Cast VOXAM to reach the surface")
+
+        if self._player_is_afgncaap() and self._read_game_state_value_for(2343) == 0 and any(
+            destination == "dc10" and not origin.startswith("dc") and not is_loading
+            for origin, destination, _, is_loading in self.game_state_manager.arrivals
+        ):
+            self.show_toast("Cast VOXAM to visit Flathead Mesa")
+
+        if self._player_is_afgncaap() and any(
+            destination == "dc10" and origin.startswith("em") and not is_loading
+            for origin, destination, _, is_loading in self.game_state_manager.arrivals
+        ):
+            self.show_toast("Cast VOXAM to return to the Dungeon Master's House")
 
     def _manage_location_redirects(self) -> None:
         location_redirects: List[Tuple[str, str, str, int]] = list()
@@ -1940,6 +1981,7 @@ class GameController:
             ("te5e", 11762, (11749,)),
             ("dg4f", 4331, (4304,)),
             ("ue2j", 13417, (13410,)),
+            ("dc1h", 3716, (3717, 3726)),
         ):
             if self._player_is_at(game_location) and (revealing_puzzle, 1) in self.game_state_manager.state_changes:
                 screenset_puzzle: int
@@ -1949,6 +1991,11 @@ class GameController:
         if self.pending_infinite_corridor_depth is not None and self._player_is_at("th20"):
             self._write_game_state_value_for(11005, self.pending_infinite_corridor_depth)
             self.pending_infinite_corridor_depth = None
+
+        if self.pending_walking_castle_return and self._player_is_at("dc1k"):
+            self.pending_walking_castle_return = False
+            self._clean_up_flathead_mesa()
+            self.game_state_manager.set_game_location("dc10", 1192)
 
         # VOXAM Cast
         zork_rocks_inert: bool = self._read_game_state_value_for(11767) == 0
@@ -1967,6 +2014,14 @@ class GameController:
         if not self.option_wild_voxam and not force_wild:
             if self.game_location in ("uw10", "uw1f", "uw1g", "uw1k"):
                 return self.game_state_manager.set_game_location("pc10", 335, is_redirectable=True)
+
+            if self.game_location.startswith("em") or (
+                self.game_location.startswith("dc") and self._read_game_state_value_for(2343) == 1
+            ):
+                return self._leave_flathead_mesa()
+
+            if self.game_location.startswith("dc"):
+                return self.game_state_manager.set_game_location("em10", 237)
 
             self._apply_starting_location(force=True)
             return True
@@ -1994,9 +2049,35 @@ class GameController:
         if self.game_location in ("uw10", "uw1f", "uw1g", "uw1k"):
             return self.game_state_manager.set_game_location("pc10", 335, is_redirectable=True)
 
+        if self.game_location.startswith("em") or (
+            self.game_location.startswith("dc") and self._read_game_state_value_for(2343) == 1
+        ):
+            return self._leave_flathead_mesa()
+
+        if self.game_location.startswith("dc"):
+            return self.game_state_manager.set_game_location("em10", 237)
+
         self._apply_starting_location(force=True)
 
         return True
+
+    def _leave_flathead_mesa(self) -> bool:
+        self._clean_up_flathead_mesa()
+        self.pending_walking_castle_return = True
+
+        return self.game_state_manager.set_game_location("dc1k", 0)
+
+    def _clean_up_flathead_mesa(self) -> None:
+        self.game_state_manager.kill_side_effect(16184)
+        self.game_state_manager.kill_side_effect(16179)
+
+        key: int
+        for key in (2343, 5595, 5596, 5764, 18107):
+            self._write_game_state_value_for(key, 0)
+
+        for key in range(192, 203):
+            if self._read_game_state_value_for(key) == 3:
+                self._write_game_state_value_for(key, 1)
 
     def _manage_traps(self) -> None:
         if not self._player_is_afgncaap() or self._read_game_state_value_for(19985) == 0 or self._player_is_at("gjde"):
@@ -2133,7 +2214,7 @@ class GameController:
 
         is_death_link_deferred: bool = (
             self._player_is_at("gjde")
-            or self.game_location in ("qs1e", "qs1x", "pe5x", "pp1h", "qb2x")
+            or self.game_location in ("qs1e", "qs1x", "pe5x", "pp1h", "qb2x", "em1f", "em3n")
             or any(self._read_game_state_value_for(key) != 0 for key in (4512, 2194, 2196, 2198))
             or (self._player_is_at("mx2e") and self._read_game_state_value_for(9818) != 0)
             or (
@@ -2457,7 +2538,7 @@ class GameController:
         self.game_state_manager.show_status(status_lines)
 
         if self.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.ENABLED_WITH_TRACKER:
-            self.game_state_manager.show_in_logic(sorted(self.locations_in_logic), self._player_is_at("gjiv"))
+            self.game_state_manager.show_in_logic(sorted(self.locations_in_logic), self.game_location in ("gjiv", "tr5g"))
 
     def show_toast(self, message: str) -> None:
         self.toasts_pending.append(message)

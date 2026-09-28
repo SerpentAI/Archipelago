@@ -35,11 +35,17 @@ death_cause_labels: Dict[int, str] = {
     21: "PLAYER broke curfew",
     22: "PLAYER riled a fishwife one time too many",
     23: "PLAYER lost their soul to a scratch-and-win card",
+    24: "PLAYER walked briskly into an electrical field",
+    25: "PLAYER cut a live power cord with a sword",
+    26: "PLAYER got fried crispier than a funnel cake",
+    27: "PLAYER was pushed off the radio tower",
     29: "PLAYER was outsmarted by bees",
     30: "PLAYER got pureed by a six-armed invisible guard",
+    31: "PLAYER tried to sneak past the Grand Inquisitor's guards",
     32: "PLAYER's head exploded",
     33: "PLAYER died of arteriosclerosis",
     34: "PLAYER decided to ignore the sign and THROCK the grass",
+    36: "PLAYER was cut into eight even slices",
     37: "PLAYER lost a game of strip grue, fire, water",
 }
 
@@ -144,6 +150,18 @@ entrance_names: Dict[
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO
     ): "Towards the Dragon Archipelago Time Tunnel",
+    (
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA,
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER
+    ): "Through the Electric Fence",
+    (
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA,
+        ZorkGrandInquisitorRegions.WALKING_CASTLE
+    ): "Cast VOXAM on Flathead Mesa",
+    (
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER,
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA
+    ): "Back Out Through the Electric Fence",
     (
         ZorkGrandInquisitorRegions.GUE_TECH,
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE
@@ -393,6 +411,10 @@ entrance_names: Dict[
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
     ): "Exit Through the Walking Castle Porticullis",
     (
+        ZorkGrandInquisitorRegions.WALKING_CASTLE,
+        ZorkGrandInquisitorRegions.FLATHEAD_MESA
+    ): "Cast VOXAM in the Walking Castle",
+    (
         ZorkGrandInquisitorRegions.WHITE_HOUSE,
         ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR
     ): "Exit Through the White House Time Tunnel",
@@ -421,6 +443,8 @@ game_location_to_region: Dict[
     "dg30": ZorkGrandInquisitorRegions.DM_LAIR,
     "dg40": ZorkGrandInquisitorRegions.DM_LAIR,
     "dv10": ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR,
+    "em10": ZorkGrandInquisitorRegions.FLATHEAD_MESA,
+    "em1h": ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER,
     "hp10": ZorkGrandInquisitorRegions.HADES_SHORE,
     "hp40": ZorkGrandInquisitorRegions.HADES,
     "hp50": ZorkGrandInquisitorRegions.HADES,
@@ -528,6 +552,12 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_LAIR_ENTRANCE: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS
     ),
+    ZorkGrandInquisitorItems.HOTSPOT_ELECTRIC_FENCE: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_FENCE_POWER_CORD: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA
+    ),
     ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM
     ),
@@ -548,6 +578,9 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ),
     ZorkGrandInquisitorItems.HOTSPOT_GRAND_INQUISITOR_DOLL: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_PORT_FOOZLE
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_GUARDS_TENT: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA
     ),
     ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_DOOR: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH
@@ -605,6 +638,9 @@ hotspot_to_regional_hotspot: Dict[ZorkGrandInquisitorItems, ZorkGrandInquisitorI
     ),
     ZorkGrandInquisitorItems.HOTSPOT_QUELBEE_HIVE: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DM_LAIR
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_RADIO_TOWER_CABLE: (
+        ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA
     ),
     ZorkGrandInquisitorItems.HOTSPOT_ROPE_BRIDGE: (
         ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_SPELL_LAB
@@ -677,6 +713,12 @@ hotspots_for_regional_hotspot: Dict[ZorkGrandInquisitorItems, Tuple[ZorkGrandInq
     ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_DRAGON_ARCHIPELAGO: (
         ZorkGrandInquisitorItems.HOTSPOT_DRAGON_CLAW,
         ZorkGrandInquisitorItems.HOTSPOT_DRAGON_NOSTRILS,
+    ),
+    ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA: (
+        ZorkGrandInquisitorItems.HOTSPOT_ELECTRIC_FENCE,
+        ZorkGrandInquisitorItems.HOTSPOT_FENCE_POWER_CORD,
+        ZorkGrandInquisitorItems.HOTSPOT_GUARDS_TENT,
+        ZorkGrandInquisitorItems.HOTSPOT_RADIO_TOWER_CABLE,
     ),
     ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLOOD_CONTROL_DAM: (
         ZorkGrandInquisitorItems.HOTSPOT_FLOOD_CONTROL_BUTTONS,

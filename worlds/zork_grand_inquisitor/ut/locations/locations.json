@@ -224,11 +224,28 @@
                 ]
             },
             {
-                "name": "I'm Completely Nude",
+                "name": "I Don't Want No Trouble!",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 914,
+                        "y": 210,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "I Don't Want No Trouble!"
+                    }
+                ]
+            },
+            {
+                "name": "I'm Completely Nude",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 944,
                         "y": 210,
                         "size": 24,
                         "border_thickness": 2
@@ -245,23 +262,6 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 944,
-                        "y": 210,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "It's One of Those Adventurers Again..."
-                    }
-                ]
-            },
-            {
-                "name": "I Don't Want No Trouble!",
-                "map_locations": [
-                    {
-                        "map": "map",
                         "x": 974,
                         "y": 210,
                         "size": 24,
@@ -270,7 +270,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "I Don't Want No Trouble!"
+                        "name": "It's One of Those Adventurers Again..."
                     }
                 ]
             },
@@ -292,7 +292,7 @@
                 ]
             },
             {
-                "name": "Mead Light?",
+                "name": "Mead Light and Plastic Six-Pack Holder",
                 "map_locations": [
                     {
                         "map": "map",
@@ -304,12 +304,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "Mead Light?"
+                        "name": "Mead Light and Plastic Six-Pack Holder"
                     }
                 ]
             },
             {
-                "name": "Mead Light and Plastic Six-Pack Holder",
+                "name": "Mead Light?",
                 "map_locations": [
                     {
                         "map": "map",
@@ -321,7 +321,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Mead Light and Plastic Six-Pack Holder"
+                        "name": "Mead Light?"
                     }
                 ]
             },
@@ -751,7 +751,7 @@
                 ]
             },
             {
-                "name": "It's Playing a Little Hard to Get",
+                "name": "I Don't Think You Would've Wanted That to Work Anyway",
                 "map_locations": [
                     {
                         "map": "map",
@@ -763,7 +763,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "It's Playing a Little Hard to Get"
+                        "name": "I Don't Think You Would've Wanted That to Work Anyway"
                     }
                 ]
             },
@@ -785,7 +785,7 @@
                 ]
             },
             {
-                "name": "I Don't Think You Would've Wanted That to Work Anyway",
+                "name": "It's Playing a Little Hard to Get",
                 "map_locations": [
                     {
                         "map": "map",
@@ -797,7 +797,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "I Don't Think You Would've Wanted That to Work Anyway"
+                        "name": "It's Playing a Little Hard to Get"
                     }
                 ]
             },
@@ -1125,7 +1125,7 @@
                 ]
             },
             {
-                "name": "THROCKed Mushroom, Hammered",
+                "name": "THROCK Scroll",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1137,12 +1137,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "THROCKed Mushroom, Hammered"
+                        "name": "THROCK Scroll"
                     }
                 ]
             },
             {
-                "name": "THROCK Scroll",
+                "name": "THROCKed Mushroom, Hammered",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1154,7 +1154,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "THROCK Scroll"
+                        "name": "THROCKed Mushroom, Hammered"
                     }
                 ]
             },
@@ -1227,7 +1227,7 @@
                 ]
             },
             {
-                "name": "Death: Antennae Nose Plugs",
+                "name": "Death: Just Under Half a Second",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1239,12 +1239,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "Death: Antennae Nose Plugs"
+                        "name": "Death: Just Under Half a Second"
                     }
                 ]
             },
             {
-                "name": "Death: Just Under Half a Second",
+                "name": "Death: Antennae Nose Plugs",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1256,7 +1256,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Death: Just Under Half a Second"
+                        "name": "Death: Antennae Nose Plugs"
                     }
                 ]
             },
@@ -1312,11 +1312,28 @@
                 ]
             },
             {
-                "name": "Beautiful, That's Plenty!",
+                "name": "300 Year Old National Treasure",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 820,
+                        "y": 535,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "300 Year Old National Treasure"
+                    }
+                ]
+            },
+            {
+                "name": "Beautiful, That's Plenty!",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 850,
                         "y": 535,
                         "size": 24,
                         "border_thickness": 2
@@ -1333,7 +1350,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 850,
+                        "x": 880,
                         "y": 535,
                         "size": 24,
                         "border_thickness": 2
@@ -1350,7 +1367,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 880,
+                        "x": 910,
                         "y": 535,
                         "size": 24,
                         "border_thickness": 2
@@ -1367,7 +1384,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 910,
+                        "x": 940,
                         "y": 535,
                         "size": 24,
                         "border_thickness": 2
@@ -1384,23 +1401,6 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 940,
-                        "y": 535,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Moss of Mareilon"
-                    }
-                ]
-            },
-            {
-                "name": "300 Year Old National Treasure",
-                "map_locations": [
-                    {
-                        "map": "map",
                         "x": 850,
                         "y": 565,
                         "size": 24,
@@ -1409,7 +1409,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "300 Year Old National Treasure"
+                        "name": "Moss of Mareilon"
                     }
                 ]
             },
@@ -1601,7 +1601,7 @@
                 ]
             },
             {
-                "name": "Now You Look Like Us, Which is an Improvement",
+                "name": "NO ONE Returns from Hades",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1613,12 +1613,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "Now You Look Like Us, Which is an Improvement"
+                        "name": "NO ONE Returns from Hades"
                     }
                 ]
             },
             {
-                "name": "NO ONE Returns from Hades",
+                "name": "Now You Look Like Us, Which is an Improvement",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1630,7 +1630,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "NO ONE Returns from Hades"
+                        "name": "Now You Look Like Us, Which is an Improvement"
                     }
                 ]
             },
@@ -1648,6 +1648,40 @@
                 "sections": [
                     {
                         "name": "Open the Gates of Hell"
+                    }
+                ]
+            },
+            {
+                "name": "We Could Safely Call That Overkill",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1260,
+                        "y": 560,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "We Could Safely Call That Overkill"
+                    }
+                ]
+            },
+            {
+                "name": "We Just Need to Take a Long Cold Shower... Together",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1110,
+                        "y": 590,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "We Just Need to Take a Long Cold Shower... Together"
                     }
                 ]
             },
@@ -1839,7 +1873,7 @@
                 ]
             },
             {
-                "name": "Alarm System is Down",
+                "name": "A Smallway",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1851,12 +1885,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "Alarm System is Down"
+                        "name": "A Smallway"
                     }
                 ]
             },
             {
-                "name": "A Smallway",
+                "name": "Alarm System is Down",
                 "map_locations": [
                     {
                         "map": "map",
@@ -1868,7 +1902,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "A Smallway"
+                        "name": "Alarm System is Down"
                     }
                 ]
             },
@@ -2162,45 +2196,11 @@
                 ]
             },
             {
-                "name": "Death: Pretty Painless",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 830,
-                        "y": 650,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Death: Pretty Painless"
-                    }
-                ]
-            },
-            {
-                "name": "Death: Expressly Forbidden",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 800,
-                        "y": 650,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Death: Expressly Forbidden"
-                    }
-                ]
-            },
-            {
                 "name": "Death: Tiny Step for Mankind",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 770,
+                        "x": 830,
                         "y": 650,
                         "size": 24,
                         "border_thickness": 2
@@ -2213,7 +2213,41 @@
                 ]
             },
             {
+                "name": "Death: Pretty Painless",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 800,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Pretty Painless"
+                    }
+                ]
+            },
+            {
                 "name": "Death: Old Age",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 770,
+                        "y": 650,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Old Age"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Expressly Forbidden",
                 "map_locations": [
                     {
                         "map": "map",
@@ -2225,7 +2259,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Death: Old Age"
+                        "name": "Death: Expressly Forbidden"
                     }
                 ]
             },
@@ -2247,7 +2281,7 @@
                 ]
             },
             {
-                "name": "Landmark Visited: Infinite Corridor",
+                "name": "Landmark Visited: GUE Tech Fountain (Outside)",
                 "map_locations": [
                     {
                         "map": "map",
@@ -2259,12 +2293,12 @@
                 ],
                 "sections": [
                     {
-                        "name": "Landmark Visited: Infinite Corridor"
+                        "name": "Landmark Visited: GUE Tech Fountain (Outside)"
                     }
                 ]
             },
             {
-                "name": "Landmark Visited: GUE Tech Fountain (Outside)",
+                "name": "Landmark Visited: Infinite Corridor",
                 "map_locations": [
                     {
                         "map": "map",
@@ -2276,7 +2310,7 @@
                 ],
                 "sections": [
                     {
-                        "name": "Landmark Visited: GUE Tech Fountain (Outside)"
+                        "name": "Landmark Visited: Infinite Corridor"
                     }
                 ]
             },
@@ -2298,28 +2332,11 @@
                 ]
             },
             {
-                "name": "Imbue BEBURTT",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 990,
-                        "y": 720,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Imbue BEBURTT"
-                    }
-                ]
-            },
-            {
                 "name": "I Like Your Style!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1020,
+                        "x": 990,
                         "y": 720,
                         "size": 24,
                         "border_thickness": 2
@@ -2336,7 +2353,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1050,
+                        "x": 1020,
                         "y": 720,
                         "size": 24,
                         "border_thickness": 2
@@ -2345,6 +2362,23 @@
                 "sections": [
                     {
                         "name": "I Spit on Your Filthy Coinage"
+                    }
+                ]
+            },
+            {
+                "name": "Imbue BEBURTT",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1050,
+                        "y": 720,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Imbue BEBURTT"
                     }
                 ]
             },
@@ -2604,45 +2638,11 @@
                 ]
             },
             {
-                "name": "Into the Foliage",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 195,
-                        "y": 880,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Into the Foliage"
-                    }
-                ]
-            },
-            {
-                "name": "Invisible Flowers",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 225,
-                        "y": 880,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Invisible Flowers"
-                    }
-                ]
-            },
-            {
                 "name": "In Case of Adventure, Break Glass!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 255,
+                        "x": 195,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2659,7 +2659,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 285,
+                        "x": 225,
                         "y": 880,
                         "size": 24,
                         "border_thickness": 2
@@ -2668,6 +2668,40 @@
                 "sections": [
                     {
                         "name": "In Magic We Trust"
+                    }
+                ]
+            },
+            {
+                "name": "Into the Foliage",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 255,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Into the Foliage"
+                    }
+                ]
+            },
+            {
+                "name": "Invisible Flowers",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 285,
+                        "y": 880,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Invisible Flowers"
                     }
                 ]
             },
@@ -2898,7 +2932,7 @@
                     {
                         "map": "map",
                         "x": 1000,
-                        "y": 960,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2915,7 +2949,7 @@
                     {
                         "map": "map",
                         "x": 1030,
-                        "y": 960,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2927,12 +2961,29 @@
                 ]
             },
             {
-                "name": "Lucy's Totem",
+                "name": "Large Telegraph Hammer",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 1060,
-                        "y": 960,
+                        "y": 1005,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Large Telegraph Hammer"
+                    }
+                ]
+            },
+            {
+                "name": "Lucy's Totem",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1090,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2948,8 +2999,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1090,
-                        "y": 960,
+                        "x": 1120,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2965,8 +3016,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1120,
-                        "y": 960,
+                        "x": 1150,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2982,8 +3033,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1150,
-                        "y": 960,
+                        "x": 1180,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -2999,8 +3050,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1180,
-                        "y": 960,
+                        "x": 1210,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3016,8 +3067,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1210,
-                        "y": 960,
+                        "x": 1240,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3033,8 +3084,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1240,
-                        "y": 960,
+                        "x": 1270,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3046,12 +3097,29 @@
                 ]
             },
             {
+                "name": "The Inquisition Has Way Too Much Time on Its Hands",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1300,
+                        "y": 1005,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Inquisition Has Way Too Much Time on Its Hands"
+                    }
+                ]
+            },
+            {
                 "name": "The Perils of Magic",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1270,
-                        "y": 960,
+                        "x": 1330,
+                        "y": 1005,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3067,8 +3135,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1270,
-                        "y": 920,
+                        "x": 1360,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3080,53 +3148,19 @@
                 ]
             },
             {
-                "name": "Death: Eternity Gazing at the Scenic Vista",
+                "name": "Death: Shoot to Kill",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1240,
-                        "y": 920,
+                        "x": 1330,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "Death: Eternity Gazing at the Scenic Vista"
-                    }
-                ]
-            },
-            {
-                "name": "Death: Evil Spawn's Plaything",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 1210,
-                        "y": 920,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Death: Evil Spawn's Plaything"
-                    }
-                ]
-            },
-            {
-                "name": "Death: Manhole Cover in New Jersey",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 1180,
-                        "y": 920,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Death: Manhole Cover in New Jersey"
+                        "name": "Death: Shoot to Kill"
                     }
                 ]
             },
@@ -3135,8 +3169,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1150,
-                        "y": 920,
+                        "x": 1300,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3152,8 +3186,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1120,
-                        "y": 920,
+                        "x": 1270,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3165,12 +3199,80 @@
                 ]
             },
             {
+                "name": "Death: Manhole Cover in New Jersey",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1240,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Manhole Cover in New Jersey"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Evil Spawn's Plaything",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1210,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Evil Spawn's Plaything"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Eternity Gazing at the Scenic Vista",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1180,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Eternity Gazing at the Scenic Vista"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Drop a Large Bomb Here",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1150,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Drop a Large Bomb Here"
+                    }
+                ]
+            },
+            {
                 "name": "Death: Arteriosclerosis",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1090,
-                        "y": 920,
+                        "x": 1120,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3186,8 +3288,8 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1060,
-                        "y": 920,
+                        "x": 1090,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3199,12 +3301,29 @@
                 ]
             },
             {
-                "name": "Landmark Visited: Totemizer",
+                "name": "Landmark Visited: Outside the Monastery Exhibit",
                 "map_locations": [
                     {
                         "map": "map",
                         "x": 1000,
-                        "y": 920,
+                        "y": 965,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Outside the Monastery Exhibit"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Totemizer",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1030,
+                        "y": 965,
                         "size": 24,
                         "border_thickness": 2
                     }
@@ -3216,87 +3335,206 @@
                 ]
             },
             {
-                "name": "Large Telegraph Hammer",
+                "name": "Electrical Barrier, Removed",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1000,
-                        "y": 1050,
+                        "x": 560,
+                        "y": 1075,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "Large Telegraph Hammer"
+                        "name": "Electrical Barrier, Removed"
                     }
                 ]
             },
             {
-                "name": "The Inquisition Has Way Too Much Time on Its Hands",
+                "name": "Not Bad. But It's Still Electrified",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1030,
-                        "y": 1050,
+                        "x": 590,
+                        "y": 1075,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "The Inquisition Has Way Too Much Time on Its Hands"
+                        "name": "Not Bad. But It's Still Electrified"
                     }
                 ]
             },
             {
-                "name": "Death: Shoot to Kill",
+                "name": "Sweet Yoruk! We're All Going to Die!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1120,
-                        "y": 1010,
+                        "x": 620,
+                        "y": 1075,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "Death: Shoot to Kill"
+                        "name": "Sweet Yoruk! We're All Going to Die!"
                     }
                 ]
             },
             {
-                "name": "Death: Drop a Large Bomb Here",
+                "name": "You Are Truly Gifted, You Know That?",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1090,
-                        "y": 1010,
+                        "x": 650,
+                        "y": 1075,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "Death: Drop a Large Bomb Here"
+                        "name": "You Are Truly Gifted, You Know That?"
                     }
                 ]
             },
             {
-                "name": "Landmark Visited: Outside the Monastery Exhibit",
+                "name": "Death: Walk Briskly",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1000,
-                        "y": 1010,
+                        "x": 800,
+                        "y": 1035,
                         "size": 24,
                         "border_thickness": 2
                     }
                 ],
                 "sections": [
                     {
-                        "name": "Landmark Visited: Outside the Monastery Exhibit"
+                        "name": "Death: Walk Briskly"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Free T-Shirts",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 770,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Free T-Shirts"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Electrical Safety Expert? No.",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 740,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Electrical Safety Expert? No."
+                    }
+                ]
+            },
+            {
+                "name": "Death: Eight Even Slices",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 710,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Eight Even Slices"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Crispier Than a Funnel Cake",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 680,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Crispier Than a Funnel Cake"
+                    }
+                ]
+            },
+            {
+                "name": "Death: Bungled the Job",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 650,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Death: Bungled the Job"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Flathead Mesa",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 560,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Flathead Mesa"
+                    }
+                ]
+            },
+            {
+                "name": "Landmark Visited: Top of the Radio Tower",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 590,
+                        "y": 1035,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Landmark Visited: Top of the Radio Tower"
                     }
                 ]
             },
@@ -3709,79 +3947,11 @@
                 ]
             },
             {
-                "name": "Brog's Bickering Torch",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 942,
-                        "y": 1296,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Brog's Bickering Torch"
-                    }
-                ]
-            },
-            {
-                "name": "Brog's Flickering Torch",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 972,
-                        "y": 1296,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Brog's Flickering Torch"
-                    }
-                ]
-            },
-            {
-                "name": "Brog's Grue Egg",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 1002,
-                        "y": 1296,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Brog's Grue Egg"
-                    }
-                ]
-            },
-            {
-                "name": "Brog's Plank",
-                "map_locations": [
-                    {
-                        "map": "map",
-                        "x": 1032,
-                        "y": 1296,
-                        "size": 24,
-                        "border_thickness": 2
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Brog's Plank"
-                    }
-                ]
-            },
-            {
                 "name": "Brog Do Good!",
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1062,
+                        "x": 942,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3798,7 +3968,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1092,
+                        "x": 972,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3815,7 +3985,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1122,
+                        "x": 1002,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3832,7 +4002,7 @@
                 "map_locations": [
                     {
                         "map": "map",
-                        "x": 1152,
+                        "x": 1032,
                         "y": 1296,
                         "size": 24,
                         "border_thickness": 2
@@ -3841,6 +4011,74 @@
                 "sections": [
                     {
                         "name": "Brog Much Better at This Game"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Bickering Torch",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1062,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Bickering Torch"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Flickering Torch",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1092,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Flickering Torch"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Grue Egg",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1122,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Grue Egg"
+                    }
+                ]
+            },
+            {
+                "name": "Brog's Plank",
+                "map_locations": [
+                    {
+                        "map": "map",
+                        "x": 1152,
+                        "y": 1296,
+                        "size": 24,
+                        "border_thickness": 2
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Brog's Plank"
                     }
                 ]
             },

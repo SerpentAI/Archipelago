@@ -89,6 +89,27 @@ entrance_rule_data: EntranceRuleData = {
     ),
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): None,
     (ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON, ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO): None,
+    (ZorkGrandInquisitorRegions.FLATHEAD_MESA, ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER): (
+        And(
+            Has(ZorkGrandInquisitorItems.SPELL_REZROV.value),
+            Or(
+                Has(ZorkGrandInquisitorItems.HOTSPOT_GUARDS_TENT.value),
+                Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA.value),
+            ),
+            Has(ZorkGrandInquisitorItems.SPELL_IGRAM.value),
+            Or(
+                Has(ZorkGrandInquisitorItems.HOTSPOT_ELECTRIC_FENCE.value),
+                Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA.value),
+            ),
+            Or(
+                Has(ZorkGrandInquisitorItems.HOTSPOT_FENCE_POWER_CORD.value),
+                Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_FLATHEAD_MESA.value),
+            ),
+            Has(ZorkGrandInquisitorItems.SWORD.value),
+        )
+    ),
+    (ZorkGrandInquisitorRegions.FLATHEAD_MESA, ZorkGrandInquisitorRegions.WALKING_CASTLE): None,
+    (ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER, ZorkGrandInquisitorRegions.FLATHEAD_MESA): None,
     (ZorkGrandInquisitorRegions.GUE_TECH, ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE): (
         Or(
             Has(ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS.value),
@@ -372,6 +393,7 @@ entrance_rule_data: EntranceRuleData = {
         )
     ),
     (ZorkGrandInquisitorRegions.WALKING_CASTLE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
+    (ZorkGrandInquisitorRegions.WALKING_CASTLE, ZorkGrandInquisitorRegions.FLATHEAD_MESA): None,
     (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorRegions.DM_LAIR_INTERIOR): None,
     (ZorkGrandInquisitorRegions.WHITE_HOUSE, ZorkGrandInquisitorRegions.WHITE_HOUSE_INTERIOR): (
         And(
