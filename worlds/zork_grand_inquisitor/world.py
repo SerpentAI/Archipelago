@@ -435,14 +435,14 @@ class ZorkGrandInquisitorWorld(World):
                     region_exit,
                 )
 
-                entrance: Entrance = region.connect(
-                    region_mapping[region_exit], rule=self.entrance_rule_data[connection_tuple]
-                )
-
-                entrance.name = (
-                    self.time_tunnel_entrance_names[connection_tuple]
-                    if connection_tuple in self.time_tunnel_entrance_names
-                    else entrance_names[connection_tuple]
+                region.connect(
+                    region_mapping[region_exit],
+                    name=(
+                        self.time_tunnel_entrance_names[connection_tuple]
+                        if connection_tuple in self.time_tunnel_entrance_names
+                        else entrance_names[connection_tuple]
+                    ),
+                    rule=self.entrance_rule_data[connection_tuple],
                 )
 
             if region_enum_item == region_connecting_endgame:
