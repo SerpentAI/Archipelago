@@ -432,6 +432,21 @@ entrance_names_reverse: Dict[str, Tuple[ZorkGrandInquisitorRegions, ZorkGrandInq
     name: entrance for entrance, name in entrance_names.items()
 }
 
+held_item_forms: Dict[int, ZorkGrandInquisitorItems] = {
+    5: ZorkGrandInquisitorItems.CIGAR,
+    22: ZorkGrandInquisitorItems.SWORD,
+    32: ZorkGrandInquisitorItems.OLD_SCRATCH_CARD,
+    41: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
+    48: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
+    103: ZorkGrandInquisitorItems.BROGS_BICKERING_TORCH,
+    104: ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
+    105: ZorkGrandInquisitorItems.MEAD_LIGHT,
+    120: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_1,
+    121: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
+    122: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
+    123: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
+}
+
 hotspots_for_regional_hotspot: Dict[ZorkGrandInquisitorItems, Tuple[ZorkGrandInquisitorItems, ...]] = {
     ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_CROSSROADS: (
         ZorkGrandInquisitorItems.HOTSPOT_BUCKET,

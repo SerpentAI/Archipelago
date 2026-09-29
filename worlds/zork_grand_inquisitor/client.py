@@ -1,6 +1,5 @@
 import asyncio
 import sys
-import time
 import urllib.parse
 
 import CommonClient
@@ -8,8 +7,6 @@ import NetUtils
 import Utils
 
 from typing import Any, Dict, List, Optional, Set
-
-from MultiServer import mark_raw
 
 tracker_loaded: bool = False
 
@@ -78,19 +75,6 @@ class ZorkGrandInquisitorCommandProcessor(CommandProcessor):
             return
 
         self.ctx.death_link_status = not self.ctx.death_link_status
-
-    # DEV TESTING ONLY - remove before public release
-    def _cmd_deathlink_test(self) -> None:
-        """Simulate receiving a DeathLink bounce to test the receiving path without a second game in the multiworld."""
-        if not self.ctx.death_link_status:
-            return
-
-        self.ctx.on_deathlink({"time": time.time(), "source": "Manual Test", "cause": "Manual DeathLink Test"})
-
-    @mark_raw
-    def _cmd_toast(self, message: str = "") -> None:
-        """Show a toast message in game."""
-        self.ctx.game_controller.show_toast(message)
 
 
 class ZorkGrandInquisitorContext(Context):
@@ -165,7 +149,8 @@ class ZorkGrandInquisitorContext(Context):
         self.items_received = []
         self.locations_info = {}
 
-        self.ui.update_tabs()
+        if self.ui:
+            self.ui.update_tabs()
 
         await super().disconnect(allow_autoreconnect)
 
@@ -305,11 +290,13 @@ class ZorkGrandInquisitorContext(Context):
                 self.game_controller.completed_locations |= locations_checked
 
             # UI Tabs
-            self.ui.update_tabs()
+            if self.ui:
+                self.ui.update_tabs()
         elif cmd == "ReceivedItems":
-            self.ui.update_tabs()
+            if self.ui:
+                self.ui.update_tabs()
         elif cmd == "SetReply":
-            if _args["key"] == self.data_storage_key:
+            if _args["key"] == self.data_storage_key and self.ui:
                 self.ui.update_tabs()
 
         super().on_package(cmd, _args)
@@ -491,7 +478,8 @@ def main(*args) -> None:
             args.password = urllib.parse.unquote(url.password)
 
     async def _main(_args):
-        ctx: ZorkGrandInquisitorContext = ZorkGrandInquisitorContext(args.connect, args.password)
+        ctx: ZorkGrandInquisitorContext = ZorkGrandInquisitorContext(_args.connect, _args.password)
+        ctx.auth = _args.name
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="server loop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="ZorkGrandInquisitorController")

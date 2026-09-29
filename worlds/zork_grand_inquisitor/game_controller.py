@@ -14,6 +14,7 @@ from .data.location_data import location_data, ZorkGrandInquisitorLocationData
 from .data.mapping_data import (
     death_cause_labels,
     entrance_names,
+    held_item_forms,
     hotspots_for_regional_hotspot,
     labels_for_enum_items,
     voxam_cast_game_locations,
@@ -272,23 +273,6 @@ class GameController:
             ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
         }
 
-    @functools.cached_property
-    def held_item_forms(self) -> Dict[int, ZorkGrandInquisitorItems]:
-        return {
-            5: ZorkGrandInquisitorItems.CIGAR,
-            22: ZorkGrandInquisitorItems.SWORD,
-            32: ZorkGrandInquisitorItems.OLD_SCRATCH_CARD,
-            41: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_ANS,
-            48: ZorkGrandInquisitorItems.SCROLL_FRAGMENT_GIV,
-            103: ZorkGrandInquisitorItems.BROGS_BICKERING_TORCH,
-            104: ZorkGrandInquisitorItems.BROGS_FLICKERING_TORCH,
-            105: ZorkGrandInquisitorItems.MEAD_LIGHT,
-            120: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_1,
-            121: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_2,
-            122: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_3,
-            123: ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_4,
-        }
-
     @property
     def totem_items(self) -> Set[ZorkGrandInquisitorItems]:
         return self.brog_items | self.griff_items | self.lucy_items
@@ -296,10 +280,6 @@ class GameController:
     @functools.cached_property
     def missable_locations(self) -> Set[ZorkGrandInquisitorLocations]:
         return locations_with_tag(ZorkGrandInquisitorTags.MISSABLE)
-
-    @property
-    def is_deathsanity(self) -> bool:
-        return self.option_deathsanity == ZorkGrandInquisitorDeathsanity.ON
 
     def log(self, message) -> None:
         if self.logger:
@@ -349,7 +329,7 @@ class GameController:
             if self.option_wild_voxam:
                 self.log(f"    Wild VOXAM: On ({self.option_wild_voxam_chance}% chance)")
             else:
-                self.log(f"    Wild VOXAM: Off")
+                self.log("    Wild VOXAM: Off")
 
             self.log(f"    Deathsanity: {labels_for_enum_items[self.option_deathsanity]}")
             self.log(f"    Landmarksanity: {labels_for_enum_items[self.option_landmarksanity]}")
@@ -370,16 +350,16 @@ class GameController:
             self.log(f"    Trap Percentage: {self.option_trap_percentage}%")
 
             if self.option_grant_missable_location_checks:
-                self.log(f"    Grant Missable Location Checks: On")
+                self.log("    Grant Missable Location Checks: On")
             else:
-                self.log(f"    Grant Missable Location Checks: Off")
+                self.log("    Grant Missable Location Checks: Off")
 
             self.log(f"    In-Game Overlay: {labels_for_enum_items[self.option_in_game_overlay]}")
 
             if self.option_death_link:
-                self.log(f"    Death Link: On")
+                self.log("    Death Link: On")
             else:
-                self.log(f"    Death Link: Off")
+                self.log("    Death Link: Off")
 
     def output_starter_kit(self) -> None:
         if self.starter_kit is None:
@@ -615,7 +595,7 @@ class GameController:
 
     def _apply_initial_totemizer_destination(self) -> None:
         if self.initial_totemizer_destination is None:
-            return None
+            return
 
         if self._read_game_state_value_for(19986) == 0:
             mapping: Dict[ZorkGrandInquisitorItems, int] = {
@@ -631,7 +611,7 @@ class GameController:
 
     def _apply_starting_location(self, force: bool = False) -> None:
         if self.option_starting_location is None:
-            return None
+            return
 
         if self._read_game_state_value_for(19985) == 0 or force:
             starting_locations: Dict[ZorkGrandInquisitorStartingLocations, Tuple[str, int]] = {
@@ -1040,7 +1020,6 @@ class GameController:
         self._write_game_flags_value_for(19603, 2)  # Keep Spellbar Enabled (pe5n)
         self._write_game_flags_value_for(10620, 2)  # Keep Spellbar Enabled (pe3j)
         self._write_game_flags_value_for(10439, 2)  # Keep Spellbar Enabled (pe1e)
-        self._write_game_flags_value_for(10805, 2)  # Keep Spellbar Enabled (pp10)
         self._write_game_flags_value_for(10805, 2)  # Keep Spellbar Enabled (pp10)
         self._write_game_flags_value_for(10838, 2)  # Keep Spellbar Enabled (pp1j)
         self._write_game_flags_value_for(8435, 0)  # Always Allow Moving to Hades Phone
@@ -1781,7 +1760,7 @@ class GameController:
         elif self._player_is_lucy():
             managed_items = self.lucy_items
         else:
-            return None
+            return
 
         seen_game_ids: Set[int] = {
             self._read_game_state_value_for(key) for key in range(101, 101 + self._read_game_state_value_for(100))
@@ -1965,40 +1944,26 @@ class GameController:
             self._cast_voxam()
 
     def _cast_voxam(self, force_wild: bool = False) -> bool:
-        if not self.option_wild_voxam and not force_wild:
-            if self.game_location in ("uw10", "uw1f", "uw1g", "uw1k"):
-                return self.game_state_manager.set_game_location("pc10", 335, is_redirectable=True)
+        if self.option_wild_voxam or force_wild:
+            voxam_roll: int = random.randint(1, 100)
 
-            if self.game_location.startswith("em") or (
-                self.game_location.startswith("dc") and self._read_game_state_value_for(2343) == 1
-            ):
-                return self._leave_flathead_mesa()
+            if (voxam_roll <= self.option_wild_voxam_chance) or force_wild:
+                starting_location: ZorkGrandInquisitorStartingLocations = (
+                    random.choice(tuple(voxam_cast_game_locations.keys()))
+                )
 
-            if self.game_location.startswith("dc"):
-                return self.game_state_manager.set_game_location("em10", 237)
+                game_location: Tuple[Tuple[str, int], ...] = (
+                    random.choice(voxam_cast_game_locations[starting_location])
+                )
 
-            self._apply_starting_location(force=True)
-            return True
+                game_location_offset: int = 0
 
-        voxam_roll: int = random.randint(1, 100)
+                if game_location[1] == 1:
+                    game_location_offset = random.randint(0, 1800)
 
-        if (voxam_roll <= self.option_wild_voxam_chance) or force_wild:
-            starting_location: ZorkGrandInquisitorStartingLocations = (
-                random.choice(tuple(voxam_cast_game_locations.keys()))
-            )
-
-            game_location: Tuple[Tuple[str, int], ...] = (
-                random.choice(voxam_cast_game_locations[starting_location])
-            )
-
-            game_location_offset: int = 0
-
-            if game_location[1] == 1:
-                game_location_offset = random.randint(0, 1800)
-
-            return self.game_state_manager.set_game_location(
-                game_location[0], game_location_offset
-            )
+                return self.game_state_manager.set_game_location(
+                    game_location[0], game_location_offset
+                )
 
         if self.game_location in ("uw10", "uw1f", "uw1g", "uw1k"):
             return self.game_state_manager.set_game_location("pc10", 335, is_redirectable=True)
@@ -2006,7 +1971,10 @@ class GameController:
         if self.game_location.startswith("em") or (
             self.game_location.startswith("dc") and self._read_game_state_value_for(2343) == 1
         ):
-            return self._leave_flathead_mesa()
+            self._clean_up_flathead_mesa()
+            self.pending_walking_castle_return = True
+
+            return self.game_state_manager.set_game_location("dc1k", 0)
 
         if self.game_location.startswith("dc"):
             return self.game_state_manager.set_game_location("em10", 237)
@@ -2014,12 +1982,6 @@ class GameController:
         self._apply_starting_location(force=True)
 
         return True
-
-    def _leave_flathead_mesa(self) -> bool:
-        self._clean_up_flathead_mesa()
-        self.pending_walking_castle_return = True
-
-        return self.game_state_manager.set_game_location("dc1k", 0)
 
     def _clean_up_flathead_mesa(self) -> None:
         self.game_state_manager.kill_side_effect(16184)
@@ -2035,12 +1997,12 @@ class GameController:
 
     def _manage_traps(self) -> None:
         if not self._player_is_afgncaap() or self._read_game_state_value_for(19985) == 0 or self._player_is_at("gjde"):
-            return None
+            return
 
         zork_rocks_inert: bool = self._read_game_state_value_for(11767) == 0
 
         if not zork_rocks_inert:
-            return None
+            return
 
         now_timestamp: int = int(time.time())
 
@@ -2076,7 +2038,7 @@ class GameController:
                     self.log("Infinite Corridor Trap!")
                     self.show_status_message("Infinite Corridor Trap!")
 
-                    return None
+                    return
             elif trap == ZorkGrandInquisitorItems.TRAP_REVERSE_CONTROLS:
                 if self.active_trap_timestamps[trap] is None:
                     self._activate_trap_reverse_controls()
@@ -2092,7 +2054,7 @@ class GameController:
                     self.log("Teleport Trap!")
                     self.show_status_message("Teleport Trap!")
 
-                    return None
+                    return
             elif trap == ZorkGrandInquisitorItems.TRAP_ZVISION:
                 if self.active_trap_timestamps[trap] is None:
                     self._activate_trap_zvision()
@@ -2174,7 +2136,7 @@ class GameController:
             or (
                 held_game_id != 0
                 and held_game_id not in self.game_id_to_items
-                and held_game_id not in self.held_item_forms
+                and held_game_id not in held_item_forms
             )
         )
 
@@ -2397,7 +2359,7 @@ class GameController:
             if self.death_return_held_item == 52:
                 self.death_return_held_item = 37
 
-        held_item: Optional[ZorkGrandInquisitorItems] = self.held_item_forms.get(
+        held_item: Optional[ZorkGrandInquisitorItems] = held_item_forms.get(
             self.death_return_held_item, self.game_id_to_items.get(self.death_return_held_item)
         )
 
@@ -2445,7 +2407,7 @@ class GameController:
 
     def _manage_overlays(self) -> None:
         if self.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.DISABLED:
-            return None
+            return
 
         goal_progress: str = ""
 
@@ -2492,7 +2454,7 @@ class GameController:
         self.game_state_manager.show_status(status_lines)
 
         if self.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.ENABLED_WITH_TRACKER:
-            self.game_state_manager.show_in_logic(sorted(self.locations_in_logic), self.game_location in ("gjiv", "tr5g"))
+            self.game_state_manager.show_in_logic([location.replace("Landmark Visited: ", "Landmark: ", 1) for location in sorted(self.locations_in_logic)], self.game_location in ("gjiv", "tr5g"))
 
     def show_toast(self, message: str) -> None:
         self.toasts_pending.append(message)
@@ -2594,17 +2556,17 @@ class GameController:
         data: ZorkGrandInquisitorItemData = item_data[item]
 
         if data.game_keys is None:
-            return None
+            return
 
         if ZorkGrandInquisitorTags.INVENTORY_ITEM in data.tags:
             if data.game_keys[0] in [self._read_game_state_value_for(key) for key in range(101, 150)]:
                 self.game_state_manager.drop_inventory_item(data.game_keys[0])
-                return None
+                return
 
             inventory_slot: Optional[int] = self._inventory_slot_for(item)
 
             if inventory_slot is None:
-                return None
+                return
 
             self._write_game_state_value_for(inventory_slot, 0)
 
@@ -2655,11 +2617,11 @@ class GameController:
     def _read_game_state_value_for(self, key: int) -> int:
         return self.game_state_manager.read_game_state_value_for(key)
 
-    def _write_game_state_value_for(self, key: int, value: int) -> bool:
-        return self.game_state_manager.write_game_state_value_for(key, value)
+    def _write_game_state_value_for(self, key: int, value: int) -> None:
+        self.game_state_manager.write_game_state_value_for(key, value)
 
-    def _write_game_flags_value_for(self, key: int, value: int) -> bool:
-        return self.game_state_manager.write_game_flags_value_for(key, value)
+    def _write_game_flags_value_for(self, key: int, value: int) -> None:
+        self.game_state_manager.write_game_flags_value_for(key, value)
 
     def _player_has(self, item: ZorkGrandInquisitorItems) -> bool:
         return item in self.received_items

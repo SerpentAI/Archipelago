@@ -14,58 +14,32 @@ from pymem import Pymem
 
 
 SCUMMVM_SIZE_OF_IMAGE: int = 0xC5A6000
-SCUMMVM_FUNCTION_FINGERPRINT: int = 0x37FAFE8D
+SCUMMVM_FUNCTION_FINGERPRINT: int = 0xC9E020AC
 
 SCUMMVM_FUNCTION_RVAS: Dict[str, int] = {
-    "ActionInventory::ActionInventory": 0x3565D80,
-    "ActionInventory::execute": 0x3563D50,
-    "Control::parsePanoramaControl": 0x3567840,
-    "Control::parseTiltControl": 0x3567B20,
     "ManagedSurface::transBlitFrom": 0x388D650,
-    "MenuManager::setEnable": 0x3556D40,
-    "MenuNemesis::process": 0x3556840,
     "MenuZGI::process": 0x3556970,
-    "RenderManager::getRenderTable": 0x3550140,
     "RenderManager::setBackgroundPosition": 0x3550150,
-    "RenderTable::generateLookupTable": 0x3555400,
     "RenderTable::generateRenderTable": 0x35558A0,
     "RenderTable::setPanoramaFoV": 0x3555C70,
     "RenderTable::setPanoramaReverse": 0x3555CF0,
     "RenderTable::setPanoramaScale": 0x3555CB0,
-    "RenderTable::setPanoramaZeroPoint": 0x3555D10,
-    "RenderTable::setRenderState": 0x3555310,
-    "RenderTable::setTiltFoV": 0x3555D30,
-    "RenderTable::setTiltReverse": 0x3555DB0,
-    "RenderTable::setTiltScale": 0x3555D70,
-    "SaveManager::loadGame": 0x354D0B0,
-    "SaveManager::saveGame": 0x354D670,
-    "SaveManager::scummVMSaveLoadDialog": 0x354D7E0,
+    "Screen::update": 0x38B1240,
     "ScriptManager::ChangeLocationReal": 0x3544950,
     "ScriptManager::changeLocation": 0x3543CC0,
     "ScriptManager::checkPuzzleCriteria": 0x3544440,
     "ScriptManager::getStateFlag": 0x3544000,
     "ScriptManager::getStateValue": 0x3543C30,
-    "ScriptManager::inventoryAdd": 0x3556210,
-    "ScriptManager::inventoryCycle": 0x35564C0,
     "ScriptManager::inventoryDrop": 0x3556330,
     "ScriptManager::killSideFx": 0x3542640,
-    "ScriptManager::killSideFxType": 0x3542700,
-    "ScriptManager::parseResults": 0x35593A0,
-    "ScriptManager::process": 0x3545270,
     "ScriptManager::queuePuzzles": 0x3543950,
     "ScriptManager::serialize": 0x35440A0,
     "ScriptManager::setStateFlag": 0x3543AB0,
     "ScriptManager::setStateValue": 0x3543BC0,
     "ScriptManager::unsetStateFlag": 0x3544360,
-    "ScriptManager::updateNodes": 0x3541E70,
-    "Screen::update": 0x38B1240,
     "Surface::create": 0x38B5420,
     "Surface::fillRect": 0x38B5CF0,
     "TextRenderer::drawTextWithWordWrapping": 0x355F4D0,
-    "ZVision::getGameId": 0x3541880,
-    "ZVision::initialize": 0x3546E00,
-    "ZVision::playVideo": 0x3562140,
-    "ZVision::run": 0x3547770,
 }
 
 SCUMMVM_FUNCTION_SIZES: Dict[str, int] = {
@@ -77,8 +51,6 @@ SCUMMVM_GLOBAL_RVAS: Dict[str, int] = {
 }
 
 SCUMMVM_VIRTUAL_TABLE_RVAS: Dict[str, int] = {
-    "ActionInventory": 0x6450680,
-    "MenuNemesis": 0x644FCB0,
     "MenuZGI": 0x6450C30,
 }
 
@@ -137,60 +109,26 @@ SCUMMVM_DETOUR_PROLOGUES: Dict[str, bytes] = {
 }
 
 ZVISION_MEMBER_OFFSETS: Dict[str, int] = {
-    "ActionInventory::_key": 0x20,
-    "ActionInventory::_scriptManager": 0x10,
-    "ActionInventory::_type": 0x1C,
     "MenuManager::_engine": 0x18,
-    "MenuManager::_menuBarFlag": 0x44,
     "RenderManager::_renderTable": 0x3F8,
     "RenderManager::_screen": 0x98,
     "RenderTable::_panoramaOptions.linearScale": 0x3C,
     "RenderTable::_panoramaOptions.reverse": 0x40,
     "RenderTable::_panoramaOptions.verticalFOV": 0x38,
-    "RenderTable::_panoramaOptions.zeroPoint": 0x42,
     "RenderTable::_renderState": 0x28,
-    "RenderTable::_tiltOptions.linearScale": 0x48,
-    "RenderTable::_tiltOptions.reverse": 0x4C,
-    "RenderTable::_tiltOptions.verticalFOV": 0x44,
-    "ScriptManager::_activeControls": 0x278,
-    "ScriptManager::_activeSideFx": 0x3F0,
     "ScriptManager::_currentLocation": 0x400,
     "ScriptManager::_engine": 0x0,
-    "ScriptManager::_globalState._mask": 0x90,
-    "ScriptManager::_globalState._storage": 0x88,
-    "ScriptManager::_globalStateFlags._mask": 0x128,
-    "ScriptManager::_globalStateFlags._storage": 0x120,
     "ScriptManager::_nextLocation": 0x408,
-    "ScriptManager::_nodeview": 0x398,
-    "ScriptManager::_room": 0x340,
-    "ScriptManager::_universe": 0x290,
-    "ScriptManager::_world": 0x2E8,
-    "ScriptScope::controls": 0x48,
-    "ScriptScope::puzzles": 0x38,
-    "ZVision::_gameDescription": 0xA8,
-    "ZVision::_menu": 0xF8,
     "ZVision::_renderManager": 0xC0,
     "ZVision::_resourcePixelFormat": 0x98,
-    "ZVision::_saveManager": 0xF0,
     "ZVision::_scriptManager": 0xB8,
     "ZVision::_textRenderer": 0xD8,
     "ZVision::_videoIsPlaying": 0x1A2,
     "ZVision::_widescreen": 0x1A1,
-    "ZVisionGameDescription::gameId": 0x1E0,
 }
 
 ZVISION_STRUCTURE_OFFSETS: Dict[str, int] = {
-    "Common::List::_anchor._next": 0x8,
-    "Common::ListNode::_next": 0x8,
-    "Common::ListNode::_data": 0x10,
-    "Puzzle::key": 0x0,
-    "Puzzle::criteriaList": 0x8,
-    "Puzzle::resultActions": 0x18,
-    "Control::_key": 0x10,
-    "Control::_type": 0x18,
     "ManagedSurface::w": 0x50,
-    "ScriptingEffect::_key": 0x10,
-    "ScriptingEffect::_type": 0x14,
 }
 
 ACTION_CLASSES: List[Tuple[int, int, Tuple[str, ...]]] = [
@@ -199,46 +137,40 @@ ACTION_CLASSES: List[Tuple[int, int, Tuple[str, ...]]] = [
 ]
 
 PUMP_CODE_OFFSET: int = 0x0000
-COPY_CODE_OFFSET: int = 0x0100
-SNAPSHOT_CODE_OFFSET: int = 0x0140
-STATE_CHANGE_LOGGER_CODE_OFFSET: int = 0x0200
-STATE_OVERRIDE_CODE_OFFSET: int = 0x0300
-LOCATION_CHANGE_CODE_OFFSET: int = 0x0400
-CURRENT_PUZZLE_CODE_OFFSET: int = 0x0500
-ACTION_FILTER_CODE_OFFSET: int = 0x0580
-PICKUP_FILTER_CODE_OFFSET: int = 0x0680
-MAILBOX_OFFSET: int = 0x0800
-STATE_CHANGE_DATA_OFFSET: int = 0x0C80
-ARRIVAL_DATA_OFFSET: int = 0x0CC0
-PATCH_STAGING_OFFSET: int = 0x0D00
-ACTION_THUNKS_OFFSET: int = 0x1000
-ACTION_DATA_OFFSET: int = 0x1800
-LOAD_RESULT_OFFSET: int = 0x2000
-SAVE_NAME_OFFSET: int = 0x2040
-SAVE_NAME_BUFFER_OFFSET: int = 0x2080
-STRING_REFERENCE_COUNT_OFFSET: int = 0x2180
-FLAG_OVERRIDE_CODE_OFFSET: int = 0x2300
-FLAG_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x2400
-READ_OVERRIDE_CODE_OFFSET: int = 0x2480
-READ_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x2580
-CURRENT_PUZZLE_TRAMPOLINE_OFFSET: int = 0x2600
-OVERLAY_CODE_OFFSET: int = 0x2680
-OVERLAY_DATA_OFFSET: int = 0x2C00
-OVERLAY_GAP_DATA_OFFSET: int = 0x2F00
-STATE_OVERRIDE_DATA_OFFSET: int = 0x3000
-STATE_VALUE_REMAP_DATA_OFFSET: int = 0x3300
-LOCATION_REDIRECT_DATA_OFFSET: int = 0x3400
-ARRIVAL_LOG_OFFSET: int = 0x4000
-PICKUP_TABLE_OFFSET: int = 0x5000
-READ_OVERRIDE_DATA_OFFSET: int = 0x5400
-SNAPSHOT_KEYS_OFFSET: int = 0x6000
-SNAPSHOT_VALUES_OFFSET: int = 0xA000
-ACTION_LOG_OFFSET: int = 0x10000
-STATE_CHANGE_LOG_OFFSET: int = 0x20000
-FLAG_OVERRIDE_DISABLED_OFFSET: int = 0x40000
-FLAG_OVERRIDE_ENABLED_OFFSET: int = 0x41000
-OVERLAY_TEXT_OFFSET: int = 0x42000
-CAVE_SIZE: int = 0x4E000
+COPY_CODE_OFFSET: int = 0x00C0
+SNAPSHOT_CODE_OFFSET: int = 0x00D0
+STATE_CHANGE_LOGGER_CODE_OFFSET: int = 0x0120
+STATE_OVERRIDE_CODE_OFFSET: int = 0x01A0
+LOCATION_CHANGE_CODE_OFFSET: int = 0x0220
+CURRENT_PUZZLE_CODE_OFFSET: int = 0x0300
+CURRENT_PUZZLE_TRAMPOLINE_OFFSET: int = 0x0340
+ACTION_FILTER_CODE_OFFSET: int = 0x0360
+FLAG_OVERRIDE_CODE_OFFSET: int = 0x03B0
+FLAG_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x0430
+READ_OVERRIDE_CODE_OFFSET: int = 0x0460
+READ_OVERRIDE_TRAMPOLINE_OFFSET: int = 0x04C0
+OVERLAY_CODE_OFFSET: int = 0x04F0
+ACTION_THUNKS_OFFSET: int = 0x0860
+PATCH_STAGING_OFFSET: int = 0x0CC0
+MAILBOX_OFFSET: int = 0x0CE0
+STATE_CHANGE_DATA_OFFSET: int = 0x1100
+ARRIVAL_DATA_OFFSET: int = 0x1110
+STRING_REFERENCE_COUNT_OFFSET: int = 0x1120
+ACTION_DATA_OFFSET: int = 0x1130
+STATE_OVERRIDE_DATA_OFFSET: int = 0x1340
+STATE_VALUE_REMAP_DATA_OFFSET: int = 0x1550
+READ_OVERRIDE_DATA_OFFSET: int = 0x1650
+LOCATION_REDIRECT_DATA_OFFSET: int = 0x1860
+OVERLAY_DATA_OFFSET: int = 0x2070
+OVERLAY_GAP_DATA_OFFSET: int = 0x2370
+ARRIVAL_LOG_OFFSET: int = 0x2460
+FLAG_OVERRIDE_DISABLED_OFFSET: int = 0x3460
+FLAG_OVERRIDE_ENABLED_OFFSET: int = 0x4460
+SNAPSHOT_KEYS_OFFSET: int = 0x5460
+SNAPSHOT_VALUES_OFFSET: int = 0x9460
+STATE_CHANGE_LOG_OFFSET: int = 0xD460
+OVERLAY_TEXT_OFFSET: int = 0x2D460
+CAVE_SIZE: int = 0x39460
 
 CALL_RECORD_CAPACITY: int = 16
 STATE_CHANGE_LOG_CAPACITY: int = 16384
@@ -248,29 +180,22 @@ FLAG_OVERRIDE_BITMAP_SIZE: int = 0x1000
 READ_OVERRIDE_CAPACITY: int = 32
 LOCATION_REDIRECT_CAPACITY: int = 128
 ARRIVAL_LOG_CAPACITY: int = 256
-PICKUP_TABLE_SIZE: int = 0x400
 SNAPSHOT_CAPACITY: int = 4096
 ACTION_BLOCK_CAPACITY: int = 64
-ACTION_LOG_CAPACITY: int = 8192
+ACTION_THUNK_SIZE: int = 0x20
 OVERLAY_CAPACITY: int = 6
 OVERLAY_LAYER_SIZE: int = 0x80
 OVERLAY_TEXT_LENGTH: int = 2047
 OVERLAY_SCREEN_WIDTH: int = 640
 OVERLAY_TRANSPARENT_COLOR: int = 0xFFFF
 
-MAILBOX_MAGIC: int = 0x0C53495656505A41
+MAILBOX_MAGIC: int = 0x0D53495656505A41
 MAILBOX_STATE_IDLE: int = 0
 MAILBOX_STATE_PENDING: int = 1
 MAILBOX_STATE_DONE: int = 2
 MAILBOX_STATE_RUNNING: int = 3
 
-PICKUP_IGNORED: int = 0
-PICKUP_INTERCEPTED: int = 1
-PICKUP_CHECKED: int = 2
-
 THIS_SCRIPT_MANAGER: int = 1
-THIS_ENGINE: int = 2
-THIS_MENU: int = 3
 
 DETOURS: List[Tuple[str, int]] = [
     ("ScriptManager::checkPuzzleCriteria", CURRENT_PUZZLE_CODE_OFFSET),
@@ -327,18 +252,16 @@ def build_pump_code(cave_address: int, module_base: int) -> bytes:
         b"\x48\xBE" + struct.pack("<Q", cave_address + MAILBOX_OFFSET),  # mov rsi, mailbox
 
         b"\x48\x8B\x83" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["MenuManager::_engine"]),  # mov rax, [rbx + engine]
-        b"\x48\x89\x5E\x28",  # mov [rsi + 0x28], rbx  ; live menu
-        b"\x48\x89\x46\x30",  # mov [rsi + 0x30], rax  ; live engine
         b"\x48\x8B\x80" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ZVision::_scriptManager"]),  # mov rax, [rax + script manager]
-        b"\x48\x89\x46\x38",  # mov [rsi + 0x38], rax  ; live script manager
-        b"\x48\xFF\x46\x20",  # inc qword [rsi + 0x20]  ; frame count
+        b"\x48\x89\x46\x18",  # mov [rsi + 0x18], rax  ; live script manager
+        b"\x48\xFF\x46\x10",  # inc qword [rsi + 0x10]  ; frame count
 
         b"\x83\x3E" + struct.pack("<b", MAILBOX_STATE_PENDING),  # cmp dword [rsi], pending
         ("near_jump", b"\x0F\x85", "done"),  # jne done
 
         b"\xC7\x06" + struct.pack("<i", MAILBOX_STATE_RUNNING),  # mov dword [rsi], running
         b"\x44\x8B\x66\x04",  # mov r12d, [rsi + 0x04]  ; call count
-        b"\x48\x8D\x7E\x40",  # lea rdi, [rsi + 0x40]  ; first call record
+        b"\x48\x8D\x7E\x20",  # lea rdi, [rsi + 0x20]  ; first call record
 
         ("label", "next_call"),
         b"\x45\x85\xE4",  # test r12d, r12d
@@ -346,16 +269,8 @@ def build_pump_code(cave_address: int, module_base: int) -> bytes:
         b"\x48\x8B\x4F\x08",  # mov rcx, [rdi + 0x08]  ; this
         b"\x48\x83\xF9" + struct.pack("<b", THIS_SCRIPT_MANAGER),  # cmp rcx, script manager sentinel
         ("jump", b"\x75", "not_script_manager"),  # jne not_script_manager
-        b"\x48\x8B\x4E\x38",  # mov rcx, [rsi + 0x38]  ; live script manager
+        b"\x48\x8B\x4E\x18",  # mov rcx, [rsi + 0x18]  ; live script manager
         ("label", "not_script_manager"),
-        b"\x48\x83\xF9" + struct.pack("<b", THIS_ENGINE),  # cmp rcx, engine sentinel
-        ("jump", b"\x75", "not_engine"),  # jne not_engine
-        b"\x48\x8B\x4E\x30",  # mov rcx, [rsi + 0x30]  ; live engine
-        ("label", "not_engine"),
-        b"\x48\x83\xF9" + struct.pack("<b", THIS_MENU),  # cmp rcx, menu sentinel
-        ("jump", b"\x75", "not_menu"),  # jne not_menu
-        b"\x48\x8B\x4E\x28",  # mov rcx, [rsi + 0x28]  ; live menu
-        ("label", "not_menu"),
         b"\x48\x8B\x57\x10",  # mov rdx, [rdi + 0x10]  ; argument 1
         b"\x4C\x8B\x47\x18",  # mov r8, [rdi + 0x18]  ; argument 2
         b"\x4C\x8B\x4F\x20",  # mov r9, [rdi + 0x20]  ; argument 3
@@ -523,7 +438,7 @@ def build_flag_override_code(cave_address: int, module_base: int) -> bytes:
         ("jump", b"\x72", "override"),  # jb override
         b"\x49\x81\xC2" + struct.pack("<i", SCUMMVM_FUNCTION_SIZES["ScriptManager::serialize"]),  # add r10, serialize size
         b"\x4C\x39\xD0",  # cmp rax, r10
-        ("jump", b"\x72", "pass_through"),  # jb pass_through  ; saves keep the real flags
+        ("jump", b"\x72", "pass_through"),  # jb pass_through
 
         ("label", "override"),
         b"\x48\x83\xEC\x28",  # sub rsp, 0x28
@@ -690,12 +605,11 @@ def build_action_filter_code(cave_address: int) -> bytes:
         b"\x44\x8B\x02",  # mov r8d, [rdx]  ; puzzle key
 
         ("label", "have_puzzle_key"),
-        b"\x45\x31\xC9",  # xor r9d, r9d  ; not blocked
         b"\x31\xD2",  # xor edx, edx
 
         ("label", "next_block"),
         b"\x41\x3B\x53\x08",  # cmp edx, [r11 + 0x08]  ; block count
-        ("jump", b"\x7D", "log"),  # jge log
+        ("jump", b"\x7D", "not_blocked"),  # jge not_blocked
         b"\x45\x39\x44\xD3\x10",  # cmp [r11 + rdx*8 + 0x10], r8d  ; blocked puzzle
         ("jump", b"\x74", "puzzle_matches"),  # je puzzle_matches
         b"\x41\x83\x7C\xD3\x10\xFF",  # cmp dword [r11 + rdx*8 + 0x10], -1  ; any puzzle
@@ -711,70 +625,12 @@ def build_action_filter_code(cave_address: int) -> bytes:
         b"\xFF\xC2",  # inc edx
         ("jump", b"\xEB", "next_block"),  # jmp next_block
 
-        ("label", "blocked"),
-        b"\x41\xB9\x01\x00\x00\x00",  # mov r9d, 1  ; blocked
-
-        ("label", "log"),
-        b"\x41\x8B\x53\x0C",  # mov edx, [r11 + 0x0C]  ; log count
-        b"\x41\xFF\x43\x0C",  # inc dword [r11 + 0x0C]
-        b"\x81\xE2" + struct.pack("<i", ACTION_LOG_CAPACITY - 1),  # and edx, log capacity - 1
-        b"\xC1\xE2\x03",  # shl edx, 3  ; action log entry size
-        b"\x49\xBB" + struct.pack("<Q", cave_address + ACTION_LOG_OFFSET),  # mov r11, action log
-        b"\x45\x89\x04\x13",  # mov [r11 + rdx], r8d  ; puzzle key
-        b"\x66\x41\x89\x44\x13\x04",  # mov [r11 + rdx + 4], ax  ; action class
-        b"\x66\x45\x89\x4C\x13\x06",  # mov [r11 + rdx + 6], r9w  ; blocked
-        b"\x45\x85\xC9",  # test r9d, r9d
-        ("jump", b"\x75", "return_blocked"),  # jne return_blocked
+        ("label", "not_blocked"),
         b"\x41\xFF\xE2",  # jmp r10  ; original execute
 
-        ("label", "return_blocked"),
-        b"\xB8\x01\x00\x00\x00",  # mov eax, 1  ; keep checking puzzles
+        ("label", "blocked"),
+        b"\xB8\x01\x00\x00\x00",  # mov eax, 1
         b"\xC3",  # ret
-    ])
-
-
-def build_pickup_filter_code(cave_address: int, module_base: int) -> bytes:
-    return assemble([
-        b"\x0F\xB6\x81" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ActionInventory::_type"]),  # movzx eax, byte [rcx + type]
-        b"\x83\xF8\x01",  # cmp eax, 1  ; add or addi
-        ("near_jump", b"\x0F\x87", "pass_through"),  # ja pass_through
-
-        b"\x53",  # push rbx
-        b"\x56",  # push rsi
-        b"\x48\x83\xEC\x28",  # sub rsp, 0x28
-        b"\x48\x89\xCB",  # mov rbx, rcx  ; action
-        b"\x8B\xB3" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ActionInventory::_key"]),  # mov esi, [rbx + key]
-        b"\x85\xC0",  # test eax, eax  ; add
-        ("jump", b"\x74", "have_item"),  # je have_item
-        b"\x48\x8B\x8B" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ActionInventory::_scriptManager"]),  # mov rcx, [rbx + script manager]
-        b"\x89\xF2",  # mov edx, esi  ; key holding the item
-        b"\x48\xB8" + struct.pack("<Q", module_base + SCUMMVM_FUNCTION_RVAS["ScriptManager::getStateValue"]),  # mov rax, getStateValue
-        b"\xFF\xD0",  # call rax
-        b"\x89\xC6",  # mov esi, eax
-
-        ("label", "have_item"),
-        b"\x0F\xBF\xF6",  # movsx esi, si  ; item id
-        b"\x81\xFE" + struct.pack("<i", PICKUP_TABLE_SIZE),  # cmp esi, table size
-        ("jump", b"\x73", "restore"),  # jae restore
-        b"\x49\xBA" + struct.pack("<Q", cave_address + PICKUP_TABLE_OFFSET),  # mov r10, pickup table
-        b"\x41\x80\x3C\x32" + struct.pack("<B", PICKUP_INTERCEPTED),  # cmp byte [r10 + rsi], intercepted
-        ("jump", b"\x75", "restore"),  # jne restore
-        b"\x41\xC6\x04\x32" + struct.pack("<B", PICKUP_CHECKED),  # mov byte [r10 + rsi], checked
-        b"\xB8\x01\x00\x00\x00",  # mov eax, 1  ; keep running the puzzle's results
-        b"\x48\x83\xC4\x28",  # add rsp, 0x28
-        b"\x5E",  # pop rsi
-        b"\x5B",  # pop rbx
-        b"\xC3",  # ret
-
-        ("label", "restore"),
-        b"\x48\x89\xD9",  # mov rcx, rbx  ; action
-        b"\x48\x83\xC4\x28",  # add rsp, 0x28
-        b"\x5E",  # pop rsi
-        b"\x5B",  # pop rbx
-
-        ("label", "pass_through"),
-        b"\x48\xB8" + struct.pack("<Q", module_base + ZVISION_ACTIONS["inventory"][1]),  # mov rax, original ActionInventory::execute
-        b"\xFF\xE0",  # jmp rax
     ])
 
 
@@ -795,7 +651,7 @@ def build_overlay_code(cave_address: int, module_base: int) -> bytes:
             b"\x49\x3B\x4A\x08",  # cmp rcx, [r10 + 0x08]  ; screen the layer was made for
             ("jump", b"\x75", f"skip_{layer}"),  # jne skip
             b"\x48\x8B\x41" + struct.pack("<b", ZVISION_STRUCTURE_OFFSETS["ManagedSurface::w"]),  # mov rax, [rcx + width reference]
-            b"\x66\x81\x38" + struct.pack("<H", OVERLAY_SCREEN_WIDTH),  # cmp word [rax], screen width  ; not during hi-res videos
+            b"\x66\x81\x38" + struct.pack("<H", OVERLAY_SCREEN_WIDTH),  # cmp word [rax], screen width
             ("jump", b"\x75", f"skip_{layer}"),  # jne skip
             b"\x49\x8D\x52\x10",  # lea rdx, [r10 + 0x10]  ; surface
             b"\x4D\x8D\x42\x30",  # lea r8, [r10 + 0x30]  ; source rectangle
@@ -809,7 +665,7 @@ def build_overlay_code(cave_address: int, module_base: int) -> bytes:
             b"\x4D\x8B\x1B",  # mov r11, [r11]  ; engine
             b"\x41\x80\xBB" + struct.pack("<i", ZVISION_MEMBER_OFFSETS["ZVision::_videoIsPlaying"]) + b"\x00",  # cmp byte [r11 + video is playing], 0
             ("jump", b"\x74", f"alpha_{layer}"),  # je alpha
-            b"\xB8\xFF\x00\x00\x00",  # mov eax, 0xFF  ; opaque while a video plays over an unrefreshed scene
+            b"\xB8\xFF\x00\x00\x00",  # mov eax, 0xFF
             ("label", f"alpha_{layer}"),
             b"\x89\x44\x24\x30",  # mov [rsp + 0x30], eax
             b"\x48\xC7\x44\x24\x38\x00\x00\x00\x00",  # mov qword [rsp + 0x38], 0  ; no palette
@@ -832,22 +688,20 @@ def build_overlay_code(cave_address: int, module_base: int) -> bytes:
 
 class ScummVMZVisionProcess:
     process: Pymem
-    module: pymem.ressources.structure.MODULEINFO
     module_base: int
 
     cave_address: Optional[int]
     last_frame_count: Optional[int]
     state_change_log_cursor: Optional[int]
     arrival_log_cursor: Optional[int]
-    action_log_cursor: Optional[int]
     call_timeout_seconds: float
 
     def __init__(self, process: Pymem, module_name: str) -> None:
         self.process = process
-        self.module = pymem.process.module_from_name(self.process.process_handle, module_name)
-        self.module_base = self.module.lpBaseOfDll
+        module: pymem.ressources.structure.MODULEINFO = pymem.process.module_from_name(self.process.process_handle, module_name)
+        self.module_base = module.lpBaseOfDll
 
-        if self.module.SizeOfImage != SCUMMVM_SIZE_OF_IMAGE:
+        if module.SizeOfImage != SCUMMVM_SIZE_OF_IMAGE:
             raise RuntimeError(f"{module_name} is not ScummVM 2026.3.0 (win64)")
 
         fingerprint: int = zlib.crc32(bytes().join(
@@ -863,18 +717,17 @@ class ScummVMZVisionProcess:
         self.last_frame_count = None
         self.state_change_log_cursor = None
         self.arrival_log_cursor = None
-        self.action_log_cursor = None
         self.call_timeout_seconds = 5.0
 
     def install_hooks(self) -> None:
         pump_slot_address: int = self._get_virtual_slot_address(SCUMMVM_VIRTUAL_TABLE_RVAS["MenuZGI"], "MenuManager::process")
-        pump_function: int = self.read_pointer(pump_slot_address)
+        pump_function: int = self._read_pointer(pump_slot_address)
 
         if pump_function == self._get_function_address("MenuZGI::process"):
             self._install_cave(pump_slot_address)
         else:
             try:
-                magic: int = self.process.read_ulonglong(pump_function - PUMP_CODE_OFFSET + MAILBOX_OFFSET + 0x10)
+                magic: int = self.process.read_ulonglong(pump_function - PUMP_CODE_OFFSET + MAILBOX_OFFSET + 0x08)
             except Exception:
                 magic = 0
 
@@ -901,13 +754,13 @@ class ScummVMZVisionProcess:
         class_index: int
         virtual_table: int
         for class_index, (virtual_table, _, _) in enumerate(ACTION_CLASSES):
-            if self.read_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute")) != self.cave_address + ACTION_THUNKS_OFFSET + class_index * 0x20:
+            if self._read_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute")) != self.cave_address + ACTION_THUNKS_OFFSET + class_index * ACTION_THUNK_SIZE:
                 return False
 
         return True
 
     def read_frame_count(self) -> int:
-        return self.process.read_ulonglong(self._require_cave() + MAILBOX_OFFSET + 0x20)
+        return self.process.read_ulonglong(self._require_cave() + MAILBOX_OFFSET + 0x10)
 
     def is_game_running(self) -> bool:
         frame_count: int = self.read_frame_count()
@@ -918,20 +771,17 @@ class ScummVMZVisionProcess:
         return is_running
 
     def is_zvision_running(self) -> bool:
-        engine: int = self.read_pointer(self.module_base + SCUMMVM_GLOBAL_RVAS["g_engine"])
+        engine: int = self._read_pointer(self.module_base + SCUMMVM_GLOBAL_RVAS["g_engine"])
 
         if engine == 0:
             return False
 
         try:
-            script_manager: int = self.read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_scriptManager"])
+            script_manager: int = self._read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_scriptManager"])
 
-            return script_manager != 0 and self.read_pointer(script_manager + ZVISION_MEMBER_OFFSETS["ScriptManager::_engine"]) == engine
+            return script_manager != 0 and self._read_pointer(script_manager + ZVISION_MEMBER_OFFSETS["ScriptManager::_engine"]) == engine
         except Exception:
             return False
-
-    def is_video_playing(self) -> bool:
-        return bool(self.process.read_uchar(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_videoIsPlaying"]))
 
     def is_widescreen(self) -> bool:
         return bool(self.process.read_uchar(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_widescreen"]))
@@ -940,21 +790,7 @@ class ScummVMZVisionProcess:
         if not self.is_zvision_running():
             raise RuntimeError("No ZVision game is running")
 
-        return self.read_pointer(self.module_base + SCUMMVM_GLOBAL_RVAS["g_engine"])
-
-    def read_script_manager_address(self) -> int:
-        return self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_scriptManager"])
-
-    def read_menu_address(self) -> int:
-        return self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_menu"])
-
-    def read_game_id(self) -> int:
-        game_description: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_gameDescription"])
-
-        return self.process.read_int(game_description + ZVISION_MEMBER_OFFSETS["ZVisionGameDescription::gameId"])
-
-    def read_pointer(self, address: int) -> int:
-        return self.process.read_ulonglong(address)
+        return self._read_pointer(self.module_base + SCUMMVM_GLOBAL_RVAS["g_engine"])
 
     def call_on_main_thread(self, calls: Sequence[Tuple[int, ...]], timeout_seconds: Optional[float] = None) -> List[int]:
         cave_address: int = self._require_cave()
@@ -966,8 +802,9 @@ class ScummVMZVisionProcess:
             timeout_seconds = self.call_timeout_seconds
 
         deadline: float = time.perf_counter() + timeout_seconds
+        mailbox_address: int = cave_address + MAILBOX_OFFSET
 
-        while self.process.read_uint(cave_address + MAILBOX_OFFSET) == MAILBOX_STATE_RUNNING:
+        while self.process.read_uint(mailbox_address) == MAILBOX_STATE_RUNNING:
             if time.perf_counter() > deadline:
                 raise RuntimeError("The main thread is still running an earlier call queue")
 
@@ -978,9 +815,7 @@ class ScummVMZVisionProcess:
             for call in calls
         )
 
-        mailbox_address: int = cave_address + MAILBOX_OFFSET
-
-        self.process.write_bytes(mailbox_address + 0x40, records, len(records))
+        self.process.write_bytes(mailbox_address + 0x20, records, len(records))
         self.process.write_uint(mailbox_address + 0x04, len(calls))
         self.process.write_uint(mailbox_address, MAILBOX_STATE_PENDING)
 
@@ -995,15 +830,31 @@ class ScummVMZVisionProcess:
 
         self.process.write_uint(mailbox_address, MAILBOX_STATE_IDLE)
 
-        results: bytes = self.process.read_bytes(mailbox_address + 0x40, len(records))
+        results: bytes = self.process.read_bytes(mailbox_address + 0x20, len(records))
 
         return [struct.unpack_from("<i", results, record_index * 0x40 + 0x38)[0] for record_index in range(len(calls))]
 
     def read_state_values(self, keys: Sequence[int]) -> Dict[int, int]:
-        return self._snapshot(keys, "ScriptManager::getStateValue")
+        cave_address: int = self._require_cave()
+        values: Dict[int, int] = dict()
 
-    def read_state_flags(self, keys: Sequence[int]) -> Dict[int, int]:
-        return self._snapshot(keys, "ScriptManager::getStateFlag")
+        index: int
+        for index in range(0, len(keys), SNAPSHOT_CAPACITY):
+            batch: Sequence[int] = keys[index:index + SNAPSHOT_CAPACITY]
+
+            self._write_cave(SNAPSHOT_KEYS_OFFSET, struct.pack(f"<{len(batch)}I", *batch))
+            self.call_on_main_thread([(
+                cave_address + SNAPSHOT_CODE_OFFSET,
+                THIS_SCRIPT_MANAGER,
+                cave_address + SNAPSHOT_KEYS_OFFSET,
+                len(batch),
+                cave_address + SNAPSHOT_VALUES_OFFSET,
+                self._get_function_address("ScriptManager::getStateValue"),
+            )])
+
+            values.update(zip(batch, struct.unpack(f"<{len(batch)}i", self.process.read_bytes(cave_address + SNAPSHOT_VALUES_OFFSET, len(batch) * 4))))
+
+        return values
 
     def write_state_values(self, values: Dict[int, int]) -> None:
         set_state_value: int = self._get_function_address("ScriptManager::setStateValue")
@@ -1026,9 +877,6 @@ class ScummVMZVisionProcess:
         index: int
         for index in range(0, len(calls), CALL_RECORD_CAPACITY):
             self.call_on_main_thread(calls[index:index + CALL_RECORD_CAPACITY])
-
-    def set_disabled(self, keys: Sequence[int], is_disabled: bool) -> None:
-        self.write_state_flags([(key, 0x02, is_disabled) for key in keys])
 
     def set_state_value_overrides(self, overrides: Dict[int, int]) -> None:
         cave_address: int = self._require_cave()
@@ -1125,13 +973,8 @@ class ScummVMZVisionProcess:
         return changes, is_complete
 
     def read_current_location(self) -> Tuple[str, int]:
-        location_address: int = self.read_script_manager_address() + ZVISION_MEMBER_OFFSETS["ScriptManager::_currentLocation"]
-        packed, offset = struct.unpack("<II", self.process.read_bytes(location_address, 8))
-
-        return struct.pack("<I", packed).decode("ascii", errors="replace").rstrip("\x00"), offset
-
-    def read_next_location(self) -> Tuple[str, int]:
-        location_address: int = self.read_script_manager_address() + ZVISION_MEMBER_OFFSETS["ScriptManager::_nextLocation"]
+        script_manager: int = self._read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_scriptManager"])
+        location_address: int = script_manager + ZVISION_MEMBER_OFFSETS["ScriptManager::_currentLocation"]
         packed, offset = struct.unpack("<II", self.process.read_bytes(location_address, 8))
 
         return struct.pack("<I", packed).decode("ascii", errors="replace").rstrip("\x00"), offset
@@ -1198,61 +1041,6 @@ class ScummVMZVisionProcess:
 
         return arrivals, is_complete
 
-    def read_puzzles(self, scope: str) -> List[Tuple[int, List[List[Tuple[int, str, int, bool]]], List[str]]]:
-        scope_address: int = self.read_script_manager_address() + ZVISION_MEMBER_OFFSETS[f"ScriptManager::_{scope}"]
-        data: int = ZVISION_STRUCTURE_OFFSETS["Common::ListNode::_data"]
-        action_names: Dict[int, str] = {self.module_base + virtual_table: names[0] for virtual_table, _, names in ACTION_CLASSES}
-        puzzles: List[Tuple[int, List[List[Tuple[int, str, int, bool]]], List[str]]] = list()
-
-        puzzle_node: int
-        for puzzle_node in self._read_list_nodes(scope_address + ZVISION_MEMBER_OFFSETS["ScriptScope::puzzles"]):
-            puzzle: int = self.read_pointer(puzzle_node + data)
-            criteria: List[List[Tuple[int, str, int, bool]]] = list()
-
-            criteria_node: int
-            for criteria_node in self._read_list_nodes(puzzle + ZVISION_STRUCTURE_OFFSETS["Puzzle::criteriaList"]):
-                entries: List[Tuple[int, str, int, bool]] = list()
-
-                entry_node: int
-                for entry_node in self._read_list_nodes(criteria_node + data):
-                    key, argument, operator, argument_is_a_key = struct.unpack("<IiI?", self.process.read_bytes(entry_node + data, 13))
-                    entries.append((key, ("==", "!=", ">", "<")[operator], argument, argument_is_a_key))
-
-                criteria.append(entries)
-
-            actions: List[str] = list()
-
-            action_node: int
-            for action_node in self._read_list_nodes(puzzle + ZVISION_STRUCTURE_OFFSETS["Puzzle::resultActions"]):
-                virtual_table: int = self.read_pointer(self.read_pointer(action_node + data))
-                actions.append(action_names.get(virtual_table, f"{virtual_table:#x}"))
-
-            puzzles.append((self.process.read_uint(puzzle + ZVISION_STRUCTURE_OFFSETS["Puzzle::key"]), criteria, actions))
-
-        return puzzles
-
-    def read_new_actions(self) -> Tuple[List[Tuple[int, str, bool]], bool]:
-        cave_address: int = self._require_cave()
-        count: int = self.process.read_uint(cave_address + ACTION_DATA_OFFSET + 0x0C)
-
-        if self.action_log_cursor is None or self.action_log_cursor > count:
-            self.action_log_cursor = count
-
-        first: int = max(self.action_log_cursor, count - ACTION_LOG_CAPACITY)
-        log: bytes = self.process.read_bytes(cave_address + ACTION_LOG_OFFSET, ACTION_LOG_CAPACITY * 8)
-        is_complete: bool = first == self.action_log_cursor and self.process.read_uint(cave_address + ACTION_DATA_OFFSET + 0x0C) - first <= ACTION_LOG_CAPACITY
-
-        self.action_log_cursor = count
-
-        actions: List[Tuple[int, str, bool]] = list()
-
-        index: int
-        for index in range(first, count):
-            puzzle_key, class_index, is_blocked = struct.unpack_from("<IHH", log, (index % ACTION_LOG_CAPACITY) * 8)
-            actions.append((puzzle_key, ACTION_CLASSES[class_index][2][0], bool(is_blocked)))
-
-        return actions, is_complete
-
     def block_actions(self, blocks: Sequence[Tuple[Optional[int], Optional[str]]]) -> None:
         cave_address: int = self._require_cave()
 
@@ -1278,90 +1066,17 @@ class ScummVMZVisionProcess:
         )
         self.process.write_uint(cave_address + ACTION_DATA_OFFSET + 0x08, len(blocks))
 
-    def read_controls(self) -> List[Tuple[int, str]]:
-        controls_list: int = self.read_pointer(self.read_script_manager_address() + ZVISION_MEMBER_OFFSETS["ScriptManager::_activeControls"])
-
-        if controls_list == 0:
-            return list()
-
-        control_types: Tuple[str, ...] = ("unknown", "input", "push_toggle", "slot", "lever", "save", "safe", "fist", "titler", "hot_movie", "paint")
-        controls: List[Tuple[int, str]] = list()
-
-        node: int
-        for node in self._read_list_nodes(controls_list):
-            control: int = self.read_pointer(node + ZVISION_STRUCTURE_OFFSETS["Common::ListNode::_data"])
-            control_type: int = self.process.read_uint(control + ZVISION_STRUCTURE_OFFSETS["Control::_type"])
-
-            controls.append((
-                self.process.read_uint(control + ZVISION_STRUCTURE_OFFSETS["Control::_key"]),
-                control_types[control_type] if control_type < len(control_types) else str(control_type),
-            ))
-
-        return controls
-
-    def read_side_effects(self) -> List[Tuple[int, int]]:
-        effects: List[Tuple[int, int]] = list()
-
-        node: int
-        for node in self._read_list_nodes(self.read_script_manager_address() + ZVISION_MEMBER_OFFSETS["ScriptManager::_activeSideFx"]):
-            effect: int = self.read_pointer(node + ZVISION_STRUCTURE_OFFSETS["Common::ListNode::_data"])
-
-            effects.append((
-                self.process.read_uint(effect + ZVISION_STRUCTURE_OFFSETS["ScriptingEffect::_key"]),
-                self.process.read_uint(effect + ZVISION_STRUCTURE_OFFSETS["ScriptingEffect::_type"]),
-            ))
-
-        return effects
-
     def kill_side_effect(self, key: int) -> None:
         self.call_on_main_thread([(self._get_function_address("ScriptManager::killSideFx"), THIS_SCRIPT_MANAGER, key)])
-
-    def kill_side_effects_of_type(self, type_mask: int) -> None:
-        self.call_on_main_thread([(self._get_function_address("ScriptManager::killSideFxType"), THIS_SCRIPT_MANAGER, type_mask)])
-
-    def inventory_add(self, item: int) -> None:
-        self.call_on_main_thread([(self._get_function_address("ScriptManager::inventoryAdd"), THIS_SCRIPT_MANAGER, item)])
 
     def inventory_drop(self, item: int) -> None:
         self.call_on_main_thread([(self._get_function_address("ScriptManager::inventoryDrop"), THIS_SCRIPT_MANAGER, item)])
 
-    def inventory_cycle(self) -> None:
-        self.call_on_main_thread([(self._get_function_address("ScriptManager::inventoryCycle"), THIS_SCRIPT_MANAGER)])
-
-    def read_cursor_items(self) -> List[int]:
-        values: Dict[int, int] = self.read_state_values(list(range(100, 150)))
-
-        return [values[101 + index] for index in range(min(values[100], 49))]
-
-    def read_inventory_slots(self) -> List[int]:
-        values: Dict[int, int] = self.read_state_values(list(range(150, 201)))
-
-        return [values[151 + index] for index in range(min(values[150] or 20, 50))]
-
-    def intercept_pickups(self, items: Sequence[int]) -> None:
-        self._write_pickup_states(items, PICKUP_INTERCEPTED, only_from=PICKUP_IGNORED)
-
-    def release_pickups(self, items: Sequence[int]) -> None:
-        self._write_pickup_states(items, PICKUP_IGNORED)
-
-    def check_pickups(self, items: Sequence[int]) -> None:
-        self._write_pickup_states(items, PICKUP_CHECKED)
-
-    def read_intercepted_pickups(self) -> List[int]:
-        table: bytes = self.process.read_bytes(self._require_cave() + PICKUP_TABLE_OFFSET, PICKUP_TABLE_SIZE)
-
-        return [item for item, value in enumerate(table) if value == PICKUP_INTERCEPTED]
-
-    def read_checked_pickups(self) -> List[int]:
-        table: bytes = self.process.read_bytes(self._require_cave() + PICKUP_TABLE_OFFSET, PICKUP_TABLE_SIZE)
-
-        return [item for item, value in enumerate(table) if value == PICKUP_CHECKED]
-
     def show_overlays(self, overlays: Sequence[Tuple[int, str, int, int, int, int, int, bool, int, Optional[Tuple[int, int, int]]]]) -> None:
         cave_address: int = self._require_cave()
         engine: int = self.read_engine_address()
-        screen: int = self.read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"]) + ZVISION_MEMBER_OFFSETS["RenderManager::_screen"]
-        text_renderer: int = self.read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_textRenderer"])
+        screen: int = self._read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"]) + ZVISION_MEMBER_OFFSETS["RenderManager::_screen"]
+        text_renderer: int = self._read_pointer(engine + ZVISION_MEMBER_OFFSETS["ZVision::_textRenderer"])
         copy_address: int = cave_address + COPY_CODE_OFFSET
         calls: List[Tuple[int, ...]] = list()
 
@@ -1422,71 +1137,33 @@ class ScummVMZVisionProcess:
 
         self.call_on_main_thread(calls)
 
-    def save_game(self, slot: int, description: str) -> None:
-        cave_address: int = self._require_cave()
-        encoded: bytes = description[:28].encode("ascii", errors="replace")
-
-        self.process.write_bytes(cave_address + SAVE_NAME_BUFFER_OFFSET, encoded + b"\x00", len(encoded) + 1)
-        self.process.write_bytes(
-            cave_address + SAVE_NAME_OFFSET,
-            struct.pack("<IIQQI4x", len(encoded), 0, cave_address + SAVE_NAME_BUFFER_OFFSET, cave_address + STRING_REFERENCE_COUNT_OFFSET, 0x100),
-            0x20,
-        )
-
-        save_manager: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_saveManager"])
-
-        self.call_on_main_thread([
-            (self._get_function_address("SaveManager::saveGame"), save_manager, slot, cave_address + SAVE_NAME_OFFSET, 0),
-        ])
-
-    def load_game(self, slot: int) -> int:
-        cave_address: int = self._require_cave()
-        save_manager: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_saveManager"])
-
-        self.call_on_main_thread([
-            (self._get_function_address("SaveManager::loadGame"), cave_address + LOAD_RESULT_OFFSET, save_manager, slot),
-        ])
-
-        return self.process.read_int(cave_address + LOAD_RESULT_OFFSET)
-
-    def read_menu_bar(self) -> int:
-        return self.process.read_ushort(self.read_menu_address() + ZVISION_MEMBER_OFFSETS["MenuManager::_menuBarFlag"])
-
-    def set_menu_bar(self, flags: int) -> None:
-        self.call_on_main_thread([(self._get_function_address("MenuManager::setEnable"), THIS_MENU, flags)])
-
     def read_render_table(self) -> Dict[str, object]:
-        render_manager: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"])
+        render_manager: int = self._read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"])
         render_table: int = render_manager + ZVISION_MEMBER_OFFSETS["RenderManager::_renderTable"]
-        values: Dict[str, object] = {"render_state": ("panorama", "tilt", "flat")[self.process.read_int(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_renderState"])]}
 
-        options: str
-        for options in ("panorama", "tilt"):
-            values[f"{options}_vertical_fov"] = math.degrees(self.process.read_float(render_table + ZVISION_MEMBER_OFFSETS[f"RenderTable::_{options}Options.verticalFOV"]))
-            values[f"{options}_linear_scale"] = self.process.read_float(render_table + ZVISION_MEMBER_OFFSETS[f"RenderTable::_{options}Options.linearScale"])
-            values[f"{options}_reverse"] = bool(self.process.read_uchar(render_table + ZVISION_MEMBER_OFFSETS[f"RenderTable::_{options}Options.reverse"]))
+        return {
+            "render_state": ("panorama", "tilt", "flat")[self.process.read_int(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_renderState"])],
+            "panorama_vertical_fov": math.degrees(self.process.read_float(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_panoramaOptions.verticalFOV"])),
+            "panorama_linear_scale": self.process.read_float(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_panoramaOptions.linearScale"]),
+            "panorama_reverse": bool(self.process.read_uchar(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_panoramaOptions.reverse"])),
+        }
 
-        values["panorama_zero_point"] = self.process.read_ushort(render_table + ZVISION_MEMBER_OFFSETS["RenderTable::_panoramaOptions.zeroPoint"])
-
-        return values
-
-    def set_view_options(self, view: str, vertical_fov: Optional[float] = None, linear_scale: Optional[float] = None, reverse: Optional[bool] = None) -> None:
+    def set_view_options(self, vertical_fov: Optional[float] = None, linear_scale: Optional[float] = None, reverse: Optional[bool] = None) -> None:
         if (vertical_fov is not None and vertical_fov <= 0.0) or (linear_scale is not None and linear_scale <= 0.0):
             raise ValueError("The vertical field of view and the linear scale must be positive")
 
-        render_manager: int = self.read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"])
+        render_manager: int = self._read_pointer(self.read_engine_address() + ZVISION_MEMBER_OFFSETS["ZVision::_renderManager"])
         render_table: int = render_manager + ZVISION_MEMBER_OFFSETS["RenderManager::_renderTable"]
-        prefix: str = "RenderTable::setPanorama" if view == "panorama" else "RenderTable::setTilt"
         calls: List[Tuple[int, ...]] = list()
 
         if vertical_fov is not None:
-            calls.append((self._get_function_address(prefix + "FoV"), render_table, struct.unpack("<I", struct.pack("<f", vertical_fov))[0]))
+            calls.append((self._get_function_address("RenderTable::setPanoramaFoV"), render_table, struct.unpack("<I", struct.pack("<f", vertical_fov))[0]))
 
         if linear_scale is not None:
-            calls.append((self._get_function_address(prefix + "Scale"), render_table, struct.unpack("<I", struct.pack("<f", linear_scale))[0]))
+            calls.append((self._get_function_address("RenderTable::setPanoramaScale"), render_table, struct.unpack("<I", struct.pack("<f", linear_scale))[0]))
 
         if reverse is not None:
-            calls.append((self._get_function_address(prefix + "Reverse"), render_table, int(reverse)))
+            calls.append((self._get_function_address("RenderTable::setPanoramaReverse"), render_table, int(reverse)))
 
         calls.append((self._get_function_address("RenderTable::generateRenderTable"), render_table))
 
@@ -1507,7 +1184,7 @@ class ScummVMZVisionProcess:
         execute: int
         names: Tuple[str, ...]
         for virtual_table, execute, names in ACTION_CLASSES:
-            if self.read_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute")) != self.module_base + execute:
+            if self._read_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute")) != self.module_base + execute:
                 raise RuntimeError(f"Action {names[0]} is already hooked by something else; restart ScummVM")
 
         self.cave_address = self.process.allocate(CAVE_SIZE)
@@ -1520,35 +1197,27 @@ class ScummVMZVisionProcess:
         self._write_cave(LOCATION_CHANGE_CODE_OFFSET, build_location_change_code(self.cave_address, self.module_base))
         self._write_cave(CURRENT_PUZZLE_CODE_OFFSET, build_current_puzzle_code(self.cave_address))
         self._write_cave(ACTION_FILTER_CODE_OFFSET, build_action_filter_code(self.cave_address))
-        self._write_cave(PICKUP_FILTER_CODE_OFFSET, build_pickup_filter_code(self.cave_address, self.module_base))
         self._write_cave(FLAG_OVERRIDE_CODE_OFFSET, build_flag_override_code(self.cave_address, self.module_base))
         self._write_cave(READ_OVERRIDE_CODE_OFFSET, build_read_override_code(self.cave_address))
         self._write_cave(OVERLAY_CODE_OFFSET, build_overlay_code(self.cave_address, self.module_base))
 
-        name: str
         trampoline_offset: int
         for name, trampoline_offset in (
-            ("ScriptManager::getStateValue", READ_OVERRIDE_TRAMPOLINE_OFFSET),
             ("ScriptManager::checkPuzzleCriteria", CURRENT_PUZZLE_TRAMPOLINE_OFFSET),
+            ("ScriptManager::getStateFlag", FLAG_OVERRIDE_TRAMPOLINE_OFFSET),
+            ("ScriptManager::getStateValue", READ_OVERRIDE_TRAMPOLINE_OFFSET),
         ):
             self._write_cave(trampoline_offset, SCUMMVM_DETOUR_PROLOGUES[name] + absolute_jump(self._get_function_address(name) + len(SCUMMVM_DETOUR_PROLOGUES[name])))
-        self._write_cave(
-            FLAG_OVERRIDE_TRAMPOLINE_OFFSET,
-            SCUMMVM_DETOUR_PROLOGUES["ScriptManager::getStateFlag"]
-            + absolute_jump(self._get_function_address("ScriptManager::getStateFlag") + len(SCUMMVM_DETOUR_PROLOGUES["ScriptManager::getStateFlag"])),
-        )
 
         class_index: int
         for class_index, (virtual_table, execute, names) in enumerate(ACTION_CLASSES):
-            original: int = self.cave_address + PICKUP_FILTER_CODE_OFFSET if "inventory" in names else self.module_base + execute
+            self._write_cave(ACTION_THUNKS_OFFSET + class_index * ACTION_THUNK_SIZE, build_action_thunk_code(self.cave_address, class_index, self.module_base + execute))
 
-            self._write_cave(ACTION_THUNKS_OFFSET + class_index * 0x20, build_action_thunk_code(self.cave_address, class_index, original))
-
-        self._write_cave(MAILBOX_OFFSET, struct.pack("<IIQQQQQQQ", MAILBOX_STATE_IDLE, 0, 0, MAILBOX_MAGIC, 0, 0, 0, 0, 0))
+        self._write_cave(MAILBOX_OFFSET, struct.pack("<IIQQQ", MAILBOX_STATE_IDLE, 0, MAILBOX_MAGIC, 0, 0))
         self._write_cave(STRING_REFERENCE_COUNT_OFFSET, struct.pack("<i", 0x40000000))
 
         for class_index, (virtual_table, _, _) in enumerate(ACTION_CLASSES):
-            self._write_protected_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute"), self.cave_address + ACTION_THUNKS_OFFSET + class_index * 0x20)
+            self._write_protected_pointer(self._get_virtual_slot_address(virtual_table, "ResultAction::execute"), self.cave_address + ACTION_THUNKS_OFFSET + class_index * ACTION_THUNK_SIZE)
 
         self._write_protected_pointer(pump_slot_address, self.cave_address + PUMP_CODE_OFFSET)
 
@@ -1584,50 +1253,6 @@ class ScummVMZVisionProcess:
                 pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, ctypes.c_void_p(function_address), len(patch), previous_protection.value, ctypes.byref(previous_protection))
                 ctypes.windll.kernel32.FlushInstructionCache(ctypes.c_void_p(self.process.process_handle), ctypes.c_void_p(function_address), ctypes.c_size_t(len(patch)))
 
-    def _snapshot(self, keys: Sequence[int], getter_name: str) -> Dict[int, int]:
-        cave_address: int = self._require_cave()
-        values: Dict[int, int] = dict()
-
-        index: int
-        for index in range(0, len(keys), SNAPSHOT_CAPACITY):
-            batch: Sequence[int] = keys[index:index + SNAPSHOT_CAPACITY]
-
-            self._write_cave(SNAPSHOT_KEYS_OFFSET, struct.pack(f"<{len(batch)}I", *batch))
-            self.call_on_main_thread([(
-                cave_address + SNAPSHOT_CODE_OFFSET,
-                THIS_SCRIPT_MANAGER,
-                cave_address + SNAPSHOT_KEYS_OFFSET,
-                len(batch),
-                cave_address + SNAPSHOT_VALUES_OFFSET,
-                self._get_function_address(getter_name),
-            )])
-
-            values.update(zip(batch, struct.unpack(f"<{len(batch)}i", self.process.read_bytes(cave_address + SNAPSHOT_VALUES_OFFSET, len(batch) * 4))))
-
-        return values
-
-    def _read_list_nodes(self, anchor_address: int) -> List[int]:
-        nodes: List[int] = list()
-        node: int = self.read_pointer(anchor_address + ZVISION_STRUCTURE_OFFSETS["Common::List::_anchor._next"])
-
-        while node != anchor_address:
-            if node == 0 or len(nodes) > 100000:
-                raise RuntimeError(f"List at {anchor_address:#x} is being modified or is corrupt")
-
-            nodes.append(node)
-            node = self.read_pointer(node + ZVISION_STRUCTURE_OFFSETS["Common::ListNode::_next"])
-
-        return nodes
-
-    def _write_pickup_states(self, items: Sequence[int], state: int, only_from: Optional[int] = None) -> None:
-        table_address: int = self._require_cave() + PICKUP_TABLE_OFFSET
-        table: bytes = self.process.read_bytes(table_address, PICKUP_TABLE_SIZE)
-
-        item: int
-        for item in items:
-            if table[item] != state and (only_from is None or table[item] == only_from):
-                self.process.write_uchar(table_address + item, state)
-
     def _require_cave(self) -> int:
         if self.cave_address is None:
             raise RuntimeError("Hooks are not installed")
@@ -1646,6 +1271,9 @@ class ScummVMZVisionProcess:
         self.process.write_ulonglong(address, value)
 
         pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, ctypes.c_void_p(address), 8, previous_protection.value, ctypes.byref(previous_protection))
+
+    def _read_pointer(self, address: int) -> int:
+        return self.process.read_ulonglong(address)
 
     def _get_function_address(self, name: str) -> int:
         return self.module_base + SCUMMVM_FUNCTION_RVAS[name]

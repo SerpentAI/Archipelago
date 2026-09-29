@@ -42,7 +42,7 @@ class NotConnectedLayout(BoxLayout):
         self.disabled = True
 
 
-class TrackerItemLabel(Label):
+class ItemLabel(Label):
     ctx: ZorkGrandInquisitorContext
 
     item: ZorkGrandInquisitorItems
@@ -93,12 +93,12 @@ class TrackerItemLabel(Label):
             self.text = self.item.value
 
 
-class TrackerItemsLayout(ScrollView):
+class ItemsLayout(ScrollView):
     ctx: ZorkGrandInquisitorContext
 
     layout: BoxLayout
 
-    item_labels: Dict[ZorkGrandInquisitorItems, TrackerItemLabel]
+    item_labels: Dict[ZorkGrandInquisitorItems, ItemLabel]
 
     def __init__(self, ctx: ZorkGrandInquisitorContext) -> None:
         super().__init__(size_hint=(0.2, 1.0))
@@ -142,7 +142,7 @@ class TrackerItemsLayout(ScrollView):
         if len(items_goal):
             item: ZorkGrandInquisitorItems
             for item in items_goal:
-                item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+                item_label: ItemLabel = ItemLabel(self.ctx, item)
 
                 self.item_labels[item] = item_label
                 self.layout.add_widget(item_label)
@@ -178,7 +178,7 @@ class TrackerItemsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_inventory:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -196,12 +196,12 @@ class TrackerItemsLayout(ScrollView):
             ZorkGrandInquisitorItems.SPELL_REZROV,
             ZorkGrandInquisitorItems.SPELL_SNAVIG,
             ZorkGrandInquisitorItems.SPELL_THROCK,
-            ZorkGrandInquisitorItems.SPELL_YASTARD
+            ZorkGrandInquisitorItems.SPELL_YASTARD,
         ]
 
         item: ZorkGrandInquisitorItems
         for item in items_spells:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -216,7 +216,7 @@ class TrackerItemsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_totems:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -231,7 +231,7 @@ class TrackerItemsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_brog:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -247,7 +247,7 @@ class TrackerItemsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_griff:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -263,7 +263,7 @@ class TrackerItemsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_lucy:
-            item_label: TrackerItemLabel = TrackerItemLabel(self.ctx, item)
+            item_label: ItemLabel = ItemLabel(self.ctx, item)
 
             self.item_labels[item] = item_label
             self.layout.add_widget(item_label)
@@ -284,12 +284,12 @@ class TrackerItemsLayout(ScrollView):
 
                 received_items[item] = received_items.get(item, 0) + 1
 
-        item_label: TrackerItemLabel
+        item_label: ItemLabel
         for item_label in self.item_labels.values():
             item_label.update(received_items)
 
 
-class TrackerDestinationsHotspotsLabel(Label):
+class DestinationsHotspotsLabel(Label):
     ctx: ZorkGrandInquisitorContext
 
     item: ZorkGrandInquisitorItems
@@ -321,12 +321,12 @@ class TrackerDestinationsHotspotsLabel(Label):
             self.opacity = 0.25
 
 
-class TrackerDestinationsHotspotsLayout(ScrollView):
+class DestinationsHotspotsLayout(ScrollView):
     ctx: ZorkGrandInquisitorContext
 
     layout: BoxLayout
 
-    destination_hotspot_labels: Dict[ZorkGrandInquisitorItems, TrackerDestinationsHotspotsLabel]
+    destination_hotspot_labels: Dict[ZorkGrandInquisitorItems, DestinationsHotspotsLabel]
 
     def __init__(self, ctx: ZorkGrandInquisitorContext) -> None:
         super().__init__(size_hint=(0.35, 1.0))
@@ -361,7 +361,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_destinations_subway:
-            destination_hotspot_label: TrackerDestinationsHotspotsLabel = TrackerDestinationsHotspotsLabel(
+            destination_hotspot_label: DestinationsHotspotsLabel = DestinationsHotspotsLabel(
                 self.ctx, item
             )
 
@@ -381,7 +381,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_destinations_teleporter:
-            destination_hotspot_label: TrackerDestinationsHotspotsLabel = TrackerDestinationsHotspotsLabel(
+            destination_hotspot_label: DestinationsHotspotsLabel = DestinationsHotspotsLabel(
                 self.ctx, item
             )
 
@@ -400,7 +400,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_destinations_totemizer:
-            destination_hotspot_label: TrackerDestinationsHotspotsLabel = TrackerDestinationsHotspotsLabel(
+            destination_hotspot_label: DestinationsHotspotsLabel = DestinationsHotspotsLabel(
                 self.ctx, item
             )
 
@@ -477,7 +477,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
         item: ZorkGrandInquisitorItems
         for item in items_hotspots:
-            destination_hotspot_label: TrackerDestinationsHotspotsLabel = TrackerDestinationsHotspotsLabel(
+            destination_hotspot_label: DestinationsHotspotsLabel = DestinationsHotspotsLabel(
                 self.ctx, item
             )
 
@@ -507,7 +507,7 @@ class TrackerDestinationsHotspotsLayout(ScrollView):
 
                 received_items[item] = received_items.get(item, 0) + 1
 
-        destination_hotspot_label: TrackerDestinationsHotspotsLabel
+        destination_hotspot_label: DestinationsHotspotsLabel
         for destination_hotspot_label in self.destination_hotspot_labels.values():
             destination_hotspot_label.update(received_items)
 
@@ -517,8 +517,8 @@ class ItemsTabLayout(BoxLayout):
 
     layout_content: BoxLayout
 
-    layout_items: TrackerItemsLayout
-    layout_destinations_hotspots: TrackerDestinationsHotspotsLayout
+    layout_items: ItemsLayout
+    layout_destinations_hotspots: DestinationsHotspotsLayout
 
     layout_not_connected: NotConnectedLayout
 
@@ -545,10 +545,10 @@ class ItemsTabLayout(BoxLayout):
         self.layout_not_connected.hide()
 
         if not len(self.layout_content.children):
-            self.layout_items = TrackerItemsLayout(self.ctx)
+            self.layout_items = ItemsLayout(self.ctx)
             self.layout_content.add_widget(self.layout_items)
 
-            self.layout_destinations_hotspots = TrackerDestinationsHotspotsLayout(self.ctx)
+            self.layout_destinations_hotspots = DestinationsHotspotsLayout(self.ctx)
             self.layout_content.add_widget(self.layout_destinations_hotspots)
 
         self.layout_items.update()

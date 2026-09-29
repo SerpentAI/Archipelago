@@ -71,15 +71,15 @@ class GameStateManager:
         self.state_values = dict()
         self.state_changes = list()
         self.previous_state_changes = list()
+        self.pending_state_values = dict()
+        self.pending_state_flags = dict()
+        self.pending_state_flag_overrides = dict()
 
         self.state_value_journal = list()
         self.state_value_journal_start = 0
         self.state_value_journal_valid_from = 0
         self.suppressed_state_changes = dict()
         self.suppressed_state_changes_ticks = 0
-        self.pending_state_values = dict()
-        self.pending_state_flags = dict()
-        self.pending_state_flag_overrides = dict()
 
         self.needs_resynchronization = True
 
@@ -435,24 +435,18 @@ class GameStateManager:
 
         self.suppressed_state_changes_ticks = 3
 
-    def write_game_state_value_for(self, key: int, value: int) -> bool:
+    def write_game_state_value_for(self, key: int, value: int) -> None:
         if self.state_values.get(key, 0) == value:
-            return True
+            return
 
         self.state_values[key] = value
         self.pending_state_values[key] = value
 
-        return True
-
-    def write_game_flags_value_for(self, key: int, value: int) -> bool:
+    def write_game_flags_value_for(self, key: int, value: int) -> None:
         self.pending_state_flag_overrides[key] = value == 2
 
-        return True
-
-    def persist_game_flags_value_for(self, key: int, value: int) -> bool:
+    def persist_game_flags_value_for(self, key: int, value: int) -> None:
         self.pending_state_flags[key] = value == 2
-
-        return True
 
     def set_game_location(self, game_location: str, offset: int, is_redirectable: bool = False) -> bool:
         if not self.is_process_running:
@@ -556,7 +550,7 @@ class GameStateManager:
         except Exception:
             return False
 
-        self.location_redirects = location_redirects
+        self.location_redirects = list(location_redirects)
 
         return True
 
@@ -570,7 +564,7 @@ class GameStateManager:
             if render_table["render_state"] != "panorama" or render_table["panorama_reverse"] == is_reversed:
                 return True
 
-            self.zvision.set_view_options("panorama", reverse=is_reversed)
+            self.zvision.set_view_options(reverse=is_reversed)
         except Exception:
             return False
 
@@ -590,9 +584,9 @@ class GameStateManager:
 
             if is_zvision and not is_distorted:
                 self.zvision_trap_defaults = (render_table["panorama_vertical_fov"], render_table["panorama_linear_scale"])
-                self.zvision.set_view_options("panorama", vertical_fov=50.0, linear_scale=0.5)
+                self.zvision.set_view_options(vertical_fov=50.0, linear_scale=0.5)
             elif not is_zvision and is_distorted and self.zvision_trap_defaults is not None:
-                self.zvision.set_view_options("panorama", vertical_fov=self.zvision_trap_defaults[0], linear_scale=self.zvision_trap_defaults[1])
+                self.zvision.set_view_options(vertical_fov=self.zvision_trap_defaults[0], linear_scale=self.zvision_trap_defaults[1])
                 self.zvision_trap_defaults = None
         except Exception:
             return False
@@ -688,11 +682,9 @@ class GameStateManager:
         ])
 
     def show_in_logic(self, locations: List[str], is_dimmed: bool) -> bool:
-        names: List[str] = [location.replace("Landmark Visited: ", "Landmark: ", 1) for location in locations[:19]]
-
         lines: str = "<newline>".join(
             f" {name if len(name) <= 38 else name[:35].rstrip() + '...'} "
-            for name in names + ([f"+{len(locations) - 19} More..."] if len(locations) > 19 else [])
+            for name in locations[:19] + ([f"+{len(locations) - 19} More..."] if len(locations) > 19 else [])
         )
 
         return self._show_overlays([

@@ -11,7 +11,7 @@ from ..enums import ZorkGrandInquisitorEntranceRandomizer
 from .client_gui_layouts import ItemsTabLayout, EntrancesTabLayout
 
 
-def bootstrap_client_gui(gui: Optional[type[GameManager]]) -> type[GameManager]:
+def bootstrap_client_gui(gui: type[GameManager]) -> type[GameManager]:
     class ZorkGrandInquisitorManager(gui):
         ctx: ZorkGrandInquisitorContext
 
