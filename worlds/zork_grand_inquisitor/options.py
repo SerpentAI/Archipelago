@@ -46,9 +46,9 @@ class ArtifactsOfMagicTotal(Range):
     display_name = "Artifacts of Magic Total"
 
     range_start = 5
-    range_end = 15
+    range_end = 20
 
-    default = 15
+    default = 20
 
 
 class ArtifactsOfMagicRequired(Range):
@@ -61,9 +61,9 @@ class ArtifactsOfMagicRequired(Range):
     display_name = "Artifacts of Magic Required"
 
     range_start = 5
-    range_end = 15
+    range_end = 20
 
-    default = 10
+    default = 15
 
 
 class LandmarksRequired(Range):
