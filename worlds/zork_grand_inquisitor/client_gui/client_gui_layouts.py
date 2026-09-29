@@ -1,19 +1,29 @@
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 import NetUtils
 
+from kivy.core.text.markup import MarkupLabel
+
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.uix.recycleview import RecycleView
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
 
+from kvui import SelectableLabel
+
 from ..client import ZorkGrandInquisitorContext
 from ..data.entrance_randomizer_data import randomizable_entrances, randomizable_entrances_subway
+from ..data.location_data import location_data
 from ..data.mapping_data import entrance_names, entrance_names_reverse, hotspots_for_regional_hotspot
+from ..data_funcs import location_names_to_location
 
 from ..enums import (
     ZorkGrandInquisitorGoals,
     ZorkGrandInquisitorItems,
+    ZorkGrandInquisitorLocations,
     ZorkGrandInquisitorRegions,
 )
 
@@ -679,3 +689,71 @@ class EntrancesTabLayout(BoxLayout):
             self.layout_content.add_widget(self.layout_content_entrances)
 
         self.layout_content_entrances.update()
+
+
+
+class ExplainButton(Button):
+    location: Optional[ZorkGrandInquisitorLocations]
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
+        self.location = None
+
+    def on_press(self):
+        popup: Popup = Popup(
+            title=f"How do I check {self.location.value}?",
+            content=Label(text=location_data[self.location].description),
+            size_hint=(0.9, 0.2),
+        )
+
+        popup.open()
+
+
+class TrackerPageLocationLabel(SelectableLabel):
+    locations_by_name: Dict[str, ZorkGrandInquisitorLocations] = location_names_to_location()
+
+    explain_button: ExplainButton
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
+        self.explain_button = ExplainButton(
+            text="?",
+            font_size=self.font_size,
+            line_height=self.line_height,
+            halign="center",
+            size_hint=(None, None),
+            width="20dp",
+            opacity=0.0,
+            disabled=True,
+        )
+
+        self.explain_button.text_size = (self.explain_button.width, None)
+
+        self.add_widget(self.explain_button)
+
+        self.bind(pos=self.place_explain_button, size=self.place_explain_button)
+
+    def refresh_view_attrs(self, rv: RecycleView, index: int, data: Dict[str, str]) -> None:
+        super().refresh_view_attrs(rv, index, data)
+
+        text: str = "".join(part for part in MarkupLabel(text=data["text"]).markup if not part.startswith("["))
+        location_name: str = text.split(" | ")[-1]
+
+        if location_name in self.locations_by_name:
+            self.explain_button.location = self.locations_by_name[location_name]
+            self.explain_button.opacity = 1.0
+            self.explain_button.disabled = False
+
+            self.padding = ["24dp", "0dp", "0dp", "0dp"]
+        else:
+            self.explain_button.location = None
+            self.explain_button.opacity = 0.0
+            self.explain_button.disabled = True
+
+            self.padding = ["0dp", "0dp", "0dp", "0dp"]
+
+    def place_explain_button(self, _label: Label, _value: List[float]) -> None:
+        self.explain_button.pos = self.pos
+        self.explain_button.height = self.height

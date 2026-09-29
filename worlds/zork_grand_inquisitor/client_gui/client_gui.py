@@ -5,10 +5,10 @@ from kvui import GameManager
 from kivy.uix.layout import Layout
 from kivy.uix.widget import Widget
 
-from ..client import ZorkGrandInquisitorContext
+from ..client import ZorkGrandInquisitorContext, tracker_loaded
 from ..enums import ZorkGrandInquisitorEntranceRandomizer
 
-from .client_gui_layouts import ItemsTabLayout, EntrancesTabLayout
+from .client_gui_layouts import ItemsTabLayout, EntrancesTabLayout, TrackerPageLocationLabel
 
 
 def bootstrap_client_gui(gui: type[GameManager]) -> type[GameManager]:
@@ -32,6 +32,9 @@ def bootstrap_client_gui(gui: type[GameManager]) -> type[GameManager]:
 
             self.entrances_tab_layout = None
             self.entrances_tab = None
+
+            if tracker_loaded and self.ctx.tracker_page is not None:
+                self.ctx.tracker_page.viewclass = TrackerPageLocationLabel
 
             return container
 
