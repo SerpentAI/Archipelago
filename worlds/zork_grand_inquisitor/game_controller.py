@@ -130,6 +130,9 @@ class GameController:
     toasts_shown: List[Tuple[str, datetime.datetime]]
     status_messages: List[Tuple[str, datetime.datetime]]
     locations_in_logic: List[str]
+    announced_missable_locations: Set[ZorkGrandInquisitorLocations]
+    is_overlay_enabled: bool
+    is_in_logic_overlay_enabled: bool
 
     def __init__(self, logger=None) -> None:
         self.logger = logger
@@ -245,6 +248,9 @@ class GameController:
         self.toasts_shown = list()
         self.status_messages = list()
         self.locations_in_logic = list()
+        self.announced_missable_locations = set()
+        self.is_overlay_enabled = False
+        self.is_in_logic_overlay_enabled = False
 
     @functools.cached_property
     def brog_items(self) -> Set[ZorkGrandInquisitorItems]:
@@ -559,6 +565,9 @@ class GameController:
         self.toasts_shown = list()
         self.status_messages = list()
         self.locations_in_logic = list()
+        self.announced_missable_locations = set()
+        self.is_overlay_enabled = False
+        self.is_in_logic_overlay_enabled = False
 
     def _check_for_valid_save(self) -> bool:
         if self._player_is_at("gary"):
@@ -715,6 +724,13 @@ class GameController:
         else:
             permanent_game_state[3716] = 0
 
+            if self._player_is_at("dc1h") and self._read_game_state_value_for(3716) == 1:
+                self.game_state_manager.kill_side_effect(3727)
+
+                key: int
+                for key in (3715, 3722, 3723):
+                    self._write_game_state_value_for(key, 0)
+
         self.game_state_manager.set_state_value_overrides(permanent_game_state)
 
         self.game_state_manager.set_state_value_remaps(
@@ -749,6 +765,7 @@ class GameController:
             (11975, "inventory"),
             (17497, "dissolve"),
             (17497, "change_location"),
+            (10312, "cursor"),
             (10327, "streamvideo"),
         ]
 
@@ -954,6 +971,18 @@ class GameController:
         ):
             self._write_game_state_value_for(4244, 0)
             self._write_game_state_value_for(4309, 0)
+
+        if not self.game_location.startswith(("hp", "g")):
+            if any(self._read_game_state_value_for(key) != 0 for key in (8418, 8419, 8420, 8421, 8424)):
+                self.game_state_manager.kill_side_effect(8421)
+                self.game_state_manager.kill_side_effect(8422)
+
+                key: int
+                for key in (8418, 8419, 8420, 8421, 8424):
+                    self._write_game_state_value_for(key, 0)
+
+            if not any(self._read_game_state_value_for(key) == 1 for key in (1596, 1520, 1296, 1524)):
+                self._write_game_state_value_for(1596, 1)
 
     def _apply_permanent_game_flags(self) -> None:
         self._write_game_flags_value_for(13597, 2)  # Monastery Vent
@@ -1245,12 +1274,22 @@ class GameController:
             if missable_location.value not in self.locations_in_logic:
                 continue
 
-            location_condition: Tuple[ZorkGrandInquisitorLocations, ...] = (
+            location_condition: Tuple[Union[ZorkGrandInquisitorLocations, Tuple[int, int]], ...] = (
                 missable_location_grant_conditions_data[missable_location]
             )
 
-            if set(location_condition) <= self.completed_locations:
-                self.completed_locations_queue.append(missable_location)
+            if any(
+                condition in self.completed_locations
+                if isinstance(condition, ZorkGrandInquisitorLocations)
+                else self._read_game_state_value_for(condition[0]) == condition[1]
+                for condition in location_condition
+            ):
+                if missable_location not in self.completed_locations_queue:
+                    self.completed_locations_queue.append(missable_location)
+
+                if missable_location not in self.announced_missable_locations:
+                    self.announced_missable_locations.add(missable_location)
+                    self.show_toast(f"Granting Missable: {missable_location.value}")
 
     def _process_received_items(self) -> None:
         while len(self.received_items_queue) > 0:
@@ -1864,6 +1903,23 @@ class GameController:
             elif item in game_state_inventory_items:
                 self._remove_from_inventory(item)
 
+        if self._read_game_state_value_for(4402) == 0:
+            fragment_values: Dict[int, int] = {key: self._read_game_state_value_for(key) for key in (4512, *range(151, 171))}
+            held_fragments: Set[int] = {*fragment_values.values(), self._read_game_state_value_for(9)}
+
+            if {101, 48} <= held_fragments or {41, 102} <= held_fragments:
+                fragment: int = 48 if 101 in held_fragments else 102
+
+                if self._read_game_state_value_for(9) == fragment:
+                    fragment = 101 if fragment == 48 else 41
+
+                key: int
+                value: int
+                for key, value in fragment_values.items():
+                    if value == fragment:
+                        self._write_game_state_value_for(key, {41: 101, 48: 102, 101: 41, 102: 48}[fragment])
+                        break
+
     def _apply_conditional_teleports(self) -> None:
         # Skip Y'Gael Cutscene
         if self._player_is_at("ej10"):
@@ -1988,8 +2044,10 @@ class GameController:
         self.game_state_manager.kill_side_effect(16179)
 
         key: int
-        for key in (2343, 5595, 5596, 5764, 18107):
+        for key in (2343, 5595, 5596, 5764, 5781, 5789, 5799, 18107, 18133):
             self._write_game_state_value_for(key, 0)
+
+        self.game_state_manager.persist_game_flags_value_for(18116, 0)
 
         for key in range(192, 203):
             if self._read_game_state_value_for(key) == 3:
@@ -2331,6 +2389,7 @@ class GameController:
                 18017: 0,
                 **{key: 0 for key in range(18875, 18955)},
                 **{key: 0 for key in range(19265, 19274)},
+                19883: 0,
             },
         }
 
@@ -2406,7 +2465,8 @@ class GameController:
                     self.goal_completed = True
 
     def _manage_overlays(self) -> None:
-        if self.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.DISABLED:
+        if not self.is_overlay_enabled:
+            self.game_state_manager.clear_overlays()
             return
 
         goal_progress: str = ""
@@ -2453,8 +2513,10 @@ class GameController:
 
         self.game_state_manager.show_status(status_lines)
 
-        if self.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.ENABLED_WITH_TRACKER:
-            self.game_state_manager.show_in_logic([location.replace("Landmark Visited: ", "Landmark: ", 1) for location in sorted(self.locations_in_logic)], self.game_location in ("gjiv", "tr5g"))
+        if self.is_in_logic_overlay_enabled:
+            self.game_state_manager.show_in_logic([location.replace("Landmark Visited: ", "Landmark: ", 1) for location in sorted(self.locations_in_logic)], self.game_location in ("gjiv", "gjsr", "qb2g", "tr5g"))
+        else:
+            self.game_state_manager.show_in_logic(list(), False)
 
     def show_toast(self, message: str) -> None:
         self.toasts_pending.append(message)

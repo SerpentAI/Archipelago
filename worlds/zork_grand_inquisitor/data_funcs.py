@@ -265,6 +265,9 @@ def entrances_by_region_for_world(
     entrances_by_region: Dict[ZorkGrandInquisitorRegions, List[Entrance]] = {
         ZorkGrandInquisitorRegions.ANYWHERE: list(),
         ZorkGrandInquisitorRegions.ENDGAME: list(),
+        ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS: list(),
+        ZorkGrandInquisitorRegions.GUE_TECH_GRASS: list(),
+        ZorkGrandInquisitorRegions.HADES_CHARON: list(),
     }
 
     region_from: ZorkGrandInquisitorRegions

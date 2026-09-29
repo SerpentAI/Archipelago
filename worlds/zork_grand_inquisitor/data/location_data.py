@@ -1159,14 +1159,11 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.MAKE_LOVE_NOT_WAR: ZorkGrandInquisitorLocationData(
         game_state_trigger=(((8623, 8734), 21),),
         archipelago_id=LOCATION_OFFSET + 94,
-        region=ZorkGrandInquisitorRegions.HADES_SHORE,
+        region=ZorkGrandInquisitorRegions.HADES_CHARON,
         description="Attack Charon with the sword in Hades",
         tags=(ZorkGrandInquisitorTags.CORE,),
         requirements=(
-            And(
-                Has(ZorkGrandInquisitorEvents.CHARON_CALLED.value),
-                Has(ZorkGrandInquisitorItems.SWORD.value),
-            )
+            Has(ZorkGrandInquisitorItems.SWORD.value)
         ),
     ),
     ZorkGrandInquisitorLocations.MAP: ZorkGrandInquisitorLocationData(
@@ -2603,7 +2600,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.DEATH_JUMPED_IN_BOTTOMLESS_PIT: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 3)),
         archipelago_id=LOCATION_OFFSET + 200 + 7,
-        region=ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        region=ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS,
         description="Jump in one of the bottomless pits outside GUE Tech",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
     ),
@@ -2612,7 +2609,7 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 200 + 8,
         region=ZorkGrandInquisitorRegions.PORT_FOOZLE_PAST_TAVERN,
         description="Lose the game of strip grue, fire, water against Jack inside the tavern in Past Port Foozle",
-        tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
+        tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
                 Has(ZorkGrandInquisitorItems.LUCYS_PLAYING_CARD_1.value),
@@ -2698,7 +2695,7 @@ location_data: Dict[
         archipelago_id=LOCATION_OFFSET + 200 + 15,
         region=ZorkGrandInquisitorRegions.DRAGON_ARCHIPELAGO_DRAGON,
         description="Don't move out of the dragon's mouth after popping an inflatable at the Dragon Archipelago",
-        tags=(ZorkGrandInquisitorTags.DEATHSANITY, ZorkGrandInquisitorTags.MISSABLE),
+        tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
             And(
                 Has(ZorkGrandInquisitorItems.GRIFFS_AIR_PUMP.value),
@@ -2715,7 +2712,7 @@ location_data: Dict[
     ZorkGrandInquisitorLocations.DEATH_THROCKED_THE_GRASS: ZorkGrandInquisitorLocationData(
         game_state_trigger=(("location", "gjde"), (2201, 34)),
         archipelago_id=LOCATION_OFFSET + 200 + 16,
-        region=ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        region=ZorkGrandInquisitorRegions.GUE_TECH_GRASS,
         description="Cast THROCK on the grass outside GUE Tech",
         tags=(ZorkGrandInquisitorTags.DEATHSANITY,),
         requirements=(
@@ -3083,7 +3080,7 @@ location_data: Dict[
         game_state_trigger=(("location", "em30"),),
         archipelago_id=LOCATION_OFFSET + 300 + 17,
         region=ZorkGrandInquisitorRegions.FLATHEAD_MESA_RADIO_TOWER,
-        description="Ride the lift to the top of the radio tower on Flathead Mesa",
+        description="Climb the ladder to the top of the radio tower on Flathead Mesa",
         tags=(ZorkGrandInquisitorTags.LANDMARKSANITY,),
     ),
     ZorkGrandInquisitorLocations.LANDMARK_TOTEMIZER: ZorkGrandInquisitorLocationData(

@@ -636,7 +636,7 @@ class GameStateManager:
         ])
 
     def show_toasts(self, messages: List[str]) -> bool:
-        lines: str = "<newline>".join(f" {message} " for message in messages)
+        lines: str = "<newline>".join(f"\u00a0{message}\u00a0" for message in messages)
 
         return self._show_overlays([
             (
@@ -683,7 +683,7 @@ class GameStateManager:
 
     def show_in_logic(self, locations: List[str], is_dimmed: bool) -> bool:
         lines: str = "<newline>".join(
-            f" {name if len(name) <= 38 else name[:35].rstrip() + '...'} "
+            f"\u00a0{name if len(name) <= 38 else name[:35].rstrip() + '...'}\u00a0"
             for name in locations[:19] + ([f"+{len(locations) - 19} More..."] if len(locations) > 19 else [])
         )
 

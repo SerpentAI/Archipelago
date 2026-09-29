@@ -131,6 +131,7 @@ entrance_rule_data: EntranceRuleData = {
             Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
         )
     ),
+    (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.CROSSROADS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.GUE_TECH): (
         Or(
@@ -138,6 +139,7 @@ entrance_rule_data: EntranceRuleData = {
             Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
         )
     ),
+    (ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE, ZorkGrandInquisitorRegions.GUE_TECH_GRASS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.GUE_TECH): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY, ZorkGrandInquisitorRegions.SPELL_LAB_BRIDGE): (
         And(
@@ -148,16 +150,19 @@ entrance_rule_data: EntranceRuleData = {
             ),
         )
     ),
+    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH): (
         Or(
             Has(ZorkGrandInquisitorItems.HOTSPOT_GUE_TECH_WINDOWS.value),
             Has(ZorkGrandInquisitorItems.HOTSPOT_REGIONAL_GUE_TECH.value),
         )
     ),
+    (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.GUE_TECH_GRASS): None,
     (ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE, ZorkGrandInquisitorRegions.TELEPORTER): None,
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_BEYOND_GATES): (
         Has(ZorkGrandInquisitorItems.SPELL_SNAVIG.value)
     ),
+    (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_CHARON): None,
     (ZorkGrandInquisitorRegions.HADES, ZorkGrandInquisitorRegions.HADES_SHORE): (
         And(
             Has(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS.value),
@@ -183,6 +188,9 @@ entrance_rule_data: EntranceRuleData = {
             ),
             Has(ZorkGrandInquisitorItems.POUCH_OF_ZORKMIDS.value),
         )
+    ),
+    (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.HADES_CHARON): (
+        Has(ZorkGrandInquisitorEvents.CHARON_CALLED.value)
     ),
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.SUBWAY_HADES): None,
     (ZorkGrandInquisitorRegions.HADES_SHORE, ZorkGrandInquisitorRegions.TELEPORTER): None,

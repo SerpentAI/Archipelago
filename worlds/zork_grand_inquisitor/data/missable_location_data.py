@@ -1,23 +1,21 @@
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union
 
 from ..enums import ZorkGrandInquisitorLocations
 
 
-missable_location_grant_conditions_data: Dict[ZorkGrandInquisitorLocations, Tuple[ZorkGrandInquisitorLocations, ...]] = {
+missable_location_grant_conditions_data: Dict[ZorkGrandInquisitorLocations, Tuple[Union[ZorkGrandInquisitorLocations, Tuple[int, int]], ...]] = {
     ZorkGrandInquisitorLocations.BOING_BOING_BOING: (ZorkGrandInquisitorLocations.FLYING_SNAPDRAGON,),
     ZorkGrandInquisitorLocations.BONK: (ZorkGrandInquisitorLocations.PROZORKED,),
     ZorkGrandInquisitorLocations.DEATH_ARRESTED_WITH_JACK: (ZorkGrandInquisitorLocations.ARREST_THE_VANDAL,),
     ZorkGrandInquisitorLocations.DEATH_ATTACKED_THE_QUELBEES: (ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES,),
-    ZorkGrandInquisitorLocations.DEATH_LOST_GAME_OF_STRIP_GRUE_FIRE_WATER: (ZorkGrandInquisitorLocations.STRIP_GRUE_FIRE_WATER,),
     ZorkGrandInquisitorLocations.DEATH_LOST_SOUL_TO_OLD_SCRATCH: (ZorkGrandInquisitorLocations.OLD_SCRATCH_WINNER,),
     ZorkGrandInquisitorLocations.DEATH_OUTSMARTED_BY_THE_QUELBEES: (ZorkGrandInquisitorLocations.OUTSMART_THE_QUELBEES,),
     ZorkGrandInquisitorLocations.DEATH_RILED_THE_FISHWIFE: (ZorkGrandInquisitorLocations.MEAD_LIGHT_AND_PLASTIC_SIX_PACK_HOLDER,),
     ZorkGrandInquisitorLocations.DEATH_SLICED_UP_BY_THE_INVISIBLE_GUARD: (ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS,),
     ZorkGrandInquisitorLocations.DEATH_STEPPED_INTO_THE_INFINITE: (ZorkGrandInquisitorLocations.A_SMALLWAY,),
-    ZorkGrandInquisitorLocations.DEATH_SWALLOWED_BY_A_DRAGON: (ZorkGrandInquisitorLocations.THAR_SHE_BLOWS,),
     ZorkGrandInquisitorLocations.DEATH_YOURE_NOT_CHARON: (ZorkGrandInquisitorLocations.OPEN_THE_GATES_OF_HELL,),
     ZorkGrandInquisitorLocations.DEATH_ZORK_ROCKS_EXPLODED: (ZorkGrandInquisitorLocations.CRISIS_AVERTED,),
-    ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER: (ZorkGrandInquisitorLocations.WOW_IVE_NEVER_GONE_INSIDE_HIM_BEFORE,),
+    ZorkGrandInquisitorLocations.DENIED_BY_THE_LAKE_MONSTER: ((4743, 1),),
     ZorkGrandInquisitorLocations.EMERGENCY_MAGICATRONIC_MESSAGE: (ZorkGrandInquisitorLocations.ARTIFACTS_EXPLAINED,),
     ZorkGrandInquisitorLocations.FAT_LOT_OF_GOOD_THATLL_DO_YA: (ZorkGrandInquisitorLocations.YOU_GAINED_86_EXPERIENCE_POINTS,),
     ZorkGrandInquisitorLocations.ITS_ALMOST_AS_IF_IT_WERE_INFINITE: (ZorkGrandInquisitorLocations.A_SMALLWAY,),

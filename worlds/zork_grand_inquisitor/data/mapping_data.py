@@ -176,12 +176,20 @@ entrance_names: Dict[
     ): "Through the Entrance Door",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS
+    ): "Access the Bottomless Pits (Entrance Area)",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         ZorkGrandInquisitorRegions.CROSSROADS
     ): "Exit Through the 'In Magic We Trust' Door",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
         ZorkGrandInquisitorRegions.GUE_TECH
     ): "Through the 3rd Pillar's Window",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_ENTRANCE,
+        ZorkGrandInquisitorRegions.GUE_TECH_GRASS
+    ): "Access the Grass Area (Entrance Area)",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_HALLWAY,
         ZorkGrandInquisitorRegions.GUE_TECH
@@ -192,8 +200,16 @@ entrance_names: Dict[
     ): "Through the Student ID Door",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
+        ZorkGrandInquisitorRegions.GUE_TECH_BOTTOMLESS_PITS
+    ): "Access the Bottomless Pits (Outside)",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
         ZorkGrandInquisitorRegions.GUE_TECH
     ): "Through the Pillar's Window",
+    (
+        ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
+        ZorkGrandInquisitorRegions.GUE_TECH_GRASS
+    ): "Access the Grass Area (Outside)",
     (
         ZorkGrandInquisitorRegions.GUE_TECH_OUTSIDE,
         ZorkGrandInquisitorRegions.TELEPORTER
@@ -202,6 +218,10 @@ entrance_names: Dict[
         ZorkGrandInquisitorRegions.HADES,
         ZorkGrandInquisitorRegions.HADES_BEYOND_GATES
     ): "Through the Gates of Hell",
+    (
+        ZorkGrandInquisitorRegions.HADES,
+        ZorkGrandInquisitorRegions.HADES_CHARON
+    ): "Walk to Charon (Hades)",
     (
         ZorkGrandInquisitorRegions.HADES,
         ZorkGrandInquisitorRegions.HADES_SHORE
@@ -218,6 +238,10 @@ entrance_names: Dict[
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.HADES
     ): "Across the River Styx",
+    (
+        ZorkGrandInquisitorRegions.HADES_SHORE,
+        ZorkGrandInquisitorRegions.HADES_CHARON
+    ): "Walk to Charon (Shore)",
     (
         ZorkGrandInquisitorRegions.HADES_SHORE,
         ZorkGrandInquisitorRegions.SUBWAY_HADES

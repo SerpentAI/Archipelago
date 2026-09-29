@@ -2,8 +2,9 @@ from typing import Dict, List, Optional, Set, Tuple
 
 import NetUtils
 
-from kivy.core.text.markup import MarkupLabel
+from kvui import SelectableLabel
 
+from kivy.core.text.markup import MarkupLabel
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -11,8 +12,6 @@ from kivy.uix.popup import Popup
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
-
-from kvui import SelectableLabel
 
 from ..client import ZorkGrandInquisitorContext
 from ..data.entrance_randomizer_data import randomizable_entrances, randomizable_entrances_subway

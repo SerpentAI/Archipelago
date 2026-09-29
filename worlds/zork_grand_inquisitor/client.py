@@ -36,7 +36,7 @@ from .data_funcs import (
     id_to_starting_locations,
 )
 
-from .enums import ZorkGrandInquisitorItems, ZorkGrandInquisitorLocations
+from .enums import ZorkGrandInquisitorInGameOverlayOptions, ZorkGrandInquisitorItems, ZorkGrandInquisitorLocations
 from .game_controller import GameController
 
 
@@ -75,6 +75,38 @@ class ZorkGrandInquisitorCommandProcessor(CommandProcessor):
             return
 
         self.ctx.death_link_status = not self.ctx.death_link_status
+
+    def _cmd_overlay(self) -> None:
+        """Toggle the in-game overlay."""
+        if not self.ctx.server or not self.ctx.slot:
+            self.output("You must be connected to an Archipelago server before using /overlay.")
+            return
+
+        self.ctx.game_controller.is_overlay_enabled = not self.ctx.game_controller.is_overlay_enabled
+
+        if self.ctx.game_controller.is_overlay_enabled:
+            self.output("In-game overlay enabled.")
+        else:
+            self.output("In-game overlay disabled.")
+
+    def _cmd_overlay_tracker(self) -> None:
+        """Toggle the in-game list of locations in logic."""
+        if not self.ctx.server or not self.ctx.slot:
+            self.output("You must be connected to an Archipelago server before using /overlay_tracker.")
+            return
+
+        if not tracker_loaded:
+            self.output("The in-game list of locations in logic requires Universal Tracker, which isn't installed.")
+            return
+
+        self.ctx.game_controller.is_in_logic_overlay_enabled = not self.ctx.game_controller.is_in_logic_overlay_enabled
+
+        if self.ctx.game_controller.is_in_logic_overlay_enabled and not self.ctx.game_controller.is_overlay_enabled:
+            self.output("In-game list of locations in logic enabled. It will show when the overlay is turned on with /overlay.")
+        elif self.ctx.game_controller.is_in_logic_overlay_enabled:
+            self.output("In-game list of locations in logic enabled.")
+        else:
+            self.output("In-game list of locations in logic disabled.")
 
 
 class ZorkGrandInquisitorContext(Context):
@@ -233,6 +265,14 @@ class ZorkGrandInquisitorContext(Context):
 
             self.game_controller.option_in_game_overlay = (
                 id_to_in_game_overlay_options()[_args["slot_data"]["in_game_overlay"]]
+            )
+
+            self.game_controller.is_overlay_enabled = (
+                self.game_controller.option_in_game_overlay != ZorkGrandInquisitorInGameOverlayOptions.DISABLED
+            )
+
+            self.game_controller.is_in_logic_overlay_enabled = (
+                self.game_controller.option_in_game_overlay == ZorkGrandInquisitorInGameOverlayOptions.ENABLED_WITH_TRACKER
             )
 
             is_death_link = _args["slot_data"]["death_link"] == 1

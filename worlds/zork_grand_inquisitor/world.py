@@ -538,7 +538,10 @@ class ZorkGrandInquisitorWorld(World):
         if self.starting_location != ZorkGrandInquisitorStartingLocations.DM_LAIR_INTERIOR:
             items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_DUNGEON_MASTERS_HOUSE_EXIT)
 
-        if self.starting_location != ZorkGrandInquisitorStartingLocations.SPELL_LAB:
+        if (
+            self.starting_location != ZorkGrandInquisitorStartingLocations.SPELL_LAB
+            or self.entrance_randomizer != ZorkGrandInquisitorEntranceRandomizer.DISABLED
+        ):
             items_to_precollect.add(ZorkGrandInquisitorItems.HOTSPOT_SPELL_LAB_BRIDGE_EXIT)
 
         items_to_ignore |= items_to_precollect
