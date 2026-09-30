@@ -55,4 +55,4 @@ No game modding is required to play Zork Grand Inquisitor with Archipelago. The 
   - `/zork`: Attach to an open Zork Grand Inquisitor process.
   - `/overlay`: Toggle the in-game overlay.
   - `/overlay_tracker`: Toggle the in-game list of locations in logic. Requires Universal Tracker.
-  - `/deathlink`: Toggle DeathLink. Only available when DeathLink is enabled in your options.
+  - `/deathlink`: Toggle death link. Only available when death link is enabled in your options.
