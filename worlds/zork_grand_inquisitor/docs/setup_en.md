@@ -50,7 +50,6 @@ No game modding is required to play Zork Grand Inquisitor with Archipelago. The 
 ## Important Notes
 
 - Restarting the client or ScummVM is fine. Stop playing until the client is attached again with `/zork`, then load your latest save if ScummVM was restarted.
-- If you update the APWorld while ScummVM is running, restart ScummVM.
 - Client commands:
   - `/zork`: Attach to an open Zork Grand Inquisitor process.
   - `/overlay`: Toggle the in-game overlay.
