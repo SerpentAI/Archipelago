@@ -199,3 +199,11 @@ _speedups.html
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
+# Serpent
+fuzz.py
+run_fuzz.py
+fuzz_output/
+fuzz_reports/
+hooks/
+reference
