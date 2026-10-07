@@ -23,6 +23,8 @@
 *.gb
 *.gbc
 *.gba
+*.nds
+*.iso
 *.wixobj
 *.lck
 *.db3
@@ -63,6 +65,7 @@ Output Logs/
 /setup.ini
 /installdelete.iss
 /data/user.kv
+/data/jak1/
 /datapackage
 /datapackage_export.json
 /custom_worlds
@@ -199,3 +202,11 @@ _speedups.html
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
+# Serpent
+fuzz.py
+run_fuzz.py
+fuzz_output/
+fuzz_reports/
+hooks/
+reference
